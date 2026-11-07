@@ -34,3 +34,8 @@ O build é estático, em `dist/`, e pronto para publicação na Vercel.
 **Limites:** não há conta, sincronização, IA conversacional ou ranking entre usuários. O pódio mostra conquistas pessoais. Reconhecimento de voz apenas compara transcrição aproximada; não avalia sotaque. Os dados ficam neste navegador.
 
 Referências didáticas: [British Council grammar](https://learnenglish.britishcouncil.org/free-resources/grammar/a1-a2), [British Council speaking](https://learnenglish.britishcouncil.org/free-resources/speaking) e [Cambridge Speak & Improve](https://www.speakandimprove.com/).
+
+
+## Grids com ícones 3D
+
+Os quatro módulos da tela inicial e os quatro cenários de conversação usam ilustrações 3D de [Microsoft Fluent Emoji](https://github.com/microsoft/fluentui-emoji) armazenadas localmente em `public/icons/3d/`. A licença MIT está preservada em `public/icons/3d/LICENSE`, com a relação de assets em [ASSET_LICENSES.md](ASSET_LICENSES.md). Fora desses grids, ícones de navegação e interface permanecem em 2D. O movimento respeita a preferência do sistema por animações reduzidas.
