@@ -78,3 +78,148 @@ html{background:#f7f5ff}body{min-width:320px}
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
 }
+
+
+/* 1.1 / EDITORIAL 3D GRID
+   Fluent Emoji rendered PNGs appear only in activity and dialogue cards.
+   App navigation, actions and achievement metrics stay 2D. */
+.playful-grid{perspective:1050px}
+.playful-grid .module-card{
+  --lift-shadow:#30246127;
+  min-height:284px;
+  padding:21px 22px 20px;
+  border-color:#ffffff99;
+  box-shadow:inset 0 1.5px 1px #ffffff8c,0 11px 25px var(--lift-shadow);
+  transform-style:preserve-3d;
+  transition:transform .4s var(--vb-ease),box-shadow .4s var(--vb-ease),filter .3s var(--vb-ease);
+}
+.playful-grid .module-card::before{
+  right:-56px;top:-92px;width:208px;height:208px;
+  background:radial-gradient(circle at 55% 40%,#ffffff32,#ffffff00 71%);box-shadow:none
+}
+.playful-grid .module-card::after{
+  content:'';position:absolute;inset:auto 17px 11px;height:1px;
+  background:linear-gradient(90deg,#ffffff08,#ffffff70 43%,#ffffff08);
+  pointer-events:none
+}
+.playful-grid .module-card .module-top{align-items:flex-start;min-height:93px}
+.playful-grid .module-glyph-3d{
+  width:94px;height:94px;flex:0 0 94px;padding:0;border:0;border-radius:28px;
+  background:radial-gradient(circle at 50% 48%,#ffffff57 0%,#ffffff2c 44%,#ffffff00 72%);
+  box-shadow:none;position:relative;isolation:isolate;
+  transform:perspective(560px) rotateX(7deg) rotateY(-8deg) rotateZ(-5deg);
+  transition:transform .52s var(--vb-ease),filter .5s var(--vb-ease);
+  filter:drop-shadow(0 11px 8px #2c225027)
+}
+.playful-grid .module-glyph-3d::before{
+  content:'';position:absolute;z-index:-1;left:21%;right:21%;bottom:2%;height:16%;
+  background:#30234a36;filter:blur(11px);border-radius:100%;pointer-events:none
+}
+.playful-grid .module-glyph-3d img{
+  display:block;width:100%;height:100%;object-fit:contain;
+  pointer-events:none;user-select:none;filter:drop-shadow(0 3px 1px #ffffff35)
+}
+.playful-grid .module-card:is(:hover,:focus-visible) .module-glyph-3d{
+  transform:perspective(560px) translateY(-7px) rotateX(-8deg) rotateY(10deg) rotateZ(1deg) scale(1.085);
+  filter:drop-shadow(0 17px 10px #29205232)
+}
+.playful-grid .module-card:active .module-glyph-3d{
+  transform:perspective(560px) translateY(1px) rotateX(1deg) rotateY(0deg) scale(.97)
+}
+.playful-grid .module-counter{
+  position:relative;z-index:2;font-size:10px;padding:7px 10px;
+  white-space:nowrap;box-shadow:inset 0 1px #ffffff31
+}
+.playful-grid .module-card h3{
+  margin-top:14px;font-size:clamp(24px,2.1vw,28px);line-height:1.06;max-width:calc(100% - 5px)
+}
+.playful-grid .module-card p{font-size:12px;line-height:1.43;max-width:260px;opacity:.96}
+.playful-grid .module-bottom{border-top:1px solid #ffffff2b;margin-top:auto;padding-top:13px}
+.playful-grid .module-card.featured{--lift-shadow:#573a9a32}
+.playful-grid .module-card.warm{--lift-shadow:#b9682a29}
+.playful-grid .module-card.blue{--lift-shadow:#176bba2b}
+.playful-grid .module-card.mint{--lift-shadow:#21775b28}
+.playful-grid .module-card.featured .module-glyph-3d{background:radial-gradient(circle,#f3e9ff82 0%,#c9adfa21 65%,transparent 77%)}
+.playful-grid .module-card.warm .module-glyph-3d{background:radial-gradient(circle,#fff3da93 0%,#fff7d920 65%,transparent 77%)}
+.playful-grid .module-card.blue .module-glyph-3d{background:radial-gradient(circle,#e2f5ffb8 0%,#c2eaff17 65%,transparent 77%)}
+.playful-grid .module-card.mint .module-glyph-3d{background:radial-gradient(circle,#f0ffeb99 0%,#d2ffe620 65%,transparent 77%)}
+
+.scenario-grid{gap:14px}
+.scenario-grid .scenario-card{
+  position:relative;min-height:183px;padding:17px 18px 20px;
+  overflow:hidden;isolation:isolate;
+  border:1px solid #e7e1f6;border-radius:24px;
+  background:linear-gradient(148deg,#fff 5%,#f9f5ff 100%);
+  box-shadow:0 7px 20px #46368a0b;
+  transition:background .3s var(--vb-ease),box-shadow .3s var(--vb-ease),transform .3s var(--vb-ease),border-color .3s var(--vb-ease)
+}
+.scenario-grid .scenario-card.active{
+  border:2px solid #8f64ef;padding:16px 17px 19px;
+  background:linear-gradient(148deg,#fbf7ff,#eee6ff);
+  box-shadow:0 8px 25px #7852d61d
+}
+.scenario-grid .scenario-card:focus-visible{outline:3px solid #5134b1;outline-offset:3px}
+.scenario-grid .scenario-card::before{
+  content:'';position:absolute;top:-38px;right:-21px;width:140px;height:140px;
+  background:radial-gradient(circle,#f0e7ffbf,#ffffff00 70%);z-index:-1
+}
+.scenario-grid .scene-art{
+  display:block;width:75px;height:75px;margin:-1px 0 5px -6px;
+  transition:transform .48s var(--vb-ease),filter .4s var(--vb-ease);
+  transform:perspective(600px) rotateZ(-5deg) rotateY(-7deg);
+  filter:drop-shadow(0 8px 7px #66519b28)
+}
+.scenario-grid .scene-art img{
+  display:block;width:100%;height:100%;object-fit:contain;
+  pointer-events:none;user-select:none
+}
+.scenario-grid .scenario-card:hover .scene-art{
+  transform:perspective(600px) translateY(-6px) rotateZ(3deg) rotateY(9deg) scale(1.08);
+  filter:drop-shadow(0 13px 9px #5d498c38)
+}
+.scenario-grid .scene-index{
+  position:absolute;right:17px;top:17px;
+  font:800 11px var(--sans);letter-spacing:.13em;
+  color:#9283bb;background:#f2ebff;padding:5px 8px;border-radius:99px
+}
+.scenario-grid .scenario-card h3{
+  font:600 clamp(17px,1.8vw,22px)/1.1 var(--serif);
+  color:#292148;margin:7px 0 6px
+}
+.scenario-grid .scenario-card p{font:700 11px/1.55 var(--sans);color:#77718d}
+@media(hover:hover) and (pointer:fine){
+  .playful-grid .module-card:hover{
+    transform:translateY(-5px);
+    box-shadow:inset 0 1.5px 1px #ffffffa0,0 17px 32px var(--lift-shadow)
+  }
+}
+@media(max-width:650px){
+  .playful-grid .module-card{padding:16px 13px;min-height:271px;border-radius:24px}
+  .playful-grid .module-card .module-top{min-height:78px;align-items:flex-start;gap:4px}
+  .playful-grid .module-glyph-3d{width:76px;height:76px;flex-basis:76px;border-radius:20px}
+  .playful-grid .module-counter{
+    font-size:9px;padding:5px 6px;max-width:68px;text-align:right;
+    white-space:normal;line-height:1.2
+  }
+  .playful-grid .module-card h3{font-size:clamp(18px,5.4vw,23px);margin:10px 0 7px}
+  .playful-grid .module-card p{font-size:10px;line-height:1.45}
+  .playful-grid .module-bottom{font-size:9px;gap:4px;padding-top:10px}
+  .scenario-grid{gap:10px}
+  .scenario-grid .scenario-card{min-height:181px;padding:13px 12px 16px;border-radius:20px}
+  .scenario-grid .scenario-card.active{padding:12px 11px 15px}
+  .scenario-grid .scene-art{width:64px;height:64px}
+  .scenario-grid .scene-index{right:11px;top:11px;font-size:9px}
+  .scenario-grid .scenario-card h3{font-size:clamp(17px,4.4vw,21px)}
+  .scenario-grid .scenario-card p{font-size:10px}
+}
+@media(max-width:365px){
+  .playful-grid .module-card{padding:14px 10px;min-height:270px}
+  .playful-grid .module-glyph-3d{width:68px;height:68px;flex-basis:68px}
+  .playful-grid .module-counter{font-size:8px;max-width:60px}
+  .playful-grid .module-card h3{font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){
+  .playful-grid .module-glyph-3d,.scenario-grid .scene-art{transform:none;transition:none}
+  .playful-grid .module-card:is(:hover,:focus-visible) .module-glyph-3d,
+  .scenario-grid .scenario-card:hover .scene-art{transform:none}
+}
