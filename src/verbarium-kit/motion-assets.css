@@ -1,0 +1,40 @@
+/* Keep text, metrics and hit areas in HTML, while assets are decorative. */
+.v2-stop-btn .vb-journey-art{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none;filter:drop-shadow(0 4px 5px #633f8b40)}
+.v2-stop-btn .v2-stop-icon:has(.vb-journey-art){width:85px;height:79px;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;position:relative;overflow:visible}
+.v2-stop-btn.current .vb-journey-art{filter:drop-shadow(0 7px 11px #8663d16b)}
+.v2-stop-btn.done .vb-journey-art{filter:drop-shadow(0 6px 8px #ffb9328c)}
+.v2-stop-btn.vb-motion-pressed,.button.bright.vb-motion-pressed{transform:scale(.96)!important;transition:transform .08s ease-out!important}
+.vb-effect-anchor{position:relative;isolation:isolate}
+.vb-effect-sprite{position:absolute;z-index:8;inset:-30%;width:160%;height:160%;object-fit:contain;pointer-events:none;user-select:none}
+.vb-effect-rewards{inset:-20%;width:140%;height:140%}
+.vb-effect-cta{inset:-10%;width:120%;height:120%}
+.vb-nav-image{height:25px;width:25px;max-width:100%;object-fit:contain;display:inline-block}
+.mobile-item .vb-nav-image{height:23px;width:23px}
+.hero-card .button.bright{position:relative;isolation:isolate}
+.hero-card .button.bright::before{content:"";position:absolute;inset:-2px;border-radius:inherit;background:url('/verbarium-assets/extra-80/cta/cta_idle.png') center/100% 100% no-repeat;z-index:-1;opacity:.24;pointer-events:none}
+.hero-card .button.bright:hover::before{opacity:.45}
+.v2-badge.earned::before{content:"";position:absolute;inset:0;background:url('/verbarium-assets/extra-80/effects/yellow_rays.png') top right / 75px 75px no-repeat;opacity:.32;pointer-events:none}
+.vb-motion-library{max-width:1050px;padding-bottom:35px}
+.vb-motion-library-head{padding:25px;border:1px solid #e6def4;border-radius:25px;background:linear-gradient(120deg,#fff,#f4ebff)}
+.vb-motion-library-head h1{font-size:clamp(26px,4vw,44px);letter-spacing:-.035em;line-height:1.15;margin:12px 0;color:#322050}
+.vb-motion-library-head p,.vb-motion-note{font-size:12px;line-height:1.65;color:#726587;max-width:660px}
+.vb-motion-back{background:#fff;border:1px solid #d9c5f7;color:#6949b9;border-radius:12px;font-weight:900;padding:10px 14px;cursor:pointer;margin-top:10px}
+.vb-motion-section{margin-top:26px}
+.vb-motion-section-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+.vb-motion-section-title h2{color:#38234e;font-size:19px}.vb-motion-section-title span{font-size:11px;font-weight:900;color:#7d63a0}
+.vb-motion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.vb-motion-tile{min-width:0;border:1px solid #e3d8ef;border-radius:20px;background:#fff;overflow:hidden;box-shadow:0 6px 18px #5c388514}
+.vb-motion-preview{height:155px;display:grid;place-items:center;background:repeating-conic-gradient(#e9e2f5 0 25%,#f9f6fc 0 50%) 50%/19px 19px}
+.vb-motion-preview img{display:block;width:100%;height:100%;object-fit:contain;padding:10px}
+.vb-motion-tile-body{padding:13px;display:grid;gap:6px}
+.vb-motion-tile-body strong{font-size:12px;color:#362750;font-weight:950;overflow-wrap:anywhere}
+.vb-motion-tile-body small{font-size:10px;color:#806f93}
+.vb-motion-tile-body button{border:1px solid #d4c3ef;background:#eee6fb;color:#6541b2;cursor:pointer;padding:9px 12px;font-size:11px;font-weight:900;border-radius:11px;justify-self:start}
+.vb-motion-tile-body button:hover{background:#e4d3fa}
+.vb-motion-shortcut{margin:12px 0 20px}
+.vb-motion-shortcut button{display:block;width:100%;border:1px solid #d9c9ef;border-radius:16px;background:linear-gradient(110deg,#f4eafe,#fff);color:#6240a4;text-align:left;padding:15px 18px;font-weight:900;cursor:pointer}
+.vb-motion-library button:focus-visible,.vb-motion-shortcut button:focus-visible{outline:3px solid #6a43c7;outline-offset:3px}
+@media(max-width:950px){.vb-motion-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.vb-motion-grid{gap:9px}.vb-motion-preview{height:125px}.vb-motion-tile-body{padding:10px}.vb-motion-library-head{padding:18px}}
+@media(max-width:350px){.vb-motion-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.vb-effect-sprite{display:none!important}.v2-stop-btn,.button.bright{transition:none!important;animation:none!important}}

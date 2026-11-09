@@ -1,5 +1,6 @@
 /* Verbarium v2 - original journey UI, derived from actual local activity, not an external leaderboard. */
 import {art,assetUrl} from './verbarium-kit/ui.js';
+import {staticJourneyNode} from './verbarium-kit/motion-assets.js';
 export const chapters=[
   {
     "id": "first",
@@ -107,7 +108,7 @@ export function renderQuestMap({lessons,completed=[],currentId,compact=false,cha
   const state=done?"done":current?"current":"ahead";
   return `<div class="v2-stop v2-stop--${i}">
    <button class="v2-stop-btn ${state}" data-action="open-lesson" data-id="${l.id}" type="button" aria-label="${l.title}, ${done?"concluída":current?"próxima etapa":"disponível"}">
-    <span class="v2-stop-icon" aria-hidden="true">${done?"✓":String(lessons.findIndex(x=>x.id===l.id)+1).padStart(2,"0")}</span>
+    <span class="v2-stop-icon" aria-hidden="true"><img class="vb-journey-art" src="${staticJourneyNode(done?"node_completed":current?"node_progress":"node_unlocked")}" alt="" aria-hidden="true"></span>
     ${current?'<span class="v2-you-are-here">Você está aqui</span>':""}
    </button>
    <div class="v2-stop-info"><strong>${l.title}</strong><span>${l.level} · ${done?"Concluída":current?"Próxima atividade":"Disponível"}</span></div>
