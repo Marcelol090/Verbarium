@@ -8,8 +8,11 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node --check src/app.js && node --check src/icons.js && node --check src/motion.js",
-    "test": "node --test tests/*.test.mjs"
+    "check": "node --check src/app.js && node --check src/icons.js && node --check src/motion.js && node --check scripts/extract-verbarium-assets.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "assets:sync": "node scripts/extract-verbarium-assets.mjs",
+    "predev": "npm run assets:sync",
+    "prebuild": "npm run assets:sync"
   },
   "dependencies": {
     "lucide": "^0.547.0",
