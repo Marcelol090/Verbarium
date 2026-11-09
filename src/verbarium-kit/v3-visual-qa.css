@@ -1,0 +1,104 @@
+/* Verbarium v3 visual quality patch, verified in a Playwright reproduction at 1440/390/320px.
+   Keep source artwork separate from content: button/chip text is never baked into images. */
+
+/* Filter tabs are semantic choices, not lesson completed-state chips. Use original BLANK
+   3D pill artwork, never chips/lesson_default (which already has a book and state dot). */
+.filter-row .chip.vb3-semantic-chip,
+.mode-tabs .chip.vb3-semantic-chip{
+  display:inline-flex!important;align-items:center;justify-content:center;position:relative;
+  min-width:max-content!important;min-height:44px!important;
+  padding:9px 20px!important;gap:8px;
+  background-image:url('/verbarium-v3/assets/cta/pill_cream.png')!important;
+  background-repeat:no-repeat!important;background-position:center!important;background-size:100% 100%!important;
+  background-color:transparent!important;border:0!important;box-shadow:none!important;
+  color:#4c307d!important;white-space:nowrap!important;
+  font:900 12px/1.2 'Nunito',system-ui,sans-serif!important;
+  text-shadow:none!important;filter:none!important;
+}
+.filter-row .chip.vb3-semantic-chip:is(.active,[aria-pressed="true"]),
+.mode-tabs .chip.vb3-semantic-chip:is(.active,[aria-pressed="true"]){
+  background-image:url('/verbarium-v3/assets/cta/pill_lavender.png')!important;
+  color:#46277c!important;
+}
+.filter-row .chip.vb3-semantic-chip:hover,
+.mode-tabs .chip.vb3-semantic-chip:hover{transform:translateY(-1px);filter:drop-shadow(0 3px 6px #6245ab22)!important}
+.filter-row .chip.vb3-semantic-chip:focus-visible,
+.mode-tabs .chip.vb3-semantic-chip:focus-visible{outline:3px solid #7955cc!important;outline-offset:3px}
+
+/* Blank 3D CTA background + separate play icon. No glyph is baked behind the label. */
+button.vb3-cta.vb3-cta-clean,.v2-chapter-hero button.vb3-cta.vb3-cta-clean{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  position:relative!important;isolation:isolate!important;overflow:visible!important;
+  min-height:54px!important;min-width:232px!important;
+  padding:11px 19px 11px 57px!important;
+  background:transparent!important;background-image:none!important;
+  border:0!important;border-radius:30px!important;box-shadow:none!important;
+  color:white!important;filter:none!important;transform-origin:center center;
+  transition:transform .20s cubic-bezier(.2,.85,.25,1),filter .20s ease!important;
+}
+button.vb3-cta.vb3-cta-clean::before,
+button.vb3-cta.vb3-cta-clean::after{display:none!important}
+button.vb3-cta.vb3-cta-clean .vb3-cta-art{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  display:block!important;object-fit:fill!important;z-index:-1!important;
+  opacity:1!important;pointer-events:none!important;filter:drop-shadow(0 5px 7px #613cb333);
+}
+button.vb3-cta.vb3-cta-clean .vb3-cta-play{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:31px;height:31px;object-fit:contain;z-index:2;pointer-events:none;
+}
+button.vb3-cta.vb3-cta-clean .vb3-cta-label{
+  position:relative;z-index:2;display:inline-flex;justify-content:center;align-items:center;
+  padding:0!important;margin:0!important;gap:0!important;
+  max-width:100%;font:900 13px/1.3 'Nunito',system-ui,sans-serif!important;
+  color:#fff!important;white-space:normal;text-align:center;text-shadow:0 1px 3px #43238177;
+}
+button.vb3-cta.vb3-cta-clean .vb3-cta-label svg,
+button.vb3-cta.vb3-cta-clean .vb3-cta-label [data-lucide]{display:none!important}
+button.vb3-cta.vb3-cta-clean:is(:hover,:focus-visible,.vb3-cta-focused){filter:brightness(1.08) drop-shadow(0 4px 9px #9850da33)!important;transform:translateY(-1px)}
+button.vb3-cta.vb3-cta-clean:is(:active,.vb3-cta-down){transform:scale(.96)!important}
+button.vb3-cta.vb3-cta-clean:focus-visible{outline:3px solid #ffe06b!important;outline-offset:4px!important}
+
+/* Foreground decorations are real v3 PNGs. Do not paste semi-transparent hero_island
+   on the road or mix cheap generic triangular SVG trees with glossy nodes. */
+.v2-world-scene{isolation:isolate}
+.v2-world-scene .vb3-map-decor{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.v2-world-scene .vb3-map-decor img{position:absolute;display:block;object-fit:contain;max-width:none;user-select:none}
+.v2-world-scene .vb3-map-plant{width:clamp(58px,16%,118px);height:auto}
+.v2-world-scene .vb3-map-plant--1{left:1%;top:24%}
+.v2-world-scene .vb3-map-plant--2{right:2%;top:14%;width:clamp(55px,13%,95px)}
+.v2-world-scene .vb3-map-plant--3{right:1%;bottom:13%}
+.v2-world-scene .vb3-map-plant--4{left:2%;bottom:7%;width:clamp(58px,12%,90px)}
+.v2-world-scene .vb3-map-cloud{width:clamp(56px,13%,100px);height:auto;opacity:.85}
+.v2-world-scene .vb3-map-cloud--1{right:0;top:0}
+.v2-world-scene .vb3-map-cloud--2{left:3%;top:2%;width:clamp(50px,11%,75px)}
+.v2-world-scene .vb3-map-bridge{width:clamp(64px,16%,120px);height:auto;right:8%;bottom:2%;transform:rotate(-3deg)}
+.v2-world-scene .vb3-road{z-index:-1}
+.v2-world-scene .v2-world-stops{z-index:3;pointer-events:none}
+.v2-world-scene .v2-stop-btn{pointer-events:auto}
+.v2-world-scene .v2-stop-info{max-width:min(225px,85vw);overflow-wrap:break-word}
+.v2-world-scene .v2-stop-info strong{font-size:11px;line-height:1.35}
+.v2-world-scene .vb-world-island{display:none!important}
+
+/* Use the actual generated characters for chat, without changing chat text or TTS. */
+.vb3-chat-avatar{width:49px!important;height:51px!important;flex:0 0 49px!important;display:grid!important;place-items:center!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
+.vb3-chat-avatar img{width:100%;height:100%;object-fit:contain;display:block}
+.chat-item .vb3-chat-avatar + .bubble{min-width:0}
+
+/* Gallery is a QA tool: sprites must fit entirely inside their stage, even when
+   the original PNG has an oversized glow/transparent margin. */
+.vb3-gallery-stage{display:flex!important;align-items:center!important;justify-content:center!important;min-height:0;overflow:hidden!important}
+.vb3-gallery-stage img{display:block!important;min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;width:100%!important;height:100%!important;object-fit:contain!important}
+@media(max-width:490px){
+ .filter-row .chip.vb3-semantic-chip,.mode-tabs .chip.vb3-semantic-chip{padding:9px 14px!important;min-height:40px!important;font-size:11px!important}
+ button.vb3-cta.vb3-cta-clean{min-width:210px!important;min-height:50px!important;padding-left:52px!important}
+ .v2-world-scene .vb3-map-plant{width:66px}
+ .v2-world-scene .vb3-map-cloud{width:59px}
+ .v2-world-scene .vb3-map-bridge{width:72px;right:1%;bottom:1%}
+ .vb3-chat-avatar{width:42px!important;height:45px!important;flex-basis:42px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ button.vb3-cta.vb3-cta-clean,
+ .filter-row .chip.vb3-semantic-chip,
+ .mode-tabs .chip.vb3-semantic-chip{animation:none!important;transition:none!important;transform:none!important}
+}

@@ -37,7 +37,7 @@ function bindJourney(root,runtime,listener){
   const base=state==='completed'?'journey/node_completed':state==='progress'?'journey/node_progress':'journey/node_unlocked';
   runtime.setSprite(img,base);
   const hover=()=>runtime.playSprite(img,state==='progress'?'journey/node_progress':state==='completed'?'journey/node_completed':'journey/node_unlocked');
-  const down=()=>{button.classList.add('vb3-node-press');if(state==='progress')runtime.setSprite(img,'journey/node_locked_press');};
+  const down=()=>{button.classList.add('vb3-node-press');};
   const up=()=>{button.classList.remove('vb3-node-press');runtime.setSprite(img,base);};
   for(const ev of ['pointerenter','focusin'])attach(listener,button,ev,hover);
   for(const ev of ['pointerdown'])attach(listener,button,ev,down);
@@ -45,17 +45,43 @@ function bindJourney(root,runtime,listener){
   listener.push(()=>runtime.stopMotion(img));
  }
 }
+function bindCleanCTA(button,runtime,listener){
+ // A transparent blank base and independent play glyph prevent baked-in symbols
+ // from colliding with localized HTML labels.
+ wrapCTA(button);
+ button.classList.add('vb3-cta','vb3-cta-clean');
+ const base=runtime.spriteElement('cta/purple_primary',{className:'vb3-cta-art'});
+ const play=runtime.spriteElement('cta/play_circle',{className:'vb3-cta-play'});
+ button.prepend(base,play);
+ const focus=()=>button.classList.add('vb3-cta-focused');
+ const blur=()=>{button.classList.remove('vb3-cta-focused','vb3-cta-down');};
+ const down=()=>button.classList.add('vb3-cta-down');
+ const up=()=>{button.classList.remove('vb3-cta-down');runtime.playSprite(play,'cta/play_circle');};
+ attach(listener,button,'pointerenter',focus);
+ attach(listener,button,'pointerleave',blur);
+ attach(listener,button,'focusin',focus);
+ attach(listener,button,'focusout',blur);
+ attach(listener,button,'pointerdown',down);
+ attach(listener,button,'pointerup',up);
+ attach(listener,button,'pointercancel',blur);
+ attach(listener,button,'keydown',event=>{if(event.key==='Enter'||event.key===' ')down();});
+ attach(listener,button,'keyup',event=>{if(event.key==='Enter'||event.key===' ')up();});
+ listener.push(()=>{runtime.stopMotion(play);base.remove();play.remove();button.classList.remove('vb3-cta','vb3-cta-clean','vb3-cta-focused','vb3-cta-down');});
+}
 function bindCTAs(root,runtime,listener){
  const selectors=['.hero-actions .button.bright','.v2-action-primary','.exercise-card>.button:not(.outline)','.practice-panel .button:not(.outline)','.conversation-controls .button:not(.outline)','.endcard .button:not(.outline)'];
  for(const button of root.querySelectorAll(selectors.join(','))){
-  if(button.disabled)continue;
-  wrapCTA(button);const dispose=runtime.bindCTA(button);
-  listener.push(dispose);
+  if(!button.disabled)bindCleanCTA(button,runtime,listener);
  }
+ // Grammar filters are not lesson-completion chips. Their original chip sprite
+ // includes a book and status dot, so it MUST NOT be overlaid behind their labels.
  for(const button of root.querySelectorAll('.filter-row .chip,.mode-tabs .chip')){
-  const controller=runtime.bindLessonChip(button,{selected:button.classList.contains('active')});listener.push(()=>controller.dispose());
+  button.classList.add('vb3-semantic-chip');
+  button.setAttribute('aria-pressed',String(button.classList.contains('active')));
+  listener.push(()=>button.classList.remove('vb3-semantic-chip'));
  }
 }
+
 function upgradeRings(root,runtime){for(const el of root.querySelectorAll('.vb-progress-ring[role="progressbar"]')){
  const value=Number(el.getAttribute('aria-valuenow'))||0;const label=el.getAttribute('aria-label')||'Progresso';
  const ring=runtime.createProgressRing({value,label});if(el.classList.contains('vb-progress-ring--small'))ring.element.classList.add('vb3-ring-small');
