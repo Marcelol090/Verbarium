@@ -1,4 +1,5 @@
 /* Verbarium v2 - original journey UI, derived from actual local activity, not an external leaderboard. */
+import {art} from './verbarium-kit/ui.js';
 export const chapters=[
   {
     "id": "first",
@@ -69,7 +70,7 @@ export function renderMissionBoard(missions) {
  const completed=missions.filter(m=>m.now>=m.goal).length;
  return `<section class="v2-mission-board" aria-label="Missões de hoje">
  <div class="v2-board-heading"><div><span class="v2-kicker">✦ SEU RITMO</span><h2>Missões de hoje</h2><p>Pequenas ações para construir conversas maiores.</p></div><span class="v2-mission-total">${completed}/${missions.length} concluídas</span></div>
- <div class="v2-missions">${missions.map(m=>`<button class="v2-mission ${m.now===m.goal?"complete":""}" type="button" data-route="${m.route}" aria-label="${m.title}: ${m.now} de ${m.goal}"><span class="v2-mission-symbol" aria-hidden="true">${m.now===m.goal?"✓":m.icon}</span><span class="v2-mission-text"><strong>${m.title}</strong><small>${m.subtitle}</small><span class="v2-mission-bar"><i style="width:${100*m.now/m.goal}%"></i></span></span><span class="v2-mission-count">${m.now}/${m.goal}</span></button>`).join("")}</div>
+ <div class="v2-missions">${missions.map(m=>`<button class="v2-mission ${m.now===m.goal?"complete":""}" type="button" data-route="${m.route}" aria-label="${m.title}: ${m.now} de ${m.goal}"><span class="v2-mission-symbol" aria-hidden="true">${art(m.now>=m.goal?"check":m.id==="lesson"?"book":m.id==="speaking"?"star":"clipboard")}</span><span class="v2-mission-text"><strong>${m.title}</strong><small>${m.subtitle}</small><span class="v2-mission-bar"><i style="width:${100*m.now/m.goal}%"></i></span></span><span class="v2-mission-count">${m.now}/${m.goal}</span></button>`).join("")}</div>
  </section>`;
 }
 
@@ -151,7 +152,7 @@ export function renderProfile({nickname="Explorador",completed=[],correct=0,atte
  <form id="v2-profile-name-form" class="v2-profile-edit"><label for="v2-nickname">Nome de exibição neste dispositivo</label><div><input id="v2-nickname" name="nickname" maxlength="24" autocomplete="nickname" value="${clean.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}" placeholder="Como prefere ser chamado?"><button type="submit">Salvar</button></div></form>
  <div class="v2-profile-stats"><div><strong>${completed.length}</strong><small>Aulas concluídas</small></div><div><strong>${accuracy}</strong><small>Aproveitamento</small></div><div><strong>${streak}</strong><small>Dias em sequência</small></div><div><strong>${sessions.length}</strong><small>Diálogos finalizados</small></div></div>
  <div class="v2-section-bar"><h2>Suas conquistas</h2><span>${earned} desbloqueadas</span></div>
- <div class="v2-badges">${badges.map(b=>`<div class="v2-badge ${b.earned?"earned":"locked"}"><span aria-hidden="true">${b.icon}</span><strong>${b.label}</strong><small>${b.desc}</small><i>${b.earned?"Conquistado":"Ainda não"}</i></div>`).join("")}</div>
+ <div class="v2-badges">${badges.map((b,i)=>`<div class="v2-badge ${b.earned?"earned":"locked"}"><span aria-hidden="true">${art(b.earned?["medal","book","star","flame","gift","check"][i]:"medal-locked")}</span><strong>${b.label}</strong><small>${b.desc}</small><i>${b.earned?"Conquistado":"Ainda não"}</i></div>`).join("")}</div>
  <div class="v2-profile-links"><button data-route="progress" type="button">Ver painel de progresso <span>↗</span></button><button data-route="review" type="button">Revisar ${due} questões <span>↗</span></button><button data-route="learn" type="button">Voltar à jornada <span>↗</span></button></div>
  <p class="v2-privacy-note">Sem conta ou ranking público. O apelido, as aulas e as conquistas permanecem neste navegador.</p>`;
 }

@@ -52,3 +52,10 @@
 @media(max-width:480px){.vb-overview-card{padding:15px;gap:8px}.vb-progress-ring{width:120px;height:120px;min-width:120px}.vb-ring-center .vb-art{width:38px;height:38px}.vb-ring-center strong{font-size:20px}.vb-progress-ring--small{width:77px;height:77px;min-width:77px}.vb-progress-ring--small .vb-ring-center .vb-art{width:23px;height:23px}.vb-progress-ring--small .vb-ring-center strong{font-size:13px}.vb-streak{padding:16px}.vb-streak-day span{width:32px;height:32px}.vb-reward-toast{right:12px;bottom:80px}}
 @media(prefers-reduced-motion:reduce){.vb-ring-arc,.vb-meter>i,.v2-mission-bar i,.vb-reward-toast{transition:none!important;animation:none!important}.vb-reward-toast{transform:none}}
 
+
+/* Home integration */
+.vb-home-streak{margin:18px 0 26px}
+.vb-home-streak .vb-streak{background:linear-gradient(110deg,#fffaf5,#fff,#faf5ff)}
+.vb-home-streak .vb-streak-days{max-width:520px}
+.hero-visual .vb-mascot-hero{min-height:240px}
+@media(max-width:650px){.hero-visual .vb-mascot-hero{min-height:155px}.hero-visual .vb-mascot-hero-image{max-height:198px}.vb-home-streak{margin:12px 0 22px}}
