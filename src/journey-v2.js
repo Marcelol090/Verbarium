@@ -71,7 +71,7 @@ export function renderMissionBoard(missions) {
  const completed=missions.filter(m=>m.now>=m.goal).length;
  return `<section class="v2-mission-board" aria-label="Missões de hoje">
  <div class="v2-board-heading"><div><span class="v2-kicker">✦ SEU RITMO</span><h2>Missões de hoje</h2><p>Pequenas ações para construir conversas maiores.</p></div><span class="v2-mission-total">${completed}/${missions.length} concluídas</span></div>
- <div class="v2-missions">${missions.map(m=>`<button class="v2-mission ${m.now===m.goal?"complete":""}" type="button" data-route="${m.route}" aria-label="${m.title}: ${m.now} de ${m.goal}"><span class="v2-mission-symbol" aria-hidden="true">${art(m.now>=m.goal?"check":m.id==="lesson"?"book":m.id==="speaking"?"star":"clipboard")}</span><span class="v2-mission-text"><strong>${m.title}</strong><small>${m.subtitle}</small><span class="v2-mission-bar"><i style="width:${100*m.now/m.goal}%"></i></span></span><span class="v2-mission-count">${m.now}/${m.goal}</span></button>`).join("")}</div>
+ <div class="v2-missions">${missions.map(m=>`<button class="v2-mission ${m.now>=m.goal?"complete":""}" type="button" data-vb-mission-id="${m.id}" data-route="${m.route}" aria-label="${m.title}: ${m.now} de ${m.goal}"><span class="v2-mission-symbol" aria-hidden="true"><img class="vb-native-mission-icon" src="${m.now>=m.goal?'/verbarium-assets/extra-80/primitives/check_mint.png':m.id==='lesson'?'/verbarium-motion/journey/assets/book.png':m.id==='speaking'?'/verbarium-assets/extra-80/speech/mic_idle.png':'/verbarium-assets/extra-80/missions/target_dart.png'}" alt="" aria-hidden="true" loading="lazy" decoding="async"></span><span class="v2-mission-text"><strong>${m.title}</strong><small>${m.subtitle}</small><span class="v2-mission-bar"><i style="width:${100*m.now/m.goal}%"></i></span></span><span class="v2-mission-count">${m.now}/${m.goal}</span></button>`).join("")}</div>
  </section>`;
 }
 
@@ -107,7 +107,7 @@ export function renderQuestMap({lessons,completed=[],currentId,compact=false,cha
   const done=completed.includes(l.id),current=l.id===currentId;
   const state=done?"done":current?"current":"ahead";
   return `<div class="v2-stop v2-stop--${i}">
-   <button class="v2-stop-btn ${state}" data-action="open-lesson" data-id="${l.id}" type="button" aria-label="${l.title}, ${done?"concluída":current?"próxima etapa":"disponível"}">
+   <button class="v2-stop-btn ${state}" data-vb-node-state="${state}" data-action="open-lesson" data-id="${l.id}" type="button" aria-label="${l.title}, ${done?"concluída":current?"próxima etapa":"disponível"}">
     <span class="v2-stop-icon" aria-hidden="true"><img class="vb-journey-art" src="${staticJourneyNode(done?"node_completed":current?"node_progress":"node_unlocked")}" alt="" aria-hidden="true"></span>
     ${current?'<span class="v2-you-are-here">Você está aqui</span>':""}
    </button>
@@ -150,11 +150,11 @@ export function renderProfile({nickname="Explorador",completed=[],correct=0,atte
  const earned=badges.filter(b=>b.earned).length;
  const accuracy=attempts?Math.round(100*correct/attempts)+"%":"—";
  return `<div class="v2-page-heading"><span class="v2-kicker">ESPAÇO PESSOAL</span><h1>Seu jeito de <em>aprender.</em></h1><p>Uma coleção de conquistas reais, sem competir com ninguém.</p></div>
- <section class="v2-profile-card"><div class="v2-profile-avatar" aria-hidden="true">${clean.slice(0,1).toUpperCase()}</div><div class="v2-profile-ident"><span>ESTUDANTE DE INGLÊS</span><h2>${clean.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}</h2><p>Seu progresso fica salvo somente neste navegador.</p></div><div class="v2-profile-level"><strong>${earned}/${badges.length}</strong><span>conquistas</span></div></section>
+ <section class="v2-profile-card"><div class="v2-profile-avatar vb-native-avatar" aria-hidden="true"><img src="/verbarium-motion/rewards/assets/profile_avatar.png" alt="" loading="lazy" decoding="async"></div><div class="v2-profile-ident"><span>ESTUDANTE DE INGLÊS</span><h2>${clean.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}</h2><p>Seu progresso fica salvo somente neste navegador.</p></div><div class="v2-profile-level"><strong>${earned}/${badges.length}</strong><span>conquistas</span></div></section>
  <form id="v2-profile-name-form" class="v2-profile-edit"><label for="v2-nickname">Nome de exibição neste dispositivo</label><div><input id="v2-nickname" name="nickname" maxlength="24" autocomplete="nickname" value="${clean.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}" placeholder="Como prefere ser chamado?"><button type="submit">Salvar</button></div></form>
  <div class="v2-profile-stats"><div><strong>${completed.length}</strong><small>Aulas concluídas</small></div><div><strong>${accuracy}</strong><small>Aproveitamento</small></div><div><strong>${streak}</strong><small>Dias em sequência</small></div><div><strong>${sessions.length}</strong><small>Diálogos finalizados</small></div></div>
  <div class="v2-section-bar"><h2>Suas conquistas</h2><span>${earned} desbloqueadas</span></div>
- <div class="v2-badges">${badges.map((b,i)=>`<div class="v2-badge ${b.earned?"earned":"locked"}"><span aria-hidden="true">${art(b.earned?["medal","book","star","flame","gift","check"][i]:"medal-locked")}</span><strong>${b.label}</strong><small>${b.desc}</small><i>${b.earned?"Conquistado":"Ainda não"}</i></div>`).join("")}</div>
+ <div class="v2-badges">${badges.map((b,i)=>`<div class="v2-badge ${b.earned?"earned":"locked"}"><span aria-hidden="true"><img class="vb-native-badge" src="${b.earned?'/verbarium-motion/rewards/assets/achievement_medal.png':'/verbarium-assets/achievement/badge_locked.png'}" alt="" aria-hidden="true" loading="lazy" decoding="async"></span><strong>${b.label}</strong><small>${b.desc}</small><i>${b.earned?"Conquistado":"Ainda não"}</i></div>`).join("")}</div>
  <div class="v2-profile-links"><button data-route="progress" type="button">Ver painel de progresso <span>↗</span></button><button data-route="review" type="button">Revisar ${due} questões <span>↗</span></button><button data-route="learn" type="button">Voltar à jornada <span>↗</span></button></div>
  <p class="v2-privacy-note">Sem conta ou ranking público. O apelido, as aulas e as conquistas permanecem neste navegador.</p>`;
 }

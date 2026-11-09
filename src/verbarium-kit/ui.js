@@ -86,7 +86,7 @@ export function showVerbariumToast({title="Conquista desbloqueada",description="
  if(old)old.remove();
  const toast=document.createElement("aside");
  toast.id="vb-reward-toast";toast.className="vb-reward-toast";toast.setAttribute("role","status");toast.setAttribute("aria-live","polite");
- const picture=document.createElement("img");picture.src=artBase+artPaths.gift;picture.alt="";picture.setAttribute("aria-hidden","true");
+ const picture=document.createElement("img");picture.src=window.matchMedia("(prefers-reduced-motion: reduce)").matches?artBase+artPaths.gift:"/verbarium-motion/rewards/animated/star_coin.webp";picture.alt="";picture.setAttribute("aria-hidden","true");
  const text=document.createElement("div");const heading=document.createElement("strong");heading.textContent=title;
  const desc=document.createElement("span");desc.textContent=description;text.append(heading,desc);
  const button=document.createElement("button");button.type="button";button.textContent="×";button.setAttribute("aria-label","Fechar aviso");button.addEventListener("click",()=>toast.remove());

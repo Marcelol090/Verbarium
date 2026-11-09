@@ -6,8 +6,8 @@ const labels={journey:'Jornada e desbloqueio',cta:'BotÃµes, chips e microinteraÃ
 export const motionByKey=key=>byKey.get(key)||null;
 export const reduceMotion=()=>typeof window!=='undefined'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 export function staticJourneyNode(state){
- const variants=['node_idle','node_focus','node_pressed','node_progress','node_completed','node_unlocked','node_unlock_bounce'];
- return '/verbarium-assets/extra-80/journey_nodes/'+(variants.includes(state)?state:'node_unlocked')+'.png';
+ const variants={node_idle:'node_locked',node_focus:'node_focus',node_pressed:'node_press',node_progress:'node_progress',node_completed:'node_completed',node_unlocked:'node_unlocked',node_unlock_bounce:'node_unlocked'};
+ return '/verbarium-motion/journey/assets/'+(variants[state]||'node_unlocked')+'.png';
 }
 export function navArtwork(id){
  const variants={home:'nav_icon_home',learn:'nav_icon_book',practice:'nav_icon_gamepad',speak:'nav_icon_headphones',profile:'nav_icon_profile'};
@@ -22,6 +22,7 @@ export function renderMotionGallery(){
 }
 let pendingUnlock='';
 let initialized=false;
+let lastAnimatedRoute='';
 let replay=0;
 const playing=new WeakMap();
 export function triggerVerbariumMotion(key,anchor){
@@ -37,7 +38,8 @@ export function triggerVerbariumMotion(key,anchor){
 export function announceVerbariumMilestone({type,lessonId}={}){
  if(type==='lesson-completed'){
   pendingUnlock=String(lessonId||'');
-  triggerVerbariumMotion('journey:completion_burst',document.querySelector('.endcard')||document.querySelector('.exercise-card'));
+  const card=document.querySelector('.endcard')||document.querySelector('.exercise-card');
+  triggerVerbariumMotion('rewards:reward_complete',card);
  }else if(type==='mission-completed'){
   triggerVerbariumMotion('cta:chip_activated_completed',document.querySelector('.v2-mission.complete')||document.querySelector('.exercise-card'));
  }else if(type==='dialogue-completed'){
@@ -46,6 +48,15 @@ export function announceVerbariumMilestone({type,lessonId}={}){
 }
 export function hydrateVerbariumMotion(root,route){
  if(!root)return;
+ if(route==='lesson'){
+  const feedback=root.querySelector('.feedback.good');
+  if(feedback)triggerVerbariumMotion('journey:check_reveal',feedback);
+ }
+ if(route!==lastAnimatedRoute){
+  if(route==='profile')triggerVerbariumMotion('rewards:profile_avatar',root.querySelector('.v2-profile-card'));
+  if(route==='progress')triggerVerbariumMotion('rewards:trophy_focus',root.querySelector('.podium-panel'));
+  lastAnimatedRoute=route;
+ }
  if(pendingUnlock&&['learn','home','chapter'].includes(route)){
   const nodes=[...root.querySelectorAll('.v2-stop-btn[data-id]')];
   const done=nodes.find(x=>x.dataset.id===pendingUnlock);
@@ -67,14 +78,50 @@ export function initVerbariumMotion(){
  document.addEventListener('pointerover',event=>{
   if(event.pointerType==='touch'||reduceMotion())return;
   const b=event.target.closest('.v2-stop-btn.current');
-  if(b&&!b.contains(event.relatedTarget))triggerVerbariumMotion('journey:focus_glow',b);
+  if(b&&!b.contains(event.relatedTarget)){
+   const image=b.querySelector('.vb-journey-art');if(image)image.src=staticJourneyNode('node_focus');
+   triggerVerbariumMotion('journey:focus_glow',b);
+  }
+  const cta=event.target.closest('.hero-actions .button.bright,.v2-action-primary');
+  if(cta&&!cta.contains(event.relatedTarget))triggerVerbariumMotion('cta:cta_focus',cta);
  },true);
  document.addEventListener('pointerdown',event=>{
-  const b=event.target.closest('.v2-stop-btn,.hero-actions .button,.button.bright');
-  if(b)b.classList.add('vb-motion-pressed');
+  const b=event.target.closest('.v2-stop-btn,.hero-actions .button,.button.bright,.v2-action-primary');
+  if(!b)return;
+  b.classList.add('vb-motion-pressed');
+  if(b.matches('.v2-stop-btn.current')){
+   const image=b.querySelector('.vb-journey-art');if(image)image.src=staticJourneyNode('node_pressed');
+   triggerVerbariumMotion('journey:press_down',b);
+  }else if(b.matches('.button.bright,.v2-action-primary')){
+   triggerVerbariumMotion('cta:cta_pressed',b);
+  }
  },true);
- ['pointerup','pointercancel'].forEach(name=>document.addEventListener(name,()=>document.querySelectorAll('.vb-motion-pressed').forEach(b=>b.classList.remove('vb-motion-pressed')),true));
+ function restorePressed(){
+  document.querySelectorAll('.vb-motion-pressed').forEach(b=>{
+   b.classList.remove('vb-motion-pressed');
+   if(b.matches('.v2-stop-btn.current')){
+    const image=b.querySelector('.vb-journey-art');
+    if(image)image.src=staticJourneyNode('node_progress');
+   }
+  });
+ }
+ ['pointerup','pointercancel'].forEach(name=>document.addEventListener(name,restorePressed,true));
+ document.addEventListener('pointerout',event=>{
+  const b=event.target.closest('.v2-stop-btn.current');
+  if(b&&!b.contains(event.relatedTarget)&&!b.matches(':focus-visible')){
+   const image=b.querySelector('.vb-journey-art');
+   if(image)image.src=staticJourneyNode('node_progress');
+  }
+ },true);
+ document.addEventListener('focusout',event=>{
+  const b=event.target.closest('.v2-stop-btn.current');
+  if(b){const image=b.querySelector('.vb-journey-art');if(image)image.src=staticJourneyNode('node_progress');}
+ },true);
  document.addEventListener('focusin',event=>{
-  const b=event.target.closest('.v2-stop-btn.current');if(b)triggerVerbariumMotion('journey:focus_glow',b);
+  const b=event.target.closest('.v2-stop-btn.current');
+  if(b){
+   const image=b.querySelector('.vb-journey-art');if(image)image.src=staticJourneyNode('node_focus');
+   triggerVerbariumMotion('journey:focus_glow',b);
+  }
  },true);
 }
