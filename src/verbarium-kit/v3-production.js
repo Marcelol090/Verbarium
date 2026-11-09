@@ -9,7 +9,8 @@ let generation=0;
 let lastRoute=null;
 let lastHeroAnimation=false;
 let unlockPending='';
-const kit=()=>kitPromise??=import(/* @vite-ignore */ '/verbarium-v3/runtime/verbarium-motion.mjs');
+const runtimeURL=BASE+'runtime/verbarium-motion.mjs';
+const kit=()=>kitPromise??=import(/* @vite-ignore */ runtimeURL);
 export function renderV3Gallery(){return `<section class="vb3-gallery" aria-label="Biblioteca Verbarium v3"><header><span class="vb-overline">VERBARIUM · BIBLIOTECA V3</span><h1>Assets reais. Movimento com propósito.</h1><p>151 peças recortadas das cartelas originais, 142 animações transparentes. Cada movimento é reproduzido apenas quando solicitado ou quando um evento do aprendizado ocorre.</p></header><div class="vb3-gallery-toolbar"><label for="vb3-search">Buscar componente<input id="vb3-search" type="search" placeholder="Ex.: troféu, mascote, jornada…"></label><div class="vb3-gallery-filters" role="group" aria-label="Categoria de assets"></div></div><div class="vb3-gallery-status" role="status">Carregando biblioteca…</div><div class="vb3-gallery-grid"></div></section>`;}
 function wrapCTA(button){if(button.dataset.vb3Bound)return;button.dataset.vb3Bound='true';const content=document.createElement('span');content.className='vb3-cta-label';while(button.firstChild)content.append(button.firstChild);button.append(content);}
 function attach(listener,target,name,fn){target.addEventListener(name,fn);listener.push(()=>target.removeEventListener(name,fn));}
