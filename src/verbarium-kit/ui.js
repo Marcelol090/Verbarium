@@ -53,6 +53,20 @@ export function renderLessonMeter(current,total){
 export function renderHeroMascot(){
  return `<div class="vb-mascot-hero">${art("mascot","vb-mascot-hero-image")}${art("sparkles","vb-mascot-spark vb-mascot-spark--one")}${art("sparkles","vb-mascot-spark vb-mascot-spark--two")}</div>`;
 }
+export function renderJourneyFlow(){
+ const steps=[
+  ["Meta","Conclua uma missão"],
+  ["Lição","Avance na trilha"],
+  ["Sequência","Pratique em dias diferentes"],
+  ["Conquista","Desbloqueie um marco real"],
+  ["Resultado","Veja seus números"],
+  ["Celebração","Receba um feedback"]
+ ];
+ return `<section class="vb-sequence-flow" aria-label="Como seu progresso se transforma em conquistas">
+ <header><span class="vb-overline">SEU CICLO DE APRENDIZADO</span><h2>Da missão à conquista</h2><p>As etapas abaixo explicam o sistema; resultados e desbloqueios só aparecem depois de atividades registradas.</p></header>
+ <ol>${steps.map(([title,description],i)=>`<li><img src="${artBase}flow/step_marker_${i+1}.png" alt="" aria-hidden="true" loading="lazy"><strong>${title}</strong><small>${description}</small></li>`).join("")}</ol></section>`;
+}
+
 const displayedValues=new Map();
 export function hydrateVerbariumUI(root){
  if(!root)return;
@@ -76,7 +90,8 @@ export function showVerbariumToast({title="Conquista desbloqueada",description="
  const text=document.createElement("div");const heading=document.createElement("strong");heading.textContent=title;
  const desc=document.createElement("span");desc.textContent=description;text.append(heading,desc);
  const button=document.createElement("button");button.type="button";button.textContent="×";button.setAttribute("aria-label","Fechar aviso");button.addEventListener("click",()=>toast.remove());
- toast.append(picture,text,button);document.body.append(toast);
+ const mascot=document.createElement('img');mascot.src=artBase+artPaths['mascot-reward'];mascot.alt='';mascot.className='vb-reward-mascot';mascot.setAttribute('aria-hidden','true');
+ toast.append(picture,text,mascot,button);document.body.append(toast);
  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
  if(!reduce){requestAnimationFrame(()=>toast.classList.add("is-visible"))}else toast.classList.add("is-visible");
  window.setTimeout(()=>{if(toast.isConnected)toast.remove()},4600);

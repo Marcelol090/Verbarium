@@ -75,3 +75,16 @@
 @media(max-width:620px){.vb-library-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.vb-library-stage{height:135px;padding:8px}.vb-library-asset-info{padding:10px}.vb-library-heading img{width:55px;height:55px;flex-basis:55px}.vb-library-categories{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding-bottom:12px}.vb-library-categories button{flex-shrink:0}.vb-library-surfaces{width:100%}.vb-library-surfaces button{flex:1}}
 @media(max-width:355px){.vb-library-grid{grid-template-columns:1fr}.vb-library-stage{height:160px}}
 @media(prefers-reduced-motion:reduce){.vb-library *{animation:none!important;transition:none!important}.vb-mascot-hero-image,.v2-badge .vb-art{animation:none!important}}
+.vb-sequence-flow{margin:17px 0 25px;padding:22px;border-radius:26px;background:linear-gradient(145deg,#fbf8ff,#f5efff);border:1px solid #e8ddf8;box-shadow:0 7px 19px #604fa013}
+.vb-sequence-flow header h2{color:#2e2350;font:650 23px/1.2 'Fredoka',sans-serif;margin:7px 0 6px}
+.vb-sequence-flow header p{font-size:12px;color:#7b698f;max-width:650px;line-height:1.5;margin:0}
+.vb-sequence-flow ol{margin:18px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
+.vb-sequence-flow li{display:grid;justify-items:center;align-content:start;gap:5px;text-align:center;min-width:0;background:#fff;border:1px solid #e9dffa;border-radius:17px;padding:12px 5px 13px}
+.vb-sequence-flow li img{width:55px;height:55px;max-width:100%;object-fit:contain}
+.vb-sequence-flow li strong{color:#4e3479;font-weight:950;font-size:12px}
+.vb-sequence-flow li small{font-size:10px;line-height:1.32;color:#837593}
+.podium-medal .vb-art{width:63px;height:63px;object-fit:contain}
+.goal-art .vb-art{width:48px;height:48px;object-fit:contain}
+.vb-reward-toast .vb-reward-mascot{width:60px;height:58px;object-fit:contain}
+@media(max-width:960px){.vb-sequence-flow ol{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:410px){.vb-sequence-flow{padding:15px}.vb-sequence-flow ol{grid-template-columns:repeat(2,minmax(0,1fr))}.vb-reward-toast .vb-reward-mascot{display:none}}

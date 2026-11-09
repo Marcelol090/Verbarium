@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {renderProgressRing,renderProgressBar,renderStreakWeek,renderProgressOverview,renderLessonMeter,renderHeroMascot} from "../src/verbarium-kit/ui.js";
+import {renderProgressRing,renderProgressBar,renderStreakWeek,renderProgressOverview,renderJourneyFlow,renderLessonMeter,renderHeroMascot} from "../src/verbarium-kit/ui.js";
 test("rings clamp values and keep data readable",()=>{
  assert.match(renderProgressRing(120),/aria-valuenow="100"/);
  assert.match(renderProgressRing(-9),/aria-valuenow="0"/);
@@ -27,4 +27,9 @@ test("all 112 original assets are independently published",async()=>{
  assert.equal(manifest.assets.filter(a=>a.file.endsWith(".png")).length,97);
  assert.equal(manifest.assets.filter(a=>a.file.endsWith(".svg")).length,15);
  for(const a of manifest.assets)assert.ok(fs.existsSync(new URL("../public/verbarium-assets/"+a.file,import.meta.url)),a.file);
+});
+test("six original step assets render as a data-neutral explanation",()=>{
+ const html=renderJourneyFlow();
+ assert.equal((html.match(/flow\/step_marker_\d\.png/g)||[]).length,6);
+ assert.doesNotMatch(html,/50 Stars|XP/);
 });
