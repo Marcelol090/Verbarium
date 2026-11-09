@@ -9,9 +9,9 @@ export function staticJourneyNode(state){
  const variants={node_idle:'node_locked',node_focus:'node_focus',node_pressed:'node_press',node_progress:'node_progress',node_completed:'node_completed',node_unlocked:'node_unlocked',node_unlock_bounce:'node_unlocked'};
  return '/verbarium-motion/journey/assets/'+(variants[state]||'node_unlocked')+'.png';
 }
-export function navArtwork(id){
- const variants={home:'nav_icon_home',learn:'nav_icon_book',practice:'nav_icon_gamepad',speak:'nav_icon_headphones',profile:'nav_icon_profile'};
- return variants[id]?'<img src="/verbarium-assets/extra-80/navigation/'+variants[id]+'.png" class="vb-nav-image" alt="" aria-hidden="true" decoding="async">':'';
+export function navArtwork(id,selected=false){
+ const names={home:'navigation/mascot_round',learn:'navigation/book_'+(selected?'selected':'default'),practice:'navigation/gamepad_'+(selected?'selected':'default'),speak:'navigation/headphones_'+(selected?'selected':'default'),lab:'navigation/sprout_'+(selected?'selected':'default'),profile:'profile/avatar_girl'};
+ return names[id]?'<img src="/verbarium-v3/assets/'+names[id]+'.png" class="vb-nav-image" alt="" aria-hidden="true" decoding="async">':'';
 }
 export function renderMotionGallery(){
  return '<section class="vb-motion-library" aria-label="Biblioteca motion do Verbarium">'+
@@ -76,6 +76,7 @@ export function initVerbariumMotion(){
   const next=current.cloneNode(true);next.src=reduceMotion()?asset.still:asset.url+'?replay='+(++replay);current.replaceWith(next);
  },true);
  document.addEventListener('pointerover',event=>{
+  if(event.target.closest('.v2-stop-btn[data-vb3-state],.vb3-cta'))return;
   if(event.pointerType==='touch'||reduceMotion())return;
   const b=event.target.closest('.v2-stop-btn.current');
   if(b&&!b.contains(event.relatedTarget)){
@@ -86,6 +87,7 @@ export function initVerbariumMotion(){
   if(cta&&!cta.contains(event.relatedTarget))triggerVerbariumMotion('cta:cta_focus',cta);
  },true);
  document.addEventListener('pointerdown',event=>{
+  if(event.target.closest('.v2-stop-btn[data-vb3-state],.vb3-cta'))return;
   const b=event.target.closest('.v2-stop-btn,.hero-actions .button,.button.bright,.v2-action-primary');
   if(!b)return;
   b.classList.add('vb-motion-pressed');
@@ -107,6 +109,7 @@ export function initVerbariumMotion(){
  }
  ['pointerup','pointercancel'].forEach(name=>document.addEventListener(name,restorePressed,true));
  document.addEventListener('pointerout',event=>{
+  if(event.target.closest('.v2-stop-btn[data-vb3-state],.vb3-cta'))return;
   const b=event.target.closest('.v2-stop-btn.current');
   if(b&&!b.contains(event.relatedTarget)&&!b.matches(':focus-visible')){
    const image=b.querySelector('.vb-journey-art');
@@ -114,10 +117,12 @@ export function initVerbariumMotion(){
   }
  },true);
  document.addEventListener('focusout',event=>{
+  if(event.target.closest('.v2-stop-btn[data-vb3-state],.vb3-cta'))return;
   const b=event.target.closest('.v2-stop-btn.current');
   if(b){const image=b.querySelector('.vb-journey-art');if(image)image.src=staticJourneyNode('node_progress');}
  },true);
  document.addEventListener('focusin',event=>{
+  if(event.target.closest('.v2-stop-btn[data-vb3-state],.vb3-cta'))return;
   const b=event.target.closest('.v2-stop-btn.current');
   if(b){
    const image=b.querySelector('.vb-journey-art');if(image)image.src=staticJourneyNode('node_focus');

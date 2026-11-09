@@ -15,6 +15,6 @@ test('gallery is event-triggered, accessible and no autoplay',()=>{
 });
 test('components use independent static variants',()=>{
  assert.match(staticJourneyNode('node_completed'),/node_completed\.png/);
- assert.match(navArtwork('home'),/nav_icon_home\.png/);
+ assert.match(navArtwork('home'),/navigation\/mascot_round\.png/);
  assert.equal(navArtwork('review'),'');
 });

@@ -20,8 +20,10 @@ export function assetUrl(path){return /^[-a-z0-9_]+\/[-a-z0-9_.]+\.(png|svg)$/.t
 const clamp=(n)=>Math.max(0,Math.min(100,Number.isFinite(Number(n))?Number(n):0));
 const textSafe=(value)=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 export function art(kind,extra=""){
-  const path=artPaths[kind]||artPaths.book;
-  return `<img src="${artBase+path}" class="vb-art ${extra}" alt="" loading="lazy" decoding="async" aria-hidden="true">`;
+ const original=artPaths[kind]||artPaths.book;
+ const v3={book:'journey/book_standalone',clipboard:'missions/target_dart',medal:'rewards/achievement_medal',gift:'rewards/gift_purple',chart:'missions/score_chart',check:'missions/check_gold',star:'rewards/star_coin',mascot:'mascot/ready_waving','mascot-reward':'mascot/celebration_arms','clipboard-done':'missions/mission_completed'};
+ const src=v3[kind]?'/verbarium-v3/assets/'+v3[kind]+'.png':artBase+original;
+ return `<img src="${src}" class="vb-art ${extra}" alt="" loading="lazy" decoding="async" aria-hidden="true">`;
 }
 export function renderProgressBar(value,key="bar",tone="blue"){
  const p=clamp(value);
@@ -86,11 +88,11 @@ export function showVerbariumToast({title="Conquista desbloqueada",description="
  if(old)old.remove();
  const toast=document.createElement("aside");
  toast.id="vb-reward-toast";toast.className="vb-reward-toast";toast.setAttribute("role","status");toast.setAttribute("aria-live","polite");
- const picture=document.createElement("img");picture.src=window.matchMedia("(prefers-reduced-motion: reduce)").matches?artBase+artPaths.gift:"/verbarium-motion/rewards/animated/star_coin.webp";picture.alt="";picture.setAttribute("aria-hidden","true");
+ const picture=document.createElement("img");picture.src='/verbarium-v3/assets/rewards/gift_purple.png';picture.alt="";picture.setAttribute("aria-hidden","true");
  const text=document.createElement("div");const heading=document.createElement("strong");heading.textContent=title;
  const desc=document.createElement("span");desc.textContent=description;text.append(heading,desc);
  const button=document.createElement("button");button.type="button";button.textContent="×";button.setAttribute("aria-label","Fechar aviso");button.addEventListener("click",()=>toast.remove());
- const mascot=document.createElement('img');mascot.src=artBase+artPaths['mascot-reward'];mascot.alt='';mascot.className='vb-reward-mascot';mascot.setAttribute('aria-hidden','true');
+ const mascot=document.createElement('img');mascot.src='/verbarium-v3/assets/mascot/celebration_arms.png';mascot.alt='';mascot.className='vb-reward-mascot';mascot.setAttribute('aria-hidden','true');
  toast.append(picture,text,mascot,button);document.body.append(toast);
  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
  if(!reduce){requestAnimationFrame(()=>toast.classList.add("is-visible"))}else toast.classList.add("is-visible");

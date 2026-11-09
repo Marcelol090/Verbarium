@@ -1,0 +1,73 @@
+/* Verbarium v3 production. Original transparent PNG sprites remain the visible artwork;
+   HTML owns interactive semantics, scores, lesson titles and progress. */
+.vb3-cta{--vb3-purple:#7748d6;background:transparent!important;border:0!important;box-shadow:none!important;isolation:isolate;min-height:58px!important;position:relative!important;overflow:visible!important;border-radius:36px!important;padding:14px 27px!important;color:#fff!important;text-shadow:0 1px 3px #5630a76a!important;white-space:normal;transform-origin:50% 56%}
+.vb3-cta .vb3-cta-art{z-index:0;position:absolute;inset:-4px -10px;width:calc(100% + 20px);height:calc(100% + 8px);object-fit:fill;filter:drop-shadow(0 5px 7px #5741ab32)}
+.vb3-cta .vb3-cta-label{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;line-height:1.25;text-align:center;pointer-events:none;font-weight:900}
+.vb3-cta .vb3-cta-label i,.vb3-cta .vb3-cta-label svg{flex-shrink:0}
+.vb3-cta:is(:hover,:focus-visible){filter:brightness(1.05)}
+.vb3-cta:focus-visible,.vb3-chip:focus-visible{outline:3px solid #704bc4!important;outline-offset:5px!important}
+.vb3-cta:active{transform:scale(.97)}
+.vb3-chip{--vb3-chip-color:#35275c;position:relative;min-height:51px!important;background:transparent!important;border:none!important;box-shadow:none!important;color:var(--vb3-chip-color)!important;font-weight:900;padding:10px 23px!important;isolation:isolate;overflow:visible!important;white-space:normal}
+.vb3-chip .vb3-chip-art{position:absolute;inset:-4px -3px;width:calc(100% + 6px);height:calc(100% + 8px);object-fit:fill;z-index:-1;pointer-events:none}
+.vb3-chip.active{color:#31215c!important}
+.vb3-journey-page .v2-world-scene{isolation:isolate}
+.v2-world .v2-stop-btn .vb-journey-art{width:100%!important;height:100%!important;object-fit:contain;filter:drop-shadow(0 6px 8px #744ecb32)}
+.v2-world .v2-stop-btn .v2-stop-icon:has(.vb-journey-art){width:106px!important;height:106px!important;background:none!important;border:none!important;box-shadow:none!important;overflow:visible!important}
+.v2-stop-btn.vb3-node-press{transform:scale(.96)}
+.v2-stop-btn.current .vb-journey-art{filter:drop-shadow(0 7px 12px #bb76f084)}
+.v2-stop-btn.done .vb-journey-art{filter:drop-shadow(0 7px 10px #ffbd4575)}
+.v2-world-scene .vb-world-island{opacity:.24}
+.vb-mascot-hero .vb-mascot-hero-image{max-width:380px;max-height:350px;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 12px 16px #5d369443)}
+.vb-mascot-hero .vb-mascot-spark{width:41px;height:41px;pointer-events:none;filter:none}
+.hero-actions .vb3-cta{min-width:190px}
+.v2-mission-board .v2-mission-symbol:has(img[src^="/verbarium-v3/"]){background:none!important;box-shadow:none!important;border:0!important;overflow:visible}
+.v2-mission-board .v2-mission-symbol img[src^="/verbarium-v3/"]{width:100%;height:100%;object-fit:contain;max-height:70px}
+.v2-mission-board .v2-mission-bar{background:url('/verbarium-v3/assets/missions/bar_empty.png') center/100% 100% no-repeat!important;border:0!important;box-shadow:none!important;overflow:hidden}
+.v2-mission-board .v2-mission-bar i{background:linear-gradient(180deg,#ffed8a,#ffb520 65%,#fa8e0b)!important;box-shadow:inset 0 1px 2px #fff9;transition:width .48s cubic-bezier(.2,.8,.25,1)}
+.v2-mission-board .v2-mission.complete .v2-mission-bar i{background:linear-gradient(180deg,#b2fb6c,#61d12a 80%)!important}
+.vb3-ring{width:148px;height:148px;min-width:148px;border:4px solid #fff;border-radius:50%;background:linear-gradient(140deg,#fff,#f6edff);box-shadow:0 5px 16px #7a56ac2d}
+.vb3-ring-book{width:42px;height:42px}.vb3-ring-value{bottom:30px;font-family:'Nunito',system-ui,sans-serif;font-size:23px}
+.vb3-ring-small{width:77px;height:77px;min-width:77px;border-width:2px}.vb3-ring-small .vb3-ring-book{width:25px;height:25px;transform:translateY(-7px)}.vb3-ring-small .vb3-ring-value{font-size:13px;bottom:15px}
+.vb3-ring-small svg circle{stroke-width:11}
+.vb3-feedback-mascot{display:block;width:82px;height:86px;object-fit:contain;float:right;margin:-11px -8px -9px 10px}
+.vb3-celebration-anchor{position:relative;isolation:isolate;overflow:visible!important}
+.vb3-celebration-anchor .vb3-celebration{inset:-12% -12%;z-index:5;pointer-events:none}
+.vb3-celebration-anchor .vb3-celebration-prize{width:min(35%,160px);top:0;right:0;left:auto;max-height:160px}
+.vb3-celebration-anchor .vb3-celebration-fx{height:100%;width:100%;inset:0}
+.vb-lesson-end-art[src^="/verbarium-v3/"]{height:125px;width:125px;object-fit:contain;display:block;margin-inline:auto}
+.vb3-scene-icon{display:block;width:78px;height:78px;object-fit:contain}
+.vb-speech-mic-art[src^="/verbarium-v3/"]{height:28px;width:28px}
+.v2-profile-avatar img[src^="/verbarium-v3/"]{height:100%;width:100%;object-fit:contain}
+.vb-podium-trophy[src^="/verbarium-v3/"]{height:90px;width:95px;object-fit:contain}
+.v2-badge .vb-art[src^="/verbarium-v3/"]{width:75px;height:83px;object-fit:contain}
+.vb-overview-card--score .vb-overline img[src^="/verbarium-v3/"]{width:33px;height:33px}
+.vb3-gallery{max-width:1200px;margin:0 auto 40px}
+.vb3-gallery>header{padding:24px 28px;border-radius:28px;border:1px solid #e5dafa;background:linear-gradient(135deg,#fffafc,#efe7ff 58%,#e6f7ff)}
+.vb3-gallery h1{font:700 clamp(27px,4vw,46px)/1.13 'Fredoka',system-ui,sans-serif;color:#36225f;margin:12px 0}
+.vb3-gallery p{font:600 13px/1.7 'Nunito',system-ui,sans-serif;color:#706187;max-width:650px}
+.vb3-gallery-toolbar{display:grid;gap:12px;margin:22px 0}
+.vb3-gallery-toolbar label{display:grid;gap:6px;color:#5f4b7c;font-size:12px;font-weight:900}
+.vb3-gallery-toolbar input{border:1px solid #d8c7f0;border-radius:13px;padding:13px 16px;min-height:44px;background:#fff;color:#35265a;font:inherit}
+.vb3-gallery-filters{display:flex;gap:7px;flex-wrap:wrap}
+.vb3-gallery-filters button{border-radius:99px;padding:8px 12px;border:1px solid #ddd0ef;background:#fff;color:#705390;font-size:11px;font-weight:900;cursor:pointer}
+.vb3-gallery-filters button[aria-pressed=true]{background:#7449d2;color:#fff;border-color:#7449d2}
+.vb3-gallery-status{font-size:12px;font-weight:800;color:#82718f;margin:11px 0}
+.vb3-gallery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.vb3-gallery-card{border:1px solid #e2d7ef;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 6px 18px #56338d0c;min-width:0}
+.vb3-gallery-stage{height:185px;display:grid;place-items:center;padding:13px;background:repeating-conic-gradient(#e9e1f4 0 25%,#f8f5fb 0 50%) 50%/22px 22px}
+.vb3-gallery-stage img{max-height:100%;max-width:100%;height:auto;width:auto;object-fit:contain}
+.vb3-gallery-description{padding:12px;display:grid;gap:7px}
+.vb3-gallery-description strong{font-size:12px;color:#3b2b60;overflow-wrap:anywhere;text-transform:capitalize}
+.vb3-gallery-description small{font-size:10px;color:#867294}
+.vb3-gallery-description button{border:1px solid #d4bdf6;background:#f1e6ff;border-radius:11px;color:#6f44bd;padding:9px 10px;cursor:pointer;font-size:11px;font-weight:900}
+.vb3-gallery button:focus-visible,.vb3-gallery input:focus-visible{outline:3px solid #8654d8;outline-offset:3px}
+@media(max-width:1050px){.vb3-gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:740px){.vb3-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v2-world .v2-stop-btn .v2-stop-icon:has(.vb-journey-art){width:88px!important;height:88px!important}}
+@media(max-width:490px){.vb3-gallery-grid{gap:8px}.vb3-gallery-stage{height:135px;padding:7px}.vb3-gallery-description{padding:10px}.vb3-gallery>header{padding:18px}.vb3-ring{width:116px;height:116px;min-width:116px}.vb3-ring-small{width:77px;height:77px;min-width:77px}.vb3-feedback-mascot{width:62px;height:67px}.vb-mascot-hero .vb-mascot-hero-image{max-height:210px}.vb3-cta{min-height:48px!important;padding:10px 20px!important}}
+@media(prefers-reduced-motion:reduce){.vb3-cta,.vb3-chip,.vb3-ring,.v2-stop-btn.vb3-node-press{transition:none!important;animation:none!important;transform:none!important}.v2-mission-board .v2-mission-bar i{transition:none!important}}
+
+/* Keep original environment sprite layers from shifting the chapter map layout. */
+.v2-world-scene .vb3-world-bush,.v2-world-scene .vb3-world-cloud{position:absolute;display:block;pointer-events:none;object-fit:contain;z-index:1}
+.v2-world-scene .vb3-world-bush{width:clamp(55px,16%,120px);height:auto;left:-5px;bottom:16px;opacity:.88}
+.v2-world-scene .vb3-world-cloud{width:clamp(60px,20%,124px);height:auto;right:12px;top:80px;opacity:.64}
+@media(max-width:490px){.v2-world-scene .vb3-world-bush{width:67px}.v2-world-scene .vb3-world-cloud{width:68px}}
