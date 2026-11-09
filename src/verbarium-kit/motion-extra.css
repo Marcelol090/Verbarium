@@ -1,2 +1,4 @@
 
 .vb-podium-trophy{position:absolute;right:12px;top:10px;width:75px;height:67px;object-fit:contain;opacity:.95;pointer-events:none;z-index:2}.v2-profile-avatar img{width:100%;height:100%;object-fit:contain}
+
+.vb-speech-mic-art{display:inline-block;vertical-align:middle;width:24px;height:24px;margin-right:5px;object-fit:contain;pointer-events:none}.mic-button:has(.vb-speech-mic-art){display:inline-flex;align-items:center;justify-content:center}
