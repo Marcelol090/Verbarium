@@ -32,3 +32,11 @@ test('runtime gallery is a semantic event-driven component, without autoplay',()
  assert.match(markup,/id="vb3-search"/);
  assert.doesNotMatch(markup,/autoplay/);
 });
+
+
+test('v3 button/chip PNG artwork is not obscured by earlier theme image backgrounds',async()=>{
+ const css=await readFile(path.join(root,'src','verbarium-kit','v3-production.css'),'utf8');
+ assert.match(css,/\.hero-card \.vb-sprite-cta\.vb3-cta/);
+ assert.match(css,/\.filter-row \.chip\.vb3-chip/);
+ assert.match(css,/background-image:none!important/);
+});

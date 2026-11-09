@@ -71,3 +71,27 @@
 .v2-world-scene .vb3-world-bush{width:clamp(55px,16%,120px);height:auto;left:-5px;bottom:16px;opacity:.88}
 .v2-world-scene .vb3-world-cloud{width:clamp(60px,20%,124px);height:auto;right:12px;top:80px;opacity:.64}
 @media(max-width:490px){.v2-world-scene .vb3-world-bush{width:67px}.v2-world-scene .vb3-world-cloud{width:68px}}
+
+
+
+/* V3 owns the artwork when its controller is bound. Earlier kit rules used
+   !important background-image on the same interactive elements, rendering
+   a second mismatched sprite behind the original v3 PNG. */
+.hero-card .vb-sprite-cta.vb3-cta,
+.hero-card .vb-sprite-cta.vb3-cta:is(:hover,:active,:focus-visible),
+.v2-chapter-hero .v2-action-primary.vb3-cta,
+.v2-chapter-hero .v2-action-primary.vb3-cta:is(:hover,:active,:focus-visible),
+.filter-row .chip.vb3-chip,
+.filter-row .chip.vb3-chip:is(:hover,:active,:focus-visible),
+.filter-row .chip.vb3-chip.active,
+.filter-row .chip.vb3-chip[aria-pressed="true"]{
+  background-image:none!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+}
+.hero-card .vb-sprite-cta.vb3-cta::before{display:none!important}
+.hero-card .vb-sprite-cta.vb3-cta .vb3-cta-art,
+.v2-chapter-hero .v2-action-primary.vb3-cta .vb3-cta-art,
+.filter-row .chip.vb3-chip .vb3-chip-art{
+  display:block;opacity:1;visibility:visible;
+}
