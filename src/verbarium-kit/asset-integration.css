@@ -1,0 +1,77 @@
+/* Verbarium: original 112-file PNG/SVG asset collection. Dynamic data stays HTML/SVG. */
+.brand-mark:has(img){display:grid;place-items:center;background:none!important;box-shadow:none!important;border:none!important;overflow:visible!important}
+.brand-mark img{width:100%;height:100%;object-fit:contain;display:block}
+.vb-mascot-hero{isolation:isolate;max-width:400px;min-height:240px}
+.vb-mascot-hero>.vb-art{width:100%;height:100%;max-width:400px;max-height:305px;object-fit:contain;filter:drop-shadow(0 9px 12px #1d2e6e3a)}
+.vb-mascot-hero .vb-mascot-spark{width:36px;height:36px;position:absolute;pointer-events:none}
+.vb-mascot-hero .vb-mascot-spark--two{width:25px;height:25px}
+.vb-progress-ring{border:0;background:transparent;box-shadow:0 7px 20px #7453aa19}
+.vb-ring-svg{transform:none}
+.vb-ring-arc{stroke:#9554e8;stroke-width:18;stroke-dasharray:452.389;stroke-dashoffset:452.389;transform:rotate(-90deg);transform-origin:110px 110px;filter:drop-shadow(0 3px 2px #8c5ce64d)}
+.vb-ring-center .vb-art{width:50px;height:49px;object-fit:contain}
+.vb-progress-ring--small .vb-ring-center .vb-art{width:25px;height:25px}
+.vb-meter{height:16px;background:#ebe5f5 url('/verbarium-assets/svg_components/progress_track.svg') center/100% 100% no-repeat;border:0;box-shadow:none}
+.vb-meter>i{background:linear-gradient(180deg,#a7ecff,#319bee 70%);box-shadow:inset 0 1px #d4f9ff,0 1px 3px #458de54a}
+.vb-meter--orange>i{background:linear-gradient(180deg,#ffe886,#ff9d07)}
+.vb-overview-card--score{background:linear-gradient(135deg,#e7f9ffea,#d7f3ffb8),url('/verbarium-assets/svg_components/score_card_base.svg') center/cover no-repeat;border:1px solid #b8e9ff}
+.vb-overview-card--ring{background:linear-gradient(145deg,#fff,#f8f1ff);border-color:#e7d7ff}
+.vb-overview-card .vb-overline .vb-art{width:34px;height:34px;object-fit:contain}
+.vb-streak-heading>.vb-art{width:55px;height:55px;object-fit:contain}
+.vb-streak-day span{background:url('/verbarium-assets/streak/day_incomplete_dot.png') center/contain no-repeat;border:0;box-shadow:none;color:transparent;font-size:0;width:42px;height:42px;max-width:100%}
+.vb-streak-day.is-complete span{background:url('/verbarium-assets/streak/day_complete_dot.png') center/contain no-repeat;box-shadow:none}
+.vb-streak{background-image:linear-gradient(135deg,#fffdfa,#f9f2ff)}
+.v2-mission-board{background-image:linear-gradient(#ffffffdf,#ffffffef),url('/verbarium-assets/svg_components/card_glass_base.svg');background-size:cover;background-position:center}
+.v2-mission{background:linear-gradient(#ffffffdb,#f9f4ffe3),url('/verbarium-assets/svg_components/mission_card_base.svg') center/cover no-repeat!important}
+.v2-mission.complete{background:linear-gradient(#f4fff4db,#f7fff9e0),url('/verbarium-assets/svg_components/mission_card_base.svg') center/cover no-repeat!important}
+.v2-mission-symbol{border-radius:0;overflow:visible}
+.v2-mission-symbol .vb-art{width:52px;height:52px;object-fit:contain}
+.v2-badge .vb-art{object-fit:contain;width:60px;height:65px;max-width:100%}
+.v2-badge.earned .vb-art{filter:drop-shadow(0 4px 5px #f7b33738)}
+.vb-reward-toast{background:linear-gradient(120deg,#fffdf5,#f7ecff);border-color:#ffc445}
+.vb-reward-toast img{object-fit:contain}
+.vb-reward-toast .vb-reward-mascot{width:58px;height:58px}
+.vb-world-island{position:absolute;bottom:8px;left:50%;width:min(85%,350px);height:auto;transform:translateX(-50%);object-fit:contain;opacity:.22;z-index:0;pointer-events:none}
+.vb-chapter-illustration{position:absolute;right:-8px;bottom:-18px;width:min(48%,340px);height:auto;max-height:270px;object-fit:contain;pointer-events:none;filter:drop-shadow(0 10px 12px #193b4540);opacity:.9}
+.v2-chapter-hero>div:first-child{position:relative;z-index:2}
+.vb-assets-shortcut{display:block;margin:14px 0 18px}
+.vb-assets-shortcut button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:13px 18px;background:#fff;border:1px solid #e9ddfc;border-radius:15px;color:#7151b7;font:800 12px 'Nunito',sans-serif;text-align:left;cursor:pointer}
+.vb-assets-shortcut button:hover{border-color:#ab8fe8;background:#faf7ff}
+@media(max-width:650px){.vb-chapter-illustration{opacity:.32;width:60%}.vb-world-island{opacity:.14}.vb-mascot-hero>.vb-art{max-height:200px}.vb-streak-day span{width:36px;height:36px}.v2-mission-symbol .vb-art{width:43px;height:43px}}
+@media(prefers-reduced-motion:no-preference){.vb-mascot-hero-image{animation:vb-mascot-arrive .64s cubic-bezier(.2,.82,.28,1) both}.v2-badge.earned .vb-art{animation:vb-medal-arrive .49s cubic-bezier(.16,.86,.28,1) both}@keyframes vb-mascot-arrive{from{opacity:.4;transform:translateY(13px) scale(.94)}to{opacity:1;transform:none}}@keyframes vb-medal-arrive{from{transform:scale(.82);opacity:.65}70%{transform:scale(1.07);opacity:1}to{transform:scale(1)}}}
+/* Integrated in-app QA library for every source image. */
+.vb-library{width:100%;min-width:0;max-width:1200px;margin:auto}
+.vb-library-heading{display:flex;align-items:center;gap:25px;justify-content:space-between;padding:10px 0 22px}
+.vb-library-heading>div{min-width:0}
+.vb-library-heading img{flex:0 0 78px;width:78px;height:78px;object-fit:contain}
+.vb-library-heading .vb-kicker{display:inline-block;padding:8px 12px;background:#efe6ff;border-radius:99px;color:#6b47b5;font-size:10px;font-weight:900;letter-spacing:.12em}
+.vb-library-heading h1{font-family:'Fredoka',system-ui,sans-serif;font-weight:600;color:#29204e;font-size:clamp(33px,4.8vw,54px);line-height:1.06;margin:12px 0 9px}
+.vb-library-heading h1 em{font-style:normal;color:#8050d6}
+.vb-library-heading p{font-size:13px;color:#75668e;line-height:1.6;max-width:720px;margin:0}
+.vb-library-toolbar{display:flex;justify-content:space-between;align-items:end;gap:14px;flex-wrap:wrap;padding:13px 0}
+.vb-library-search{display:grid;gap:7px;color:#5d4a7c;font-size:12px;font-weight:900;flex:1;min-width:min(100%,240px)}
+.vb-library-search input{font:inherit;font-weight:700;border:1px solid #dfd5f1;background:#fff;border-radius:15px;padding:13px 15px;width:100%;min-height:44px;color:#35284f}
+.vb-library-search input:focus-visible,.vb-library button:focus-visible,.vb-library a:focus-visible{outline:3px solid #a27ce5;outline-offset:2px}
+.vb-library-surfaces{display:flex;gap:5px;flex-wrap:wrap}
+.vb-library-surfaces button,.vb-library-categories button{border:1px solid #e2d8ef;background:#fff;padding:10px 12px;border-radius:99px;color:#69557e;font:900 11px 'Nunito',sans-serif;cursor:pointer;transition:background .18s,border .18s}
+.vb-library-surfaces button[aria-pressed=true],.vb-library-categories button[aria-pressed=true]{background:#7653d6;color:#fff;border-color:#7653d6}
+.vb-library-categories{display:flex;flex-wrap:wrap;gap:7px;padding:9px 0 15px}
+.vb-library-count{display:block;color:#7c6a91;font-size:12px;font-weight:850;margin:7px 0 15px}
+.vb-library-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.vb-library-asset{min-width:0;border-radius:22px;border:1px solid #e6d9f7;overflow:hidden;background:#fff;box-shadow:0 7px 14px #634b9e0c}
+.vb-library-stage{height:185px;display:grid;place-items:center;padding:15px;overflow:hidden;background-color:#faf7fd;background-image:linear-gradient(45deg,#e8e0f4 25%,transparent 25%),linear-gradient(-45deg,#e8e0f4 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e8e0f4 75%),linear-gradient(-45deg,transparent 75%,#e8e0f4 75%);background-position:0 0,0 11px,11px -11px,-11px 0;background-size:22px 22px}
+.vb-library-grid[data-surface=light] .vb-library-stage{background:#fff!important}
+.vb-library-grid[data-surface=dark] .vb-library-stage{background:#23213b!important}
+.vb-library-stage img{display:block;max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 4px 4px #33255524)}
+.vb-library-asset-info{padding:14px;display:grid;gap:5px;min-width:0}
+.vb-library-asset-info>small{text-transform:uppercase;color:#906bbd;font-size:9px;letter-spacing:.08em;font-weight:950}
+.vb-library-asset-info h2{font:900 13px/1.35 'Nunito',sans-serif;color:#392c52;min-height:35px;margin:0}
+.vb-library-asset-info code{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;font-size:10px;color:#897795;background:#f6f0ff;border-radius:8px;padding:5px}
+.vb-library-asset-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap}
+.vb-library-asset-foot span{font-size:10px;color:#9389a1}
+.vb-library-asset-foot a{font-size:10px;color:#754fd2;font-weight:900;text-decoration:underline;text-underline-offset:3px}
+.vb-library-empty{grid-column:1/-1;color:#69577e;padding:35px;text-align:center}
+.vb-library-notice{margin:24px 0 32px;padding:17px;border-radius:17px;background:#f6f0ff;color:#625277;font-size:12px;line-height:1.6;border:1px solid #e5d7f5}
+@media(max-width:920px){.vb-library-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.vb-library-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.vb-library-stage{height:135px;padding:8px}.vb-library-asset-info{padding:10px}.vb-library-heading img{width:55px;height:55px;flex-basis:55px}.vb-library-categories{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding-bottom:12px}.vb-library-categories button{flex-shrink:0}.vb-library-surfaces{width:100%}.vb-library-surfaces button{flex:1}}
+@media(max-width:355px){.vb-library-grid{grid-template-columns:1fr}.vb-library-stage{height:160px}}
+@media(prefers-reduced-motion:reduce){.vb-library *{animation:none!important;transition:none!important}.vb-mascot-hero-image,.v2-badge .vb-art{animation:none!important}}
