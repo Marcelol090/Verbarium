@@ -33,6 +33,8 @@ function updateGallery(root,runtime,listener){
 function bindJourney(root,runtime,listener){
  for(const button of root.querySelectorAll('.v2-stop-btn[data-vb3-state]')){
   const img=button.querySelector('.vb-journey-art');if(!img)continue;
+  // Per-lesson sprites are handled by lesson-kit; never replace them with generic v3 nodes.
+  if(img.hasAttribute('data-vb4-asset'))continue;
   if(img.hasAttribute('data-vb4-asset')){continue;} // Lesson-specific images own their state.
   const state=button.dataset.vb3State;
   const base=state==='completed'?'journey/node_completed':state==='progress'?'journey/node_progress':'journey/node_unlocked';

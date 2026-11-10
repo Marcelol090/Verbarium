@@ -2,6 +2,7 @@
 import {art,assetUrl} from './verbarium-kit/ui.js';
 import {staticJourneyNode} from './verbarium-kit/motion-assets.js';
 import {lessonNodeArt} from './verbarium-kit/lesson-kit.js';
+import {chapterWorldImage,renderRankGallery} from './verbarium-kit/worlds.js';
 export const chapters=[
   {
     "id": "first",
@@ -93,7 +94,7 @@ export function renderQuestMap({lessons,completed=[],currentId,compact=false,cha
  const group=c.lessonIds.map(id=>lessonById.get(id)).filter(Boolean),done=group.filter(l=>completed.includes(l.id)).length;
  return `<section class="v2-world v2-world--${c.theme}" aria-label="Capítulo ${c.num}: ${c.title}">
  <header class="v2-world-header"><div><span class="v2-world-overline">${c.overline}</span><h2><span class="v2-world-no">${c.num}</span> ${c.title}</h2><p>${c.subtitle}</p></div><button class="v2-world-open" type="button" data-action="open-chapter" data-id="${c.id}" aria-label="Explorar capítulo ${c.title}">Explorar ↗</button></header>
- <div class="v2-world-scene">
+ <div class="v2-world-scene vb-world-with-bg" style="--vb-world-image:url('${chapterWorldImage(c.id)}')">
  <div class="vb3-map-decor" aria-hidden="true">
   <img class="vb3-map-plant vb3-map-plant--1" src="/verbarium-v3/assets/environment/bush.png" alt="" loading="lazy">
   <img class="vb3-map-plant vb3-map-plant--2" src="/verbarium-v3/assets/environment/grass.png" alt="" loading="lazy">
@@ -128,7 +129,7 @@ export function renderChapterDetail({id,lessons,completed=[],currentId}){
  const next=ls.find(l=>!completed.includes(l.id))||ls[0];
  const done=ls.filter(l=>completed.includes(l.id)).length;
  return `<div class="v2-page-heading"><button type="button" data-route="learn" class="v2-back">← Toda a jornada</button><span class="v2-kicker">CAPÍTULO ${c.num} · ${c.level}</span><h1>${c.title}<span class="v2-orange-dot">.</span></h1><p>${c.context}</p></div>
- <section class="v2-chapter-hero v2-chapter-hero--${c.theme}"><div><span>${done}/${ls.length} lições completas</span><h2>${c.subtitle}</h2><p>Entenda, aplique e avance no seu ritmo. Todas as atividades permanecem acessíveis.</p><button type="button" class="v2-action-primary" data-action="open-lesson" data-id="${next.id}">${done===ls.length?"Revisitar capítulo":"Continuar capítulo"} →</button></div><img class="vb-chapter-illustration" src="${assetUrl('decoration/hero_island_illustration.png')}" alt="" aria-hidden="true" loading="lazy"></section>
+ <section class="v2-chapter-hero v2-chapter-hero--${c.theme}"><div><span>${done}/${ls.length} lições completas</span><h2>${c.subtitle}</h2><p>Entenda, aplique e avance no seu ritmo. Todas as atividades permanecem acessíveis.</p><button type="button" class="v2-action-primary" data-action="open-lesson" data-id="${next.id}">${done===ls.length?"Revisitar capítulo":"Continuar capítulo"} →</button></div><img class="vb-world-hero-img" src="${chapterWorldImage(c.id)}" alt="" aria-hidden="true" loading="lazy"></section>
  ${renderQuestMap({lessons,completed,currentId,chapterId:c.id})}
  <div class="v2-section-bar"><h2>Aulas do capítulo</h2><span>${ls.length} etapas</span></div>
  <div class="v2-chapter-lessons">${ls.map((l,i)=>`<button type="button" class="v2-chapter-lesson" data-action="open-lesson" data-id="${l.id}"><span class="v2-chapter-lesson-number">${String(i+1).padStart(2,"0")}</span><span class="v2-chapter-lesson-copy"><strong>${l.title}</strong><small>${l.subtitle}</small></span><span class="v2-chapter-lesson-state">${completed.includes(l.id)?"✓ Concluída":l.id===currentId?"Iniciar":"Abrir"}</span></button>`).join("")}</div>`;
@@ -156,6 +157,7 @@ export function renderProfile({nickname="Explorador",completed=[],correct=0,atte
  <div class="v2-profile-stats"><div><strong>${completed.length}</strong><small>Aulas concluídas</small></div><div><strong>${accuracy}</strong><small>Aproveitamento</small></div><div><strong>${streak}</strong><small>Dias em sequência</small></div><div><strong>${sessions.length}</strong><small>Diálogos finalizados</small></div></div>
  <div class="v2-section-bar"><h2>Suas conquistas</h2><span>${earned} desbloqueadas</span></div>
  <div class="v2-badges">${badges.map((b,i)=>`<div class="v2-badge ${b.earned?"earned":"locked"}"><span aria-hidden="true"><img class="vb-native-badge" src="${b.earned?'/verbarium-v3/assets/rewards/achievement_medal.png':'/verbarium-assets/achievement/badge_locked.png'}" alt="" aria-hidden="true" loading="lazy" decoding="async"></span><strong>${b.label}</strong><small>${b.desc}</small><i>${b.earned?"Conquistado":"Ainda não"}</i></div>`).join("")}</div>
+ ${renderRankGallery(completed.length)}
  <div class="v2-profile-links"><button data-route="progress" type="button">Ver painel de progresso <span>↗</span></button><button data-route="review" type="button">Revisar ${due} questões <span>↗</span></button><button data-route="learn" type="button">Voltar à jornada <span>↗</span></button></div>
  <p class="v2-privacy-note">Sem conta ou ranking público. O apelido, as aulas e as conquistas permanecem neste navegador.</p>`;
 }
