@@ -24,3 +24,14 @@ test('shell is nine sliced, bars remain semantic and reduced motion is supported
  assert.match(css,/prefers-reduced-motion:reduce/);assert.match(css,/grid-template-columns:repeat\(3/);
  assert.doesNotMatch(renderMissionBoard(missionState({today:'2026-11-10'})),/XP|50 Stars|bar_empty\.png/);
 });
+
+test('mission grid reserves equal rows for headings, subtitles and bottom progress',()=>{
+ const rules=css.slice(css.indexOf('/* Mission alignment:'));
+ assert.ok(rules.includes('align-items:stretch!important'));
+ assert.ok(rules.includes('grid-template-rows:minmax(42px,auto) minmax(35px,1fr) 14px'));
+ assert.ok(rules.includes('grid-template-rows:minmax(33px,auto) minmax(30px,1fr) 14px'));
+ assert.ok(rules.includes('grid-template-rows:minmax(37px,auto) minmax(28px,1fr) 14px'));
+ assert.ok(rules.includes('.vb5-mission-top{'));
+ assert.ok(rules.includes('align-items:flex-start!important'));
+ assert.ok(rules.includes('align-self:end!important'));
+});

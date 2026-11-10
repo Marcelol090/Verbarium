@@ -39,3 +39,62 @@
 @media(max-width:960px){.vb5-mission-board .v2-missions{grid-template-columns:1fr;gap:11px}.vb5-mission-board .v2-mission.vb5-mission{grid-template-columns:60px minmax(0,1fr);min-height:114px!important;padding:13px 18px!important}.vb5-mission-board .v2-mission-symbol.vb5-mission-symbol{width:60px!important;height:68px!important}.vb5-mission-board .vb-native-mission-icon{width:68px!important;height:71px!important}.vb5-mission-board .v2-mission-text strong{font-size:14px}.vb5-mission-board .v2-mission-text small{font-size:12px}}
 @media(max-width:480px){.v2-mission-board.vb5-mission-board{padding:16px}.vb5-mission-board .v2-mission.vb5-mission{grid-template-columns:52px minmax(0,1fr);min-height:108px!important;padding:12px 10px!important}.vb5-mission-board .v2-mission-symbol.vb5-mission-symbol{width:52px!important;height:60px!important}.vb5-mission-board .vb-native-mission-icon{width:58px!important;height:64px!important}.vb5-mission-board .v2-mission-text strong{font-size:12px}.vb5-mission-board .v2-mission-text small{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.vb5-mission-board .v2-mission.vb5-mission,.vb5-mission-board .vb5-mission-bar i,.vb5-mission-board .vb5-mission-check{animation:none!important;transition:none!important;transform:none!important}}
+
+/* Mission alignment: keep heading, description and bar on equal vertical tracks.
+   A one-line heading must never vertically center above a two-line heading. */
+.vb5-mission-board .v2-mission.vb5-mission{
+  align-items:stretch!important;
+  height:100%;
+}
+.vb5-mission-board .v2-mission-symbol.vb5-mission-symbol{
+  align-self:center!important;
+  justify-self:center!important;
+}
+.vb5-mission-board .v2-mission-text.vb5-mission-text{
+  display:grid!important;
+  grid-template-rows:minmax(42px,auto) minmax(35px,1fr) 14px;
+  gap:7px!important;
+  justify-content:stretch!important;
+  align-content:stretch!important;
+  align-self:stretch!important;
+  min-height:0;
+}
+.vb5-mission-board .vb5-mission-top{
+  display:flex!important;
+  align-self:start!important;
+  align-items:flex-start!important;
+  min-height:42px;
+  gap:8px!important;
+}
+.vb5-mission-board .vb5-mission-top strong{
+  display:block;
+  flex:1 1 auto;
+  min-width:0;
+  margin:0;
+}
+.vb5-mission-board .vb5-mission-count{
+  align-self:flex-start!important;
+  margin:0;
+}
+.vb5-mission-board .v2-mission-text.vb5-mission-text small{
+  align-self:start!important;
+  margin:0;
+}
+.vb5-mission-board .v2-mission-bar.vb5-mission-bar{
+  align-self:end!important;
+  margin:0!important;
+}
+@media(max-width:960px){
+  .vb5-mission-board .v2-mission-text.vb5-mission-text{
+    grid-template-rows:minmax(33px,auto) minmax(30px,1fr) 14px;
+    gap:5px!important;
+  }
+  .vb5-mission-board .vb5-mission-top{min-height:33px}
+}
+@media(max-width:480px){
+  .vb5-mission-board .v2-mission-text.vb5-mission-text{
+    grid-template-rows:minmax(37px,auto) minmax(28px,1fr) 14px;
+    gap:5px!important;
+  }
+  .vb5-mission-board .vb5-mission-top{min-height:37px}
+}
