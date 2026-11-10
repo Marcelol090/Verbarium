@@ -36,3 +36,11 @@ test('v3 legacy motion binder does not mutate new phase sprites',async()=>{
  assert.match(app,/hydratePhaseMotion\(main,app\.route\)/);
  assert.match(app,/queuePhaseReveal\(l\.id,following\?\.id\|\|''\)/);
 });
+
+test('chapter detail preserves saved node percentage when nested within its map',async()=>{
+ const {renderChapterDetail}=await import('../src/journey-v2.js');
+ const all=chapters.flatMap(c=>c.lessonIds).map(id=>({id,title:id,subtitle:id,level:'A1',qs:[1,2,3,4]}));
+ const html=renderChapterDetail({id:'first',lessons:all,completed:[],currentId:'be',lessonSessions:{be:{index:2,score:2}}});
+ assert.match(html,/data-vb-phase="progress" data-vb-phase-percent="50"/);
+ assert.match(html,/Em progresso · 50%/);
+});
