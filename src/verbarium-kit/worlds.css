@@ -32,3 +32,12 @@
 .vb-world-rank.is-unlocked{background:linear-gradient(140deg,#fff9e9,#f9f1ff);border-color:#f9d77f}
 @media(max-width:680px){.vb-world-rank-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.vb-world-ranks{padding:16px}.vb-world-rank{min-height:143px}.vb-world-lesson-banner{height:165px}.v2-world-scene.vb-world-with-bg{background-position:52% center!important}.v2-chapter-hero:has(.vb-world-hero-img)::before{background:linear-gradient(90deg,#35216bef 0%,#3c2c77af 72%,#37206e22)}}
 @media(prefers-reduced-motion:reduce){.vb-world-rank img,.vb-world-lesson-banner img{animation:none!important;transition:none!important}}
+
+/* QA: reserve bottom space for the fourth lesson caption on 320-390px scenes.
+   The original 4 × 119px fixed rows put the last caption against the footer. */
+.v2-world-scene.vb-world-with-bg .v2-world-stops{
+ height:calc(100% - 30px);
+ padding-top:6px;
+ grid-template-rows:repeat(4,minmax(0,1fr))!important;
+}
+.v2-world-scene.vb-world-with-bg .v2-stop-info{position:relative;z-index:4}
