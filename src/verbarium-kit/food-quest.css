@@ -1,0 +1,82 @@
+/* The Verbarium visual-food module keeps art, text, input and progress independent. */
+.vb-food-page{--vb-food-blue:#14a9f5;--vb-food-green:#56c92d;--vb-food-ink:#28263c;max-width:980px;margin:0 auto;padding-bottom:48px}
+.vb-food-header{background:linear-gradient(135deg,#c6ecff 0%,#eaf8ff 62%,#f7edff 100%);padding:30px clamp(18px,4vw,40px) 20px;border:1px solid #acd9f3;border-radius:30px;overflow:hidden}
+.vb-food-header h1{font-family:Fredoka,system-ui,sans-serif;letter-spacing:-.025em;font-size:clamp(30px,5vw,45px);line-height:1.07;color:#1d4773;margin:10px 0 8px}
+.vb-food-header p{max-width:600px;color:#42617d;line-height:1.5}
+.vb-food-path{display:flex;justify-content:space-between;align-items:center;max-width:650px;margin:19px auto 3px;gap:4px;position:relative}
+.vb-food-path::before{content:'';position:absolute;top:31px;left:7%;right:7%;height:8px;border-radius:99px;background:linear-gradient(90deg,#ffbc5c,#f6cd80);opacity:.55}
+.vb-food-path-node{position:relative;display:grid;place-items:center;gap:3px;text-align:center;min-width:0;z-index:1}
+.vb-food-path-node>.vb-food-art{width:66px;height:66px;filter:drop-shadow(0 4px 8px #396eb72b)}
+.vb-food-path-node.is-current>.vb-food-art{transform:translateY(-2px);animation:vb-food-bob 2.2s ease-in-out infinite}
+.vb-food-path-node>span:last-child{font-size:11px;font-weight:900;color:#4c6381}
+.vb-food-exercise{margin:22px auto 0;background:#fff;box-shadow:0 12px 30px #33446b0d;border:1px solid #e1e8f2;border-radius:28px;padding:clamp(17px,3vw,30px)}
+.vb-food-meter{display:flex;justify-content:space-between;gap:16px;font-weight:900;font-size:13px;color:#4b5c75}
+.vb-food-meter strong{color:#1e95d0;font-variant-numeric:tabular-nums}
+.vb-food-track{height:12px;background:#e9edf0;border-radius:99px;overflow:hidden;margin:11px 0 28px}
+.vb-food-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(180deg,#9eea60 0%,#54c92f 100%);transition:width .42s cubic-bezier(.22,.77,.25,1)}
+.vb-food-question{text-align:center}
+.vb-food-question h2{font-family:Fredoka,system-ui,sans-serif;font-size:clamp(22px,4vw,32px);line-height:1.18;max-width:620px;margin:10px auto 22px;color:var(--vb-food-ink)}
+.vb-food-image-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:620px;margin:0 auto}
+.vb-food-choice{border:2px solid #dde6ed;background:linear-gradient(165deg,#fff,#f8fbff);border-radius:22px;min-height:177px;display:flex;flex-direction:column;gap:5px;justify-content:center;align-items:center;padding:14px 10px;box-shadow:0 4px 0 #d9e3ec;cursor:pointer;transition:transform .16s,border-color .16s,box-shadow .16s,background .16s}
+.vb-food-choice:hover:not(:disabled){transform:translateY(-3px);border-color:#8ccfff}
+.vb-food-choice:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 #d9e3ec}
+.vb-food-choice.is-selected{background:#e9f8ff;border-color:#1badf6;box-shadow:0 4px 0 #0a89d9}
+.vb-food-choice.is-correct{background:#ebffe8;border-color:#5ccc37;box-shadow:0 4px 0 #3cba26}
+.vb-food-choice.is-wrong{background:#fff0f1;border-color:#f76e84;box-shadow:0 4px 0 #d95c70}
+.vb-food-choice-caption{font-weight:900;font-size:13px;letter-spacing:.01em;color:#425069}
+.vb-food-art{position:relative;display:inline-grid;place-items:center;isolation:isolate;flex-shrink:0;width:112px;height:112px}
+.vb-food-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.vb-food-art.is-loaded>img{opacity:1}
+.vb-food-art .vb-food-emoji{font-size:70px;line-height:1;filter:drop-shadow(0 4px 6px #4564912a)}
+.vb-food-art.is-loaded .vb-food-emoji{opacity:0}
+.vb-food-choice .vb-food-art{width:110px;height:115px}
+.vb-food-word-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:560px;margin:0 auto}
+.vb-food-word{min-height:69px;border-radius:17px;background:#fff;border:2px solid #d9e2ea;color:#333f56;box-shadow:0 4px 0 #dfe5ed;padding:12px 14px;font-size:clamp(17px,2vw,20px);font-weight:900;cursor:pointer;transition:transform .16s,border-color .16s}
+.vb-food-word:hover:not(:disabled){transform:translateY(-2px);border-color:#1badf6}
+.vb-food-word.is-selected{border-color:#18aafa;background:#e6f7ff;box-shadow:0 4px 0 #168cce}
+.vb-food-word.is-correct{border-color:#61cb3c;background:#edffe9}
+.vb-food-word.is-wrong{border-color:#eb6d81;background:#fff0f0}
+.vb-food-word.is-used,.vb-food-word:disabled:not(.is-selected):not(.is-correct):not(.is-wrong){opacity:.5}
+.vb-food-prompt-art{text-align:center;margin:0 auto 18px}
+.vb-food-prompt-art>.vb-food-art{width:155px;height:145px}
+.vb-food-audio{display:flex;align-items:center;justify-content:center;gap:12px;margin:0 auto 19px;border:1px solid #b5e2fa;border-radius:16px;padding:5px 18px;background:#eff9ff;color:#146aaf;font-weight:900;cursor:pointer}
+.vb-food-audio .vb-food-art{width:48px;height:48px}
+.vb-food-audio .vb-food-emoji{font-size:28px}
+.vb-food-answer-builder{max-width:560px;margin:0 auto 15px;border-bottom:3px dashed #bdd1e0;background:#f4f9fc;border-radius:14px 14px 4px 4px;min-height:72px;padding:18px 12px;text-align:center;font-size:21px;font-weight:900;color:#2e587e}
+.vb-food-answer-builder span{font-size:15px;color:#75899b}
+.vb-food-wordbank{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;max-width:560px;margin:0 auto}
+.vb-food-wordbank .vb-food-word{min-width:90px}
+.vb-food-undo{display:block;margin:18px auto 0;background:none;border:0;color:#256cbd;text-decoration:underline;font-weight:800;cursor:pointer}
+.vb-food-feedback{padding:16px 19px;border-radius:16px;margin:26px auto 0;max-width:640px}
+.vb-food-feedback strong{display:block;font-size:19px}
+.vb-food-feedback p{margin:4px 0 0;line-height:1.5}
+.vb-food-feedback.is-correct{background:#e7f9e0;color:#267e28}
+.vb-food-feedback.is-wrong{background:#fff0df;color:#9a5218}
+.vb-food-actions{text-align:center;margin:29px auto 5px}
+.vb-food-actions .button{min-width:210px;max-width:100%;border-radius:17px}
+.vb-food-actions .button:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(.4)}
+.vb-food-choice:focus-visible,.vb-food-word:focus-visible,.vb-food-audio:focus-visible,.vb-food-undo:focus-visible{outline:3px solid #4e4df7;outline-offset:3px}
+.vb-food-finish{padding:30px 22px;border:1px solid #d8e4ee;border-radius:28px;text-align:center;background:linear-gradient(160deg,#fff 40%,#e8fff2)}
+.vb-food-finish-art{width:210px;height:190px;margin:0 auto}
+.vb-food-finish h1{font-family:Fredoka,system-ui,sans-serif;font-size:clamp(27px,5vw,44px);color:#294e79}
+.vb-food-finish p{max-width:500px;margin:8px auto 16px}
+.vb-food-score{display:block;font-size:27px;margin:12px 0;color:#30a64d}
+.vb-food-medal{width:80px;height:90px;margin:0 auto 16px}
+.vb-food-finish .button{margin:5px}
+@keyframes vb-food-bob{50%{transform:translateY(4px)}}
+@media(max-width:550px){
+ .vb-food-page{padding-bottom:94px}
+ .vb-food-header{border-radius:23px;padding:24px 15px 15px}
+ .vb-food-path-node>.vb-food-art{width:46px;height:48px}
+ .vb-food-path-node>.vb-food-art .vb-food-emoji{font-size:32px}
+ .vb-food-path::before{top:22px}
+ .vb-food-exercise{border-radius:24px;margin-top:14px;padding:17px 12px}
+ .vb-food-image-grid{gap:10px}
+ .vb-food-choice{min-height:145px;padding:9px 6px;border-radius:19px}
+ .vb-food-choice .vb-food-art{width:94px;height:93px}
+ .vb-food-art .vb-food-emoji{font-size:57px}
+ .vb-food-choice-caption{font-size:12px}
+ .vb-food-word{min-height:61px}
+ .vb-food-finish .button{display:block;width:100%;margin:9px auto}
+}
+@media(prefers-reduced-motion:reduce){.vb-food-page *{animation:none!important;transition:none!important}}
