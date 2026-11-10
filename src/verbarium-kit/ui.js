@@ -1,3 +1,4 @@
+import {renderWeekTokens} from './weekly-streak.js';
 const artBase="/verbarium-assets/";
 const artPaths=Object.freeze({
  book:"brand/book_open_isolated.png",
@@ -38,9 +39,10 @@ export function renderProgressRing(value,label="Seu progresso",key="ring",small=
 export function renderStreakWeek(days,streak=0){
  const cells=(Array.isArray(days)?days:[]).slice(0,7);
  const active=cells.filter(d=>d.active).length;
- return `<section class="vb-streak" aria-label="Sequência e atividade da semana">
- <div class="vb-streak-heading">${art("flame")}<div><small>Minha sequência</small><strong>${Math.max(0,Math.floor(Number(streak)||0))} ${streak===1?"dia":"dias"}</strong></div><span class="vb-streak-weekcount">${active}/7 na semana</span></div>
- <div class="vb-streak-days">${cells.map(d=>`<div class="vb-streak-day ${d.active?"is-complete":""}" title="${textSafe(d.date||"")}" aria-label="${d.active?"Estudo registrado em":"Sem atividade em"} ${textSafe(d.date||"")}"><span aria-hidden="true"></span><small>${textSafe(d.label||"")}</small></div>`).join("")}</div></section>`;
+ const count=Math.max(0,Math.floor(Number(streak)||0));
+ return '<section class="vb-streak" aria-label="Sequência e atividade da semana">'+
+ '<div class="vb-streak-heading">'+art('flame')+'<div><small>Minha sequência</small><strong>'+count+' '+(count===1?'dia':'dias')+'</strong></div><span class="vb-streak-weekcount">'+active+'/7 na semana</span></div>'+
+ renderWeekTokens(cells,{variant:'normal'})+'</section>';
 }
 export function renderProgressOverview({completion=0,completed=0,total=0,accuracy=0,attempts=0,streak=0,days=[]}={}){
  return `<section class="vb-overview" aria-label="Seu progresso de aprendizagem">

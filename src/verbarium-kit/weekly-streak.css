@@ -1,0 +1,17 @@
+/* 7 original 256x284 weekday PNG/WebP tokens; glyphs are embedded in each sprite. */
+.vb4-week-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));justify-items:center;align-items:end;gap:clamp(0px,.8vw,12px);width:100%;min-width:0}
+.vb4-week-day{position:relative;display:flex;align-items:center;justify-content:center;width:100%;max-width:96px;min-width:0;aspect-ratio:256/284;isolation:isolate}
+.vb4-week-art{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;user-select:none;pointer-events:none;filter:drop-shadow(0 3px 5px #63439b18)}
+.vb4-week-day.is-completing{z-index:1}.vb4-week-day.is-completing .vb4-week-art{filter:drop-shadow(0 4px 12px #f6b03855)}
+.vb4-week-day.is-today:after{content:"";position:absolute;bottom:5%;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#8654d9;box-shadow:0 0 0 2px white}
+.vb4-week-fallback{display:none;flex-direction:column;align-items:center;justify-content:center;font-size:17px;color:#a89ab9;font-weight:900}
+.vb4-week-fallback small{font-size:10px;color:#594282}
+.vb4-week-day.is-fallback{background:linear-gradient(155deg,#fff,#f1e8fd);border-radius:15px;box-shadow:inset 0 0 0 1px #e3d8f4}
+.vb4-week-day.is-fallback .vb4-week-fallback{display:flex}.vb4-week-day.is-complete.is-fallback .vb4-week-fallback{color:#f5a500}
+.vb-streak .vb4-week-grid{margin-top:12px;max-width:700px}
+.vb-home-streak .vb4-week-grid{max-width:650px}
+.activity-panel .vb4-week-grid{max-width:720px;margin:0 auto 14px}
+.weekly-card .vb4-week-grid{flex:1;min-width:0;max-width:700px}
+@media(max-width:650px){.vb4-week-day{max-width:70px}.weekly-card .vb4-week-grid{width:100%;max-width:100%}}
+@media(max-width:390px){.vb4-week-grid{gap:0}.vb4-week-day{max-width:46px}.vb4-week-day.is-today:after{width:4px;height:4px}}
+@media(prefers-reduced-motion:reduce){.vb4-week-day,.vb4-week-art{animation:none!important;transition:none!important}}

@@ -1,0 +1,89 @@
+{
+  "name": "Verbarium · Weekly Streak Tokens v4",
+  "source": "Seven separate day assets derived from a generated 8-frame motion master, with Q glyph replaced programmatically",
+  "days": [
+    {
+      "id": "segunda",
+      "label": "Segunda-feira",
+      "short": "SEG",
+      "webp": "animated/webp/segunda_complete.webp",
+      "gif": "animated/gif/segunda_complete.gif",
+      "pending": "static/pending/segunda.png",
+      "completed": "static/completed/segunda.png",
+      "frames": 8,
+      "duration_ms": 1445
+    },
+    {
+      "id": "terca",
+      "label": "Terça-feira",
+      "short": "TER",
+      "webp": "animated/webp/terca_complete.webp",
+      "gif": "animated/gif/terca_complete.gif",
+      "pending": "static/pending/terca.png",
+      "completed": "static/completed/terca.png",
+      "frames": 8,
+      "duration_ms": 1445
+    },
+    {
+      "id": "quarta",
+      "label": "Quarta-feira",
+      "short": "QUA",
+      "webp": "animated/webp/quarta_complete.webp",
+      "gif": "animated/gif/quarta_complete.gif",
+      "pending": "static/pending/quarta.png",
+      "completed": "static/completed/quarta.png",
+      "frames": 8,
+      "duration_ms": 1445
+    },
+    {
+      "id": "quinta",
+      "label": "Quinta-feira",
+      "short": "QUI",
+      "webp": "animated/webp/quinta_complete.webp",
+      "gif": "animated/gif/quinta_complete.gif",
+      "pending": "static/pending/quinta.png",
+      "completed": "static/completed/quinta.png",
+      "frames": 8,
+      "duration_ms": 1445
+    },
+    {
+      "id": "sexta",
+      "label": "Sexta-feira",
+      "short": "SEX",
+      "webp": "animated/webp/sexta_complete.webp",
+      "gif": "animated/gif/sexta_complete.gif",
+      "pending": "static/pending/sexta.png",
+      "completed": "static/completed/sexta.png",
+      "frames": 8,
+      "duration_ms": 1445
+    },
+    {
+      "id": "sabado",
+      "label": "Sábado",
+      "short": "SÁB",
+      "webp": "animated/webp/sabado_complete.webp",
+      "gif": "animated/gif/sabado_complete.gif",
+      "pending": "static/pending/sabado.png",
+      "completed": "static/completed/sabado.png",
+      "frames": 8,
+      "duration_ms": 1445
+    },
+    {
+      "id": "domingo",
+      "label": "Domingo",
+      "short": "DOM",
+      "webp": "animated/webp/domingo_complete.webp",
+      "gif": "animated/gif/domingo_complete.gif",
+      "pending": "static/pending/domingo.png",
+      "completed": "static/completed/domingo.png",
+      "frames": 8,
+      "duration_ms": 1445
+    }
+  ],
+  "state_model": [
+    "pending",
+    "completing",
+    "completed"
+  ],
+  "reduced_motion": "Prefer static PNG. Never loop in production. Text counters and streak totals are HTML, not baked into images."
+}
