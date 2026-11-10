@@ -12,7 +12,7 @@ const oldNode=(state)=>'/verbarium-v3/assets/journey/node_'+(state==='locked'?'l
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function lessonKitAsset(id,key){
  if(!allowed.has(id)||!/^(node_(locked|available|progress|completed)|subject|medal|reward|title_card|pill|extra)$/.test(key))return null;
- return base+'assets/'+id+'/'+key+'.png';
+ return base+'assets/'+id+'/'+key+'.webp';
 }
 export function lessonNodeArt(id,state){
  const fallback=oldNode(state);
