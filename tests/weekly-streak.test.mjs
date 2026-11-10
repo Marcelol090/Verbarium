@@ -44,3 +44,10 @@ test('home, weekly meta and progress all use real v4 tokens',()=>{
  assert.match(app,/renderWeekTokens\(daily,/);
  assert.match(ui,/renderWeekTokens\(cells,/);
 });
+
+test('responsive weekly tokens occupy their own row below desktop widths',()=>{
+ const css=readFileSync(new URL('../src/verbarium-kit/weekly-streak.css',import.meta.url),'utf8');
+ assert.match(css,/max-width:1180px/);
+ assert.match(css,/order:3;flex:0 0 100%/);
+ assert.match(css,/max-width:390px/);
+});

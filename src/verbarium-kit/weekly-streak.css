@@ -12,6 +12,7 @@
 .vb-home-streak .vb4-week-grid{max-width:650px}
 .activity-panel .vb4-week-grid{max-width:720px;margin:0 auto 14px}
 .weekly-card .vb4-week-grid{flex:1;min-width:0;max-width:700px}
+@media(max-width:1180px){.weekly-card .vb4-week-grid{order:3;flex:0 0 100%;max-width:100%}}
 @media(max-width:650px){.vb4-week-day{max-width:70px}.weekly-card .vb4-week-grid{width:100%;max-width:100%}}
 @media(max-width:390px){.vb4-week-grid{gap:0}.vb4-week-day{max-width:46px}.vb4-week-day.is-today:after{width:4px;height:4px}}
 @media(prefers-reduced-motion:reduce){.vb4-week-day,.vb4-week-art{animation:none!important;transition:none!important}}
