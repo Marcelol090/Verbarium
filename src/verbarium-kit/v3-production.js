@@ -33,6 +33,7 @@ function updateGallery(root,runtime,listener){
 function bindJourney(root,runtime,listener){
  for(const button of root.querySelectorAll('.v2-stop-btn[data-vb3-state]')){
   const img=button.querySelector('.vb-journey-art');if(!img)continue;
+  if(img.hasAttribute('data-vb4-asset')){continue;} // Lesson-specific images own their state.
   const state=button.dataset.vb3State;
   const base=state==='completed'?'journey/node_completed':state==='progress'?'journey/node_progress':'journey/node_unlocked';
   runtime.setSprite(img,base);
@@ -89,7 +90,7 @@ function upgradeRings(root,runtime){for(const el of root.querySelectorAll('.vb-p
 }}
 function bindMascot(root,runtime,route,listener){
  const home=root.querySelector('.vb-mascot-hero-image');if(home){runtime.setSprite(home,'mascot/ready_waving');if(route!==lastRoute||!lastHeroAnimation){runtime.playSprite(home,'mascot/ready_waving');lastHeroAnimation=true;}listener.push(()=>runtime.stopMotion(home));}
- const lessonEnd=root.querySelector('.vb-lesson-end-art');if(lessonEnd){const full=lessonEnd.dataset.vb3Success==='true';const id=full?'trophy/complete':'mascot/thinking';runtime.setSprite(lessonEnd,id,{play:true});listener.push(()=>runtime.stopMotion(lessonEnd));}
+ const lessonEnd=root.querySelector('.vb-lesson-end-art');if(lessonEnd&&!lessonEnd.hasAttribute('data-vb4-asset')){const full=lessonEnd.dataset.vb3Success==='true';const id=full?'trophy/complete':'mascot/thinking';runtime.setSprite(lessonEnd,id,{play:true});listener.push(()=>runtime.stopMotion(lessonEnd));}
  const feedback=root.querySelector('.exercise-card .feedback,.practice-panel .feedback');if(feedback){const success=feedback.classList.contains('good');const img=document.createElement('img');img.className='vb3-feedback-mascot';img.setAttribute('aria-hidden','true');feedback.append(img);runtime.setSprite(img,success?'mascot/encouragement_thumb':'mascot/thinking',{play:true});listener.push(()=>runtime.stopMotion(img));}
  const mic=root.querySelector('.vb-speech-mic-art');if(mic){const active=mic.dataset.vb3Listening==='true';runtime.setSprite(mic,active?'speaking/mic_listening':'speaking/mic_idle',{play:active});listener.push(()=>runtime.stopMotion(mic));}
 }

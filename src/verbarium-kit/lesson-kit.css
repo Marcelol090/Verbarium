@@ -1,0 +1,17 @@
+/* Verbarium lesson-specific v4 original art. Layout controls HTML, image files only own illustration. */
+.lesson-card:has(.vb4-lesson-thumb){grid-template-columns:60px minmax(0,1fr) auto;column-gap:17px}
+.vb4-lesson-thumb{display:block;max-width:100%;width:56px;height:56px;object-fit:contain;align-self:center;filter:drop-shadow(0 3px 6px #6a42b51c)}
+.lesson-card .lesson-number:has(+ .vb4-lesson-thumb){display:none}
+.vb4-lesson-feature{display:flex;align-items:center;gap:16px;min-width:0;
+ background:linear-gradient(110deg,#fffaf6,#f1e9ff 58%,#fff);
+ border:1px solid #e8dcf8;border-radius:21px;padding:12px 20px 12px 12px;margin:20px 0 23px;box-shadow:0 8px 18px #6e4ab113}
+.vb4-lesson-feature>img:first-child{width:90px;height:90px;flex:0 0 90px;object-fit:contain}
+.vb4-lesson-feature>span{display:grid;gap:5px;min-width:0}
+.vb4-lesson-feature strong{font:900 16px/1.25 'Nunito',system-ui,sans-serif;color:#35235b}
+.vb4-lesson-feature small{font:700 11px/1.5 'Nunito',system-ui,sans-serif;color:#827499}
+.vb4-lesson-feature .vb4-feature-medal{margin-left:auto;width:70px;height:70px;flex:0 0 70px;object-fit:contain}
+.vb4-lesson-node{object-fit:contain!important}
+.vb4-lesson-reward{filter:drop-shadow(0 7px 9px #f8b53255);animation:vb4-prize-entry .58s cubic-bezier(.2,.85,.22,1.12) both}
+@keyframes vb4-prize-entry{0%{opacity:0;transform:translateY(-40%) scale(.65)}70%{opacity:1;transform:translateY(-50%) scale(1.08)}100%{opacity:1;transform:translateY(-50%) scale(1)}}
+@media(max-width:560px){.vb4-lesson-feature{gap:8px;padding:10px;border-radius:18px}.vb4-lesson-feature>img:first-child{width:70px;height:70px;flex-basis:70px}.vb4-lesson-feature .vb4-feature-medal{width:52px;height:52px;flex-basis:52px}.vb4-lesson-feature strong{font-size:13px}.vb4-lesson-feature small{font-size:10px}.vb4-lesson-thumb{width:50px;height:50px}}
+@media(prefers-reduced-motion:reduce){.vb4-lesson-reward{animation:none!important}}
