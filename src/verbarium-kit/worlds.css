@@ -50,3 +50,32 @@
  .vb-world-lesson-banner{height:155px;min-height:155px}
  .v2-world-scene.vb-world-with-bg .v2-world-stops{padding-top:14px;height:calc(100% - 34px)}
 }
+
+/* Visual QA: fit 4 interactive nodes and HTML labels inside fixed-height scenes.
+   v3 previously forced a 106px glyph plus a label into ~115px rows, causing overlap.
+   Keep original image aspect ratio, shrink the frame instead of stretching the sprite. */
+.v2-world-scene.vb-world-with-bg .v2-stop-btn{
+ width:76px!important;height:76px!important;min-width:76px;
+}
+.v2-world-scene.vb-world-with-bg .v2-stop-btn .v2-stop-icon:has(.vb-journey-art){
+ width:76px!important;height:76px!important;border:0!important;box-shadow:none!important;
+}
+.v2-world-scene.vb-world-with-bg .v2-stop-btn .vb-journey-art{
+ width:100%!important;height:100%!important;object-fit:contain!important;
+}
+.v2-world-scene.vb-world-with-bg .v2-stop-info{
+ padding:3px 8px 4px;max-width:170px;border-radius:11px;
+}
+.v2-world-scene.vb-world-with-bg .v2-stop-info strong{font-size:10px;line-height:1.23}
+.v2-world-scene.vb-world-with-bg .v2-stop-info span{font-size:9px;line-height:1.2}
+.v2-world-scene.vb-world-with-bg .v2-stop{gap:0;min-height:0}
+@media(max-width:680px){
+ .v2-world-scene.vb-world-with-bg .v2-stop-btn{
+  width:66px!important;height:66px!important;min-width:66px;
+ }
+ .v2-world-scene.vb-world-with-bg .v2-stop-btn .v2-stop-icon:has(.vb-journey-art){
+  width:66px!important;height:66px!important;
+ }
+ .v2-world-scene.vb-world-with-bg .v2-stop-info{max-width:158px;padding:3px 7px}
+ .v2-world-scene.vb-world-with-bg .v2-stop-info strong{font-size:10px}
+}

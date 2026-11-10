@@ -38,3 +38,11 @@ test('all twelve lessons receive an illustrated background with relevant caption
   assert.doesNotMatch(html,/undefined/,id);
  }
 });
+
+test('world CSS constrains generated lesson node artwork at narrow widths',async()=>{
+ const css=await readFile(path.join(root,'src/verbarium-kit/worlds.css'),'utf8');
+ assert.match(css,/\.v2-world-scene\.vb-world-with-bg \.v2-stop-btn/);
+ assert.match(css,/width:76px!important;height:76px/);
+ assert.match(css,/width:66px!important;height:66px/);
+ assert.match(css,/object-fit:contain!important/);
+});
