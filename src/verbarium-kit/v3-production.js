@@ -34,8 +34,14 @@ function bindJourney(root,runtime,listener){
  for(const button of root.querySelectorAll('.v2-stop-btn[data-vb3-state]')){
   const img=button.querySelector('.vb-journey-art');if(!img)continue;
   // Per-lesson sprites are handled by lesson-kit; never replace them with generic v3 nodes.
-  if(img.hasAttribute('data-vb4-asset'))continue;
-  if(img.hasAttribute('data-vb4-asset')){continue;} // Lesson-specific images own their state.
+  if(img.hasAttribute('data-vb4-asset')){
+   // V4 artwork owns its visual state; only scale the interactive container.
+   const press=()=>button.classList.add('vb4-node-pressed');
+   const release=()=>button.classList.remove('vb4-node-pressed');
+   attach(listener,button,'pointerdown',press);
+   for(const event of ['pointerup','pointerleave','pointercancel','blur'])attach(listener,button,event,release);
+   continue;
+  }
   const state=button.dataset.vb3State;
   const base=state==='completed'?'journey/node_completed':state==='progress'?'journey/node_progress':'journey/node_unlocked';
   runtime.setSprite(img,base);
@@ -100,8 +106,16 @@ function revealPending(root,runtime,route){
  if(!unlockPending||!['home','learn','chapter'].includes(route))return;
  const selector='.v2-stop-btn[data-id="'+CSS.escape(unlockPending)+'"]';
  const el=root.querySelector(selector);if(!el)return;
- const img=el.querySelector('.vb-journey-art');if(img)runtime.playSprite(img,'journey/node_completed');
- const next=root.querySelector('.v2-stop-btn.current .vb-journey-art');if(next)runtime.playSprite(next,'journey/node_unlocked');
+ const img=el.querySelector('.vb-journey-art');
+ if(img){
+  if(img.hasAttribute('data-vb4-asset'))img.classList.add('vb4-node-complete-pulse');
+  else runtime.playSprite(img,'journey/node_completed');
+ }
+ const next=root.querySelector('.v2-stop-btn.current .vb-journey-art');
+ if(next){
+  if(next.hasAttribute('data-vb4-asset'))next.classList.add('vb4-node-unlock-pulse');
+  else runtime.playSprite(next,'journey/node_unlocked');
+ }
  unlockPending='';
 }
 export function hydrateV3(root,route){

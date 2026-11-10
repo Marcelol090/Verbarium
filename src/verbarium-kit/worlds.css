@@ -41,3 +41,12 @@
  grid-template-rows:repeat(4,minmax(0,1fr))!important;
 }
 .v2-world-scene.vb-world-with-bg .v2-stop-info{position:relative;z-index:4}
+
+/* Ensure lesson headings remain readable without covering the illustrated route. */
+.vb-world-lesson-banner figcaption{max-width:calc(100% - 32px);padding-right:10px}
+.vb-world-lesson-banner figcaption strong{overflow-wrap:break-word}
+@media(max-width:390px){
+ .vb-world-lesson-banner figcaption{left:13px;bottom:10px}
+ .vb-world-lesson-banner{height:155px;min-height:155px}
+ .v2-world-scene.vb-world-with-bg .v2-world-stops{padding-top:14px;height:calc(100% - 34px)}
+}

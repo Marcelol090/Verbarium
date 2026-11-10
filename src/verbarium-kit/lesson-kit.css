@@ -15,3 +15,16 @@
 @keyframes vb4-prize-entry{0%{opacity:0;transform:translateY(-40%) scale(.65)}70%{opacity:1;transform:translateY(-50%) scale(1.08)}100%{opacity:1;transform:translateY(-50%) scale(1)}}
 @media(max-width:560px){.vb4-lesson-feature{gap:8px;padding:10px;border-radius:18px}.vb4-lesson-feature>img:first-child{width:70px;height:70px;flex-basis:70px}.vb4-lesson-feature .vb4-feature-medal{width:52px;height:52px;flex-basis:52px}.vb4-lesson-feature strong{font-size:13px}.vb4-lesson-feature small{font-size:10px}.vb4-lesson-thumb{width:50px;height:50px}}
 @media(prefers-reduced-motion:reduce){.vb4-lesson-reward{animation:none!important}}
+
+/* V4 lesson nodes keep their own states during press and unlock feedback. */
+.v2-stop-btn:has(.vb4-lesson-node){transition:transform .2s cubic-bezier(.2,.85,.25,1),filter .2s ease}
+.v2-stop-btn:has(.vb4-lesson-node):hover,
+.v2-stop-btn:has(.vb4-lesson-node):focus-visible{transform:translateY(-3px) scale(1.03)}
+.v2-stop-btn.vb4-node-pressed{transform:translateY(1px) scale(.95)!important}
+.vb4-node-complete-pulse{animation:vb4-node-celebrate .52s cubic-bezier(.2,.82,.22,1) both}
+.vb4-node-unlock-pulse{animation:vb4-node-celebrate .52s .13s cubic-bezier(.2,.82,.22,1) both}
+@keyframes vb4-node-celebrate{0%{transform:scale(.84);opacity:.7}65%{transform:scale(1.1);opacity:1}100%{transform:scale(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){
+ .vb4-node-complete-pulse,.vb4-node-unlock-pulse{animation:none!important}
+ .v2-stop-btn:has(.vb4-lesson-node){transition:none!important}
+}

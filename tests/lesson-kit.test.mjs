@@ -15,3 +15,11 @@ test('other lessons keep v3 assets as their stable fallback',()=>{
  assert.equal(renderLessonFeature('past'),'');
  assert.doesNotMatch(renderLessonResultArt('past',false),/data-vb4-asset/);
 });
+
+test('original lesson node sprites are not replaced by generic v3 motions',async()=>{
+ const v3=await (await import('node:fs/promises')).readFile(new URL('../src/verbarium-kit/v3-production.js',import.meta.url),'utf8');
+ assert.match(v3,/if\(img\.hasAttribute\('data-vb4-asset'\)\)/);
+ assert.match(v3,/vb4-node-complete-pulse/);
+ assert.match(v3,/vb4-node-unlock-pulse/);
+ assert.doesNotMatch(v3,/if\(img\.hasAttribute\('data-vb4-asset'\)\)continue;\s*if\(img\.hasAttribute/);
+});

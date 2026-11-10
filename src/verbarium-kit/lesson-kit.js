@@ -55,10 +55,13 @@ export function hydrateLessonKit(root){
    const [lesson,key]=img.dataset.vb4Asset.split('/');
    if(!catalog.has(lesson+'/'+key))continue;
    const url=lessonKitAsset(lesson,key);if(!url)continue;
-   // Swap only after preloading succeeds; never show a missing/broken image.
+   if(img.getAttribute('src')===url){img.classList.add('vb4-art-ready');continue;}
+   // Only swap once decoded, to avoid temporary broken sprites or layout flicker.
    const replacement=new Image();
-   replacement.onload=()=>{if(img.isConnected){img.src=url;img.classList.add('vb4-art-ready');}};
-   replacement.onerror=()=>{img.classList.add('vb4-art-fallback');};
+   replacement.onload=()=>{if(img.isConnected&&img.dataset.vb4Asset===lesson+'/'+key){
+    img.src=url;img.classList.add('vb4-art-ready');
+   }};
+   replacement.onerror=()=>{if(img.isConnected)img.classList.add('vb4-art-fallback');};
    replacement.src=url;
   }
  });

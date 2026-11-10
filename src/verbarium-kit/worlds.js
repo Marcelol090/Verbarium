@@ -1,6 +1,24 @@
 /** Original backgrounds and milestone badges. Learning state is read-only input. */
 const WORLD_IDS=Object.freeze({first:'first',time:'time',talk:'talk',mastery:'mastery'});
-const LESSON_WORLDS=Object.freeze({be:'first',present:'time',questions:'talk',articles:'mastery'});
+const LESSON_WORLDS=Object.freeze({
+ be:'first',present:'time',questions:'talk',articles:'mastery',
+ continuous:'time',past:'time',prepositions:'time',future:'time',
+ modals:'talk',perfect:'talk',connectors:'talk',conditional:'talk'
+});
+const LESSON_CAPTIONS=Object.freeze({
+ be:'A floresta das primeiras frases',
+ present:'O vale dos hábitos e rotinas',
+ questions:'A enseada das perguntas',
+ articles:'A academia das palavras',
+ continuous:'O vale das ações em movimento',
+ past:'A trilha das histórias de ontem',
+ prepositions:'Os caminhos de tempo e lugar',
+ future:'O horizonte dos próximos planos',
+ modals:'O vale das possibilidades',
+ perfect:'A jornada das experiências',
+ connectors:'A ponte entre as ideias',
+ conditional:'O caminho das escolhas'
+});
 export const RANK_MILESTONES=Object.freeze([
  {need:1,name:'Primeiro Passo'},{need:2,name:'Explorador de Palavras'},
  {need:3,name:'Construtor de Frases'},{need:4,name:'Aprendiz Dedicado'},
@@ -12,7 +30,7 @@ export function chapterWorldImage(chapterId){return '/verbarium-worlds/'+(WORLD_
 export function renderLessonWorld(lessonId){
  const which=LESSON_WORLDS[lessonId];if(!which)return '';
  const image=chapterWorldImage(which);
- const caption={be:'A floresta das primeiras frases',present:'O vale dos hábitos e rotinas',questions:'A enseada das perguntas',articles:'A academia das palavras'}[lessonId];
+ const caption=LESSON_CAPTIONS[lessonId];
  return '<figure class="vb-world-lesson-banner"><img src="'+image+'" alt="" aria-hidden="true" decoding="async" loading="lazy"><figcaption><span>SEU CENÁRIO DE APRENDIZAGEM</span><strong>'+esc(caption)+'</strong></figcaption></figure>';
 }
 export function renderRankGallery(completedCount=0){

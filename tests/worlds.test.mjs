@@ -28,3 +28,13 @@ test('individual lesson backgrounds do not embed score or XP',()=>{
  assert.match(renderLessonWorld('present'),/time\.webp/);
  assert.doesNotMatch(renderLessonWorld('be'),/100 XP|100%/);
 });
+
+test('all twelve lessons receive an illustrated background with relevant captions',()=>{
+ const ids=['be','present','questions','articles','continuous','past','prepositions','future','modals','perfect','connectors','conditional'];
+ for(const id of ids){
+  const html=renderLessonWorld(id);
+  assert.match(html,/vb-world-lesson-banner/,id);
+  assert.match(html,/\.webp/,id);
+  assert.doesNotMatch(html,/undefined/,id);
+ }
+});
