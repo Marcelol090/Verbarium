@@ -56,3 +56,13 @@ test('the lesson interface has a live visual phase badge without fake success',a
  const app=await readFile(new URL('../src/app.js',import.meta.url),'utf8');
  assert.match(app,/renderPhaseLessonBadge\(\{lessonId:l\.id/);
 });
+
+test('CSS motion timings follow the six-stage storyboard',async()=>{
+ const css=await readFile(new URL('../src/verbarium-kit/phase-progress.css',import.meta.url),'utf8');
+ assert.match(css,/transform 378ms/);
+ assert.match(css,/transition-duration:286ms/);
+ assert.match(css,/stroke-dashoffset 735ms/);
+ assert.match(css,/vb-phase-win 646ms/);
+ assert.match(css,/vb-phase-unlock 646ms/);
+ assert.match(css,/prefers-reduced-motion:reduce/);
+});

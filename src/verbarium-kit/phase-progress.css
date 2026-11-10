@@ -3,10 +3,14 @@
 .v2-stop-btn[data-vb-phase]{isolation:isolate;touch-action:manipulation;outline-offset:4px}
 .v2-stop-btn[data-vb-phase] .vb-journey-art{
  object-fit:contain!important;transform-origin:center;will-change:auto;
- transition:transform 180ms cubic-bezier(.22,.8,.2,1),filter 210ms ease;
+ transition:transform 378ms cubic-bezier(.22,.8,.2,1),filter 210ms ease;
 }
 .v2-stop-btn[data-vb-phase="locked"]{cursor:not-allowed;opacity:.7}
 .v2-stop-btn[data-vb-phase="locked"] .vb-journey-art{filter:grayscale(.35)}
+@keyframes vb-phase-idle{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
+.v2-stop-btn[data-vb-phase="locked"] .vb-journey-art{animation:vb-phase-idle 845ms ease-in-out 1;}
+.v2-stop-btn[data-vb-phase].vb-phase-press .vb-journey-art{transition-duration:286ms,100ms}
+
 .v2-stop-btn[data-vb-phase].vb-phase-focus .vb-journey-art,
 .v2-stop-btn[data-vb-phase]:focus-visible .vb-journey-art{
  transform:translateY(-2px) scale(1.06);
