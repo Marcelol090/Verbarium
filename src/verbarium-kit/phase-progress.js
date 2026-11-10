@@ -37,6 +37,18 @@ export function phaseRing(percent){
  '<circle class="vb-phase-arc" cx="50" cy="50" r="44" stroke-dasharray="'+CIRC+'" stroke-dashoffset="'+(CIRC*(1-p/100)).toFixed(2)+'"/>'+
  '</svg>';
 }
+export function renderPhaseLessonBadge({lessonId='',index=0,total=0,completed=false}={}){
+ const correctTotal=Math.max(0,Math.floor(Number(total)||0));
+ const answered=Math.max(0,Math.min(correctTotal,Math.floor(Number(index)||0)));
+ const value=correctTotal?Math.round(answered/correctTotal*100):0;
+ const id=String(lessonId).replace(/[^a-z0-9_-]/gi,'');
+ const base=completed?PHASE_ASSETS.completed:PHASE_ASSETS.unlocked;
+ const state=completed?'completed':value>0?'progress':'unlocked';
+ return '<div class="vb-phase-lesson-meter" role="progressbar" data-phase-lesson-meter="'+id+'" data-vb-phase-percent="'+value+'" aria-label="Progresso da aula" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+value+'">'+
+ '<span class="vb-phase-lesson-art"><img src="'+base+'" alt="" aria-hidden="true" decoding="async">'+phaseRing(value)+'</span>'+
+ '<span class="vb-phase-lesson-copy"><strong>'+value+'%</strong><small>'+answered+' de '+correctTotal+' questões · '+(completed?'Aula concluída':state==='progress'?'Em andamento':'Pronta para começar')+'</small></span>'+
+ '</div>';
+}
 let disposers=[];
 let milestone=null;
 const displayed=new Map();
@@ -47,8 +59,25 @@ export function queuePhaseReveal(completedLessonId,nextLessonId=''){
 }
 export function hydratePhaseMotion(root,route){
  for(const dispose of disposers.splice(0)){try{dispose();}catch{}}
- if(!root||!['home','learn','chapter'].includes(route))return;
+ if(!root)return;
  const reduce=reduceMotion();
+ const animateCircle=(circle,key,current)=>{
+  if(!circle)return;
+  const old=displayed.has(key)?displayed.get(key):current;
+  displayed.set(key,current);
+  if(!reduce&&old!==current){
+   circle.style.strokeDashoffset=String(CIRC*(1-old/100));
+   requestAnimationFrame(()=>{if(circle.isConnected)circle.style.strokeDashoffset=String(CIRC*(1-current/100));});
+  }
+ };
+ if(route==='lesson'){
+  for(const meter of root.querySelectorAll('[data-phase-lesson-meter]')){
+   const circle=meter.querySelector('.vb-phase-arc');
+   animateCircle(circle,'lesson:'+meter.dataset.phaseLessonMeter,clamp(meter.dataset.vbPhasePercent));
+  }
+  return;
+ }
+ if(!['home','learn','chapter'].includes(route))return;
  for(const button of root.querySelectorAll('.v2-stop-btn[data-vb-phase]')){
   const state=button.dataset.vbPhase;
   const img=button.querySelector('.vb-journey-art');
@@ -70,14 +99,7 @@ export function hydratePhaseMotion(root,route){
   const circle=button.querySelector('.vb-phase-arc');
   const current=clamp(button.dataset.vbPhasePercent);
   const key=button.dataset.id;
-  if(circle&&key){
-   const old=displayed.has(key)?displayed.get(key):current;
-   displayed.set(key,current);
-   if(!reduce&&old!==current){
-    circle.style.strokeDashoffset=String(CIRC*(1-old/100));
-    requestAnimationFrame(()=>{if(circle.isConnected)circle.style.strokeDashoffset=String(CIRC*(1-current/100));});
-   }
-  }
+  if(circle&&key)animateCircle(circle,'map:'+key,current);
  }
  if(milestone){
   const safeSelector=id=>'.v2-stop-btn[data-id="'+CSS.escape(id)+'"]';

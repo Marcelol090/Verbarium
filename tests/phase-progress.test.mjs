@@ -44,3 +44,15 @@ test('chapter detail preserves saved node percentage when nested within its map'
  assert.match(html,/data-vb-phase="progress" data-vb-phase-percent="50"/);
  assert.match(html,/Em progresso · 50%/);
 });
+
+test('the lesson interface has a live visual phase badge without fake success',async()=>{
+ const {renderPhaseLessonBadge}=await import('../src/verbarium-kit/phase-progress.js');
+ const mid=renderPhaseLessonBadge({lessonId:'be',index:2,total:4});
+ assert.match(mid,/aria-valuenow="50"/);
+ assert.match(mid,/Em andamento/);
+ assert.doesNotMatch(mid,/Aula concluída/);
+ const finish=renderPhaseLessonBadge({lessonId:'be',index:4,total:4,completed:true});
+ assert.match(finish,/Aula concluída/);
+ const app=await readFile(new URL('../src/app.js',import.meta.url),'utf8');
+ assert.match(app,/renderPhaseLessonBadge\(\{lessonId:l\.id/);
+});

@@ -52,3 +52,20 @@
  .v2-stop-btn.vb-phase-completed-burst::after,
  .v2-stop-btn.vb-phase-next-reveal::after{display:none!important}
 }
+
+/* In-lesson phase badge is layered, not a baked-in percentage image. */
+.vb-phase-lesson-meter{
+ display:inline-flex;gap:12px;align-items:center;max-width:100%;margin:9px 0 16px;
+ color:#37235e;font-family:'Nunito',system-ui,sans-serif;
+}
+.vb-phase-lesson-art{width:76px;height:76px;flex:0 0 76px;position:relative;display:grid;place-items:center}
+.vb-phase-lesson-art>img{width:100%;height:100%;display:block;object-fit:contain}
+.vb-phase-lesson-copy{display:grid;gap:4px;min-width:0}
+.vb-phase-lesson-copy>strong{font-size:20px;line-height:1.1;font-weight:950;font-variant-numeric:tabular-nums}
+.vb-phase-lesson-copy>small{font-size:11px;font-weight:700;color:#807093;line-height:1.5}
+.vb-phase-lesson-art .vb-phase-ring{width:88%;height:88%;inset:6%}
+@media(max-width:390px){
+ .vb-phase-lesson-art{width:67px;height:67px;flex-basis:67px}
+ .vb-phase-lesson-copy>strong{font-size:18px}
+ .vb-phase-lesson-copy>small{font-size:10px}
+}
