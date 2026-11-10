@@ -1,0 +1,54 @@
+/* The six authored phase states run on original transparent node sprites.
+   Source PNG stays unchanged; real user progress owns the percentage. */
+.v2-stop-btn[data-vb-phase]{isolation:isolate;touch-action:manipulation;outline-offset:4px}
+.v2-stop-btn[data-vb-phase] .vb-journey-art{
+ object-fit:contain!important;transform-origin:center;will-change:auto;
+ transition:transform 180ms cubic-bezier(.22,.8,.2,1),filter 210ms ease;
+}
+.v2-stop-btn[data-vb-phase="locked"]{cursor:not-allowed;opacity:.7}
+.v2-stop-btn[data-vb-phase="locked"] .vb-journey-art{filter:grayscale(.35)}
+.v2-stop-btn[data-vb-phase].vb-phase-focus .vb-journey-art,
+.v2-stop-btn[data-vb-phase]:focus-visible .vb-journey-art{
+ transform:translateY(-2px) scale(1.06);
+ filter:drop-shadow(0 0 9px #ffd15fbd) drop-shadow(0 3px 6px #704ebc66);
+}
+.v2-stop-btn[data-vb-phase].vb-phase-press .vb-journey-art{
+ transform:scale(.96) translateY(2px);
+ filter:brightness(.96) drop-shadow(0 1px 3px #5f3b9160);
+}
+.v2-stop-btn[data-vb-phase="progress"] .vb-journey-art{filter:drop-shadow(0 0 5px #ffcb48aa)}
+.vb-phase-ring{position:absolute;z-index:4;width:87%;height:87%;inset:6.5%;overflow:visible;transform:rotate(-90deg);pointer-events:none;filter:drop-shadow(0 0 3px #ffbc4a99)}
+.vb-phase-track,.vb-phase-arc{fill:none;stroke-width:6;stroke-linecap:round}
+.vb-phase-track{stroke:#f3ddff;stroke-opacity:.58}
+.vb-phase-arc{stroke:#ffd134;transition:stroke-dashoffset 735ms cubic-bezier(.2,.8,.2,1)}
+.vb-phase-node-label{position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);font-size:8px;font-weight:900;color:#543580;background:#fffdfbea;border:1px solid #fff;border-radius:8px;padding:1px 4px;pointer-events:none}
+@keyframes vb-phase-win{
+ 0%{transform:translateY(1px) scale(.92);filter:brightness(1)}
+ 52%{transform:translateY(-4px) scale(1.12);filter:drop-shadow(0 0 14px #ffd348)}
+ 100%{transform:translateY(0) scale(1);filter:drop-shadow(0 0 3px #ffc34d)}
+}
+@keyframes vb-phase-unlock{
+ 0%{transform:translateY(12px) scale(.75);opacity:.55;filter:blur(3px)}
+ 60%{transform:translateY(-5px) scale(1.10);opacity:1;filter:drop-shadow(0 0 16px #ffd85a)}
+ 80%{transform:translateY(2px) scale(.98)}
+ 100%{transform:none;opacity:1;filter:drop-shadow(0 0 4px #ffdc62)}
+}
+@keyframes vb-phase-spark{
+ 0%{opacity:0;transform:translateX(-50%) scale(.3)}
+ 42%{opacity:1;transform:translateX(-50%) scale(1.16)}
+ 100%{opacity:0;transform:translateX(-50%) scale(1.48)}
+}
+.v2-stop-btn.vb-phase-completed-burst .vb-journey-art{animation:vb-phase-win 646ms cubic-bezier(.2,.82,.2,1.05) both}
+.v2-stop-btn.vb-phase-next-reveal .vb-journey-art{animation:vb-phase-unlock 646ms cubic-bezier(.2,.82,.2,1.05) both}
+.v2-stop-btn.vb-phase-completed-burst::after,
+.v2-stop-btn.vb-phase-next-reveal::after{
+ content:'✦';position:absolute;left:50%;top:-13px;z-index:6;
+ color:#ffb900;text-shadow:0 0 8px #ffe9a9;pointer-events:none;
+ animation:vb-phase-spark 646ms ease-out both
+}
+@media(prefers-reduced-motion:reduce){
+ .v2-stop-btn[data-vb-phase] .vb-journey-art,
+ .vb-phase-arc{transition:none!important;animation:none!important}
+ .v2-stop-btn.vb-phase-completed-burst::after,
+ .v2-stop-btn.vb-phase-next-reveal::after{display:none!important}
+}

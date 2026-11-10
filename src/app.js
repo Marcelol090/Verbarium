@@ -9,6 +9,8 @@ import './verbarium-kit/kit-live.css';
 import './verbarium-kit/v3-production.css';
 import './verbarium-kit/v3-visual-qa.css';
 import './verbarium-kit/lesson-kit.css';
+import './verbarium-kit/phase-progress.css';
+import {hydratePhaseMotion,queuePhaseReveal} from './verbarium-kit/phase-progress.js';
 import './verbarium-kit/worlds.css';
 import {renderLessonWorld} from './verbarium-kit/worlds.js';
 import {renderLessonListArt,renderLessonFeature,renderLessonResultArt,hydrateLessonKit} from './verbarium-kit/lesson-kit.js';
@@ -83,7 +85,7 @@ const scenarios=[
 {ask:'Your flight departs at eight. Anything else?',pt:'Seu voo parte às oito. Mais alguma coisa?',choices:['I going gate.','I no need.','No, thank you for your help.'],correct:2,note:'Thank you for your help funciona em muitas situações de atendimento.',speech:'No, thank you for your help.'}]}
 ];
 const storageKey='verbarium:progress:v1';
-const defaultData=()=>({completed:[],completedAt:{},attempts:0,correct:0,activity:[],reviews:{},sessions:[],nickname:'Explorador'});
+const defaultData=()=>({completed:[],completedAt:{},lessonSessions:{},attempts:0,correct:0,activity:[],reviews:{},sessions:[],nickname:'Explorador'});
 function loadData(){try{const saved=JSON.parse(localStorage.getItem(storageKey));return saved&&Array.isArray(saved.completed)&&saved.reviews?{...defaultData(),...saved}:defaultData()}catch{return defaultData()}}
 const data=loadData();
 const app={route:'home',chapter:'first',lesson:lessons[0].id,lessonIdx:0,lessonAnswer:null,lessonScore:0,filter:'Todos',labTab:'tenses',tense:'present',verbQuery:'',practiceMode:'mixed',round:[],roundIdx:0,roundAnswer:null,roundCorrect:0,reviewOnly:false,scenario:'cafe',step:0,dialog:[],dialogAnswer:null,micStatus:''};
@@ -123,6 +125,7 @@ function paint(){
  hydrateVerbariumMotion(main,app.route);
   hydrateV3(main,app.route);
   hydrateLessonKit(main);
+  hydratePhaseMotion(main,app.route);
  if(pendingMissionCelebration){pendingMissionCelebration=false;queueMicrotask(()=>celebrateV3({kind:'mission'}))}
  if(previousRoute!==app.route){animateEntrance(main);previousRoute=app.route}
  else animateFeedback(main);
@@ -142,7 +145,7 @@ function homePage(){
   <div class="section-head colorful"><h2 class="section-title">Meu plano de estudos <span>✿</span></h2><button class="text-button" data-route="progress">Meu progresso ${svg('arrow')}</button></div>
  
  <div class="v2-section-bar"><h2>Seu próximo mundo</h2><button class="text-button" data-route="learn">Ver toda a jornada →</button></div>
- ${renderQuestMap({lessons,completed:data.completed,currentId:next.id,compact:true})}
+ ${renderQuestMap({lessons,completed:data.completed,currentId:next.id,lessonSessions:data.lessonSessions,compact:true})}
  <div class="section-head colorful"><h2 class="section-title">Explore e pratique <span>✦</span></h2><span class="minor">Escolha sua atividade</span></div><div class="quick-filters" aria-label="Acessos rápidos"><button class="quick-filter vb-quick-asset" data-route="learn"><img src="/verbarium-v3/assets/navigation/book_default.png" alt="" aria-hidden="true">Aulas</button><button class="quick-filter vb-quick-asset" data-route="lab"><img src="/verbarium-v3/assets/navigation/sprout_default.png" alt="" aria-hidden="true">Verbos & tempos</button><button class="quick-filter vb-quick-asset" data-route="practice"><img src="/verbarium-v3/assets/navigation/gamepad_default.png" alt="" aria-hidden="true">Exercícios</button><button class="quick-filter vb-quick-asset" data-route="speak"><img src="/verbarium-v3/assets/navigation/headphones_default.png" alt="" aria-hidden="true">Conversação</button></div>
  <div class="module-grid playful-grid"><button class="module-card featured" data-route="lab"><span class="module-top"><span class="module-glyph module-glyph-3d" aria-hidden="true"><img src="/verbarium-assets/icons/icon_layers_tile.png" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span class="module-counter">7 tempos</span></span><h3>Laboratório<br>verbal</h3><p>Entenda quando usar cada tempo e descubra a lógica dos verbos.</p><span class="module-bottom"><span>Explore as formas</span><span class="arrow">${svg('arrow')}</span></span></button><button class="module-card warm" data-route="speak"><span class="module-top"><span class="module-glyph module-glyph-3d" aria-hidden="true"><img src="/verbarium-assets/icons/icon_play_tile.png" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span class="module-counter">4 cenários</span></span><h3>Conversação<br>do dia a dia</h3><p>Treine no café, em viagens, no trabalho e em apresentações.</p><span class="module-bottom"><span>Vamos conversar</span><span class="arrow">${svg('arrow')}</span></span></button><button class="module-card blue" data-route="practice"><span class="module-top"><span class="module-glyph module-glyph-3d" aria-hidden="true"><img src="/verbarium-assets/icons/icon_clipboard_tile.png" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span class="module-counter">Prática</span></span><h3>Hora de<br>praticar</h3><p>Construa frases e receba explicações para cada resposta.</p><span class="module-bottom"><span>Testar o inglês</span><span class="arrow">${svg('arrow')}</span></span></button><button class="module-card mint" data-route="learn"><span class="module-top"><span class="module-glyph module-glyph-3d" aria-hidden="true"><img src="/verbarium-assets/icons/icon_book_tile.png" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span class="module-counter">A1 a B1</span></span><h3>Minha trilha<br>de aulas</h3><p>Aprenda do básico às estruturas para conversar melhor.</p><span class="module-bottom"><span>Ver todas as aulas</span><span class="arrow">${svg('arrow')}</span></span></button></div>
  <section class="weekly-card"><div class="weekly-intro"><div class="weekly-icon vb-weekly-medal"><img src="/verbarium-v3/assets/rewards/achievement_medal.png" alt="" aria-hidden="true" loading="lazy"></div><div><span class="overline">META DA SEMANA</span><h3>Um pouco por dia faz diferença.</h3><p>Responda algumas questões e mantenha sua prática ativa.</p></div></div><div class="week-days">${week.map(w=>`<span class="weekday ${w.active?'did':''}" title="${w.date}"><strong>${w.label}</strong><i>${w.active?'✓':'·'}</i></span>`).join('')}</div><button class="weekly-link" data-route="review" aria-label="Abrir revisão de erros">${svg('arrow')}</button></section>
@@ -150,7 +153,7 @@ function homePage(){
 }
 function weekActivity(){const todayDate=new Date(),active=new Set([...data.activity.map(a=>a.date),...(data.sessions||[]).map(s=>s.date)]);return Array.from({length:7},(_,i)=>{const d=new Date(todayDate);d.setDate(todayDate.getDate()-6+i);const date=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;return {date,label:['D','S','T','Q','Q','S','S'][d.getDay()],active:active.has(date)}})}
 function learnPage(){const filtered=lessons.filter(x=>app.filter==='Todos'||x.level===app.filter);return `<div class="page-intro"><div class="overline">APRENDIZADO ESTRUTURADO</div><h1 class="heading">Aprender é uma <em>jornada.</em></h1><p class="lede">Do primeiro “I am” às ideias conectadas. Cada aula traz uma explicação em português, um exemplo real e uma verificação do que você compreendeu.</p></div><div class="v2-section-bar"><h2>Três capítulos, uma jornada</h2><span>Sem bloqueios artificiais</span></div>
- ${renderQuestMap({lessons,completed:data.completed,currentId:nextLesson().id})}
+ ${renderQuestMap({lessons,completed:data.completed,currentId:nextLesson().id,lessonSessions:data.lessonSessions})}
  <div class="v2-section-bar"><h2>Lista de aulas</h2><span>Escolha pelo nível</span></div>
  <div class="filter-row" role="group" aria-label="Filtrar aulas">${['Todos','A1','A2','B1'].map(f=>`<button class="chip ${app.filter===f?'active':''}" data-action="filter-level" data-value="${f}" aria-pressed="${app.filter===f}">${f==='Todos'?'Todas as aulas':f}</button>`).join('')}</div><div class="section-head"><h2 class="section-title">Suas aulas</h2><span class="minor">${filtered.length} lições · ${data.completed.length} concluídas</span></div><div class="lesson-list">${filtered.map(l=>`<button class="lesson-card" data-action="open-lesson" data-id="${l.id}"><span class="lesson-number">${String(lessons.indexOf(l)+1).padStart(2,'0')}</span>${renderLessonListArt(l.id)}<span><h3>${safe(l.title)}</h3><p>${safe(l.subtitle)}</p></span><span class="lesson-meta"><span class="time">${l.level} · 6 min</span><span class="completion-dot ${data.completed.includes(l.id)?'done':''}" aria-label="${data.completed.includes(l.id)?'Concluída':'Pendente'}">${data.completed.includes(l.id)?'✓':'↗'}</span></span></button>`).join('')}</div>`}
 function lessonPage(){const l=lessons.find(x=>x.id===app.lesson)||lessons[0],q=l.qs[app.lessonIdx],done=app.lessonIdx>=l.qs.length;return `<button class="back-link" data-route="learn">← Voltar à trilha</button><div class="lesson-top"><span class="pill">${l.level}</span><span class="pill warm">AULA ${String(lessons.indexOf(l)+1).padStart(2,'0')}</span><span class="minor">~ 6 minutos</span></div>${renderLessonMeter(app.lessonIdx,l.qs.length)}<h1 class="heading">${safe(l.title)}<span style="color:#c6d3bb">.</span></h1><p class="lesson-lede">${safe(l.subtitle)}. ${safe(l.why)}</p>${renderLessonWorld(l.id)}${renderLessonFeature(l.id,l.level)}
@@ -187,7 +190,16 @@ function progressPage(){
  <div class="goals-row"><div class="goal-tile"><span class="goal-art">${art("chart")}</span><div><h3>Revisão inteligente</h3><p>${due?`${due} questão(ões) para rever agora.`:'Nenhuma revisão pendente por enquanto.'}</p></div><button class="button outline small" data-route="review">Revisar ${svg('arrow')}</button></div><div class="goal-tile"><span class="goal-art">${art("book")}</span><div><h3>Próxima conquista</h3><p>${completion===100?'Continue consolidando o que aprendeu.':`Faltam ${lessons.length-data.completed.length} aulas para concluir a trilha.`}</p></div><button class="button outline small" data-route="learn">Estudar ${svg('arrow')}</button></div></div><p class="tool-tip">Os indicadores usam somente as atividades realizadas neste navegador. Não representam nota CEFR nem competição com outros alunos.</p>`
 }
 function reviewPage(){const due=dueItems(),total=reviewItems();return `<div class="page-intro"><div class="overline">MEMÓRIA E REPETIÇÃO</div><h1 class="heading">Errar também<br>é <em>progresso.</em></h1><p class="lede">As questões que você erra viram oportunidades de revisão. Ao acertar depois, elas retornam em intervalos maiores, de 1, 3, 7 e 14 dias.</p></div><div class="stats-strip"><div class="stat"><span class="stat-label">Para revisar agora</span><strong class="stat-value">${due.length}</strong><span class="stat-sub">itens disponíveis</span></div><div class="stat"><span class="stat-label">No seu caderno</span><strong class="stat-value">${total.length}</strong><span class="stat-sub">itens já errados</span></div><div class="stat"><span class="stat-label">Seu histórico</span><strong class="stat-value">${data.attempts}</strong><span class="stat-sub">respostas totais</span></div></div>${!total.length?`<section class="review-empty"><span class="overline">SEU CADERNO ESTÁ LIMPO</span><h2>Nenhum erro registrado ainda.</h2><p>Comece um exercício. Se houver uma resposta incorreta, ela ficará aqui para você praticar novamente.</p><button class="button" data-route="practice">Ir para a prática ${svg('arrow')}</button></section>`:`<div class="section-head"><h2 class="section-title">Seu caderno de erros</h2><span class="minor">${due.length} prontas para hoje</span></div>${due.length?`<button class="button" data-action="review-start" style="margin-bottom:20px">Revisar ${Math.min(10,due.length)} questão(ões) ${svg('arrow')}</button>`:'<p class="lede">Você já revisou o que estava disponível. Os próximos itens aparecem na data indicada.</p>'}${total.map(([id,rv])=>{const q=findQ(id),d=rv.due<=Date.now();return `<div class="review-row"><span class="level-dot ${d?'':'later'}"></span><div style="flex:1;min-width:0"><strong>${safe(q.prompt)}</strong><p>${d?'Disponível para revisar agora':'Retorna em '+new Date(rv.due).toLocaleDateString('pt-BR')} · etapa ${rv.level||0}</p></div><span class="pill">${d?'AGORA':'AGENDADA'}</span></div>`}).join('')}`}<div class="divider-line"></div><button class="text-button" data-action="reset-progress">Limpar o progresso salvo neste navegador</button><p class="tool-tip">Seus dados permanecem no localStorage deste navegador. Não há conta, sincronização nem avaliação oficial de proficiência.</p>`}
-function openLesson(id){app.lesson=lessons.find(l=>l.id===id)?.id||lessons[0].id;app.lessonIdx=0;app.lessonAnswer=null;app.lessonScore=0;goto('lesson')}
+function openLesson(id){
+ const l=lessons.find(x=>x.id===id)||lessons[0];
+ const saved=data.lessonSessions?.[l.id];
+ const resume=!data.completed.includes(l.id)&&saved&&Number.isInteger(saved.index)&&saved.index>0&&saved.index<l.qs.length;
+ app.lesson=l.id;
+ app.lessonIdx=resume?saved.index:0;
+ app.lessonAnswer=null;
+ app.lessonScore=resume?Math.max(0,Math.min(saved.index,Number(saved.score)||0)):0;
+ goto('lesson');
+}
 function normalize(s){return String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9\s']/g,'').replace(/\s+/g,' ').trim()}
 function submitPractice(value){if(app.roundAnswer||app.roundIdx>=app.round.length)return;const q=app.round[app.roundIdx],ok=q.type==='choice'?value===q.correct:q.accepted.some(x=>normalize(x)===normalize(value));if(!String(value??'').trim()){announce('Escreva uma resposta antes de conferir.');document.querySelector('#write-answer')?.focus();return}app.roundAnswer={value,ok};if(ok)app.roundCorrect++;recordAttempt(ok,q.id);paint();announce(ok?'Resposta correta.':'Resposta incorreta. Veja a explicação.')}
 function say(text){if(!('speechSynthesis' in window)){announce('Seu navegador não oferece áudio de síntese.');return}window.speechSynthesis.cancel();const utter=new SpeechSynthesisUtterance(text);utter.lang='en-US';utter.rate=.86;utter.pitch=1;window.speechSynthesis.speak(utter)}
@@ -197,8 +209,33 @@ if(a==='open-lesson')return openLesson(id);
 if(a==='open-chapter'){app.chapter=chapters.some(c=>c.id===id)?id:'first';return goto('chapter')}
 if(a==='filter-level'){app.filter=value;return paint()}
 if(a==='lesson-answer'){if(app.lessonAnswer)return;const l=lessons.find(x=>x.id===app.lesson),q=l.qs[app.lessonIdx],ok=value===q[2];app.lessonAnswer={value,ok};if(ok)app.lessonScore++;recordAttempt(ok,`${l.id}-${app.lessonIdx}`);paint();return}
-if(a==='lesson-next'){const l=lessons.find(x=>x.id===app.lesson);app.lessonIdx++;app.lessonAnswer=null;let awarded=false;if(app.lessonIdx===l.qs.length&&app.lessonScore===l.qs.length&&!data.completed.includes(l.id)){data.completed.push(l.id);data.completedAt[l.id]=day();save();awarded=true}paint();if(awarded){showVerbariumToast({title:'Aula concluída!',description:'Uma nova conquista na sua jornada de inglês.'});celebrateV3({kind:'lesson',lessonId:l.id})}return}
-if(a==='restart-lesson'){app.lessonIdx=0;app.lessonAnswer=null;app.lessonScore=0;return paint()}
+if(a==='lesson-next'){
+ const l=lessons.find(x=>x.id===app.lesson);
+ app.lessonIdx++;app.lessonAnswer=null;
+ data.lessonSessions??={};
+ let awarded=false;
+ if(app.lessonIdx<l.qs.length){
+  data.lessonSessions[l.id]={index:app.lessonIdx,score:app.lessonScore};
+ }else{
+  delete data.lessonSessions[l.id];
+  if(app.lessonScore===l.qs.length&&!data.completed.includes(l.id)){
+   data.completed.push(l.id);data.completedAt[l.id]=day();awarded=true;
+   const following=lessons.find(x=>!data.completed.includes(x.id));
+   queuePhaseReveal(l.id,following?.id||'');
+  }
+ }
+ save();paint();
+ if(awarded){
+  showVerbariumToast({title:'Aula concluída!',description:'Uma nova conquista na sua jornada de inglês.'});
+  celebrateV3({kind:'lesson',lessonId:l.id});
+ }
+ return;
+}
+if(a==='restart-lesson'){
+ app.lessonIdx=0;app.lessonAnswer=null;app.lessonScore=0;
+ if(data.lessonSessions)delete data.lessonSessions[app.lesson];
+ save();return paint();
+}
 if(a==='lab-tab'){app.labTab=value;return paint()}
 if(a==='tense-select'){app.tense=id;return paint()}
 if(a==='practice-mode'){app.practiceMode=value;newRound();return goto('practice')}

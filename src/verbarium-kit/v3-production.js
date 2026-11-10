@@ -32,6 +32,8 @@ function updateGallery(root,runtime,listener){
 }
 function bindJourney(root,runtime,listener){
  for(const button of root.querySelectorAll('.v2-stop-btn[data-vb3-state]')){
+  // The six-phase controller owns every new journey button; don't let V3 replace its image.
+  if(button.hasAttribute('data-vb-phase'))continue;
   const img=button.querySelector('.vb-journey-art');if(!img)continue;
   // Per-lesson sprites are handled by lesson-kit; never replace them with generic v3 nodes.
   if(img.hasAttribute('data-vb4-asset')){
@@ -108,6 +110,7 @@ function revealPending(root,runtime,route){
  const el=root.querySelector(selector);if(!el)return;
  const img=el.querySelector('.vb-journey-art');
  if(img){
+  if(el.hasAttribute('data-vb-phase')){unlockPending='';return;}
   if(img.hasAttribute('data-vb4-asset'))img.classList.add('vb4-node-complete-pulse');
   else runtime.playSprite(img,'journey/node_completed');
  }

@@ -2,6 +2,7 @@
 import {art,assetUrl} from './verbarium-kit/ui.js';
 import {staticJourneyNode} from './verbarium-kit/motion-assets.js';
 import {lessonNodeArt} from './verbarium-kit/lesson-kit.js';
+import {phaseRing,phaseState,savedLessonPercent} from './verbarium-kit/phase-progress.js';
 import {chapterWorldImage,renderRankGallery} from './verbarium-kit/worlds.js';
 export const chapters=[
   {
@@ -87,7 +88,7 @@ export function scenicSVG(id){
  </svg>`;
 }
 
-export function renderQuestMap({lessons,completed=[],currentId,compact=false,chapterId=null}){
+export function renderQuestMap({lessons,completed=[],currentId,lessonSessions={},compact=false,chapterId=null}){
  const visible=chapterId?chapters.filter(c=>c.id===chapterId):compact?[findJourneyChapter(currentId)]:chapters;
  const lessonById=new Map(lessons.map(l=>[l.id,l]));
  return `<div class="v2-chapter-stack ${compact?"is-compact":""}">${visible.map(c=>{
@@ -108,9 +109,13 @@ export function renderQuestMap({lessons,completed=[],currentId,compact=false,cha
  <div class="v2-world-stops">${group.map((l,i)=>{
   const done=completed.includes(l.id),current=l.id===currentId;
   const state=done?"done":current?"current":"ahead";
+  const percent=done?100:savedLessonPercent(l.id,lessonSessions,l.qs?.length||0);
+  const phase=phaseState({completed:done,isCurrent:current,percent});
+  // Use a clean 3D node and layer the true progress ring on top.
+  // Baked-in sample ring percentages would not reflect the student's activity.
   return `<div class="v2-stop v2-stop--${i}">
-   <button class="v2-stop-btn ${state}" data-vb-node-state="${state}" data-vb3-state="${done?'completed':current?'progress':'unlocked'}" data-action="open-lesson" data-id="${l.id}" type="button" aria-label="${l.title}, ${done?"concluída":current?"próxima etapa":"disponível"}">
-    <span class="v2-stop-icon" aria-hidden="true">${lessonNodeArt(l.id,done?"completed":current?"progress":"unlocked")}</span>
+   <button class="v2-stop-btn ${state}" data-vb-node-state="${state}" data-vb3-state="${phase}" data-vb-phase="${phase}" data-vb-phase-percent="${percent}" data-action="open-lesson" data-id="${l.id}" type="button" aria-label="${l.title}, ${done?"concluída":percent?percent+"% concluída":current?"próxima etapa":"disponível"}">
+    <span class="v2-stop-icon" aria-hidden="true">${lessonNodeArt(l.id,done?"completed":"unlocked")}</span>${phaseRing(percent)}
     ${current?'<span class="v2-you-are-here">Você está aqui</span>':""}
    </button>
    <div class="v2-stop-info"><strong>${l.title}</strong><span>${l.level} · ${done?"Concluída":current?"Próxima atividade":"Disponível"}</span></div>

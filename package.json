@@ -8,7 +8,7 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node --check src/app.js && node --check src/journey-v2.js && node --check src/verbarium-kit/motion-assets.js && node --check src/verbarium-kit/ui.js && node --check src/icons.js && node --check src/motion.js && node --check scripts/extract-verbarium-assets.mjs && node --check src/verbarium-kit/v3-production.js && node --check scripts/sync-verbarium-v3.mjs && node --check scripts/sync-verbarium-worlds.mjs && node --check src/verbarium-kit/worlds.js",
+    "check": "node --check src/app.js && node --check src/journey-v2.js && node --check src/verbarium-kit/motion-assets.js && node --check src/verbarium-kit/ui.js && node --check src/icons.js && node --check src/motion.js && node --check scripts/extract-verbarium-assets.mjs && node --check src/verbarium-kit/v3-production.js && node --check scripts/sync-verbarium-v3.mjs && node --check scripts/sync-verbarium-worlds.mjs && node --check src/verbarium-kit/worlds.js && node --check src/verbarium-kit/phase-progress.js",
     "test": "node --test tests/*.test.mjs",
     "assets:sync": "node scripts/extract-verbarium-assets.mjs && node scripts/sync-verbarium-v3.mjs && node scripts/sync-verbarium-worlds.mjs",
     "predev": "npm run assets:sync",
