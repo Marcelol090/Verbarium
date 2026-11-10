@@ -80,3 +80,16 @@
  .vb-food-finish .button{display:block;width:100%;margin:9px auto}
 }
 @media(prefers-reduced-motion:reduce){.vb-food-page *{animation:none!important;transition:none!important}}
+
+/* Discovery entry points reuse existing button controls instead of baking copy into PNGs. */
+.vb-food-teaser{display:grid;grid-template-columns:142px minmax(0,1fr) auto;align-items:center;gap:19px;margin:24px 0;padding:15px 20px;border:1px solid #b8e4f9;border-radius:24px;background:linear-gradient(112deg,#e3f6ff 0%,#f1faff 53%,#f8edff 100%);box-shadow:0 8px 22px #47628b12}
+.vb-food-teaser-art{display:flex;align-items:center;justify-content:center;gap:0}
+.vb-food-teaser-art .vb-food-art{width:88px;height:95px}
+.vb-food-teaser-art .vb-food-art:nth-child(2){margin-left:-25px;margin-top:23px}
+.vb-food-teaser-art .vb-food-emoji{font-size:52px}
+.vb-food-teaser h2{font:800 clamp(21px,3vw,29px)/1.12 Fredoka,system-ui,sans-serif;color:#234873;margin:5px 0 6px}
+.vb-food-teaser p{margin:0;color:#3e5b78;font-size:14px;line-height:1.5;max-width:500px}
+.vb-food-teaser>.button{min-width:170px;justify-self:end}
+.vb-food-teaser--compact{background:linear-gradient(130deg,#fff6df,#eafaff);border-color:#ecd8a4}
+@media(max-width:770px){.vb-food-teaser{grid-template-columns:100px minmax(0,1fr);padding:16px;gap:10px}.vb-food-teaser>.button{grid-column:2;justify-self:start;min-width:0}.vb-food-teaser-art .vb-food-art{width:75px;height:75px}}
+@media(max-width:510px){.vb-food-teaser{grid-template-columns:66px minmax(0,1fr);gap:8px;padding:12px;border-radius:18px}.vb-food-teaser-art .vb-food-art{width:63px;height:70px}.vb-food-teaser-art .vb-food-art:nth-child(2){margin-left:-34px;margin-top:38px}.vb-food-teaser-art .vb-food-emoji{font-size:36px}.vb-food-teaser h2{font-size:20px}.vb-food-teaser p{font-size:12px}.vb-food-teaser>.button{grid-column:1/-1;justify-self:stretch;text-align:center;min-width:0;min-height:42px}}
