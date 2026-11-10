@@ -1,0 +1,41 @@
+/* Original PNG shell as nine-slice frame; text and progress remain dynamic. */
+.v2-mission-board.vb5-mission-board{background:linear-gradient(135deg,#fff,#fcf9ff);border:1px solid #e8dff6;border-radius:28px;padding:24px}
+.vb5-mission-board .v2-missions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:20px}
+.vb5-mission-board .v2-mission.vb5-mission{
+ display:grid!important;grid-template-columns:60px minmax(0,1fr);gap:12px!important;align-items:center!important;
+ min-width:0;min-height:143px!important;position:relative;isolation:isolate;overflow:hidden!important;
+ padding:15px 14px!important;border:0!important;border-radius:23px!important;
+ background:linear-gradient(155deg,#fffefd,#fbf7ff)!important;background-image:none!important;
+ box-shadow:inset 0 0 0 1px #e5daf5,0 6px 18px #634aa019!important;
+ transition:transform .22s cubic-bezier(.2,.84,.25,1),box-shadow .22s ease!important
+}
+.vb5-mission-board .v2-mission.vb5-mission::before{
+ content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border:17px solid transparent;
+ border-image:url('/verbarium-assets/extra-80/missions/mission_card_shell.png') 58 64 58 64 / 17px / 0 stretch;opacity:.9
+}
+.vb5-mission-board .v2-mission.vb5-mission:hover{transform:translateY(-3px)!important;box-shadow:inset 0 0 0 1px #bea9f1,0 11px 24px #7955b62a!important}
+.vb5-mission-board .v2-mission.vb5-mission:active{transform:scale(.982)!important}
+.vb5-mission-board .v2-mission.vb5-mission:focus-visible{outline:3px solid #7951de!important;outline-offset:3px!important}
+.vb5-mission-board .v2-mission.vb5-mission.complete{background:linear-gradient(155deg,#fffcf6,#f5fff7)!important;box-shadow:inset 0 0 0 1px #b7e6bd,0 7px 18px #45aa6616!important}
+.vb5-mission-board .v2-mission-symbol.vb5-mission-symbol{display:grid;place-items:center;width:60px!important;height:70px!important;flex:none!important;background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
+.vb5-mission-board .vb-native-mission-icon{width:67px!important;height:71px!important;max-width:none;object-fit:contain!important;filter:drop-shadow(0 4px 5px #7044aa24)}
+.vb5-mission-board .v2-mission-text.vb5-mission-text{display:flex;flex-direction:column;justify-content:center;gap:7px;min-width:0;z-index:1}
+.vb5-mission-board .vb5-mission-top{display:flex;justify-content:space-between;align-items:center;gap:7px;min-width:0}
+.vb5-mission-board .v2-mission-text strong{color:#342454;font-size:clamp(12px,1.12vw,15px);font-weight:900;line-height:1.2;overflow-wrap:break-word}
+.vb5-mission-board .v2-mission-text small{font-size:clamp(10px,.89vw,12px);line-height:1.35;color:#7e7192;overflow-wrap:break-word}
+.vb5-mission-board .v2-mission-count.vb5-mission-count{flex:none;display:inline-flex;align-items:center;justify-content:center;border-radius:99px;padding:4px 7px;min-width:36px;background:#ece3fc;color:#734bbc;font-size:10px;font-weight:900;font-variant-numeric:tabular-nums}
+.vb5-mission-board .v2-mission-bar.vb5-mission-bar{display:block!important;position:relative;width:100%!important;height:14px!important;margin:3px 0 0!important;padding:2px!important;border:1px solid #fff!important;border-radius:99px!important;background:#e5d9f0!important;background-image:none!important;box-shadow:inset 0 2px 4px #8175a34a!important;overflow:hidden!important}
+.vb5-mission-board .vb5-mission-bar i{display:block!important;height:100%;border-radius:99px!important;background:linear-gradient(#ffe48e,#ffb32f 72%,#f39118)!important;box-shadow:inset 0 1px #fff9!important;transition:width .6s cubic-bezier(.2,.84,.25,1)!important}
+.vb5-mission-board .v2-mission.complete .vb5-mission-bar i{background:linear-gradient(#baf798,#70d451 72%,#39b765)!important}
+.vb5-mission-board .v2-mission.complete .vb5-mission-top{padding-right:16px}
+.vb5-mission-check{display:none;position:absolute;top:8px;right:8px;width:22px;height:22px;z-index:3}
+.vb5-mission-board .v2-mission.complete .vb5-mission-check{display:block}
+.vb5-mission-check img{width:100%;height:100%;object-fit:contain}
+@keyframes vb5-bloom{0%{transform:scale(.96)}55%{transform:translateY(-3px) scale(1.035)}100%{transform:none}}
+@keyframes vb5-check{0%{transform:scale(.6);opacity:0}68%{transform:scale(1.16);opacity:1}100%{transform:scale(1);opacity:1}}
+.vb5-mission-board .vb5-mission-earned{animation:vb5-bloom .56s cubic-bezier(.2,.8,.2,1) both}
+.vb5-mission-board .vb5-mission-earned .vb5-mission-check{animation:vb5-check .54s cubic-bezier(.2,.8,.2,1) both}
+@media(max-width:1150px){.vb5-mission-board .v2-missions{gap:8px}.vb5-mission-board .v2-mission.vb5-mission{grid-template-columns:50px minmax(0,1fr);gap:7px!important;padding:13px 9px!important;min-height:134px!important}.vb5-mission-board .v2-mission-symbol.vb5-mission-symbol{width:50px!important;height:62px!important}.vb5-mission-board .vb-native-mission-icon{width:56px!important;height:64px!important}.vb5-mission-board .v2-mission-text strong{font-size:12px}}
+@media(max-width:960px){.vb5-mission-board .v2-missions{grid-template-columns:1fr;gap:11px}.vb5-mission-board .v2-mission.vb5-mission{grid-template-columns:60px minmax(0,1fr);min-height:114px!important;padding:13px 18px!important}.vb5-mission-board .v2-mission-symbol.vb5-mission-symbol{width:60px!important;height:68px!important}.vb5-mission-board .vb-native-mission-icon{width:68px!important;height:71px!important}.vb5-mission-board .v2-mission-text strong{font-size:14px}.vb5-mission-board .v2-mission-text small{font-size:12px}}
+@media(max-width:480px){.v2-mission-board.vb5-mission-board{padding:16px}.vb5-mission-board .v2-mission.vb5-mission{grid-template-columns:52px minmax(0,1fr);min-height:108px!important;padding:12px 10px!important}.vb5-mission-board .v2-mission-symbol.vb5-mission-symbol{width:52px!important;height:60px!important}.vb5-mission-board .vb-native-mission-icon{width:58px!important;height:64px!important}.vb5-mission-board .v2-mission-text strong{font-size:12px}.vb5-mission-board .v2-mission-text small{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.vb5-mission-board .v2-mission.vb5-mission,.vb5-mission-board .vb5-mission-bar i,.vb5-mission-board .vb5-mission-check{animation:none!important;transition:none!important;transform:none!important}}

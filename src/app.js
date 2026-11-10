@@ -2,6 +2,8 @@ import './styles.css';
 import './journey-v2.css';
 import './verbarium-kit/ui.css';
 import './verbarium-kit/weekly-streak.css';
+import './verbarium-kit/mission-kit.css';
+import {hydrateMissionCards} from './verbarium-kit/mission-kit.js';
 import './verbarium-kit/asset-integration.css';
 import './verbarium-kit/motion-assets.css';
 import './verbarium-kit/motion-extra.css';
@@ -124,6 +126,7 @@ function paint(){
  renderRail();
  hydrateIcons();
  hydrateVerbariumUI(main);
+ hydrateMissionCards(main);
  hydrateWeekTokens(main);
  hydrateAssetGallery(main);
  hydrateVerbariumMotion(main,app.route);

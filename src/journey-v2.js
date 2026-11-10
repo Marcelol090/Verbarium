@@ -64,18 +64,20 @@ export function missionState({activity=[],completedAt={},sessions=[],today}) {
  const lessonsToday=Object.values(completedAt||{}).filter(x=>x===today).length;
  const sessionsToday=(sessions||[]).filter(x=>x.date===today).length;
  return [
-  {id:"questions",title:"Responda 3 questões",subtitle:"Treine a memória, não só a leitura.",now:Math.min(3,answersToday),goal:3,route:"practice",icon:"✎"},
-  {id:"lesson",title:"Conclua 1 aula",subtitle:"Aprenda uma regra e coloque em prática.",now:Math.min(1,lessonsToday),goal:1,route:"learn",icon:"◇"},
-  {id:"speaking",title:"Finalize 1 diálogo",subtitle:"Fale em situações do cotidiano.",now:Math.min(1,sessionsToday),goal:1,route:"speak",icon:"◉"}
+  {id:"questions",title:"Responda 3 questões",subtitle:"Treine a memória, não só a leitura.",now:Math.min(3,answersToday),goal:3,route:"practice",icon:"✎",date:today},
+  {id:"lesson",title:"Conclua 1 aula",subtitle:"Aprenda uma regra e coloque em prática.",now:Math.min(1,lessonsToday),goal:1,route:"learn",icon:"◇",date:today},
+  {id:"speaking",title:"Finalize 1 diálogo",subtitle:"Fale em situações do cotidiano.",now:Math.min(1,sessionsToday),goal:1,route:"speak",icon:"◉",date:today}
  ];
 }
 
 export function renderMissionBoard(missions) {
- const completed=missions.filter(m=>m.now>=m.goal).length;
- return `<section class="v2-mission-board" aria-label="Missões de hoje">
- <div class="v2-board-heading"><div><span class="v2-kicker">✦ SEU RITMO</span><h2>Missões de hoje</h2><p>Pequenas ações para construir conversas maiores.</p></div><span class="v2-mission-total">${completed}/${missions.length} concluídas</span></div>
- <div class="v2-missions">${missions.map(m=>`<button class="v2-mission ${m.now>=m.goal?"complete":""}" type="button" data-vb-mission-id="${m.id}" data-route="${m.route}" aria-label="${m.title}: ${m.now} de ${m.goal}"><span class="v2-mission-symbol" aria-hidden="true"><img class="vb-native-mission-icon" src="/verbarium-v3/assets/${m.now>=m.goal?'missions/mission_completed':m.id==='lesson'?'journey/book_standalone':m.id==='speaking'?'speaking/mic_idle':'missions/target_dart'}.png" alt="" aria-hidden="true" loading="lazy" decoding="async"></span><span class="v2-mission-text"><strong>${m.title}</strong><small>${m.subtitle}</small><span class="v2-mission-bar"><i style="width:${100*m.now/m.goal}%"></i></span></span><span class="v2-mission-count">${m.now}/${m.goal}</span></button>`).join("")}</div>
- </section>`;
+ const list=Array.isArray(missions)?missions:[],done=list.filter(m=>m.now>=m.goal).length;
+ const icons={questions:'missions/target_dart',lesson:'journey/book_standalone',speaking:'speaking/mic_idle'};
+ const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ return `<section class="v2-mission-board vb5-mission-board" aria-label="Missões de hoje"><div class="v2-board-heading"><div><span class="v2-kicker">✦ SEU RITMO</span><h2>Missões de hoje</h2><p>Pequenas ações para construir conversas maiores.</p></div><span class="v2-mission-total">${done}/${list.length} concluídas</span></div><div class="v2-missions">${list.map(m=>{
+  const goal=Math.max(1,Number(m.goal)||1),now=Math.max(0,Math.min(goal,Number(m.now)||0)),pct=Math.round(100*now/goal);
+  return `<button type="button" class="v2-mission vb5-mission ${now>=goal?'complete':''}" data-route="${esc(m.route)}" data-vb-mission-id="${esc(m.id)}" data-vb5-mission="${esc(m.id)}" data-vb5-date="${esc(m.date)}" data-vb5-now="${now}" data-vb5-goal="${goal}" aria-label="${esc(m.title)}. ${now} de ${goal}. Abrir atividade"><span class="v2-mission-symbol vb5-mission-symbol" aria-hidden="true"><img class="vb-native-mission-icon" src="/verbarium-v3/assets/${icons[m.id]||icons.questions}.png" alt="" loading="lazy" decoding="async"></span><span class="v2-mission-text vb5-mission-text"><span class="vb5-mission-top"><strong>${esc(m.title)}</strong><span class="v2-mission-count vb5-mission-count">${now}/${goal}</span></span><small>${esc(m.subtitle)}</small><span class="v2-mission-bar vb5-mission-bar" role="progressbar" aria-label="${esc(m.title)}" aria-valuemin="0" aria-valuemax="${goal}" aria-valuenow="${now}"><i data-vb5-fill="${pct}" style="width:${pct}%"></i></span></span><span class="vb5-mission-check" aria-hidden="true"><img src="/verbarium-v3/assets/missions/check_gold.png" alt="" loading="lazy"></span></button>`;
+ }).join('')}</div></section>`;
 }
 
 export function scenicSVG(id){
