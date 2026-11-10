@@ -1,0 +1,37 @@
+/* Browse and inspect all separated 2026 assets; no flattened interactive controls. */
+.vb-visual-gallery{max-width:1120px;margin:0 auto 70px}
+.vb-visual-header{padding:28px clamp(17px,4vw,38px);border:1px solid #d6e7f8;border-radius:25px;background:linear-gradient(130deg,#e2f5ff,#fff 56%,#f6edff)}
+.vb-visual-header h1{font:800 clamp(27px,5vw,44px)/1.13 Fredoka,system-ui,sans-serif;color:#28507a;max-width:800px;margin:8px 0 12px}
+.vb-visual-header h1 em{color:#a556d4;font-style:normal}
+.vb-visual-header p{max-width:640px;color:#50647b;line-height:1.5;margin-bottom:18px}
+.vb-visual-summary{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.vb-visual-summary strong{font:800 40px/1 Fredoka,system-ui,sans-serif;color:#138fc5}
+.vb-visual-summary span{color:#55657c;font-weight:900;font-size:13px;flex:1}
+.vb-visual-summary>.button{border-radius:17px}
+.vb-visual-filters{display:flex;gap:7px;flex-wrap:wrap;margin:24px 0 14px}
+.vb-visual-filter{border:1px solid #d6e4ed;padding:9px 13px;color:#465773;background:#fff;border-radius:999px;font-size:12px;font-weight:900;cursor:pointer;transition:background .18s,border-color .18s}
+.vb-visual-filter.is-active{border-color:#199fde;background:#e9f8ff;color:#137bb4}
+.vb-visual-filter:focus-visible,.vb-visual-cell:focus-visible{outline:3px solid #4b63de;outline-offset:2px}
+.vb-visual-count{font-size:12px;color:#77849b;margin-bottom:12px;font-weight:800}
+.vb-visual-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:11px}
+.vb-visual-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:1px solid #dce6ee;border-radius:20px;padding:14px 10px 10px;background:#fff;box-shadow:0 4px 0 #e9edf2;cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s;min-height:196px}
+.vb-visual-cell:hover{transform:translateY(-3px);border-color:#7ecdf0}
+.vb-visual-cell.is-chosen{border:2px solid #119fde;background:#f0faff;box-shadow:0 4px 0 #adddf2}
+.vb-visual-cell>.vb-food-art{width:120px;height:122px}
+.vb-visual-cell .vb-food-emoji{font-size:58px}
+.vb-visual-cell strong{font-size:12px;text-align:center;line-height:1.2;color:#415273}
+.vb-visual-cell>span:last-child{font-size:10px;color:#8290a1}
+.vb-visual-detail{position:sticky;bottom:12px;display:flex;align-items:center;gap:22px;margin-top:20px;border:1px solid #98ceee;background:#fffefa;border-radius:22px;padding:17px 22px;box-shadow:0 9px 25px #2345782e}
+.vb-visual-detail>.vb-food-art{width:150px;height:150px}
+.vb-visual-detail h2{font:800 27px/1.2 Fredoka,system-ui,sans-serif;color:#254c7c}
+.vb-visual-detail code{display:block;font-size:11px;color:#52708a;overflow-wrap:anywhere}
+@media(max-width:580px){
+ .vb-visual-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .vb-visual-cell{min-height:164px;padding:9px}
+ .vb-visual-cell>.vb-food-art{width:100px;height:100px}
+ .vb-visual-summary>.button{width:100%}
+ .vb-visual-detail{gap:12px}
+ .vb-visual-detail>.vb-food-art{width:95px;height:110px}
+ .vb-visual-detail h2{font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){.vb-visual-gallery *{transition:none!important;animation:none!important}}
