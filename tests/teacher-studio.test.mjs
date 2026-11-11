@@ -15,7 +15,7 @@ test('Teacher Studio ships as an independent route, without modifying student na
 
 test('All ten teacher-authored activity types are available',()=>{
  for(const type of ['intro','visual','pairs','fill','sentence','listening','dialogue','speaking','explain','review']) {
-  assert.match(studio,new RegExp('(?:\\\\n|\\\\s)'+type+':\\\\{','m'), 'missing: '+type);
+  assert.match(studio,new RegExp('\\b'+type+':\\s*\\{','m'), 'missing: '+type);
  }
  assert.match(studio,/verbarium\.lesson-pack/);
  assert.match(studio,/schemaVersion:1/);
