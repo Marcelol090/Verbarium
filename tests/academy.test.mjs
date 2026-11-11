@@ -47,3 +47,18 @@ test('academy contains accessible controls, voice fallback, import, and student-
  for(const entry of ['startUnit','startReviews','startPractice','checkAnswer','speechSynthesis','SpeechRecognition','teacher-local','record-speech'])assert.ok(js.includes(entry),entry);
  assert.match(js,/aria-valuenow/);assert.match(js,/aria-live/);assert.ok(!js.includes('ELEVENLABS_API_KEY'));
 });
+
+test('repeated pair IDs cannot be used to artificially complete a matching task',()=>{
+ const pair=DEFAULT_UNITS[0].tasks.find(t=>t.type==='pairs');
+ assert.ok(pair);
+ const duplicate=Array(pair.pairs.length).fill(pair.pairs[0].join('|'));
+ assert.equal(checkAnswer(pair,duplicate),false);
+});
+test('free practice score reflects answered activities rather than granting 100% by default',()=>{
+ const state=defaultProgress(),session=createSession('__review__','core',[]);
+ session.firstAttempts=4;session.firstCorrect=2;
+ const result=finishSession(state,session);
+ assert.equal(result.score,50);
+ assert.equal(result.passed,false);
+ assert.equal(state.completed['__review__'],undefined);
+});
