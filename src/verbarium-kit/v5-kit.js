@@ -1,3 +1,4 @@
+import {renderV6FoodReaction} from './v6-kit.js';
 /** Verbarium V5: composed illustrations and controls. Never hard-code learner progress into art. */
 const GROUPS=Object.freeze({
  characters:'explorer_wave explorer_point_apple explorer_listening explorer_celebrating explorer_thinking grandfather_talking grandfather_approving student_at_desk student_holding_apple student_drinking_milk student_duo_talking campfire_pet_idle campfire_pet_happy campfire_pet_sad',
@@ -37,7 +38,7 @@ const SCENE=Object.freeze({image:['explorer_point_apple','fruit_shop'],audio:['e
 export function renderV5FoodScene(q,answer){
  const [character,location]=SCENE[q?.type]||SCENE.image;
  const reaction=answer?(answer.ok?'explorer_celebrating':'explorer_thinking'):character;
- return `<div class="vb5-food-scene" aria-label="Cenário ilustrado da atividade">${v5Art(location,'vb5-food-location')}${v5Art(reaction,'vb5-food-character')}${v5Art('floor_shadow','vb5-food-shadow')}${answer?.ok?v5Art('sparkles','vb5-food-sparkle'):''}</div>`;
+ return `<div class="vb5-food-scene" aria-label="Cenário ilustrado da atividade">${v5Art(location,'vb5-food-location')}${v5Art(reaction,'vb5-food-character')}${v5Art('floor_shadow','vb5-food-shadow')}${answer?.ok?v5Art('sparkles','vb5-food-sparkle'):''}${renderV6FoodReaction(q,answer)}</div>`;
 }
 export function renderV5Reward(score=0,total=10){
  const good=Math.max(0,Number(score)||0),count=Math.max(1,Number(total)||10);const stars=good===count?3:good>=count*.7?2:good>0?1:0;
