@@ -1,0 +1,46 @@
+/** Pure learning logic shared by runtime and Node tests. No DOM dependencies. */
+import {DEFAULT_UNITS,ACTIVITY_TYPES} from './course-data.js';
+export const STORAGE_KEY='verbarium.academy.v1';
+export const REVIEW_INTERVALS=Object.freeze([1,3,7,14,30]);
+export const PASSING_SCORE=70;
+const GRADED=new Set(['visual','listening','pairs','cloze','arrange','dialogue','story']);
+export const isGraded=task=>GRADED.has(task.type);
+export const normalize=s=>String(s??'').normalize('NFKC').toLocaleLowerCase('en-US').replace(/[.,!?;:’']/g,'').replace(/\s+/g,' ').trim();
+const localDate=(date=new Date())=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+export const dayKey=localDate;
+export function addDays(key,n){const [y,m,d]=key.split('-').map(Number);const x=new Date(y,m-1,d+Number(n)||0);return localDate(x)}
+export const defaultProgress=()=>({version:1,completed:{},activity:{},reviews:{},xp:0,attempts:0,correct:0,teacherUnits:[],dailyGoal:25,accent:'en-US',session:null});
+export const safeText=(s,n=500)=>String(s??'').trim().slice(0,n);
+export function loadProgress(raw){try{const x=typeof raw==='string'?JSON.parse(raw):raw;if(!x||typeof x!=='object'||x.version!==1)return defaultProgress();const base=defaultProgress();return {...base,...x,completed:x.completed&&typeof x.completed==='object'?x.completed:{},reviews:x.reviews&&typeof x.reviews==='object'?x.reviews:{},activity:x.activity&&typeof x.activity==='object'?x.activity:{},teacherUnits:Array.isArray(x.teacherUnits)?x.teacherUnits.slice(0,30):[],session:x.session||null};}catch{return defaultProgress()}}
+export function getUnits(state){return [...DEFAULT_UNITS,...(state.teacherUnits||[])];}
+export function getUnit(state,id){return getUnits(state).find(u=>u.id===id);}
+export function isUnlocked(state,id){const units=getUnits(state),n=units.findIndex(u=>u.id===id);if(n<0)return false;if(units[n].world==='Aulas do Professor')return true;if(n===0)return true;if(units[n-1].world==='Aulas do Professor')return true;return !!state.completed[units[n-1].id] || (units[n-1].world!==units[n].world && !!state.completed[units[n-1].id]);}
+export function dueReviews(state,today=dayKey(),limit=12){const tasks=[];for(const unit of getUnits(state)){for(const task of unit.tasks){if(!isGraded(task))continue;const key=`${unit.id}:${task.id}`,entry=state.reviews[key];if(entry?.due&&entry.due<=today){tasks.push({key,unit,task,due:entry.due,errors:entry.errors||0});}}}return tasks.sort((a,b)=>a.due.localeCompare(b.due)||b.errors-a.errors).slice(0,limit)}
+export function reviewStats(state,today=dayKey()){const list=dueReviews(state,today,10000);return {due:list.length,stored:Object.keys(state.reviews).length}}
+export function updateReview(state,unitId,taskId,ok,today=dayKey()){const key=`${unitId}:${taskId}`,old=state.reviews[key]||{stage:-1,correct:0,errors:0};const stage=ok?Math.min(REVIEW_INTERVALS.length-1,old.stage+1):0;const due=ok?addDays(today,REVIEW_INTERVALS[stage]):today;state.reviews[key]={stage,due,correct:old.correct+(ok?1:0),errors:old.errors+(ok?0:1),last:today};return state.reviews[key]}
+export function recordAnswer(state,unit,task,ok,today=dayKey()){state.attempts++;if(ok)state.correct++;updateReview(state,unit.id,task.id,ok,today);return state;}
+export function earnXp(state,amount,today=dayKey()){const xp=Math.max(0,Math.round(Number(amount)||0));if(!xp)return 0;state.xp+=xp;const prev=state.activity[today]||{xp:0,answers:0};state.activity[today]={...prev,xp:prev.xp+xp};return xp}
+export function recordDailyAnswer(state,today=dayKey()){const prev=state.activity[today]||{xp:0,answers:0};state.activity[today]={...prev,answers:(prev.answers||0)+1};}
+export function streak(state,today=dayKey()){let days=0;let key=state.activity[today]?.xp>0?today:addDays(today,-1);while(state.activity[key]?.xp>0){days++;key=addDays(key,-1);}return days;}
+export function todayXp(state,today=dayKey()){return state.activity[today]?.xp||0}
+export function unitPercent(state,unit){const completed=state.completed[unit.id];return completed?Math.max(0,Math.min(100,Number(completed.score)||0)):0;}
+export function summary(state){const units=getUnits(state),finished=units.filter(u=>state.completed[u.id]);return {completed:finished.length,total:units.length,xp:state.xp,accuracy:state.attempts?Math.round(100*state.correct/state.attempts):null};}
+export function checkAnswer(task,selected){if(task.type==='pairs'){const correct=(task.pairs||[]).map(p=>String(p[0])+'|'+String(p[1]));return Array.isArray(selected)&&selected.length===correct.length&&selected.every(id=>correct.includes(id));}if(task.type==='arrange')return normalize(selected)===normalize(task.answer);if(['intro','speaking'].includes(task.type))return null;return normalize(selected)===normalize(task.answer)}
+export function createSession(unitId,phase='core',ids=null){return {unitId,phase,index:0,ids,selected:null,chosenWords:[],left:null,matched:[],feedback:null,reviewQueue:[],reviewHits:0,firstCorrect:0,firstAttempts:0,score:0,earned:0,startedAt:Date.now()};}
+export function sessionTasks(state,session){if(session.unitId==='__review__'){return (session.ids||[]).map(key=>{const sep=key.lastIndexOf(':');const unit=getUnit(state,key.slice(0,sep));return unit?.tasks.find(t=>t.id===key.slice(sep+1))?{unit,task:unit.tasks.find(t=>t.id===key.slice(sep+1))}:null}).filter(Boolean)}const unit=getUnit(state,session.unitId);const list=session.phase==='repair'?(session.reviewQueue||[]).map(id=>unit?.tasks.find(t=>t.id===id)).filter(Boolean):unit?.tasks||[];return list.map(task=>({unit,task}));}
+function sanitizeTeacherBlock(block,i){if(!block||typeof block!=='object'||!['intro','visual','pairs','fill','sentence','listening','dialogue','speaking','explain','review'].includes(block.type))return null;
+ const type=({fill:'cloze',sentence:'arrange',explain:'intro',review:'intro'})[block.type]||block.type;
+ const task={id:safeText(block.id||`block-${i}`,90).replace(/[^a-zA-Z0-9_-]/g,'-'),type,skill:({visual:'vocabulary',pairs:'vocabulary',cloze:'grammar',arrange:'writing',listening:'listening',dialogue:'speaking',speaking:'speaking',intro:'reading'})[type],prompt:safeText(block.prompt||block.title,500),speech:safeText(block.speak||block.prompt,300),speaker:['explorer','hijab','blonde','grandfather','glasses','fox'].includes(block.character)?block.character:'explorer',explain:safeText(block.hint||'Observe o contexto e tente novamente.',360)};
+ if(['visual','cloze','listening','dialogue'].includes(type)){task.options=Array.isArray(block.choices)?block.choices.slice(0,8).map(x=>safeText(x,100)):[];task.answer=safeText(block.answer,100);if(task.options.length<2||!task.options.includes(task.answer))return null;}
+ if(type==='arrange'){task.words=Array.isArray(block.words)?block.words.slice(0,12).map(x=>safeText(x,50)):[];task.answer=safeText(block.answer,250);if(task.words.length<2||!task.answer)return null;}
+ if(type==='pairs'){task.pairs=Array.isArray(block.pairs)?block.pairs.slice(0,6).filter(p=>Array.isArray(p)&&p.length>=2).map(([a,b])=>[safeText(a,90),safeText(b,90)]):[];if(task.pairs.length<2)return null;}
+ return task;
+}
+export function validateTeacherPack(pack){if(!pack||pack.format!=='verbarium.lesson-pack'||pack.schemaVersion!==1||!Array.isArray(pack.lessons)||pack.lessons.length<1||pack.lessons.length>30)throw new Error('Pacote de aulas inválido.');
+ const units=[];for(const l of pack.lessons){if(!l||!Array.isArray(l.blocks)||l.blocks.length<1||l.blocks.length>60)throw new Error('Uma aula contém blocos inválidos.');const tasks=l.blocks.map(sanitizeTeacherBlock).filter(Boolean);if(!tasks.length)throw new Error('A aula não contém tarefas válidas.');const rawId=safeText(l.id,80);const id='teacher-'+rawId.replace(/[^a-zA-Z0-9_-]/g,'-');units.push({id,source:'teacher',world:'Aulas do Professor',level:['A1','A2','B1','B2','C1','C2'].includes(l.level)?l.level:'A1',section:'Professor',color:'purple',icon:'fruit_shop',title:safeText(l.title||'Aula sem título',100),subtitle:safeText(l.description||'Aula criada pelo professor',160),objective:Array.isArray(l.objectives)?l.objectives.map(x=>safeText(x,100)).join(' · ').slice(0,250):'',duration:Number(l.duration)||5,passingScore:Math.max(0,Math.min(100,Number(l.passingScore)||75)),tasks});}
+ if(new Set(units.map(x=>x.id)).size!==units.length)throw new Error('Aulas com identificadores duplicados.');return units;}
+export function importTeacherPack(state,pack){const incoming=validateTeacherPack(pack);const old=(state.teacherUnits||[]).filter(u=>!incoming.some(x=>x.id===u.id));state.teacherUnits=[...old,...incoming].slice(0,30);return incoming.length;}
+export function finishSession(state,session){const tasks=sessionTasks(state,session);const unit=getUnit(state,session.unitId);const total=unit?.tasks.filter(isGraded).length||session.firstAttempts||0;const score=total?Math.round(100*session.firstCorrect/total):100;
+ const required=unit?.passingScore||PASSING_SCORE;const passed=score>=required;
+ if(unit&&passed){const current=state.completed[unit.id];if(!current||score>current.score)state.completed[unit.id]={score,finishedAt:dayKey(),stars:score>=95?3:score>=80?2:1};}
+ state.session=null;return {score,passed,required,total,correct:session.firstCorrect};}
