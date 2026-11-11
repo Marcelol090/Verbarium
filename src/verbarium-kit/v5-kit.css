@@ -1,0 +1,53 @@
+/* Verbarium V5 compositions. Assets stay visual; content, state and hit areas remain semantic HTML. */
+.vb5-art{position:relative;display:inline-grid;place-items:center;isolation:isolate;width:100%;height:100%;flex-shrink:0;pointer-events:none}
+.vb5-art>img{position:absolute;inset:0;object-fit:contain;width:100%;height:100%;opacity:0;transition:opacity .2s ease}
+.vb5-art.is-loaded>img{opacity:1}
+.vb5-emoji{font-size:clamp(24px,4vw,52px);line-height:1;opacity:1}
+.vb5-art.is-loaded>.vb5-emoji{opacity:0}
+.vb5-world,.vb5-gallery{width:100%;max-width:1100px;margin:23px auto 35px}
+.vb5-world{padding:20px 22px 22px;border:1px solid #c9e7f4;background:linear-gradient(175deg,#e7f8ff,#fff 65%);border-radius:26px;overflow:hidden}
+.vb5-world>header{display:flex;justify-content:space-between;gap:14px;align-items:start}
+.vb5-world h2{font:800 clamp(22px,3.3vw,32px)/1.15 Fredoka,system-ui,sans-serif;color:#285180;margin:7px 0}
+.vb5-world p{color:#556985;max-width:570px;line-height:1.45;font-size:14px}
+.vb5-world-count{font-size:12px;font-weight:900;border-radius:99px;padding:8px 12px;background:#fff;border:1px solid #c8dded;white-space:nowrap;color:#2473ad;font-variant-numeric:tabular-nums}
+.vb5-world-scene{position:relative;max-width:890px;margin:18px auto 10px;min-height:275px;border-radius:25px;background:linear-gradient(180deg,#eaf9ff,#f1fff3 65%,#daf1d7 100%);overflow:hidden;border:1px solid #daf0f3}
+.vb5-world .vb5-flags{position:absolute;right:2%;top:4px;width:27%;height:44px}
+.vb5-world .vb5-cloud{position:absolute;left:3%;top:7%;width:15%;height:48px;opacity:.66}
+.vb5-world .vb5-tree{position:absolute;right:1%;bottom:24%;width:12%;height:38%}
+.vb5-world .vb5-bush{position:absolute;left:0;bottom:25%;width:12%;height:23%}
+.vb5-world-buildings{position:absolute;inset:55px 6% 48px;display:flex;align-items:end;justify-content:space-around;gap:1.2%}
+.vb5-building{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:0;width:29%;height:100%;cursor:pointer;position:relative;z-index:2;outline-offset:3px;transition:transform .16s ease}
+.vb5-building:hover{transform:translateY(-5px)}.vb5-building:focus-visible{outline:3px solid #365fe2;border-radius:14px}
+.vb5-building-art{height:70%;min-height:95px;max-width:200px}
+.vb5-building>span:last-child{display:flex;flex-direction:column;align-items:center;gap:2px;background:#fffefaee;border:1px solid #ddedf3;padding:5px 9px;border-radius:12px;box-shadow:0 3px 0 #b6d4db55;max-width:100%;text-align:center}
+.vb5-building strong{font-size:12px;color:#2b567d}.vb5-building small{font-size:10px;color:#63809b;line-height:1.15}
+.vb5-explorer{position:absolute;bottom:8px;left:1%;width:14%;height:46%;z-index:3}
+.vb5-floor{position:absolute;bottom:6px;left:1%;width:17%;height:16px;z-index:0}
+.vb5-path-items{position:absolute;right:1%;bottom:4px;display:flex;gap:5px;align-items:center;width:33%;height:30px;opacity:.92}.vb5-path-items>.vb5-art{width:33%;height:100%}
+.vb5-world-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px}.vb5-world-footer span{font-size:12px;color:#47708a;font-weight:800}.vb5-world-footer .button{min-width:160px}
+.vb5-world.is-compact .vb5-world-scene{min-height:220px}.vb5-world.is-compact .vb5-world-buildings{inset:38px 8% 33px}.vb5-world.is-compact .vb5-world p{font-size:12px}
+.vb5-food-scene{position:relative;width:min(100%,530px);height:155px;margin:3px auto 18px;border-radius:19px;background:linear-gradient(180deg,#fff 0%,#eff9ff 75%,#edfce9 100%);overflow:hidden}
+.vb5-food-scene .vb5-food-location{position:absolute;right:9%;bottom:4px;width:42%;height:140px}
+.vb5-food-scene .vb5-food-character{position:absolute;left:10%;bottom:3px;width:32%;height:145px;z-index:2;animation:vb5-gentle-bob 2.5s ease-in-out infinite}
+.vb5-food-scene .vb5-food-shadow{position:absolute;left:8%;bottom:0;width:34%;height:15px;opacity:.5}
+.vb5-food-scene .vb5-food-sparkle{position:absolute;top:5%;left:43%;width:21%;height:65px;animation:vb5-spark .6s both}
+.vb-food-image-grid .vb-food-choice{background-color:#fafcff;background-image:url('/verbarium-v5/assets/exercises/image_card_idle.webp');background-position:center;background-repeat:no-repeat;background-size:100% 100%;border:0;box-shadow:none;position:relative;isolation:isolate}
+.vb-food-image-grid .vb-food-choice.is-selected{background-image:url('/verbarium-v5/assets/exercises/image_card_selected.webp')}
+.vb-food-image-grid .vb-food-choice.is-correct{background-image:url('/verbarium-v5/assets/exercises/image_card_correct.webp')}
+.vb-food-image-grid .vb-food-choice.is-wrong{background-image:url('/verbarium-v5/assets/exercises/image_card_wrong.webp')}
+.vb-food-image-grid .vb-food-choice>.vb-food-art,.vb-food-image-grid .vb-food-choice>.vb-food-choice-caption{position:relative;z-index:1}
+.vb-food-word-grid .vb-food-word{background-image:url('/verbarium-v5/assets/exercises/answer_chip_idle.webp');background-size:100% 100%;border:1px solid #dce6ed;box-shadow:none}
+.vb-food-word-grid .vb-food-word.is-selected{background-image:url('/verbarium-v5/assets/exercises/answer_chip_selected.webp')}
+.vb-food-word-grid .vb-food-word.is-correct{background-image:url('/verbarium-v5/assets/exercises/answer_chip_correct.webp')}
+.vb-food-word-grid .vb-food-word.is-wrong{background-image:url('/verbarium-v5/assets/exercises/answer_chip_wrong.webp')}
+.vb-food-audio .vb-food-art{background:transparent}.vb-food-audio .vb-food-art .vb-food-emoji{font-size:25px}
+.vb5-reward{position:relative;max-width:400px;min-height:260px;margin:auto;display:flex;align-items:center;flex-direction:column;justify-content:center}
+.vb5-reward .vb5-chest-open{width:240px;height:190px;animation:vb5-reward-reveal .58s cubic-bezier(.2,.9,.25,1) both}
+.vb5-reward .vb5-chest-middle{position:absolute;top:16px;width:200px;height:170px;opacity:0;animation:vb5-chest-transition .4s both}
+.vb5-reward .vb5-confetti{position:absolute;top:2px;right:2%;width:100px;height:90px;animation:vb5-spark .9s .2s both}
+.vb5-stars{display:flex;justify-content:center;gap:8px;margin-top:2px}.vb5-stars .vb5-art{width:45px;height:45px}
+.vb5-reward-stats{font-weight:900;color:#41763b;font-variant-numeric:tabular-nums;font-size:13px}
+.vb5-gallery-head{padding:25px;border-radius:23px;background:linear-gradient(135deg,#dff6ff,#f9f0ff);border:1px solid #cee8f7}.vb5-gallery-head h1{font:800 clamp(28px,4vw,40px)/1.13 Fredoka,system-ui,sans-serif;margin:8px 0;color:#295078}.vb5-gallery-head p{max-width:640px;color:#57708c;margin:8px 0 16px}.vb5-gallery-filters{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.vb5-gallery-count{font-size:12px;font-weight:800;color:#6b7a94;margin:12px 0}.vb5-gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px}.vb5-gallery-cell{min-width:0;min-height:170px;padding:12px;background:#fff;border:1px solid #d9e5ed;border-radius:18px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:border-color .18s,transform .18s}.vb5-gallery-cell>.vb5-art{height:113px;width:100%}.vb5-gallery-cell strong{font-size:11px;color:#445a70;text-transform:capitalize;overflow-wrap:anywhere;text-align:center}.vb5-gallery-cell:hover{border-color:#5bbfe7;transform:translateY(-2px)}.vb5-gallery-cell.active{border:2px solid #14a9f5;background:#eefaff}.vb5-gallery-cell:focus-visible{outline:3px solid #445bd9;outline-offset:2px}.vb5-gallery-preview{position:sticky;bottom:12px;margin:20px 0 0;background:#fff;border:1px solid #b5dcee;box-shadow:0 8px 20px #4466a52a;border-radius:16px;display:flex;align-items:center;gap:20px;padding:12px}.vb5-gallery-preview>.vb5-art{width:140px;height:130px}.vb5-gallery-preview>div{display:flex;flex-direction:column;gap:7px;min-width:0}.vb5-gallery-preview strong{text-transform:capitalize}.vb5-gallery-preview small{color:#69809b}.vb5-gallery-preview code{font-size:10px;overflow-wrap:anywhere}
+@keyframes vb5-gentle-bob{50%{transform:translateY(-4px)}}@keyframes vb5-reward-reveal{0%{opacity:.2;transform:scale(.85) translateY(12px)}70%{opacity:1;transform:scale(1.04)}100%{transform:scale(1)}}@keyframes vb5-chest-transition{0%{opacity:1;transform:scale(.9)}100%{opacity:0;transform:scale(1.05)}}@keyframes vb5-spark{0%{opacity:0;transform:scale(.55)}70%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+@media(max-width:600px){.vb5-world{padding:14px 12px;border-radius:21px}.vb5-world>header{gap:7px}.vb5-world-count{font-size:10px;padding:7px}.vb5-world-scene{min-height:207px}.vb5-world.is-compact .vb5-world-scene{min-height:188px}.vb5-world-buildings{inset:38px 4% 43px}.vb5-building-art{min-height:64px;height:60%}.vb5-building>span:last-child{padding:4px 5px}.vb5-building strong{font-size:10px}.vb5-building small{font-size:9px}.vb5-explorer{bottom:10px;width:19%;height:40%}.vb5-world-footer{flex-direction:column;align-items:stretch}.vb5-world-footer .button{width:100%}.vb5-food-scene{height:125px}.vb5-food-scene .vb5-food-location{height:110px}.vb5-food-scene .vb5-food-character{height:120px}.vb5-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.vb5-gallery-preview>.vb5-art{width:105px;height:100px}}
+@media(prefers-reduced-motion:reduce){.vb5-art>img,.vb5-building,.vb5-gallery-cell{transition:none!important}.vb5-food-character,.vb5-food-sparkle,.vb5-reward .vb5-chest-open,.vb5-reward .vb5-chest-middle,.vb5-reward .vb5-confetti{animation:none!important}}
