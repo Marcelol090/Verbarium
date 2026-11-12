@@ -1,3 +1,28 @@
+
+/* sentence-lab-asset-fallback: permanent V5/V6 fallback while independent GIF packs are integrated. */
+document.addEventListener('error',event=>{
+ const img=event.target;
+ if(!(img instanceof HTMLImageElement)||img.dataset.fallbackStage==='done')return;
+ const src=img.getAttribute('src')||'';
+ if(img.dataset.fallbackStage==='first'){img.dataset.fallbackStage='done';img.style.visibility='hidden';return;}
+ img.dataset.fallbackStage='first';
+ if(src.includes('/characters/')){
+  const id=src.split('/').pop().replace('.gif','');
+  const who=id.split('_')[0],gesture=id.slice(who.length+1);
+  const actor={alex:'explorer',luna:'hijab_student',ben:'glasses_student',emma:'blonde_student',oliver:'grandfather',mia:'hijab_student'}[who]||'explorer';
+  const state={speaking:'speaking',listening:'listening',thinking:'thinking',correct:'proud',retry:'thinking',celebrate:'celebrating'}[gesture]||'neutral';
+  img.src='/verbarium-v6/assets/characters/'+actor+'_'+state+'.webp';
+ }else if(src.includes('/food/')){
+  const id=src.split('/').pop().replace('.gif','');
+  const item={apple_red:'apple',loaf:'bread'}[id]||id;
+  img.src='/verbarium-2026-kit/items/'+item+'.webp';
+ }else if(src.includes('/rewards/')){
+  img.src='/verbarium-v6/assets/progress/node_treasure.webp';
+ }else if(src.includes('/exercises/')){
+  img.style.visibility='hidden';img.dataset.fallbackStage='done';
+ }else{img.style.visibility='hidden';img.dataset.fallbackStage='done';}
+},true);
+
 import {STORAGE_KEY,PHRASES,TARGET_STEPS,MATCH_PAIRS,hydrateState,recordAttempt,gradeSentence,gradePair,normalize,mastery,sentence} from './lesson-core.js';
 const $ = sel=>document.querySelector(sel);
 const esc = s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
