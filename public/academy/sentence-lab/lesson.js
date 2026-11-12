@@ -45,6 +45,7 @@ function setGuideMood(mood='listening'){
  const who=CHARS[guideIndex];const img=$('#coach-image');
  img.src=path('characters',`${who}_${mood}`);
  img.alt=`${CHAR_NAMES[who]} ${mood==='celebrate'?'comemorando':mood==='speaking'?'falando':mood==='retry'?'incentivando uma nova tentativa':'ajudando a aprender'}`;
+ const face=$('#coach-speaking-face');if(face){face.src=path('faces',`${who}_speaking`);$('#actor-stage').classList.toggle('is-speaking',mood==='speaking');}
  $('#coach-mood').textContent={speaking:'Praticando a pronúncia',listening:'Acompanhando sua resposta',thinking:'Pensando na estrutura',correct:'Mandou bem!',retry:'Vamos entender o erro',celebrate:'Você conseguiu!'}[mood]||'Aprendendo';
 }
 function feedback(text,ok=true){status={text,ok};const box=$('#feedback');box.hidden=false;box.textContent=text;box.className='feedback'+(ok?'':' is-error');setGuideMood(ok?'correct':'retry')}
