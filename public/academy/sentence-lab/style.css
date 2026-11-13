@@ -13,3 +13,9 @@
 .practice-memory-link{display:inline-block;margin-top:9px;font-size:11px;color:#7959b0;font-weight:900;text-decoration:underline;text-underline-offset:3px}
 .practice-cta{margin-right:10px;margin-bottom:9px}
 @media(max-width:560px){.practice-quick-nav a{flex:1 1 100%}}
+
+/* Provider-timed visemes are drawn on the existing face. Hide the former
+   detached talking-face preview while neural speech is playing. */
+.actor-stage.neural-active .speaking-face{display:none!important}
+.actor-stage .vb-viseme-mouth svg{display:block;width:100%;height:100%}
+@media(prefers-reduced-motion:reduce){.actor-stage .vb-viseme-mouth{display:none!important}}
