@@ -60,7 +60,7 @@ function clearSpeak(){
 }
 function highlightSpeech(charIndex){
  const before=spokenText.slice(0,charIndex).trim();
- const wordIndex=before?before.split(/\\s+/).length:0;
+ const wordIndex=before?before.split(/\s+/).length:0;
  $('#practice-model')?.querySelectorAll('.speak-word').forEach((el,i)=>el.classList.toggle('is-current',i===wordIndex));
 }
 async function hearModel(){
