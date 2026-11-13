@@ -24,6 +24,7 @@ document.addEventListener('error',event=>{
 },true);
 
 import {STORAGE_KEY,PHRASES,TARGET_STEPS,MATCH_PAIRS,hydrateState,recordAttempt,gradeSentence,gradePair,normalize,mastery,sentence} from './lesson-core.js';
+import {mirrorSentenceAttempt} from './academy-bridge.js';
 const $ = sel=>document.querySelector(sel);
 const esc = s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const CHARS=['alex','luna','ben','emma','oliver','mia'];
@@ -99,7 +100,7 @@ function checkAnswer(){
  if(step===3){result=gradeSentence(chosenAudio,sentence(PHRASES[2]));phraseId='milk';}
  if(step===4){result=gradeSentence(typed,sentence(PHRASES[3]));phraseId='bread';}
  if(!result)return;
- state=recordAttempt(state,step,phraseId,result.ok);save();feedback(result.reason,result.ok);
+ state=recordAttempt(state,step,phraseId,result.ok);save();mirrorSentenceAttempt(result.ok);feedback(result.reason,result.ok);
  if(result.ok){finishedStep=true;$('#primary-action').innerHTML='Próxima etapa →';$('#primary-action').disabled=false;}
  else if(step===4){$('#text-answer')?.focus();}
  else if(step===1){selectedWords=[];render();feedback(result.reason,false);}
@@ -130,7 +131,7 @@ $('#exercise-region').addEventListener('click',e=>{
   if(!selectedMatch){selectedMatch=point;render();return;}
   if(selectedMatch.side===point.side){selectedMatch=point;render();return;}
   if(gradePair(selectedMatch.id,point.id)){matched.add(point.id);selectedMatch=null;render();if(matched.size===3){feedback('Ótimo! Você associou os três inícios às continuações corretas.');}}
-  else{state=recordAttempt(state,2,'pairs',false);save();selectedMatch=null;render();feedback('Essas partes não combinam. Observe quem pratica a ação e como o verbo muda.',false)}
+  else{state=recordAttempt(state,2,'pairs',false);save();mirrorSentenceAttempt(false);selectedMatch=null;render();feedback('Essas partes não combinam. Observe quem pratica a ação e como o verbo muda.',false)}
  }else if(action==='restart'){
   state.step=0;state.completed=false;save();resetStepUi();render();
  }
