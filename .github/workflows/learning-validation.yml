@@ -9,12 +9,14 @@ on:
       - 'public/academy/academy.css'
       - 'tests/sentence-lab.test.mjs'
       - 'tests/sentence-production.test.mjs'
+      - 'tests/academy-sentence-bridge.test.mjs'
       - '.github/workflows/learning-validation.yml'
   pull_request:
     paths:
       - 'public/academy/sentence-lab/**'
       - 'tests/sentence-lab.test.mjs'
       - 'tests/sentence-production.test.mjs'
+      - 'tests/academy-sentence-bridge.test.mjs'
       - '.github/workflows/learning-validation.yml'
 
 jobs:
@@ -31,6 +33,7 @@ jobs:
         run: |
           node --check public/academy/sentence-lab/production-bank.js
           node --check public/academy/sentence-lab/practice.js
+          node --check public/academy/sentence-lab/academy-bridge.js
           node --check public/academy/sentence-lab/lesson.js
       - name: Verify guided and autonomous learning behavior
-        run: node --test tests/sentence-lab.test.mjs tests/sentence-production.test.mjs
+        run: node --test tests/sentence-lab.test.mjs tests/sentence-production.test.mjs tests/academy-sentence-bridge.test.mjs
