@@ -40,7 +40,8 @@ export function buildSsml({text,accent,voice,speed}){
  return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${accent}"><voice name="${voice}"><prosody rate="${rate>=0?'+':''}${rate}%">${escapeXml(text)}</prosody></voice></speak>`;
 }
 async function synthesize(input,config){
- const sdk=await import('microsoft-cognitiveservices-speech-sdk');
+ const imported=await import('microsoft-cognitiveservices-speech-sdk');
+ const sdk=imported.SpeechConfig?imported:imported.default;
  const speech=sdk.SpeechConfig.fromSubscription(config.key,config.region);
  speech.speechSynthesisOutputFormat=sdk.SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3;
  const engine=new sdk.SpeechSynthesizer(speech,null);
