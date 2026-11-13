@@ -45,6 +45,9 @@ export function scaffoldHint(prompt,level=1){
 }
 export function accuracyFromResults(results){
  const first=results.filter(x=>x.firstAttempt).length;
- return {firstAttempts:first,firstCorrect:results.filter(x=>x.firstAttempt&&x.ok).length,
-  percentage:first?Math.round(100*results.filter(x=>x.firstAttempt&&x.ok).length/first):0};
+ const firstCorrect=results.filter(x=>x.firstAttempt&&x.ok).length;
+ const unaidedCorrect=results.filter(x=>x.firstAttempt&&x.ok&&!x.assisted).length;
+ return {firstAttempts:first,firstCorrect,unaidedCorrect,
+  percentage:first?Math.round(100*firstCorrect/first):0,
+  unaidedPercentage:first?Math.round(100*unaidedCorrect/first):0};
 }
