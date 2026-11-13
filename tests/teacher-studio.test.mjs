@@ -25,7 +25,7 @@ test('Student preview has honest oral-practice grading and safe voice fallback',
  assert.match(studio,/\['intro','explain','review','speaking'\]/);
  assert.match(studio,/speechSynthesis/);
  assert.match(studio,/requestNeuralClip/);
- assert.match(studio,/character-director\\.js/);
+ assert.match(studio,/character-director\.js/);
  assert.match(studio,/Voice|voiceAccent/);
  assert.doesNotMatch(studio,/ELEVENLABS_API_KEY/);
  assert.match(studio,/const ESC =/);
