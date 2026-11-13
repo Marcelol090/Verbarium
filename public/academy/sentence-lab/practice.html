@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="theme-color" content="#f8fbff">
+ <meta name="description" content="Pratique a formação de frases em inglês sem banco de palavras, com revisões e dicas progressivas.">
+ <title>Verbarium · Construir frases sozinho</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./practice.css">
+</head>
+<body>
+<div class="shell">
+ <header class="masthead">
+  <a href="./" class="back-link" aria-label="Voltar ao Laboratório de Frases">‹</a>
+  <div class="brandmark" aria-hidden="true">V<span>•</span></div><div class="brand"><strong>Verbarium</strong><span>PRÁTICA DE AUTONOMIA</span></div>
+  <div class="header-right"><img src="./assets/progress/flame.gif" width="32" height="32" alt=""><span id="xp-current">0 XP</span></div>
+ </header>
+ <main>
+  <div class="hero-head">
+   <span class="eyebrow">RECUPERAÇÃO DA MEMÓRIA · PRESENT SIMPLE</span>
+   <h1>Agora a frase é sua.</h1>
+   <p>Sem banco de palavras: compreenda a ideia, pense na estrutura e escreva em inglês. As dicas aparecem apenas quando você pedir.</p>
+  </div>
+  <div class="practice-layout">
+   <section class="practice-main" aria-label="Treino de construção de frases">
+    <div class="practice-progress">
+     <div><strong id="exercise-count">PREPARANDO</strong><span id="mode-name">Prática independente</span></div>
+     <div id="practice-track" class="practice-track" role="progressbar" aria-label="Progresso da prática" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><div id="practice-fill"></div></div>
+    </div>
+    <div id="practice-stage" class="practice-stage" aria-live="polite"></div>
+    <div id="practice-feedback" class="practice-feedback" role="status" aria-live="polite" hidden></div>
+    <div id="practice-actions" class="practice-actions">
+     <button type="button" id="hint-button" class="button subtle">Pedir uma dica</button>
+     <button type="button" id="verify-button" class="button main" disabled>Verificar frase</button>
+     <button type="button" id="show-model" class="button subtle" hidden>Ver modelo</button>
+     <button type="button" id="next-button" class="button main" hidden>Próxima frase</button>
+    </div>
+   </section>
+   <aside class="practice-sidebar" aria-label="Personagem e áudio">
+    <section class="coach-card">
+     <div class="coach-heading"><span class="coach-tag">SEU GUIA</span><span class="practice-skill">ESCUTA · ESCRITA</span></div>
+     <div class="actor-stage">
+      <div class="speech-halo"></div>
+      <img id="practice-character" src="./assets/characters/alex_thinking.gif" alt="Personagem aguardando sua resposta" width="170" height="170">
+      <img id="practice-face" class="speaking-face" src="./assets/faces/alex_speaking.gif" alt="" aria-hidden="true" width="68" height="82">
+     </div>
+     <div class="coach-name"><strong id="character-name">Alex</strong><span id="character-mood">Pense na estrutura da frase</span></div>
+     <button type="button" id="hear-model" class="sound-control" disabled><span class="speaker-icon" aria-hidden="true">♫</span><span>Ouvir a frase após responder</span></button>
+     <label class="accent-label" for="accent-select">Variação da voz</label>
+     <select id="accent-select" aria-label="Variação de pronúncia"><option value="en-US">Inglês americano</option><option value="en-GB">Inglês britânico</option></select>
+     <p id="voice-status" class="speak-note" role="status" aria-live="polite">A fala do modelo fica disponível depois da tentativa.</p>
+    </section>
+    <section class="tip-card"><strong>Como desenvolver autonomia?</strong>
+      <p>Observe o significado, identifique sujeito, verbo e complemento. Tente lembrar antes de pedir uma dica. O importante é compreender e recuperar a estrutura, não adivinhar.</p>
+    </section>
+    <section class="memory-card"><div><strong>Revisão espaçada</strong><p>Os erros reaparecem mais cedo. Acertos sucessivos aumentam o intervalo.</p></div><span class="due-pill" id="due-count">0 pendentes</span></section>
+   </aside>
+  </div>
+ </main>
+ <footer class="page-footer">As imagens são apoio semântico. As palavras, os números e as respostas permanecem editáveis. <a href="/academy/">Academy</a> · <a href="/studio/">Studio do Professor</a></footer>
+</div>
+<script type="module" src="./practice.js"></script>
+</body></html>
