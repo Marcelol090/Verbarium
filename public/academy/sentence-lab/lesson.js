@@ -26,12 +26,14 @@ document.addEventListener('error',event=>{
 import {STORAGE_KEY,PHRASES,TARGET_STEPS,MATCH_PAIRS,hydrateState,recordAttempt,gradeSentence,gradePair,normalize,mastery,sentence} from './lesson-core.js';
 import {approvedSpeech} from '../../voice/approved-speech.js';
 import {playNeuralClip} from '../../voice/speech-sync.js';
+import {createCharacterDirector} from '../../voice/character-director.js';
 import {mirrorSentenceAttempt} from './academy-bridge.js';
 const $ = sel=>document.querySelector(sel);
 const esc = s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const CHARS=['alex','luna','ben','emma','oliver','mia'];
 const CHAR_NAMES={alex:'Alex',luna:'Luna',ben:'Ben',emma:'Emma',oliver:'Oliver',mia:'Mia'};
 const VOICE_ALIASES={alex:'explorer',luna:'hijab',ben:'glasses',emma:'blonde',oliver:'grandfather',mia:'hijab'};
+const guideDirector=createCharacterDirector({image:document.querySelector('#coach-image'),stage:document.querySelector('#actor-stage')});
 const STEP_TITLES=['Observar o padrão','Montar com pistas','Conectar significados','Entender pelo ouvido','Criar sem ajuda','Conquista de aprendizagem'];
 const TIPS=[
  'Quando você entende quem faz a ação, qual é a ação e sobre o quê ela acontece, montar frases deixa de ser uma adivinhação.',
@@ -42,7 +44,7 @@ const TIPS=[
  'A aprendizagem continua após a aula: as frases reaparecem para revisão em intervalos crescentes.'
 ];
 let state;try{state=hydrateState(JSON.parse(localStorage.getItem(STORAGE_KEY)||'null'))}catch{state=hydrateState(null)}
-let guideIndex=0,selectedWords=[],selectedMatch=null,matched=new Set(),chosenAudio='',typed='',status=null,finishedStep=false,playing=false,wordPosition=-1,speech=null,neuralSession=null,voiceGeneration=0;
+let guideIndex=0,selectedWords=[],selectedMatch=null,matched=new Set(),chosenAudio='',typed='',status=null,finishedStep=false,playing=false,wordPosition=-1,speech=null,neuralSession=null,neuralAbort=null,voiceGeneration=0;
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch{}}
 function path(group,key){return `./assets/${group}/${key}.gif`}
 function setGuideMood(mood='listening'){
@@ -50,6 +52,7 @@ function setGuideMood(mood='listening'){
  img.src=path('characters',`${who}_${mood}`);
  img.alt=`${CHAR_NAMES[who]} ${mood==='celebrate'?'comemorando':mood==='speaking'?'falando':mood==='retry'?'incentivando uma nova tentativa':'ajudando a aprender'}`;
  const face=$('#coach-speaking-face');if(face){face.src=path('faces',`${who}_speaking`);$('#actor-stage').classList.toggle('is-speaking',mood==='speaking');}
+ guideDirector.setMood(mood);
  $('#coach-mood').textContent={speaking:'Praticando a pronúncia',listening:'Acompanhando sua resposta',thinking:'Pensando na estrutura',correct:'Mandou bem!',retry:'Vamos entender o erro',celebrate:'Você conseguiu!'}[mood]||'Aprendendo';
 }
 function feedback(text,ok=true){status={text,ok};const box=$('#feedback');box.hidden=false;box.textContent=text;box.className='feedback'+(ok?'':' is-error');setGuideMood(ok?'correct':'retry')}
@@ -65,6 +68,8 @@ function currentSpeech(){
 }
 function stopSpeech(){
  voiceGeneration++;
+ neuralAbort?.abort();neuralAbort=null;
+ guideDirector.end();
  if(neuralSession){const job=neuralSession;neuralSession=null;job.stop()}
  window.speechSynthesis?.cancel();
  playing=false;wordPosition=-1;speech=null;
@@ -82,18 +87,22 @@ async function speak(text=currentSpeech()){
    playing=true;setGuideMood('speaking');$('#actor-stage').classList.add('neural-active');
    const portrait=$('#coach-image');
    portrait.src=path('characters',who+'_listening');
+   const controller=new AbortController();neuralAbort=controller;guideDirector.begin();
    $('#speaking-status').textContent='Voz neural: boca e palavras sincronizadas com o áudio.';
    neuralSession=await playNeuralClip(approved,{
-    image:portrait,character,
-    onWord:index=>{wordPosition=index;syncWordHighlight()},
+    image:portrait,character,signal:controller.signal,
+    onViseme:id=>guideDirector.viseme(id),
+    onWord:index=>{guideDirector.word(index);wordPosition=index;syncWordHighlight()},
     onEnd:()=>{
-     neuralSession=null;$('#actor-stage').classList.remove('neural-active');
+     neuralSession=null;neuralAbort=null;guideDirector.end();$('#actor-stage').classList.remove('neural-active');
      playing=false;wordPosition=-1;syncWordHighlight();setGuideMood('listening');
     }
    });
+   if(generation!==voiceGeneration){neuralSession?.stop();return;}
    return;
   }catch(e){
-   neuralSession=null;playing=false;$('#actor-stage').classList.remove('neural-active');
+   if(generation!==voiceGeneration)return;
+   guideDirector.end();neuralSession=null;playing=false;$('#actor-stage').classList.remove('neural-active');
   }
  }
  if(!('speechSynthesis' in window)){

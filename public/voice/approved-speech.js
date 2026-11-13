@@ -9,6 +9,7 @@ export async function clipId({text='',character='explorer',accent='en-US'}){
  return Array.from(new Uint8Array(raw)).slice(0,14).map(v=>v.toString(16).padStart(2,'0')).join('');
 }
 const CACHE=new Map();
+import {validateNeuralClip} from './speech-sync.js';
 export async function approvedSpeech({text,character,accent='en-US'}){
  let id;try{id=await clipId({text,character,accent})}catch{return null}
  if(CACHE.has(id))return CACHE.get(id);
@@ -16,7 +17,7 @@ export async function approvedSpeech({text,character,accent='en-US'}){
   const response=await fetch('/voice/approved/'+id+'.json',{cache:'force-cache'});
   if(!response.ok){CACHE.set(id,null);return null}
   const result=await response.json();
-  if(result.approved!==true||result.text!==text||result.character!==character||result.accent!==accent||result.format!=='audio/mpeg'){
+  if(result.approved!==true||result.text!==text||result.character!==character||result.accent!==accent||!validateNeuralClip(result)){
    CACHE.set(id,null);return null;
   }
   CACHE.set(id,result);
@@ -24,7 +25,7 @@ export async function approvedSpeech({text,character,accent='en-US'}){
  }catch{CACHE.set(id,null);return null}
 }
 export async function downloadApprovedClip(clip,{text,character,accent}){
- if(!clip?.audioBase64||!clip.visemes?.length)throw Error('Gere uma voz neural válida antes de exportar.');
+ if(!validateNeuralClip(clip))throw Error('Gere uma voz neural válida antes de exportar.');
  const id=await clipId({text,character,accent});
  const payload={...clip,text,character,accent,approved:false,createdAt:new Date().toISOString()};
  const blob=new Blob([JSON.stringify(payload)],{type:'application/json'});

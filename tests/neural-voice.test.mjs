@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {validateSpeechInput,secureTokenMatches,escapeXml,buildSsml,VOICES} from '../api/studio-tts.js';
 import {lipGroupForViseme,timelineAt,validateNeuralClip,FACE_ANCHORS,VISEME_COUNT} from '../public/voice/speech-sync.js';
 import {clipId} from '../public/voice/approved-speech.js';
+import {createCharacterDirector,CHARACTER_MOODS} from '../public/voice/character-director.js';
 
 test('neural synthesis validates character, locale and voice speed',()=>{
  const input=validateSpeechInput({text:'She eats an apple.',character:'explorer',accent:'en-US',speed:0.9});
@@ -76,4 +77,25 @@ test('students do not receive a provider credential or call paid synthesis direc
   assert.ok(s.includes('playNeuralClip'));
   assert.doesNotMatch(s,/VERBARIUM_TTS_ACCESS_TOKEN|AZURE_SPEECH_KEY|\/api\/studio-tts/);
  }
+});
+
+test('character director reuses the same expression states across lesson slots',()=>{
+ const image={dataset:{},classList:{add(){},remove(){}}},stage={dataset:{}};
+ const director=createCharacterDirector({image,stage});
+ assert.equal(CHARACTER_MOODS.length,6);
+ director.begin();director.viseme(12);director.word(4);
+ assert.equal(image.dataset.vbViseme,'12');
+ assert.equal(image.dataset.vbGesture,'nod');
+ assert.equal(stage.dataset.vbExpression,'speaking');
+ director.react(false);
+ assert.equal(stage.dataset.vbExpression,'retry');
+ assert.equal(image.dataset.vbViseme,undefined);
+ director.setMood('unexpected');
+ assert.equal(stage.dataset.vbExpression,'listening');
+});
+test('malformed audio events are never silently reordered by the player',()=>{
+ const clip={version:1,format:'audio/mpeg',audioBase64:'AA==',visemes:[{timeMs:150,id:2},{timeMs:40,id:0}],words:[]};
+ assert.equal(validateNeuralClip(clip),false);
+ assert.equal(validateNeuralClip({...clip,visemes:[{timeMs:0,id:2}],words:[{timeMs:20,text:'Hi'},{timeMs:10,text:'there'}]}),false);
+ assert.equal(validateNeuralClip({...clip,visemes:[{timeMs:0,id:2}],words:[{timeMs:1,text:42}]}),false);
 });

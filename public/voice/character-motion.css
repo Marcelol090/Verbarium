@@ -1,0 +1,13 @@
+/* Secondary character motion preserves reusable lesson shells and raster pose assets. */
+.vb-voice-image{transform-origin:50% 82%}
+.vb-voice-image.vb-voice-active{animation:vbActorSpeak .88s ease-in-out infinite alternate}
+.vb-voice-image.vb-voice-active~.vb-viseme-mouth{animation:vbMouthSpeak .88s ease-in-out infinite alternate}
+.vb-voice-image.vb-voice-active[data-vb-gesture="nod"],.vb-voice-image.vb-voice-active[data-vb-gesture="nod"]~.vb-viseme-mouth{animation-duration:.55s}
+.vb-voice-image.vb-voice-active[data-vb-gesture="tilt"],.vb-voice-image.vb-voice-active[data-vb-gesture="tilt"]~.vb-viseme-mouth{animation-duration:1.1s}
+.vb-voice-image:not(.vb-voice-active)[data-vb-expression="correct"],.vb-voice-image:not(.vb-voice-active)[data-vb-expression="celebrate"]{animation:vbActorCheer .45s ease-out both}
+.vb-voice-image:not(.vb-voice-active)[data-vb-expression="retry"]{animation:vbActorRetry .35s ease-out}
+@keyframes vbActorSpeak{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+@keyframes vbMouthSpeak{from{transform:translate(-50%,-50%) translateY(0)}to{transform:translate(-50%,-50%) translateY(-3px)}}
+@keyframes vbActorCheer{0%{transform:scale(.97)}60%{transform:scale(1.045)}100%{transform:scale(1)}}
+@keyframes vbActorRetry{0%,100%{transform:rotate(0)}50%{transform:rotate(-1.5deg)}}
+@media(prefers-reduced-motion:reduce){.vb-voice-image,.vb-voice-image.vb-voice-active,.vb-voice-image.vb-voice-active~.vb-viseme-mouth{animation:none!important}.vb-voice-image.vb-voice-active~.vb-viseme-mouth{transform:translate(-50%,-50%)!important}}

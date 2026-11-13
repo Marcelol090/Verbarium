@@ -76,3 +76,14 @@ O template `layoutPreset` é persistido dentro de cada aula no formato existente
 - `node --test tests/sentence-lab.test.mjs tests/sentence-production.test.mjs`
 
 A compilação Vercel valida a publicação, mas **não prova uma síntese real**, o posicionamento pixel-perfect do rosto nem teste de acessibilidade em dispositivo físico.
+
+## V2 · Animação expressiva dos seis personagens
+
+- `public/voice/character-director.js`: orquestrador único de estados `listening`, `thinking`, `speaking`, `correct`, `retry` e `celebrate` para Academy e prévia do Studio. As poses e GIFs que já representam Alex, Luna, Ben, Emma, Oliver e Mia permanecem em uso.
+- `public/voice/character-motion.css`: movimentos discretos de corpo, ênfase por palavra e reações de acerto/erro. A camada da boca acompanha a mesma oscilação; `prefers-reduced-motion` elimina animação secundária.
+- `onViseme` recebe o ID enviado pelo sintetizador; `onWord` alimenta os destaques e a cadência de pequenos gestos. Ambos usam os offsets reais do clipe, sincronizados pelo relógio de áudio.
+- `speech-sync.js` agora considera `object-fit: contain` e aceita `data-mouth-x`, `data-mouth-y` e `data-mouth-size` (frações 0 a 1) para ajuste de cada retrato. A precisão pixel-perfect depende de calibrar o rosto nos assets individuais, inclusive poses diferentes.
+- Ao trocar atividade, personagem ou página, a sessão anterior é cancelada; clipes com visemas/limites de palavras fora da ordem deixam de ser válidos. O aluno continua com fallback de voz do navegador quando não encontra um clipe neural previamente aprovado.
+- **Importante:** visemas representam grupos visuais, não timestamps fonéticos 1:1. A animação corporal é expressiva e não deve ser apresentada como análise ou correção de pronúncia do aluno. Nenhuma síntese Azure foi comprovada com credenciais reais nesta fase.
+
+O layout da aula mantém os três presets `standard`, `focus` e `story`, além do contrato de blocos já definido no Studio. A direção dos personagens não redesenha o shell: ela é aplicada apenas no slot do personagem e nos destaques da fala.

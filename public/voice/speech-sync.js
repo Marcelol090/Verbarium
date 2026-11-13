@@ -24,8 +24,8 @@ export function timelineAt(events,timeMs,field='id',initial=null){
 export function validateNeuralClip(clip){
  if(!clip||clip.version!==1||clip.format!=='audio/mpeg'||typeof clip.audioBase64!=='string'||!clip.audioBase64||clip.audioBase64.length>3_000_000)return false;
  if(!Array.isArray(clip.visemes)||!clip.visemes.length)return false;
- return clip.visemes.every(e=>Number.isInteger(e.id)&&e.id>=0&&e.id<VISEME_COUNT&&Number.isFinite(e.timeMs)&&e.timeMs>=0)
- &&Array.isArray(clip.words);
+ return clip.visemes.every((e,i)=>Number.isInteger(e.id)&&e.id>=0&&e.id<VISEME_COUNT&&Number.isFinite(e.timeMs)&&e.timeMs>=0&&(i===0||e.timeMs>=clip.visemes[i-1].timeMs))
+ &&Array.isArray(clip.words)&&clip.words.every((w,i)=>typeof w.text==='string'&&Number.isFinite(w.timeMs)&&w.timeMs>=0&&(i===0||w.timeMs>=clip.words[i-1].timeMs));
 }
 function shapeSvg(id){
  const group=lipGroupForViseme(id);
@@ -54,18 +54,26 @@ export function attachMouth(image,character='explorer'){
  function position(){
   if(!image.isConnected)return;
   const own=image.getBoundingClientRect(),p=parent.getBoundingClientRect();
-  slot.style.left=((own.left-p.left)+own.width*ax)+'px';
-  slot.style.top=((own.top-p.top)+own.height*ay)+'px';
-  slot.style.width=(own.width*size)+'px';
-  slot.style.height=(own.width*size*.72)+'px';
+  const naturalW=image.naturalWidth||own.width,naturalH=image.naturalHeight||own.height;
+  const scale=Math.min(own.width/naturalW,own.height/naturalH);
+  const isContain=getComputedStyle(image).objectFit==='contain';
+  const drawnW=isContain?naturalW*scale:own.width,drawnH=isContain?naturalH*scale:own.height;
+  const override=(name,fallback)=>{const v=Number(image.dataset[name]);return Number.isFinite(v)&&v>0&&v<1?v:fallback};
+  const x=override('mouthX',ax),y=override('mouthY',ay),mouthSize=override('mouthSize',size);
+  slot.style.left=((own.left-p.left)+(own.width-drawnW)/2+drawnW*x)+'px';
+  slot.style.top=((own.top-p.top)+(own.height-drawnH)/2+drawnH*y)+'px';
+  slot.style.width=(drawnW*mouthSize)+'px';
+  slot.style.height=(drawnW*mouthSize*.72)+'px';
  }
  let old=-1;
  function set(id){
   if(old===id)return;
   old=id;slot.innerHTML=shapeSvg(id);slot.style.display=id==null?'none':'block';position();
  }
- function remove(){slot.remove();window.removeEventListener('resize',position)}
- window.addEventListener('resize',position,{passive:true});image.addEventListener('load',position,{once:true});
+ const observer=typeof ResizeObserver==='function'?new ResizeObserver(position):null;
+ observer?.observe(image);
+ function remove(){slot.remove();observer?.disconnect();window.removeEventListener('resize',position);image.removeEventListener('load',position)}
+ window.addEventListener('resize',position,{passive:true});image.addEventListener('load',position);
  position();
  return {set,remove,position};
 }
@@ -82,7 +90,8 @@ export async function requestNeuralClip({text,character='explorer',accent='en-US
  CACHE.set(key,clip);if(CACHE.size>12)CACHE.delete(CACHE.keys().next().value);
  return clip;
 }
-export async function playNeuralClip(clip,{image=null,character='explorer',onWord=()=>{},onViseme=()=>{},onEnd=()=>{},speed=1}={}){
+export async function playNeuralClip(clip,{image=null,character='explorer',onWord=()=>{},onViseme=()=>{},onEnd=()=>{},speed=1,signal=null}={}){
+ if(signal?.aborted)throw new DOMException('Reprodução cancelada.','AbortError');
  if(!validateNeuralClip(clip))throw Error('Clipe neural inválido.');
  const mouth=image?attachMouth(image,character):{set:()=>{},remove:()=>{}};
  const audio=new Audio('data:audio/mpeg;base64,'+clip.audioBase64);
@@ -100,9 +109,10 @@ export async function playNeuralClip(clip,{image=null,character='explorer',onWor
   raf=requestAnimationFrame(update);
  }
  function stop(){
-  if(ended)return;ended=true;cancelAnimationFrame(raf);audio.pause();audio.src='';mouth.remove();onWord(-1,0);onEnd();
+  if(ended)return;ended=true;cancelAnimationFrame(raf);signal?.removeEventListener('abort',stop);audio.pause();audio.src='';mouth.remove();onWord(-1,0);onEnd();
  }
+ signal?.addEventListener('abort',stop,{once:true});
  audio.addEventListener('ended',stop,{once:true});
- try{await audio.play();raf=requestAnimationFrame(update)}catch(e){stop();throw e}
+ try{await audio.play();if(!ended)raf=requestAnimationFrame(update)}catch(e){stop();throw e}
  return {audio,stop};
 }
