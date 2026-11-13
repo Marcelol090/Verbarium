@@ -16,7 +16,7 @@ export async function approvedSpeech({text,character,accent='en-US'}){
   const response=await fetch('/voice/approved/'+id+'.json',{cache:'force-cache'});
   if(!response.ok){CACHE.set(id,null);return null}
   const result=await response.json();
-  if(result.text!==text||result.character!==character||result.accent!==accent||result.format!=='audio/mpeg'){
+  if(result.approved!==true||result.text!==text||result.character!==character||result.accent!==accent||result.format!=='audio/mpeg'){
    CACHE.set(id,null);return null;
   }
   CACHE.set(id,result);
