@@ -3,6 +3,7 @@
  */
 import {STORAGE_KEY,hydrateState,recordAttempt,mastery,sentence} from './lesson-core.js';
 import {practiceQueue,evaluateProduction,scaffoldHint,accuracyFromResults} from './production-bank.js';
+import {mirrorSentenceAttempt} from './academy-bridge.js';
 const $=q=>document.querySelector(q);
 const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const names={alex:'Alex',luna:'Luna',ben:'Ben',emma:'Emma',oliver:'Oliver',mia:'Mia'};
@@ -120,7 +121,7 @@ function verify(){
  const p=prompts[index];
  const answer=$('#production-answer')?.value.trim();if(!answer)return;
  const result=evaluateProduction(answer,p);resultForFirst(result.ok);
- state=recordAttempt(state,4,p.id,result.ok);save();updateHeader();
+ state=recordAttempt(state,4,p.id,result.ok);save();mirrorSentenceAttempt(result.ok);updateHeader();
  if(result.ok){
   answered=true;setReveal(true);
   $('#production-answer').disabled=true;$('#verify-button').hidden=true;$('#hint-button').hidden=true;
@@ -146,7 +147,7 @@ function revealModel(){
  const p=prompts[index];
  if(!firstEvaluated){
   resultForFirst(false);
-  state=recordAttempt(state,4,p.id,false);save();
+  state=recordAttempt(state,4,p.id,false);save();mirrorSentenceAttempt(false);
  }
  answered=true;setReveal(true);updateHeader();
  $('#production-answer').disabled=true;
