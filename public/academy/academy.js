@@ -1,12 +1,15 @@
 import {DEFAULT_UNITS, CHARACTERS, foodEmoji} from './course-data.js';
 import {STORAGE_KEY,loadProgress,getUnits,getUnit,isUnlocked,dueReviews,reviewStats,unitPercent,summary,normalize,isGraded,checkAnswer,createSession,sessionTasks,recordAnswer,recordDailyAnswer,earnXp,streak,todayXp,finishSession,dayKey,importTeacherPack} from './academy-model.js';
+import {approvedSpeech} from '../voice/approved-speech.js';
+import {playNeuralClip} from '../voice/speech-sync.js';
+import {createCharacterDirector} from '../voice/character-director.js';
 'use strict';
 const $=sel=>document.querySelector(sel);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const storageGet=key=>{try{return localStorage.getItem(key)}catch{return null}};
 const storageSet=(key,value)=>{try{localStorage.setItem(key,value);return true}catch{return false}};
 const state=loadProgress(storageGet(STORAGE_KEY));
-let route='path',completedSummary=null,voiceActive=false,highlightTimeout=null,spokenText='',voiceStatus='';
+let route='path',completedSummary=null,voiceActive=false,highlightTimeout=null,spokenText='',voiceStatus='',voiceGeneration=0,neuralJob=null,neuralAbort=null,neuralDirector=null;
 const SAVE=()=>{storageSet(STORAGE_KEY,JSON.stringify(state));};
 const img=(category,id,cls='',fallback='')=>`<span class="asset-wrap ${cls}"><img src="/verbarium-v6/assets/${esc(category)}/${esc(id)}.webp" alt="" aria-hidden="true" loading="lazy" onerror="this.parentNode.classList.add('fallback');this.remove()"><span class="asset-fallback" aria-hidden="true">${esc(fallback||'✦')}</span></span>`;
 const v5=(category,id,cls='',fallback='')=>`<span class="asset-wrap ${cls}"><img src="/verbarium-v5/assets/${esc(category)}/${esc(id)}.webp" alt="" aria-hidden="true" loading="lazy" onerror="this.parentNode.classList.add('fallback');this.remove()"><span class="asset-fallback">${esc(fallback||'✦')}</span></span>`;
@@ -17,7 +20,7 @@ function progressData(){return {today:todayXp(state),streak:streak(state),due:re
 function renderNavigation(){const parts=[['path','Trilha'],['practice','Praticar'],['review','Revisar'],['profile','Progresso'],['teacher','Professor']];const html=parts.map(([key,name])=>`<button type="button" data-route="${key}" class="nav-link ${route===key?'active':''}" aria-current="${route===key?'page':'false'}"><span>${icons[key]}</span><strong>${name}</strong>${key==='review'&&reviewStats(state).due?`<i>${reviewStats(state).due}</i>`:''}</button>`).join('');$('#desktop-links').innerHTML=html;$('#bottom-nav').innerHTML=html;}
 function renderTop(){const stats=progressData();const labels={path:'Trilha de aprendizagem',practice:'Prática por habilidade',review:'Revisão inteligente',profile:'Seu desenvolvimento',teacher:'Aulas do professor',session:'Sua atividade',finished:'Resultado da aula'};$('#top-title').textContent=labels[route]||labels.path;$('#top-stats').innerHTML=`<span title="Sequência de estudo" class="stat-pill">🔥 <b>${stats.streak}</b></span><span title="Pontos obtidos em respostas reais" class="stat-pill">✦ <b>${state.xp}</b></span><span title="Meta diária de XP" class="stat-pill gem">💎 <b>${stats.today}/${state.dailyGoal}</b></span>`}
 function renderRail(){const p=progressData(),pct=Math.min(100,Math.round(100*p.today/state.dailyGoal));$('#right-rail').innerHTML=`<div class="rail-content"><div class="rail-head"><b>O seu dia</b><span>HOJE</span></div><div class="rail-card"><div class="rail-card-title">🎯 Meta diária <b>${p.today}/${state.dailyGoal} XP</b></div><div class="meter"><i style="width:${pct}%"></i></div><p>Ganhe pontos ao praticar, sem perder seu progresso por falhas.</p></div><div class="rail-card"><div class="rail-card-title">↻ Hora de revisar <b>${p.due}</b></div><p>${p.due?'Algumas respostas precisam de uma nova tentativa para se fixarem.':'Nenhuma revisão pendente hoje. Volte quando quiser praticar.'}</p><button class="text-cta" data-route="review">Abrir revisões →</button></div><div class="rail-fox">${img('characters','fox_reading','','🦊')}<b>Você está construindo uma habilidade real.</b><p>Reconhecer, produzir, escutar e usar a língua em contexto.</p></div><a class="teacher-rail" href="/studio/">Studio do Professor <span>↗</span></a></div>`}
-function render(){renderNavigation();renderTop();renderRail();const content=$('#content');content.innerHTML=({path:renderPath,practice:renderPractice,review:renderReview,profile:renderProfile,teacher:renderTeacher,session:renderSession,finished:renderFinish}[route]||renderPath)();document.body.dataset.route=route;}
+function render(){if(voiceActive)stopSpeech();renderNavigation();renderTop();renderRail();const content=$('#content');content.innerHTML=({path:renderPath,practice:renderPractice,review:renderReview,profile:renderProfile,teacher:renderTeacher,session:renderSession,finished:renderFinish}[route]||renderPath)();document.body.dataset.route=route;}
 function navigate(next){stopSpeech();route=next;render();window.scrollTo({top:0,behavior:'instant'});$('#content').focus({preventScroll:true});}
 function titleBlock(kicker,title,subtitle,extra=''){return `<div class="section-heading"><div><span class="eyebrow">${esc(kicker)}</span><h1>${title}</h1><p>${esc(subtitle)}</p></div>${extra}</div>`}
 function renderPath(){const units=getUnits(state),stats=progressData();const next=units.find(u=>isUnlocked(state,u.id)&&!state.completed[u.id])||units[0];let lastWorld='';const resume=state.session&&getUnit(state,state.session.unitId)?`<div class="resume-banner"><strong>Você tem uma aula em andamento.</strong><button type="button" data-action="resume">Continuar de onde parei →</button></div>`:'';const cards=units.map((u,i)=>{const world=u.world,worldNew=world!==lastWorld;lastWorld=world;const done=!!state.completed[u.id],open=isUnlocked(state,u.id),active=next.id===u.id;const symbol=done?'node_completed':open?'node_current':'node_locked';return `${worldNew?`<div class="world-head"><span>${esc(u.section)} · ${esc(u.level)}</span><h2>${esc(world)}</h2></div>`:''}<div class="path-step ${i%2?'align-right':'align-left'} ${active?'current':''} ${!open?'locked':''}"><button type="button" class="node-button" data-unit="${esc(u.id)}" ${!open?'disabled':''} aria-label="${esc(u.title)}: ${done?'concluída':open?'disponível':'bloqueada'}">${img('progress',symbol,'node-icon',done?'✓':open?'★':'🔒')}<span class="node-ring"></span></button><div class="step-copy"><span class="step-number">UNIDADE ${String(i+1).padStart(2,'0')}</span><h3>${esc(u.title)}</h3><p>${esc(u.subtitle)}</p><div class="step-meta"><span>${esc(u.level)}</span><span>~${u.duration} min</span>${done?`<span>⭐ ${state.completed[u.id].stars}/3 · ${state.completed[u.id].score}%</span>`:active?'<span class="active-status">Próxima aula</span>':''}</div>${open?`<button data-unit="${esc(u.id)}" class="step-action">${done?'Revisitar':'Iniciar aula'} →</button>`:'<small>Conclua a etapa anterior para liberar</small>'}</div></div>`}).join('');return `${titleBlock('ACADEMY · SEU CAMINHO','Aprenda inglês com significado.','Uma trilha visual de lições curtas, conversas, desafios e prática personalizada.')}
@@ -33,11 +36,56 @@ function currentItem(){const s=currentSession();if(!s)return null;return session
 function startUnit(id){const unit=getUnit(state,id);if(!unit||!isUnlocked(state,id)){showToast('Complete a etapa anterior para liberar esta unidade.');return}state.session=createSession(id);completedSummary=null;SAVE();navigate('session')}
 function startPractice(skill){let due=[];for(const u of getUnits(state)){if(!isUnlocked(state,u.id))continue;for(const t of u.tasks){if(t.skill===skill&&t.type!=='intro')due.push(`${u.id}:${t.id}`)}}if(!due.length){showToast('Ainda não há exercícios desta habilidade disponíveis.');return}state.session=createSession('__review__','core',due.slice(0,10));SAVE();navigate('session')}
 function startReviews(){const due=dueReviews(state);if(!due.length){showToast('Nenhuma revisão pendente hoje.');return}state.session=createSession('__review__','core',due.map(x=>x.key));SAVE();navigate('session')}
-function stopSpeech(){voiceActive=false;try{speechSynthesis.cancel()}catch{}if(highlightTimeout)clearInterval(highlightTimeout);highlightTimeout=null;}
+function stopSpeech(){voiceGeneration++;voiceActive=false;neuralAbort?.abort();neuralAbort=null;if(neuralJob){const old=neuralJob;neuralJob=null;old.stop()}neuralDirector?.end();neuralDirector=null;try{speechSynthesis.cancel()}catch{}if(highlightTimeout)clearInterval(highlightTimeout);highlightTimeout=null;}
 function setActorPose(actor,pose){const el=$('[data-actor]');if(el&&actor){el.src=`/verbarium-v6/assets/characters/${actor[pose]||actor.neutral}.webp`;el.onerror=()=>{el.style.display='none'}}}
 function highlightWord(index){const els=[...document.querySelectorAll('[data-speech-word]')];els.forEach((el,i)=>el.classList.toggle('speaking-now',i===index));}
 function makeSpoken(s,hidden=false){if(hidden)return `<p class="speech-placeholder">🎧 Escute o personagem. O texto aparece após a resposta.</p>`;const words=String(s||'').split(/\s+/).filter(Boolean);return `<p class="spoken-line" aria-label="${esc(s)}">${words.map((w,i)=>`<span data-speech-word="${i}">${esc(w)}</span>`).join(' ')}</p>`;}
-function speak(text,speaker='explorer',slower=false){stopSpeech();if(!text)return;const actor=CHARACTERS[speaker]||CHARACTERS.explorer;const target=$('#voice-status');if(!('speechSynthesis' in window)){if(target)target.textContent='Voz não disponível neste navegador.';return;}const ut=new SpeechSynthesisUtterance(text);ut.lang=state.accent;ut.rate=slower?.72:.91;ut.pitch=speaker==='grandfather'?.88:speaker==='fox'?1.17:1.02;const voices=speechSynthesis.getVoices();const match=voices.find(v=>v.lang?.toLowerCase()===state.accent.toLowerCase())||voices.find(v=>v.lang?.startsWith('en-'));if(match)ut.voice=match;voiceActive=true;let gotBoundary=false;const clean=String(text).split(/\s+/).filter(Boolean);const offsets=clean.map((_,i)=>clean.slice(0,i).join(' ').length+(i?1:0));ut.onstart=()=>{setActorPose(actor,'talk');if(target)target.textContent='Reproduzindo em '+(ut.voice?.name||ut.lang);};ut.onboundary=e=>{gotBoundary=true;let idx=0;offsets.forEach((off,i)=>{if(off<=e.charIndex)idx=i});highlightWord(idx);setActorPose(actor,idx%4===0?'talk':idx%4===1?'neutral':idx%4===2?'talk':'good');};ut.onend=()=>{voiceActive=false;highlightWord(-1);setActorPose(actor,'neutral');if(target)target.textContent=gotBoundary?'Áudio concluído.':'Áudio concluído. Sincronia de palavras depende do navegador.';};ut.onerror=()=>{voiceActive=false;highlightWord(-1);if(target)target.textContent='Não foi possível reproduzir esta voz.';};speechSynthesis.speak(ut);}
+function speakBrowser(text,speaker='explorer',slower=false){if(!text)return;const actor=CHARACTERS[speaker]||CHARACTERS.explorer;const target=$('#voice-status');if(!('speechSynthesis' in window)){if(target)target.textContent='Voz não disponível neste navegador.';return;}const ut=new SpeechSynthesisUtterance(text);ut.lang=state.accent;ut.rate=slower?.72:.91;ut.pitch=speaker==='grandfather'?.88:speaker==='fox'?1.17:1.02;const voices=speechSynthesis.getVoices();const match=voices.find(v=>v.lang?.toLowerCase()===state.accent.toLowerCase())||voices.find(v=>v.lang?.startsWith('en-'));if(match)ut.voice=match;voiceActive=true;let gotBoundary=false;const clean=String(text).split(/\s+/).filter(Boolean);const offsets=clean.map((_,i)=>clean.slice(0,i).join(' ').length+(i?1:0));ut.onstart=()=>{setActorPose(actor,'talk');if(target)target.textContent='Reproduzindo em '+(ut.voice?.name||ut.lang);};ut.onboundary=e=>{gotBoundary=true;let idx=0;offsets.forEach((off,i)=>{if(off<=e.charIndex)idx=i});highlightWord(idx);setActorPose(actor,idx%4===0?'talk':idx%4===1?'neutral':idx%4===2?'talk':'good');};ut.onend=()=>{voiceActive=false;highlightWord(-1);setActorPose(actor,'neutral');if(target)target.textContent=gotBoundary?'Áudio concluído.':'Áudio concluído. Sincronia de palavras depende do navegador.';};ut.onerror=()=>{voiceActive=false;highlightWord(-1);if(target)target.textContent='Não foi possível reproduzir esta voz.';};speechSynthesis.speak(ut);}
+/** Academy teacher blocks and built-in lessons share the same approved voice layer.
+ * Browser speech remains usable when neural assets have not been published.
+ */
+async function speak(text,speaker='explorer',slower=false){
+ stopSpeech();
+ if(!text)return;
+ const generation=voiceGeneration;
+ const actor=CHARACTERS[speaker]||CHARACTERS.explorer;
+ const accent=['en-US','en-GB'].includes(state.accent)?state.accent:'en-US';
+ let clip=null;
+ try{clip=await approvedSpeech({text,character:speaker,accent})}catch{}
+ if(generation!==voiceGeneration)return;
+ if(clip){
+  const avatar=$('[data-actor]');
+  const status=$('#voice-status');
+  const abort=new AbortController();neuralAbort=abort;
+  try{
+   if(avatar){
+    setActorPose(actor,'listen');
+    neuralDirector=createCharacterDirector({image:avatar,stage:avatar.parentElement});
+    neuralDirector.begin();
+   }
+   voiceActive=true;
+   if(status)status.textContent='Voz neural: palavras e visemas sincronizados.';
+   neuralJob=await playNeuralClip(clip,{
+    image:avatar,character:speaker,signal:abort.signal,speed:slower?.8:1,
+    onViseme:id=>neuralDirector?.viseme(id),
+    onWord:i=>{neuralDirector?.word(i);highlightWord(i)},
+    onEnd:()=>{
+     neuralJob=null;neuralAbort=null;neuralDirector?.end();neuralDirector=null;
+     voiceActive=false;highlightWord(-1);setActorPose(actor,'neutral');
+     if(status)status.textContent='Você pode ouvir novamente.';
+    }
+   });
+   if(generation!==voiceGeneration){neuralJob?.stop();return;}
+   return;
+  }catch{
+   if(generation!==voiceGeneration)return;
+   neuralDirector?.end();neuralDirector=null;neuralAbort=null;neuralJob=null;
+   voiceActive=false;highlightWord(-1);
+  }
+ }
+ if(generation!==voiceGeneration)return;
+ speakBrowser(text,speaker,slower);
+}
 function renderSession(){const s=currentSession(),item=currentItem();if(!s||!item)return `<section class="empty-state"><h2>Vamos continuar?</h2><p>Escolha uma unidade na trilha.</p><button data-route="path">Ir para trilha</button></section>`;const {unit,task}=item,items=sessionTasks(state,s),n=items.length,pct=Math.round((s.index)/Math.max(1,n)*100),actor=CHARACTERS[task.speaker]||CHARACTERS.explorer,fb=s.feedback,hidden=task.type==='listening'&&!fb;
  let form='';const selected=s.selected;
  if(['visual','cloze','listening','dialogue','story'].includes(task.type))form=`<div class="option-grid ${task.type==='visual'?'image-options':'text-options'}">${(task.options||[]).map((o,i)=>`<button type="button" data-pick="${esc(o)}" aria-pressed="${selected===o}" class="option ${selected===o?'selected':''} ${fb&&o===task.answer?'correct':''} ${fb&&selected===o&&!fb.ok?'wrong':''}" ${fb?'disabled':''}>${task.type==='visual'?fruit(o):''}<span>${esc(o)}</span><i>${['1','2','3','4'][i]||''}</i></button>`).join('')}</div>`;
