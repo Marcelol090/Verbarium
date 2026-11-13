@@ -63,7 +63,9 @@ test('mastery summary counts first attempts, not retry spam',()=>{
   {firstAttempt:true,ok:true},{firstAttempt:true,ok:false},
   {firstAttempt:false,ok:true},{firstAttempt:true,ok:true}
  ]);
- assert.equal(r.firstAttempts,3);assert.equal(r.firstCorrect,2);assert.equal(r.percentage,67);
+ assert.equal(r.firstAttempts,3);assert.equal(r.firstCorrect,2);assert.equal(r.percentage,67);assert.equal(r.unaidedPercentage,67);
+ const aided=accuracyFromResults([{firstAttempt:true,ok:true,assisted:true},{firstAttempt:true,ok:true,assisted:false}]);
+ assert.equal(aided.percentage,100);assert.equal(aided.unaidedPercentage,50);
 });
 
 test('produced sentences enter the existing spaced-review storage',()=>{
