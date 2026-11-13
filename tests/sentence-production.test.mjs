@@ -32,6 +32,13 @@ test('retrieval queue prioritizes due known items, ignoring non-sentence activit
  assert.equal(new Set(practiceQueue({}, {mode:'free',now,limit:12}).map(p=>p.id)).size,12);
 });
 
+test('unseen prompts rotate into the next independent practice',()=>{
+ const seen=Object.fromEntries(PRODUCTION_PHRASES.slice(0,5).map((p,i)=>[p.id,{at:'2026-11-10T12:00:00.000Z',due:'2026-11-17T12:00:00.000Z',level:1}]));
+ const next=practiceQueue(seen,{mode:'free',now,limit:5}).map(p=>p.id);
+ assert.deepEqual(next.slice(0,3),PRODUCTION_PHRASES.slice(5).map(p=>p.id));
+ assert.equal(new Set(next).size,5);
+});
+
 test('grammar feedback distinguishes subject, verb and article',()=>{
  const p=PRODUCTION_PHRASES.find(p=>p.id==='orange-she');
  assert.equal(evaluateProduction('She eats an orange!',p).ok,true);
