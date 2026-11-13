@@ -22,3 +22,10 @@
 .sentence-lab-launch{display:inline-flex;justify-content:center;align-items:center;border:0;border-radius:14px;background:#4fbd44;color:#fff!important;text-decoration:none;font-weight:900;font-size:13px;padding:12px 16px;box-shadow:0 4px #2ea42c}
 .sentence-lab-launch:focus-visible{outline:3px solid #315ab9;outline-offset:3px}
 @media(max-width:500px){.sentence-lab-entry{padding:16px 15px;gap:7px}.sentence-lab-entry img{width:86px}.sentence-lab-entry p{font-size:11px}.sentence-lab-launch{font-size:11px;padding:11px}}
+
+/* Student pathway: guided lesson and independent recall are complementary actions. */
+.sentence-lab-links{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:15px}
+.sentence-lab-links .sentence-lab-launch{margin-top:0}
+.sentence-lab-retrieval{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:11px 15px;background:#f0ebff;border:1px solid #ded4ff;color:#7156aa;text-decoration:none;font-size:12px;font-weight:900}
+.sentence-lab-retrieval:hover{background:#e7dffc}
+@media(max-width:560px){.sentence-lab-links{align-items:stretch;flex-direction:column}.sentence-lab-links a{width:100%;text-align:center}}
