@@ -1,0 +1,36 @@
+name: Verbarium Learning QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/academy/sentence-lab/**'
+      - 'public/academy/academy.js'
+      - 'public/academy/academy.css'
+      - 'tests/sentence-lab.test.mjs'
+      - 'tests/sentence-production.test.mjs'
+      - '.github/workflows/learning-validation.yml'
+  pull_request:
+    paths:
+      - 'public/academy/sentence-lab/**'
+      - 'tests/sentence-lab.test.mjs'
+      - 'tests/sentence-production.test.mjs'
+      - '.github/workflows/learning-validation.yml'
+
+jobs:
+  learning-smoke:
+    name: Learning logic and syntax
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate modules without installing external dependencies
+        run: |
+          node --check public/academy/sentence-lab/production-bank.js
+          node --check public/academy/sentence-lab/practice.js
+          node --check public/academy/sentence-lab/lesson.js
+      - name: Verify guided and autonomous learning behavior
+        run: node --test tests/sentence-lab.test.mjs tests/sentence-production.test.mjs
