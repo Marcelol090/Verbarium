@@ -1,0 +1,179 @@
+/** Verbarium Academy · sentence retrieval without answer bank.
+ * Character animations are contextual (not phoneme-accurate lip sync).
+ */
+import {STORAGE_KEY,hydrateState,recordAttempt,mastery,sentence} from './lesson-core.js';
+import {practiceQueue,evaluateProduction,scaffoldHint,accuracyFromResults} from './production-bank.js';
+const $=q=>document.querySelector(q);
+const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const names={alex:'Alex',luna:'Luna',ben:'Ben',emma:'Emma',oliver:'Oliver',mia:'Mia'};
+const symbols={apple_red:'🍎',banana:'🍌',milk:'🥛',loaf:'🍞',orange:'🍊',strawberry:'🍓'};
+const search=new URLSearchParams(location.search);
+const mode=search.get('mode')==='review'?'review':search.get('mode')==='free'?'free':'daily';
+let state;try{state=hydrateState(JSON.parse(localStorage.getItem(STORAGE_KEY)||'null'))}catch{state=hydrateState(null)}
+const prompts=practiceQueue(state.reviews,{mode,limit:5});
+const xpAtStart=state.xp;
+const results=[];
+let index=0,errors=0,hintLevel=0,answered=false,modelVisible=false,firstEvaluated=false,utterance=null,spokenText='';
+const readableMode=mode==='review'?'Revisão pendente':mode==='free'?'Prática livre':'Treino do dia';
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch{}}
+function asset(group,key){return './assets/'+group+'/'+key+'.gif'}
+function setMood(mood='thinking'){
+ const p=prompts[Math.min(index,prompts.length-1)];
+ const who=p?.speaker||'alex';
+ const img=$('#practice-character');
+ img.src=asset('characters',who+'_'+mood);
+ img.alt=names[who]+' '+({thinking:'pensando',retry:'explicando',correct:'comemorando',speaking:'falando',listening:'ouvindo'}[mood]||'ajudando');
+ $('#practice-face').src=asset('faces',who+'_speaking');
+ $('#character-name').textContent=names[who];
+ $('.actor-stage').classList.toggle('is-speaking',mood==='speaking');
+ $('#character-mood').textContent=({thinking:'Pense antes de responder',retry:'Vamos entender o erro',correct:'Muito bem!',speaking:'Pronunciando a frase',listening:'Acompanhando'}[mood]||'Praticando');
+}
+function updateHeader(){
+ $('#xp-current').textContent=state.xp+' XP';
+ $('#due-count').textContent=mastery(state).due.length+' pendentes';
+ $('#mode-name').textContent=readableMode;
+ $('#exercise-count').textContent=prompts.length?Math.min(index+1,prompts.length)+' DE '+prompts.length:'SEM REVISÕES';
+ $('#practice-fill').style.width=(prompts.length?Math.min(index,prompts.length)/prompts.length*100:0)+'%';
+ $('#practice-track').setAttribute('aria-valuemax',String(Math.max(prompts.length,1)));
+ $('#practice-track').setAttribute('aria-valuenow',String(Math.min(index,prompts.length)));
+}
+function setFeedback(text,ok){
+ const e=$('#practice-feedback');e.hidden=false;e.textContent=text;e.classList.toggle('is-error',!ok);
+}
+function clearFeedback(){const e=$('#practice-feedback');e.hidden=true;e.textContent='';}
+function setReveal(value){
+ modelVisible=value;
+ const model=$('#practice-model');
+ if(model)model.hidden=!value;
+ $('#hear-model').disabled=!value;
+ $('#hear-model span:nth-child(2)').textContent=value?'Ouvir frase-modelo':'Ouvir a frase após responder';
+}
+function clearSpeak(){
+ if('speechSynthesis' in window)window.speechSynthesis.cancel();
+ spokenText='';utterance=null;
+ $('.actor-stage').classList.remove('is-speaking');
+}
+function highlightSpeech(charIndex){
+ const p=prompts[index];if(!p)return;
+ const before=spokenText.slice(0,charIndex).trim();
+ const wordIndex=before?before.split(/\s+/).length:0;
+ $('#practice-model')?.querySelectorAll('.speak-word').forEach((el,i)=>el.classList.toggle('is-current',i===wordIndex));
+}
+function hearModel(){
+ if(!modelVisible||index>=prompts.length)return;
+ const p=prompts[index];if(!('speechSynthesis' in window)){$('#voice-status').textContent='Áudio indisponível neste navegador.';return}
+ clearSpeak();
+ const locale=$('#accent-select').value;
+ const text=sentence(p);
+ const u=new SpeechSynthesisUtterance(text);
+ u.lang=locale;u.rate=.88;u.pitch=1.01;
+ const voices=window.speechSynthesis.getVoices();
+ const selection=voices.find(v=>v.lang===locale&&v.localService)||voices.find(v=>v.lang===locale)||voices.find(v=>v.lang?.startsWith('en'));
+ if(selection)u.voice=selection;
+ spokenText=text;utterance=u;setMood('speaking');$('#voice-status').textContent='Ouça a frase e observe a ordem das palavras.';
+ u.onboundary=e=>{if(e.name==='word')highlightSpeech(e.charIndex)};
+ u.onend=u.onerror=()=>{
+  if(utterance!==u)return;
+  $('#practice-model')?.querySelectorAll('.speak-word').forEach(el=>el.classList.remove('is-current'));
+  utterance=null;spokenText='';setMood(answered?'correct':'thinking');
+  $('#voice-status').textContent='Você pode reproduzir a frase novamente.';
+ };
+ window.speechSynthesis.speak(u);
+}
+function renderQuestion(){
+ updateHeader();clearSpeak();clearFeedback();
+ if(!prompts.length){
+  $('#practice-stage').innerHTML='<div class="practice-empty"><h2>Revisões em dia!</h2><p>Não há frases vencidas agora. Você pode continuar praticando sem banco de palavras ou retornar à trilha.</p><a href="./practice.html?mode=free">Treinar novas frases</a></div>';
+  $('#practice-actions').hidden=true;setMood('thinking');return;
+ }
+ if(index>=prompts.length){renderSummary();return}
+ const p=prompts[index];errors=0;hintLevel=0;answered=false;modelVisible=false;firstEvaluated=false;
+ $('#practice-actions').hidden=false;
+ $('#hint-button').hidden=false;$('#verify-button').hidden=false;$('#show-model').hidden=true;$('#next-button').hidden=true;
+ $('#verify-button').disabled=true;
+ const model=sentence(p).split(' ').map(w=>'<span class="speak-word">'+escapeHTML(w)+'</span>').join(' ');
+ $('#practice-stage').innerHTML=
+  '<div class="practice-kicker">RECUPERAÇÃO ATIVA · SEM ALTERNATIVAS</div>'+
+  '<h2>Construa a frase em inglês.</h2>'+
+  '<p>Primeiro pense em quem pratica a ação, depois no verbo e no complemento.</p>'+
+  '<div class="practice-prompt"><img id="practice-image" src="'+asset('food',p.image)+'" alt="Ilustração de apoio ao significado"><span id="practice-emoji" class="practice-emoji" aria-hidden="true">'+(symbols[p.image]||'✦')+'</span><div><strong>Como você diria?</strong><div class="prompt-pt">'+escapeHTML(p.pt)+'</div></div></div>'+
+  '<form id="practice-form" class="practice-form" novalidate><label for="production-answer">Escreva a frase sem consultar um modelo</label>'+
+  '<input id="production-answer" class="practice-answer" type="text" autocomplete="off" autocapitalize="sentences" spellcheck="false" maxlength="160" placeholder="Sua frase em inglês…"></form>'+
+  '<div class="practice-structure" aria-label="Estrutura da frase"><span>Sujeito</span><span>Verbo</span><span>Complemento</span></div>'+
+  '<div id="practice-hint" class="practice-hint" hidden></div>'+
+  '<div id="practice-model" class="practice-model" hidden><strong>MODELO DE RESPOSTA</strong><p>'+model+'</p><small>'+escapeHTML(p.rule)+'</small></div>';
+ $('#practice-image').addEventListener('error',()=>{
+  $('#practice-image').hidden=true;$('#practice-emoji').style.display='inline-block';
+ },{once:true});
+ const input=$('#production-answer');
+ input.addEventListener('input',()=>{$('#verify-button').disabled=!input.value.trim()||answered});
+ $('#practice-form').addEventListener('submit',e=>{e.preventDefault();verify()});
+ setReveal(false);setMood('thinking');
+ $('#voice-status').textContent='A frase só será revelada após sua tentativa.';
+}
+function resultForFirst(ok){
+ if(firstEvaluated)return;
+ results.push({firstAttempt:true,ok});firstEvaluated=true;
+}
+function verify(){
+ if(answered||index>=prompts.length)return;
+ const p=prompts[index];
+ const answer=$('#production-answer')?.value.trim();if(!answer)return;
+ const result=evaluateProduction(answer,p);resultForFirst(result.ok);
+ state=recordAttempt(state,4,p.id,result.ok);save();updateHeader();
+ if(result.ok){
+  answered=true;setReveal(true);
+  $('#production-answer').disabled=true;$('#verify-button').hidden=true;$('#hint-button').hidden=true;
+  $('#show-model').hidden=true;$('#next-button').hidden=false;
+  $('#next-button').textContent=index===prompts.length-1?'Ver meu resultado':'Próxima frase';
+  setFeedback('Correto! Você recuperou a estrutura sem copiar a frase. '+p.rule,true);
+  setMood('correct');$('#voice-status').textContent='Ouça a pronúncia natural da frase-modelo.';
+ }else{
+  errors++;setMood('retry');setFeedback(result.reason,false);
+  if(errors>=2)$('#show-model').hidden=false;
+  $('#production-answer')?.focus();
+ }
+}
+function giveHint(){
+ if(answered||index>=prompts.length)return;
+ hintLevel=Math.min(3,hintLevel+1);
+ const hint=$('#practice-hint');
+ hint.textContent=scaffoldHint(prompts[index],hintLevel);hint.hidden=false;
+ if(hintLevel===3)$('#hint-button').disabled=true;
+}
+function revealModel(){
+ if(answered||index>=prompts.length)return;
+ const p=prompts[index];
+ if(!firstEvaluated){
+  resultForFirst(false);
+  state=recordAttempt(state,4,p.id,false);save();
+ }
+ answered=true;setReveal(true);updateHeader();
+ $('#production-answer').disabled=true;
+ $('#hint-button').hidden=true;$('#verify-button').hidden=true;$('#show-model').hidden=true;
+ $('#next-button').hidden=false;$('#next-button').textContent=index===prompts.length-1?'Ver meu resultado':'Próxima frase';
+ setFeedback('Observe o modelo, escute com atenção e tente recuperá-lo de memória na próxima revisão.',false);
+ setMood('listening');
+}
+function renderSummary(){
+ clearSpeak();updateHeader();setMood('correct');
+ $('#practice-actions').hidden=true;clearFeedback();
+ $('#practice-fill').style.width='100%';
+ const stats=accuracyFromResults(results);
+ const xp=Math.max(0,state.xp-xpAtStart);
+ $('#exercise-count').textContent='TREINO CONCLUÍDO';
+ $('#practice-stage').innerHTML='<div class="practice-kicker">SEU PROGRESSO · RESPOSTAS REAIS</div>'+
+  '<h2>Você treinou a construir frases!</h2>'+
+  '<p>A precisão representa apenas a primeira tentativa em cada frase, não o número de vezes que você clicou em verificar. Continue praticando para automatizar a estrutura.</p>'+
+  '<div class="practice-summary"><div><strong>'+stats.percentage+'%</strong><span>Primeira tentativa</span></div><div><strong>'+prompts.length+'</strong><span>Frases praticadas</span></div><div><strong>+'+xp+'</strong><span>XP adquirido</span></div></div>'+
+  '<div class="practice-finish-links"><a href="./practice.html?mode=free">Praticar outras frases</a><a href="./practice.html?mode=review">Revisar pendentes</a><a href="/academy/">Voltar à Academy</a></div>';
+}
+$('#verify-button').addEventListener('click',verify);
+$('#hint-button').addEventListener('click',giveHint);
+$('#show-model').addEventListener('click',revealModel);
+$('#next-button').addEventListener('click',()=>{index++;renderQuestion()});
+$('#hear-model').addEventListener('click',hearModel);
+$('#accent-select').addEventListener('change',()=>{try{localStorage.setItem('verbarium.voiceAccent', $('#accent-select').value)}catch{};clearSpeak()});
+try{const saved=localStorage.getItem('verbarium.voiceAccent');if(['en-GB','en-US'].includes(saved))$('#accent-select').value=saved}catch{}
+window.addEventListener('pagehide',clearSpeak);
+renderQuestion();
