@@ -6,9 +6,11 @@ import {practiceQueue,evaluateProduction,scaffoldHint,accuracyFromResults} from 
 import {mirrorSentenceAttempt} from './academy-bridge.js';
 import {approvedSpeech} from '../../voice/approved-speech.js';
 import {playNeuralClip} from '../../voice/speech-sync.js';
+import {createCharacterDirector} from '../../voice/character-director.js';
 const $=q=>document.querySelector(q);
 const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const names={alex:'Alex',luna:'Luna',ben:'Ben',emma:'Emma',oliver:'Oliver',mia:'Mia'};
+const practiceDirector=createCharacterDirector({image:document.querySelector('#practice-character'),stage:document.querySelector('.practice-sidebar .actor-stage')});
 const voiceAliases={alex:'explorer',luna:'hijab',ben:'glasses',emma:'blonde',oliver:'grandfather',mia:'hijab'};
 const symbols={apple_red:'🍎',banana:'🍌',milk:'🥛',loaf:'🍞',orange:'🍊',strawberry:'🍓'};
 const search=new URLSearchParams(location.search);
@@ -17,7 +19,7 @@ let state;try{state=hydrateState(JSON.parse(localStorage.getItem(STORAGE_KEY)||'
 const prompts=practiceQueue(state.reviews,{mode,limit:5});
 const xpAtStart=state.xp;
 const results=[];
-let index=0,errors=0,hintLevel=0,answered=false,modelVisible=false,firstEvaluated=false,utterance=null,spokenText='',neuralJob=null,voiceGeneration=0;
+let index=0,errors=0,hintLevel=0,answered=false,modelVisible=false,firstEvaluated=false,utterance=null,spokenText='',neuralJob=null,neuralAbort=null,voiceGeneration=0;
 const readableMode=mode==='review'?'Revisão pendente':mode==='free'?'Prática livre':'Treino do dia';
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch{}}
 function asset(group,key){return './assets/'+group+'/'+key+'.gif'}
@@ -30,6 +32,7 @@ function setMood(mood='thinking'){
  $('#practice-face').src=asset('faces',who+'_speaking');
  $('#character-name').textContent=names[who];
  $('.actor-stage').classList.toggle('is-speaking',mood==='speaking');
+ practiceDirector.setMood(mood);
  $('#character-mood').textContent=({thinking:'Pense antes de responder',retry:'Vamos entender o erro',correct:'Muito bem!',speaking:'Pronunciando a frase',listening:'Acompanhando'}[mood]||'Praticando');
 }
 function updateHeader(){
@@ -54,6 +57,8 @@ function setReveal(value){
 }
 function clearSpeak(){
  voiceGeneration++;
+ neuralAbort?.abort();neuralAbort=null;
+ practiceDirector.end();
  if(neuralJob){const previous=neuralJob;neuralJob=null;previous.stop()}
  if('speechSynthesis' in window)window.speechSynthesis.cancel();
  utterance=null;spokenText='';$('.actor-stage').classList.remove('is-speaking','neural-active');
@@ -76,17 +81,19 @@ async function hearModel(){
    setMood('speaking');$('.actor-stage').classList.add('neural-active');
    const avatar=$('#practice-character');
    avatar.src=asset('characters',p.speaker+'_listening');
+   const controller=new AbortController();neuralAbort=controller;practiceDirector.begin();
    $('#voice-status').textContent='Voz neural sincronizada aos movimentos da boca.';
    neuralJob=await playNeuralClip(approved,{
-    image:avatar,character,
-    onWord:i=>$('#practice-model')?.querySelectorAll('.speak-word').forEach((el,j)=>el.classList.toggle('is-current',i===j)),
+    image:avatar,character,signal:controller.signal,
+    onViseme:id=>practiceDirector.viseme(id),
+    onWord:i=>{practiceDirector.word(i);$('#practice-model')?.querySelectorAll('.speak-word').forEach((el,j)=>el.classList.toggle('is-current',i===j))},
     onEnd:()=>{
-     neuralJob=null;$('.actor-stage').classList.remove('neural-active');
+     neuralJob=null;neuralAbort=null;practiceDirector.end();$('.actor-stage').classList.remove('neural-active');
      $('#practice-model')?.querySelectorAll('.speak-word').forEach(el=>el.classList.remove('is-current'));
      setMood(answered?'correct':'thinking');
     }
-   });return;
-  }catch(e){neuralJob=null;$('.actor-stage').classList.remove('neural-active');}
+   });if(currentGeneration!==voiceGeneration){neuralJob?.stop();return;}return;
+  }catch(e){if(currentGeneration!==voiceGeneration)return;practiceDirector.end();neuralJob=null;$('.actor-stage').classList.remove('neural-active');}
  }
  if(!('speechSynthesis' in window)){
   $('#voice-status').textContent='Voz indisponível neste navegador.';setMood('listening');return;
