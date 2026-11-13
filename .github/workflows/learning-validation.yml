@@ -8,6 +8,11 @@ on:
       - 'public/academy/academy.js'
       - 'public/academy/academy.css'
       - 'tests/sentence-lab.test.mjs'
+      - 'tests/neural-voice.test.mjs'
+      - 'api/studio-tts.js'
+      - 'public/voice/**'
+      - 'public/studio/index.html'
+      - 'package.json'
       - 'tests/sentence-production.test.mjs'
       - 'tests/academy-sentence-bridge.test.mjs'
       - '.github/workflows/learning-validation.yml'
@@ -15,6 +20,11 @@ on:
     paths:
       - 'public/academy/sentence-lab/**'
       - 'tests/sentence-lab.test.mjs'
+      - 'tests/neural-voice.test.mjs'
+      - 'api/studio-tts.js'
+      - 'public/voice/**'
+      - 'public/studio/index.html'
+      - 'package.json'
       - 'tests/sentence-production.test.mjs'
       - 'tests/academy-sentence-bridge.test.mjs'
       - '.github/workflows/learning-validation.yml'
@@ -35,5 +45,8 @@ jobs:
           node --check public/academy/sentence-lab/practice.js
           node --check public/academy/sentence-lab/academy-bridge.js
           node --check public/academy/sentence-lab/lesson.js
+          node --check public/voice/speech-sync.js
+          node --check public/voice/approved-speech.js
+          node --check api/studio-tts.js
       - name: Verify guided and autonomous learning behavior
-        run: node --test tests/sentence-lab.test.mjs tests/sentence-production.test.mjs tests/academy-sentence-bridge.test.mjs
+        run: node --test tests/sentence-lab.test.mjs tests/sentence-production.test.mjs tests/academy-sentence-bridge.test.mjs tests/neural-voice.test.mjs
