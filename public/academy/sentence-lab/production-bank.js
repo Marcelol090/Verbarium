@@ -20,8 +20,17 @@ export function practiceQueue(reviews,{mode='daily',now=new Date(),limit=5}={}){
  const safeLimit=Math.max(1,Math.min(12,Number(limit)||5));
  const due=dueReviews(reviews,now).filter(id=>byId.has(id));
  if(mode==='review')return due.slice(0,safeLimit).map(id=>byId.get(id));
- const candidates=mode==='free'?[...PRODUCTION_PHRASES.map(p=>p.id),...PHRASES.map(p=>p.id)]:
-  [...due,...PRODUCTION_PHRASES.map(p=>p.id),...PHRASES.map(p=>p.id)];
+ // Surface never-practiced sentences first. Then rotate previously practiced ones
+ // by their last attempt, instead of repeating the first five prompts forever.
+ const orderedNew=[...PRODUCTION_PHRASES].sort((a,b)=>{
+  const ra=reviews?.[a.id],rb=reviews?.[b.id];
+  if(!ra&&!rb)return 0;
+  if(!ra)return -1;
+  if(!rb)return 1;
+  return new Date(ra.at||0).getTime()-new Date(rb.at||0).getTime();
+ });
+ const candidates=mode==='free'?[...orderedNew.map(p=>p.id),...PHRASES.map(p=>p.id)]:
+  [...due,...orderedNew.map(p=>p.id),...PHRASES.map(p=>p.id)];
  return [...new Set(candidates)].slice(0,safeLimit).map(id=>byId.get(id));
 }
 export function evaluateProduction(input,prompt){
