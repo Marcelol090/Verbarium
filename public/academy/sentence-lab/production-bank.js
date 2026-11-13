@@ -9,7 +9,7 @@ export const PRODUCTION_PHRASES=Object.freeze([
  {id:'banana-he',subject:'He',verb:'eats',object:'a banana',pt:'Ele come uma banana.',image:'banana',speaker:'oliver',rule:'Com he, use eats. Banana começa com som consonantal, então usamos a.'},
  {id:'strawberry-i',subject:'I',verb:'eat',object:'a strawberry',pt:'Eu como um morango.',image:'strawberry',speaker:'luna',rule:'Com I, use eat. Strawberry usa a neste contexto.'},
  {id:'apple-you',subject:'You',verb:'eat',object:'an apple',pt:'Você come uma maçã.',image:'apple_red',speaker:'alex',rule:'Com you, use eat sem -s. Apple começa com som vocálico, então usamos an.'},
- {id:'bread-they',subject:'They',verb:'eat',object:'bread',pt:'Eles comem pão.',image:'loaf',speaker:'mia',rule:'Com they, use eat. Bread geralmente é incontável e não pede a/an.'},
+ {id:'bread-we',subject:'We',verb:'eat',object:'bread',pt:'Nós comemos pão.',image:'loaf',speaker:'mia',rule:'Com we, use eat sem -s. Bread geralmente é incontável e não pede a/an.'},
  {id:'orange-i',subject:'I',verb:'eat',object:'an orange',pt:'Eu como uma laranja.',image:'orange',speaker:'ben',rule:'I eat, e não I eats. Use an orange.'},
  {id:'milk-she',subject:'She',verb:'drinks',object:'milk',pt:'Ela bebe leite.',image:'milk',speaker:'emma',rule:'Com she, o verbo drink ganha -s: drinks.'}
 ]);
