@@ -114,7 +114,7 @@ function renderQuestion(){
 }
 function resultForFirst(ok){
  if(firstEvaluated)return;
- results.push({firstAttempt:true,ok});firstEvaluated=true;
+ results.push({firstAttempt:true,ok,assisted:hintLevel>0});firstEvaluated=true;
 }
 function verify(){
  if(answered||index>=prompts.length)return;
@@ -166,7 +166,7 @@ function renderSummary(){
  $('#practice-stage').innerHTML='<div class="practice-kicker">SEU PROGRESSO · RESPOSTAS REAIS</div>'+
   '<h2>Você treinou a construir frases!</h2>'+
   '<p>A precisão representa apenas a primeira tentativa em cada frase, não o número de vezes que você clicou em verificar. Continue praticando para automatizar a estrutura.</p>'+
-  '<div class="practice-summary"><div><strong>'+stats.percentage+'%</strong><span>Primeira tentativa</span></div><div><strong>'+prompts.length+'</strong><span>Frases praticadas</span></div><div><strong>+'+xp+'</strong><span>XP adquirido</span></div></div>'+
+  '<div class="practice-summary"><div><strong>'+stats.percentage+'%</strong><span>Primeira tentativa</span></div><div><strong>'+stats.unaidedPercentage+'%</strong><span>Sem dicas</span></div><div><strong>'+prompts.length+'</strong><span>Frases praticadas</span></div><div><strong>+'+xp+'</strong><span>XP adquirido</span></div></div>'+
   '<div class="practice-finish-links"><a href="./practice.html?mode=free">Praticar outras frases</a><a href="./practice.html?mode=review">Revisar pendentes</a><a href="/academy/">Voltar à Academy</a></div>';
 }
 $('#verify-button').addEventListener('click',verify);
