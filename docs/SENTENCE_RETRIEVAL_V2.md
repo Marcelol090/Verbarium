@@ -58,3 +58,11 @@ As animações dos seis personagens são **reações contextuais** e não equiva
 `node --test tests/sentence-lab.test.mjs tests/sentence-production.test.mjs`
 
 Também existe o workflow `.github/workflows/learning-validation.yml`, que executa checagens de sintaxe e testes da lógica educacional em alterações relevantes.
+
+### Integração com o progresso global
+
+Cada tentativa no laboratório guiado e na prática independente atualiza os totais de respostas, acertos, XP e atividade diária da Academy pelo módulo `academy-bridge.js`. O armazenamento do laboratório permanece separado apenas para seu histórico de frases e seus agendamentos de revisão. Não há migração retroativa de XP antigo.
+
+### Evidências de domínio
+
+O resultado mostra métricas distintas: **primeira tentativa** e **sem dicas**. Uma frase acertada após consultar dicas não conta como recuperação independente, embora continue registrada como acerto e possa gerar XP. Isso evita interpretar suporte pedagógico como autonomia completa.
