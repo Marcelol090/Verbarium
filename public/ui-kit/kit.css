@@ -66,3 +66,11 @@ body[data-vb-app="studio"] .block-thumb{border-radius:14px;background:#ede7ff}
 body[data-vb-app="studio"] .step-number{background:#e8e2ff;color:#614ebd}
 @media(max-width:770px){body[data-vb-app="academy"] .welcome-card{background-position:60% center}body[data-vb-app="academy"] .vbk-bridge{margin-bottom:12px}}
 @media(prefers-reduced-motion:reduce){.vbk-btn,.vbk-progress>span{transition:none!important}}
+
+/* Main experience entry point + teacher preview link */
+body[data-vb-app="home"] .vbk-start-link{display:inline-flex;align-items:center;gap:7px;flex:none;padding:8px 11px;min-height:38px;background:linear-gradient(180deg,#f2ecff,#e3d9ff);border:1px solid #cbbcf8;border-radius:13px;box-shadow:0 3px 0 #c6b8ec;color:#5b42ad;font:800 11px/1.15 Nunito,system-ui,sans-serif;text-decoration:none;white-space:nowrap}
+body[data-vb-app="home"] .vbk-start-link img{height:18px;width:18px}
+body[data-vb-app="home"] .vbk-start-link:hover{filter:brightness(1.03)}
+body[data-vb-app="studio"] .vbk-studio-preview-link{white-space:nowrap;color:#5943bf;background:linear-gradient(#fbfaff,#ece6ff);border:1px solid #dad2f6;border-radius:12px;padding:10px 12px;font-size:11px;font-weight:850;text-decoration:none}
+@media(max-width:850px){body[data-vb-app="studio"] .vbk-studio-preview-link{display:none}}
+@media(max-width:650px){body[data-vb-app="home"] .vbk-start-link{width:37px;height:37px;min-height:37px;padding:8px;justify-content:center;border-radius:12px}body[data-vb-app="home"] .vbk-start-link span{display:none}}

@@ -31,7 +31,7 @@ case 'academy':window.location.assign('/academy/');break;
 case 'restart':step=0;chosen=[];feedback='';display();break;
 case 'hear':speak();break;
 case 'check':if(gradeSentence(choices.goal,chosen)){feedback='';step=5;display()}else{feedback='A ordem não está certa. Pense em quem faz a ação e tente novamente.';chosen=[];display();$('#ob-feedback').dataset.state='error'}break;
-case 'finish':saveProfile(localStorage,normalizeChoices(choices));window.location.assign('/academy/');break;
+case 'finish':{let storage=null;try{storage=localStorage}catch{}saveProfile(storage,normalizeChoices(choices));window.location.assign('/academy/');break;}
 }});
 if(readProfile()){ /* Returning students can still revisit the practice without a forced redirect. */ }
 display();
