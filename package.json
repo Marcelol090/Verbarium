@@ -13,7 +13,8 @@
     "assets:sync": "node scripts/extract-verbarium-assets.mjs && node scripts/sync-verbarium-v3.mjs && node scripts/sync-verbarium-worlds.mjs && node scripts/sync-visual-kit.mjs && node scripts/sync-v5-kit.mjs && node scripts/sync-v6-kit.mjs && node scripts/sync-sentence-lab.mjs",
     "predev": "npm run assets:sync",
     "prebuild": "npm run assets:sync",
-    "pretest": "npm run assets:sync"
+    "pretest": "npm run assets:sync",
+    "assets:raster:verify": "node scripts/verify-verbarium-raster.mjs"
   },
   "dependencies": {
     "lucide": "^0.547.0",
