@@ -18,3 +18,24 @@
 .vbk-has-raster .vbk-raster-live-progress{position:relative}
 @media(max-width:650px){.vbk-has-raster body[data-vb-app="academy"] .nav-link>span{width:28px;flex-basis:28px}.vbk-has-raster body[data-vb-app="academy"] .nav-link>span img{width:27px;height:27px}}
 @media(prefers-reduced-motion:reduce){.vbk-has-raster *{scroll-behavior:auto}}
+
+/* Visual QA fixes: avoid clipping the actual raster subject on narrow cards. */
+.vbk-has-raster body[data-vb-app="academy"] .welcome-card{
+  background:url('/ui-kit/raster/banners/globe_hero.webp') right center / contain no-repeat,linear-gradient(120deg,#f8f3ff,#dcd4ff);
+}
+.vbk-has-raster body[data-vb-app="academy"] .world-head{
+  background:url('/ui-kit/raster/banners/mountain_goal.webp') center/100% 100% no-repeat,#6b55d8;
+}
+.vbk-has-raster body[data-vb-app="studio"] .lesson-hero{
+  background:url('/ui-kit/raster/banners/books_education.webp') right center / contain no-repeat,linear-gradient(120deg,#f7f4ff,#ded8ff);
+}
+.vbk-has-raster body[data-vb-app="home"] .hero-card{background-image:linear-gradient(90deg,#f9f7ffed,#faf7ffe6 53%,#faf7ff21),url('/ui-kit/raster/banners/lesson_flashcards.webp');background-size:cover,contain;background-position:center,right center;background-repeat:no-repeat}
+.vbk-has-raster body[data-vb-app="academy"] .lesson-track,.vbk-has-raster body[data-vb-app="academy"] .meter{background:linear-gradient(#f1effc,#e5e2f8);border:1px solid #d8d2ef;box-shadow:inset 0 2px 5px #50419824}
+.vbk-has-raster body[data-vb-app="academy"] .lesson-track i,.vbk-has-raster body[data-vb-app="academy"] .meter i{background:linear-gradient(180deg,#b69bff,#6951e5);box-shadow:inset 0 1px 1px #fff8;min-width:0}
+.vbk-has-raster body[data-vb-app="academy"] .primary-action{box-shadow:0 4px 0 #4935b0,0 8px 12px #6352cc18}
+.vbk-has-raster body[data-vb-app="home"] .vbk-raster-streak{position:relative}
+.vbk-has-raster body[data-vb-app="academy"] .nav-link.active img{filter:drop-shadow(0 3px 4px #775ed836);opacity:1}
+.vbk-has-raster body[data-vb-app="onboarding"] .ob-art{background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#b49efa}
+.vbk-has-raster body[data-vb-app="onboarding"] .ob-art.vbk-bg--lesson{background-color:#a9b8f6}
+.vbk-has-raster body[data-vb-app="onboarding"] .ob-art.vbk-bg--win{background-color:#cba6f2}
+@media(max-width:770px){.vbk-has-raster body[data-vb-app="academy"] .welcome-card{background-image:linear-gradient(90deg,#f8f3ffee,#f8f3ff9e),url('/ui-kit/raster/banners/globe_hero.webp');background-size:cover,contain;background-position:center,right center}.vbk-has-raster body[data-vb-app="studio"] .lesson-hero{background-image:linear-gradient(90deg,#f9f6fff5,#f9f6ffa8),url('/ui-kit/raster/banners/books_education.webp');background-size:cover,contain}}

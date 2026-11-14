@@ -1,4 +1,4 @@
-/** Generated public inventory of the 235 separately exported assets. Never place UI text inside the image. */
+/** Generated public inventory of the 275 individually published raster assets. Never place UI text inside the image. */
 export const GROUPS=Object.freeze({
   "backgrounds": [
     "onboarding",
@@ -250,8 +250,50 @@ export const GROUPS=Object.freeze({
     "compact_meter_3",
     "compact_meter_4",
     "compact_meter_5"
+  ],
+  "states": [
+    "home_active",
+    "home_disabled",
+    "lesson_book_active",
+    "lesson_book_disabled",
+    "trophy_active",
+    "trophy_disabled",
+    "star_active",
+    "star_disabled",
+    "streak_fire_active",
+    "streak_fire_disabled",
+    "gem_active",
+    "gem_disabled",
+    "calendar_active",
+    "calendar_disabled",
+    "graduation_cap_active",
+    "graduation_cap_disabled",
+    "microphone_active",
+    "microphone_disabled",
+    "speaker_active",
+    "speaker_disabled",
+    "headphones_active",
+    "headphones_disabled",
+    "chat_active",
+    "chat_disabled",
+    "lightning_active",
+    "lightning_disabled",
+    "map_pin_active",
+    "map_pin_disabled",
+    "favorite_heart_active",
+    "favorite_heart_disabled",
+    "success_check_active",
+    "success_check_disabled",
+    "refresh_active",
+    "refresh_disabled",
+    "settings_active",
+    "settings_disabled",
+    "crown_active",
+    "crown_disabled",
+    "target_active",
+    "target_disabled"
   ]
 });
 export const ITEMS=Object.freeze(Object.entries(GROUPS).flatMap(([category,names])=>names.map(name=>category+'/'+name)));
 export function imageUrl(id,ext='webp'){if(!ITEMS.includes(id))throw new Error('Unknown Verbarium asset: '+id);if(ext!=='png'&&ext!=='webp')throw new Error('Invalid asset format');return '/ui-kit/raster/'+id+'.'+ext;}
-export function pictureMarkup(id,{className='',alt='',loading='lazy'}={}){const safeClass=String(className).replace(/[^\w\s-]/g,'');const safeAlt=String(alt).replace(/[&<>"]/g,'');return '<picture class="'+safeClass+'"><source srcset="'+imageUrl(id)+'" type="image/webp"><img src="'+imageUrl(id,'png')+'" alt="'+safeAlt+'" loading="'+loading+'" decoding="async"></picture>';}
+export function pictureMarkup(id,{className='',alt='',loading='lazy'}={}){const safeClass=String(className).replace(/[^\w\s-]/g,'');const safeAlt=String(alt).replace(/[&<>"]/g,'');return '<picture class="'+safeClass+'"><img src="'+imageUrl(id)+'" alt="'+safeAlt+'" loading="'+loading+'" decoding="async"></picture>';}

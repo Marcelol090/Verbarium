@@ -1,9 +1,16 @@
-# Verbarium: raster kit (235 independent assets)
+# Verbarium raster kit: 275 individually published WebP files
 
-Assets provided as a separate bundle: `public/ui-kit/raster/<category>/<name>.webp` and PNG fallback, plus `manifest.json`. This repository adds progressive integration code and the QA browser; it does **not** falsely ship the raster binaries. Import the 235 PNG + 235 WebP generated files before release.
+**235 source items + 40 independently exported active/disabled icon states**, with transparent edges and original artwork geometry.
 
-Run locally after copying the package: `npm run test` and `npm run build`, then visit `/ui-kit/raster/` to inspect every crop.
+The images live at `public/ui-kit/raster/<category>/<name>.webp`, **actually in GitHub**. Each file is a real Git blob. The source PNG package remains available separately; the website serves optimized WebP.
 
-The integration activates **only when manifest.json exists with 235 entries**, otherwise the prior SVG/CSS visual experience remains operational. The kit never flattens text, numbers, focus states, lesson progress, or buttons into images. Banner imagery is decorative only. 
+- `catalog.js`: 275 IDs, strict URL builder, accessible image renderer.
+- `manifest.json`: width, height, SHA-256 and transparent-edge QA for each image.
+- `activate.js` and `styles.css`: progressively enhance Home, Academy, Studio, Onboarding without rasterizing text, labels, data, XP values or click targets.
+- `/ui-kit/raster/`: gallery showing every asset and filtering by category.
+- `scripts/visual-qa.mjs`: visual Playwright coverage for desktop + mobile.
+- `.github/workflows/raster-visual-qa.yml`: browser CI screenshots and artifact upload.
 
-Transparent halos and crop quality must be manually approved at device scales. The assets are derived from image generation; do not assume a pixel-perfect reconstruction of rounded corners, shadows, or overlapping sprite boundaries merely from zero-alpha edge checks.
+**Why not rasterize live progress bars or buttons?** Static baked-in bar percentages would misrepresent actual XP and would warp at responsive widths. Those functional primitives remain CSS/native DOM, while the kit provides their glyphs, decorative art, button styling and reference states.
+
+All 275 images must be manually reviewed for art-direction issues; pixel-edge checks ensure no obvious cropped edges but cannot certify the absence of visually incorrect nearby motifs.
