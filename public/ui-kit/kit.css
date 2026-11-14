@@ -1,0 +1,76 @@
+
+/* Verbarium 2026 visual kit. Source artworks are isolated textless SVG assets. */
+:root{--vbk-purple:#6250db;--vbk-deep:#4735bb;--vbk-lilac:#a58ef5;--vbk-mint:#31c99b;--vbk-yellow:#ffc44c;--vbk-ink:#302b56;--vbk-stroke:#dddaf4;--vbk-shadow:0 12px 26px #6357b31c,0 3px 0 #b8b0e142}
+.vbk-card{background:linear-gradient(165deg,#fff,#f6f4ff);border:1px solid #e8e4ff;border-radius:24px;box-shadow:var(--vbk-shadow)}
+.vbk-btn{min-height:50px;padding:12px 23px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:17px;border:1px solid transparent;font:800 14px/1.2 'DM Sans',Nunito,system-ui,sans-serif;cursor:pointer;transition:transform .16s,filter .16s,box-shadow .16s}
+.vbk-btn:focus-visible,.vbk-choice:focus-visible,.vbk-segment button:focus-visible{outline:3px solid #4d39b8;outline-offset:3px}
+.vbk-btn--primary{color:white;background:linear-gradient(180deg,#9b80ff 0%,#6a53e6 48%,#4b37c5 100%);box-shadow:0 5px 0 #3e31a5,0 12px 18px #6b56b438;text-shadow:0 1px #34288866}
+.vbk-btn--secondary{background:linear-gradient(#fff,#f2f1ff);border-color:#d7cef8;color:#5949bb;box-shadow:0 4px 0 #dcd6f1,0 9px 16px #5e55a21a}
+.vbk-btn--mint{background:linear-gradient(180deg,#83efcf,#30c89a);color:#075b46;box-shadow:0 4px 0 #18a47d}
+.vbk-btn:hover:not(:disabled){filter:brightness(1.035);transform:translateY(-2px)}
+.vbk-btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 #4a35b5}
+.vbk-btn:disabled{opacity:.56;cursor:not-allowed}
+.vbk-icon{width:23px;height:23px;display:inline-block;object-fit:contain;flex:none}
+.vbk-banner{position:relative;isolation:isolate;overflow:hidden;border-radius:28px;box-shadow:var(--vbk-shadow);border:1px solid #ddd7ff;background:linear-gradient(115deg,#e9e2ff,#d9ecff)}
+.vbk-progress{height:13px;overflow:hidden;border:1px solid #d9d5f2;background:linear-gradient(#e4e3f7,#f5f3ff);border-radius:999px;box-shadow:inset 0 2px 3px #7663b019}
+.vbk-progress>span{height:100%;display:block;border-radius:inherit;background:linear-gradient(180deg,#ae91ff,#6650de);box-shadow:inset 0 1px #ffffff91;transition:width .24s ease}
+.vbk-segment{display:flex;gap:3px;background:linear-gradient(#e9e8fc,#f8f8ff);padding:5px;border:1px solid #dedbf5;border-radius:19px;box-shadow:inset 0 2px 4px #7b6fc012}
+.vbk-segment button{flex:1;min-height:45px;border:0;border-radius:14px;background:transparent;color:#776b9c;font-weight:800;padding:9px 8px;cursor:pointer}
+.vbk-segment button[aria-pressed="true"]{background:linear-gradient(#ad93ff,#6d56e4);box-shadow:0 3px 0 #5642bf;color:#fff}
+.vbk-carousel{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;padding:8px 0 18px}
+.vbk-carousel>*{scroll-snap-align:center;flex:0 0 min(78vw,275px)}
+.vbk-choice{border:1.5px solid #ded9f4;background:linear-gradient(#fff,#f5f2ff);border-radius:20px;box-shadow:0 4px 0 #dcd8ed;display:flex;align-items:center;gap:13px;text-align:left;padding:14px 15px;color:var(--vbk-ink);cursor:pointer;min-height:68px}
+.vbk-choice[aria-pressed="true"]{border-color:#7a61ed;background:linear-gradient(#f5f0ff,#e9dfff);box-shadow:0 4px 0 #9985ee,inset 0 1px #fff}
+.vbk-choice .vbk-symbol{display:grid;place-items:center;width:42px;height:42px;flex:none;border-radius:14px;background:linear-gradient(#faf8ff,#e4ddff);box-shadow:0 2px 0 #c8bfef}
+.vbk-choice img{width:24px;height:24px}
+.vbk-bg--welcome{background:#b4a0fb url('/ui-kit/backgrounds/onboarding.svg') center/cover no-repeat}
+.vbk-bg--lesson{background:#abbaf8 url('/ui-kit/backgrounds/lesson.svg') center/cover no-repeat}
+.vbk-bg--win{background:#c4a6f5 url('/ui-kit/backgrounds/celebration.svg') center/cover no-repeat}
+.vbk-bg--premium{background:#6350d9 url('/ui-kit/backgrounds/premium.svg') center/cover no-repeat}
+.vbk-bg--neutral{background:#f2efff url('/ui-kit/backgrounds/neutral.svg') center/cover no-repeat}
+/* Academy adapters: apply kit visual language without flattening lesson logic. */
+body[data-vb-app="academy"]{--purple:var(--vbk-purple);--border:#e2def4;--ink:var(--vbk-ink);background:#f9f7ff}
+body[data-vb-app="academy"] .side-nav,body[data-vb-app="academy"] .right-rail{background:#fdfcff;border-color:#e8e2f8}
+body[data-vb-app="academy"] .topbar{background:#fdfbffec;border-color:#e6e0f7}
+body[data-vb-app="academy"] .brand-mark{background:linear-gradient(155deg,#b5a0ff,#6347df);box-shadow:0 4px #4c37b8}
+body[data-vb-app="academy"] .nav-link.active{background:#e9e2ff;color:#5740bb}
+body[data-vb-app="academy"] .nav-link.active>span{color:#6249d1}
+body[data-vb-app="academy"] .nav-link img{width:21px;height:21px;display:block;object-fit:contain;margin:auto;opacity:.73}
+body[data-vb-app="academy"] .nav-link.active img{opacity:1}
+body[data-vb-app="academy"] .stat-pill,body[data-vb-app="academy"] .rail-card,body[data-vb-app="academy"] .step-copy,body[data-vb-app="academy"] .skill-card,body[data-vb-app="academy"] .profile-grid>div,body[data-vb-app="academy"] .speech-box{background:linear-gradient(160deg,#fff,#f6f3ff);border-color:#e2dcf5;box-shadow:0 5px 0 #e4dff249}
+body[data-vb-app="academy"] .welcome-card{background:#d9caff url('/ui-kit/backgrounds/onboarding.svg') center 44%/cover no-repeat;border-color:#d5cafa;box-shadow:var(--vbk-shadow)}
+body[data-vb-app="academy"] .welcome-card:before{display:none}
+body[data-vb-app="academy"] .welcome-card h2{color:#43338a}
+body[data-vb-app="academy"] .welcome-card p{color:#5b5394}
+body[data-vb-app="academy"] .world-head{background:linear-gradient(130deg,#a48afb,#664ee2);box-shadow:0 5px 0 #4933b5;color:#fff}
+body[data-vb-app="academy"] .path-step.current .step-copy{background:#f6f2ff;border-color:#b8a7f6}
+body[data-vb-app="academy"] .primary-action{border-radius:16px;background:linear-gradient(180deg,#a18aff,#6751df);box-shadow:0 4px 0 #4733b7;color:#fff}
+body[data-vb-app="academy"] .primary-action:active:not(:disabled){box-shadow:0 1px 0 #4733b7}
+body[data-vb-app="academy"] .secondary-action,body[data-vb-app="academy"] .audio-button{border-radius:14px;border-color:#d9d0f5;background:linear-gradient(#fff,#f2efff);color:#6451c5;box-shadow:0 3px 0 #dcd6f2}
+body[data-vb-app="academy"] .lesson-track,body[data-vb-app="academy"] .meter{background:#ece8f9;box-shadow:inset 0 2px 3px #7465a018}
+body[data-vb-app="academy"] .lesson-track i,body[data-vb-app="academy"] .meter i{background:linear-gradient(180deg,#ad92ff,#6450d8)}
+body[data-vb-app="academy"] .actor-stage{border-radius:24px;background:linear-gradient(150deg,#f9f4ff,#e4edff)}
+body[data-vb-app="academy"] .bottom-nav{background:#fdfbffef;box-shadow:0 -5px 24px #7561c71b}
+body[data-vb-app="academy"] .rail-fox,body[data-vb-app="academy"] .small-panel{background:linear-gradient(150deg,#eee7ff,#edf6ff)}
+body[data-vb-app="academy"] .vbk-bridge{display:flex;align-items:center;gap:12px;background:linear-gradient(110deg,#f2eaff,#e7f5ff);border:1px solid #dcd2f5;border-radius:19px;padding:14px 17px;margin-bottom:20px;box-shadow:0 4px #e6def25e}
+body[data-vb-app="academy"] .vbk-bridge img{width:29px;height:29px}
+body[data-vb-app="academy"] .vbk-bridge strong{display:block;color:#493d8b;font-size:13px}
+body[data-vb-app="academy"] .vbk-bridge small{display:block;color:#6e6592;font-size:11px;margin-top:4px}
+/* Studio adapters: keep dense authoring hierarchy and existing layout. */
+body[data-vb-app="studio"] .btn-violet{background:linear-gradient(#a18aff,#6550d9);box-shadow:0 4px 0 #4933b3;border-radius:13px}
+body[data-vb-app="studio"] .btn-lite,body[data-vb-app="studio"] .btn-outline{border-radius:13px;background:linear-gradient(#fff,#f3f0ff);border-color:#ded7f2}
+body[data-vb-app="studio"] .lesson-hero{background:#d9d1ff url('/ui-kit/backgrounds/lesson.svg') center 55%/cover no-repeat;border-color:#d3cbf7;border-radius:25px;box-shadow:0 7px 22px #7566b41f}
+body[data-vb-app="studio"] .block-card{border-radius:19px;background:linear-gradient(#fff,#fbf9ff);border-color:#e3dcf5;box-shadow:0 4px 0 #e9e5f2}
+body[data-vb-app="studio"] .block-shell.selected .block-card{border-color:#8063e5;box-shadow:0 4px 0 #b5a4f4}
+body[data-vb-app="studio"] .block-thumb{border-radius:14px;background:#ede7ff}
+body[data-vb-app="studio"] .step-number{background:#e8e2ff;color:#614ebd}
+@media(max-width:770px){body[data-vb-app="academy"] .welcome-card{background-position:60% center}body[data-vb-app="academy"] .vbk-bridge{margin-bottom:12px}}
+@media(prefers-reduced-motion:reduce){.vbk-btn,.vbk-progress>span{transition:none!important}}
+
+/* Main experience entry point + teacher preview link */
+body[data-vb-app="home"] .vbk-start-link{display:inline-flex;align-items:center;gap:7px;flex:none;padding:8px 11px;min-height:38px;background:linear-gradient(180deg,#f2ecff,#e3d9ff);border:1px solid #cbbcf8;border-radius:13px;box-shadow:0 3px 0 #c6b8ec;color:#5b42ad;font:800 11px/1.15 Nunito,system-ui,sans-serif;text-decoration:none;white-space:nowrap}
+body[data-vb-app="home"] .vbk-start-link img{height:18px;width:18px}
+body[data-vb-app="home"] .vbk-start-link:hover{filter:brightness(1.03)}
+body[data-vb-app="studio"] .vbk-studio-preview-link{white-space:nowrap;color:#5943bf;background:linear-gradient(#fbfaff,#ece6ff);border:1px solid #dad2f6;border-radius:12px;padding:10px 12px;font-size:11px;font-weight:850;text-decoration:none}
+@media(max-width:850px){body[data-vb-app="studio"] .vbk-studio-preview-link{display:none}}
+@media(max-width:650px){body[data-vb-app="home"] .vbk-start-link{width:37px;height:37px;min-height:37px;padding:8px;justify-content:center;border-radius:12px}body[data-vb-app="home"] .vbk-start-link span{display:none}}

@@ -12,8 +12,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="/verbarium-v3/runtime/verbarium-motion.css">
+<link rel="stylesheet" href="/ui-kit/kit.css">
 </head>
-<body>
+<body data-vb-app="home">
 <div class="shell">
   <aside class="sidebar" aria-label="Navegação principal">
     <div class="brand"><div class="brand-mark" aria-hidden="true"><img src="/verbarium-assets/brand/app_logo_icon.png" width="64" height="64" alt=""></div><div class="brand-copy"><div class="brand-name">Verbarium<span class="brand-dot">.</span></div><div class="brand-sub">YOUR ENGLISH JOURNEY</div></div></div>
@@ -23,7 +24,7 @@
     <div class="sidebar-footer">ENGLISH MADE FOR REAL LIFE ✦</div>
   </aside>
   <div class="stage">
-    <header class="topbar"><div class="crumb"><span class="mobile-wordmark">verbarium<span>.</span></span><span class="desktop-crumb">MEU ESPAÇO</span><span class="desktop-crumb" aria-hidden="true">/</span><strong id="breadcrumb">Início</strong></div><div class="top-actions"><div class="tiny-progress"><span id="top-completed">0 aulas</span><span class="tiny-bar"><i id="top-progress"></i></span></div><span class="top-tag">🇧🇷 PT <span aria-hidden="true">→</span> 🇬🇧 EN</span><button class="avatar" data-route="progress" aria-label="Abrir meu progresso">✦</button></div></header>
+    <header class="topbar"><div class="crumb"><span class="mobile-wordmark">verbarium<span>.</span></span><span class="desktop-crumb">MEU ESPAÇO</span><span class="desktop-crumb" aria-hidden="true">/</span><strong id="breadcrumb">Início</strong></div><div class="top-actions"><a href="/onboarding/" class="vbk-start-link" aria-label="Experimentar primeira aula sem cadastro"><img src="/ui-kit/icons/sparkle.svg" alt=""><span>Primeira aula</span></a><div class="tiny-progress"><span id="top-completed">0 aulas</span><span class="tiny-bar"><i id="top-progress"></i></span></div><span class="top-tag">🇧🇷 PT <span aria-hidden="true">→</span> 🇬🇧 EN</span><button class="avatar" data-route="progress" aria-label="Abrir meu progresso">✦</button></div></header>
     <div class="body-grid"><main id="main" class="main" tabindex="-1"></main><aside id="rail" class="rail" aria-label="Dicas de estudo"></aside></div>
   </div>
 </div>
