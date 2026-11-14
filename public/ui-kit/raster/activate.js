@@ -7,7 +7,7 @@ export async function rasterAvailable(){
 }
 const navIcons={path:'target',practice:'lesson_book',review:'streak_fire',profile:'star',teacher:'graduation_cap'};
 function decorate(el,id,tag='img'){if(!el||el.querySelector('[data-vbk-raster]'))return;const img=document.createElement(tag);img.className='vbk-raster-image';img.dataset.vbkRaster=id;img.setAttribute('aria-hidden','true');img.alt='';img.loading='lazy';img.decoding='async';img.src=imageUrl(id);el.prepend(img);}
-function enhanceAcademy(root){for(const [key,id] of Object.entries(navIcons)){root.querySelectorAll('.nav-link[data-route="'+key+'"] > span').forEach(el=>{if(el.querySelector('img')){const im=el.querySelector('img');im.dataset.vbkRaster='icons/'+id;im.src=imageUrl('icons/'+id);im.alt='';}else decorate(el,'icons/'+id);});}
+function enhanceAcademy(root){for(const [key,id] of Object.entries(navIcons)){root.querySelectorAll('.nav-link[data-route="'+key+'"] > span').forEach(el=>{if(el.querySelector('img')){const im=el.querySelector('img');if(im.dataset.vbkRaster!=='icons/'+id){im.dataset.vbkRaster='icons/'+id;im.src=imageUrl('icons/'+id);im.alt='';}}else decorate(el,'icons/'+id);});}
  const pills=root.querySelectorAll('.top-stats .stat-pill');['streak_fire','star','gem'].forEach((name,i)=>{const el=pills[i];if(!el||el.querySelector('[data-vbk-raster]'))return;const first=[...el.childNodes].find(n=>n.nodeType===Node.TEXT_NODE);if(first)first.textContent='';decorate(el,'icons/'+name);});
  root.querySelectorAll('.welcome-card').forEach(el=>{el.classList.add('vbk-raster-welcome');}); 
  root.querySelectorAll('.world-head').forEach(el=>el.classList.add('vbk-raster-world'));
