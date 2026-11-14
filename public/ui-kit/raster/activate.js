@@ -1,8 +1,13 @@
 import {imageUrl,pictureMarkup} from './catalog.js';
+import {validateRasterManifest} from './manifest-validation.js';
 /** Decorative enhancement is optional. Existing Academy/Studio always remain usable without raster bundle. */
 export async function rasterAvailable(){
   try {const r=await fetch('/ui-kit/raster/manifest.json',{method:'GET',cache:'force-cache'}); if(!r.ok) return false;
-    const json=await r.json();return json.count===235 && Array.isArray(json.assets) && json.assets.length===235;
+    const json=await r.json();if(!validateRasterManifest(json))return false;
+    // Do not switch the full UI to raster when only the manifest has been uploaded.
+    const probes=['icons/home','backgrounds/onboarding','banners/globe_hero','buttons/primary_indigo'];
+    const results=await Promise.all(probes.map(async id=>{try{const p=await fetch(imageUrl(id),{method:'HEAD',cache:'force-cache'});return p.ok}catch{return false}}));
+    return results.every(Boolean);
   }catch{return false;}
 }
 const navIcons={path:'target',practice:'lesson_book',review:'streak_fire',profile:'star',teacher:'graduation_cap'};
