@@ -7,6 +7,8 @@ const mobile=read('public/academy/fox-mobile.css');
 const home=read('src/fox-mobile-home.css');
 const oldVideo=read('public/ui-kit/video-qa.css');
 const oldRaster=read('public/ui-kit/raster/styles.css');
+const v5=read('src/verbarium-kit/v5-kit.css');
+const manifest=JSON.parse(read('public/ui-kit/raster/manifest.json'));
 
 function balance(css){
  const stripped=css.replace(/\/\*[\s\S]*?\*\//g,'').replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g,'""');
@@ -36,4 +38,19 @@ test('mobile controls keep distinct content and action areas',()=>{
  assert.match(mobile,/\.sentence-lab-links>a\{[^}]*min-height:48px/);
  assert.match(mobile,/\.lesson-wrap\{[^}]*padding:0;[^}]*min-width:0/);
  assert.match(home,/\.vb7-hero\{[^}]*grid-template-areas:"badge badge" "heading mascot" "desc mascot" "progress progress" "action action"/);
+});
+
+test('portrait onboarding raster stays fully visible in small banners',()=>{
+ const landscape=['backgrounds/onboarding','backgrounds/lesson','backgrounds/celebration'];
+ for(const id of landscape){
+  const a=manifest.assets.find(x=>x.id===id);
+  assert.ok(a && a.height>a.width,'Expected a portrait source: '+id);
+ }
+ assert.match(oldVideo,/@media\(max-width:760px\)\{\s*body\[data-vb-app="onboarding"\] \.ob-art\{[^}]*background-size:auto 132px!important/);
+});
+
+test('exercise controls use CSS surfaces instead of stretched raster backgrounds',()=>{
+ assert.doesNotMatch(v5,/background-size:100% 100%/);
+ assert.match(v5,/\.vb-food-image-grid \.vb-food-choice\{background-image:none/);
+ assert.match(v5,/\.vb-food-word-grid \.vb-food-word\{background-image:none/);
 });
