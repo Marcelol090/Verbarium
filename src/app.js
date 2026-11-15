@@ -25,6 +25,7 @@ import './verbarium-kit/v6-pairs.css';
 import '../public/ui-kit/components/library.css';
 import {renderHeading,renderLessonHero,renderFeatureGrid,renderMissions,renderPromo} from '../public/ui-kit/components/library.js';
 import '../public/ui-kit/components/lesson-ui.css';
+import './fox-mobile-home.css';
 import {renderLessonQuestion,renderLessonCompletion,renderPracticeScreen,renderDialogueScreen,renderGuidedPath,renderRewards} from '../public/ui-kit/components/lesson-ui.js';
 import {hydrateV6Art,renderV6Gallery,handleV6GalleryAction,renderV6PairsTeaser,renderV6SkillPath} from './verbarium-kit/v6-kit.js';
 import {renderV6PairQuest,handleV6PairAction,v6PairProgress,resetV6PairQuest} from './verbarium-kit/v6-pairs.js';
@@ -164,7 +165,7 @@ function homePage(){
  const streak=currentStreak();
  const week=weekActivity();
  return `<div class="vb7-home-heading">${renderHeading({kicker:'SEU CANTINHO DE INGLÊS',title:'Aprenda inglês de um jeito',accent:'seu.',subtitle:'Uma aula por vez, mais confiança para a próxima conversa.',level:1})}</div>
- ${renderLessonHero({lessonId:next.id,title:next.title,description:next.why,level:next.level,minutes:6,completed:data.completed.length,total:lessons.length,mascot:renderHeroMascot(),buttonLabel:data.completed.length===lessons.length?'Revisitar aulas':'Continuar aprendendo'})}
+ ${renderLessonHero({lessonId:next.id,title:next.title,description:next.why,level:next.level,minutes:6,completed:data.completed.length,total:lessons.length,mascot:'<img class="vb-fox-home-mascot" src="/verbarium-v6/assets/characters/fox_joy.webp" alt="" loading="eager" decoding="async">',buttonLabel:data.completed.length===lessons.length?'Revisitar aulas':'Continuar aprendendo'})}
  ${renderMissions(missionState({activity:data.activity,completedAt:data.completedAt,sessions:data.sessions,today:day()}))}
   ${renderPromo({kicker:'NOVA EXPERIÊNCIA · ACADEMY',title:'Uma trilha com desafios, histórias e revisão inteligente.',subtitle:'Unidades progressivas A1–B1, escuta, associação, construção de frases e importação de aulas do professor.',image:'/verbarium-assets/icons/icon_book_tile.png',href:'/academy/',action:'Explorar Academy'})}
    ${renderV6PairsTeaser(v6PairProgress())}
