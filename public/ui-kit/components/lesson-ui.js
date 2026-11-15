@@ -9,7 +9,7 @@ const attr=esc;
 const clamp=(value,max)=>Math.min(max,Math.max(0,Number.isFinite(Number(value))?Number(value):0));
 const whole=(value)=>Math.max(0,Math.round(Number(value)||0));
 const knownAction=new Set(['practice-answer','lesson-answer','dialog-choice']);
-const iconUrl=Object.freeze({
+export const LEARNING_ICON_URLS=Object.freeze({
   correct:'/ui-kit/raster/icons/success_check.webp',
   retry:'/ui-kit/raster/icons/retry.webp',
   book:'/ui-kit/raster/icons/lesson_book.webp',
@@ -23,7 +23,7 @@ const iconUrl=Object.freeze({
   speaker:'/ui-kit/raster/icons/speaker.webp',
   brain:'/ui-kit/raster/icons/brain.webp'
 });
-const image=(name,extra='')=>'<img class="vb8-graphic '+extra+'" src="'+iconUrl[name]+'" alt="" aria-hidden="true" loading="lazy" decoding="async">';
+const image=(name,extra='')=>'<img class="vb8-graphic '+extra+'" src="'+LEARNING_ICON_URLS[name]+'" alt="" aria-hidden="true" loading="lazy" decoding="async">';
 export function renderStepMeter({current=0,total=1,label='Etapas da atividade',tone='violet'}={}){
  const max=Math.max(1,whole(total)),now=clamp(current,max),pct=Math.round(now/max*100);
  return '<div class="vb8-meter" data-vb8-component="step-meter" data-tone="'+(tone==='mint'?'mint':'violet')+'">'+
@@ -81,7 +81,7 @@ export function renderPracticeScreen({round=[],index=0,correct=0,answer=null,rev
    '<div class="vb8-section-kicker">'+image(written?'book':'brain')+' <span>'+(written?'PRODUÇÃO ESCRITA':'RECONHECIMENTO DE ESTRUTURA')+'</span></div>'+
    renderStepMeter({current:index+1,total,label:'Progresso da rodada'})+
    '<div class="vb8-exercise__prompt"><small>'+(written?'CONSTRUA SUA RESPOSTA':'ESCOLHA A MELHOR ALTERNATIVA')+'</small><h2>'+esc(q.prompt)+'</h2></div>'+
-   (written?'<div class="vb8-writing"><label for="write-answer">SUA RESPOSTA EM INGLÊS</label><input id="write-answer" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Escreva sua frase..." value="'+attr(answer?.value||'')+'" '+(hasAnswer?'disabled':'')+'></div>':
+   (written?'<p class="vb8-practice-hint">'+(q.hint?'Dica de estrutura: '+esc(q.hint):'Tente escrever a frase completa.')+'</p><div class="vb8-writing"><label for="write-answer">SUA RESPOSTA EM INGLÊS</label><input id="write-answer" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Escreva sua frase..." value="'+attr(answer?.value||'')+'" '+(hasAnswer?'disabled':'')+'></div>':
     renderChoiceGroup({options:q.options||[],correct:q.correct,selected:answer?.value,submitted:hasAnswer,action:'practice-answer'}))+
    (hasAnswer?'<div class="vb8-exercise__response">'+renderFeedback({correct:!!answer.ok,title:answer.ok?'Boa! Resposta correta.':'Resposta esperada: '+String(written?q.answer:q.correct),detail:q.explain,note:written?'Correção por respostas aceitas, não análise semântica livre.':''})+
      '<div class="vb8-exercise__footer"><small>'+clamp(correct,total)+' acerto(s) nesta rodada</small><button class="vb8-action vb8-action--violet" type="button" data-action="practice-next">'+(index+1===total?'Ver resultado':'Próxima questão')+' <span aria-hidden="true">→</span></button></div></div>':
