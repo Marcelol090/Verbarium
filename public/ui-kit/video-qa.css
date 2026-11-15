@@ -81,14 +81,20 @@ body[data-vb-app="onboarding"] .ob-view p{color:#62597f}
  body[data-vb-app="studio"] .lesson-hero img{bottom:0;right:4px;height:105px;max-width:38%}
  body[data-vb-app="onboarding"] .ob-art{background-position:center!important}
 }
-/* Raster onboarding art is portrait (448x619). On narrow mobile panels use a
-   contained illustration on a solid surface, not a cropped full-bleed poster. */
+/* Mobile onboarding uses native-size, separate Pip artwork instead of forcing
+   a portrait 448x619 poster into a 146px-high landscape header. */
 @media(max-width:760px){
- body[data-vb-app="onboarding"] .ob-art{min-height:146px;max-height:146px;background-color:#e8e1fd;background-repeat:no-repeat!important;background-size:auto 132px!important;background-position:calc(100% - 15px) center!important;overflow:hidden}
- body[data-vb-app="onboarding"] .ob-art-caption{z-index:2;max-width:calc(100% - 155px)}
+ body[data-vb-app="onboarding"] .ob-art{position:relative;min-height:148px;max-height:148px;background:#8f79e1!important;background-image:linear-gradient(115deg,#765ed4 0%,#9f83e6 66%,#c9acf2 100%)!important;background-repeat:no-repeat!important;background-size:cover!important;background-position:center!important;border-radius:26px 26px 0 0;overflow:hidden;isolation:isolate}
+ body[data-vb-app="onboarding"] .ob-art::before{content:"";position:absolute;z-index:1;inset:10px 15px 8px auto;width:128px;height:130px;background:url('/verbarium-v6/assets/characters/fox_joy.webp') center/contain no-repeat;pointer-events:none}
+ body[data-vb-app="onboarding"] .ob-art.vbk-bg--lesson::before{background-image:url('/verbarium-v6/assets/characters/fox_reading.webp')}
+ body[data-vb-app="onboarding"] .ob-art.vbk-bg--win::before{background-image:url('/verbarium-v6/assets/characters/fox_celebrating.webp')}
+ body[data-vb-app="onboarding"] .ob-art.vbk-bg--premium::before{background-image:url('/verbarium-v6/assets/characters/fox_graduate.webp')}
+ body[data-vb-app="onboarding"] .ob-art::after{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(circle at 18% 12%,#ffffff5a 0 2px,transparent 3px),radial-gradient(circle at 39% 54%,#ffffff4b 0 3px,transparent 4px),radial-gradient(circle at 7% 77%,#f6d7f458,transparent 28%);pointer-events:none}
+ body[data-vb-app="onboarding"] .ob-art-caption{z-index:2;max-width:calc(100% - 150px)}
 }
 @media(max-width:375px){
- body[data-vb-app="onboarding"] .ob-art{min-height:128px;max-height:128px;background-size:auto 115px!important;background-position:calc(100% - 9px) center!important}
+ body[data-vb-app="onboarding"] .ob-art{min-height:132px;max-height:132px}
+ body[data-vb-app="onboarding"] .ob-art::before{width:112px;height:115px;top:8px;right:10px}
 }
 
 @media(prefers-reduced-motion:reduce){body[data-vb-app="home"] .hero-doodle{animation:none!important;transform:none!important}}
