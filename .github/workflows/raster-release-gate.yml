@@ -1,0 +1,54 @@
+name: Verbarium Raster Release Gate
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'public/ui-kit/raster/**'
+      - 'scripts/verify-verbarium-raster.mjs'
+      - 'tests/raster-*.test.mjs'
+      - '.github/workflows/raster-release-gate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/ui-kit/raster/**'
+      - 'scripts/verify-verbarium-raster.mjs'
+      - 'tests/raster-*.test.mjs'
+      - '.github/workflows/raster-release-gate.yml'
+permissions:
+  contents: read
+jobs:
+  raster-binary-integrity:
+    name: 235 PNG + 235 WebP, manifest, SHA-256
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Require the real 235-asset raster package
+        run: |
+          if [ ! -f public/ui-kit/raster/manifest.json ]; then
+            echo "::error title=Raster assets missing::The 235 PNGs, 235 WebPs and manifest have not been committed. A fallback-only build cannot be released as the full bitmap kit."
+            exit 1
+          fi
+      - name: Validate exact files, signatures and SHA-256
+        run: npm run assets:raster:verify
+      - name: Check raster catalog and component contract
+        run: node --test tests/raster-catalog.test.mjs tests/raster-manifest-strict.test.mjs
+      - name: Require review of risky edge crops
+        run: |
+          node --input-type=module <<'EOF'
+          import {readFileSync} from 'node:fs';
+          const manifest=JSON.parse(readFileSync('public/ui-kit/raster/manifest.json','utf8'));
+          const risky=manifest.assets.filter(x=>x.edgeReview===true).map(x=>x.id);
+          if(risky.length){
+            console.error('Assets requiring visual edge review:',risky.join(', '));
+            console.error('Do not release the 235-asset kit until these crops have been repaired and their SHA-256 checksums updated.');
+            process.exitCode=1;
+          }else{
+            console.log('Raster edge review OK: no pending flagged crops.');
+          }
+          EOF
