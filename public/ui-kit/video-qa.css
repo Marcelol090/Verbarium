@@ -1,0 +1,86 @@
+
+/* Android MP4 1000271788: fix washed-out hero, repeated raster backgrounds and mobile overlap. */
+:root{--video-ink:#30245d;--video-muted:#605781}
+html,body{overflow-x:clip}
+body[data-vb-app="home"] .hero-card{
+  background:radial-gradient(ellipse at 83% 10%,#fff2d49c,transparent 40%),radial-gradient(ellipse at 12% 105%,#d3f6ee66,transparent 49%),linear-gradient(135deg,#f0ecff,#e3dcff 57%,#dce7ff)!important;
+  background-repeat:no-repeat!important;background-position:center!important;background-size:cover!important;
+  border:1px solid #ccbfeb!important;color:var(--video-ink)!important;
+  border-radius:27px;isolation:isolate;overflow:hidden;
+  box-shadow:0 13px 28px #6552b126,inset 0 1px #fff
+}
+body[data-vb-app="home"] .hero-card::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,#ffffff61,transparent 72%)}
+body[data-vb-app="home"] .hero-card::after{content:"";position:absolute;right:-12%;top:-27%;width:50%;height:70%;z-index:0;pointer-events:none;border:0;border-radius:50%;box-shadow:none;background:radial-gradient(circle,#fff9,transparent 72%)}
+body[data-vb-app="home"] .hero-card .hero-content{position:relative;z-index:2;min-width:0}
+body[data-vb-app="home"] .hero-card .hero-kicker{color:#6246ab!important;background:#ffffffcf;border:1px solid #d6cbed;box-shadow:0 2px 6px #6450ae18}
+body[data-vb-app="home"] .hero-card h2{color:#30245d!important;text-shadow:none!important;font:650 clamp(28px,3.2vw,42px)/1.12 Fredoka,Nunito,system-ui,sans-serif;letter-spacing:-.025em;text-wrap:balance;overflow-wrap:break-word}
+body[data-vb-app="home"] .hero-card h2 em{color:#6946cc!important;font-style:normal}
+body[data-vb-app="home"] .hero-card p{color:#5d537e!important;text-shadow:none!important;font-size:13px;line-height:1.55;font-weight:700}
+body[data-vb-app="home"] .hero-card .hero-meter-top,body[data-vb-app="home"] .hero-card .hero-foot{color:#524579!important}
+body[data-vb-app="home"] .hero-card .hero-meter-top strong{color:#46348b!important}
+body[data-vb-app="home"] .hero-card .hero-progress{background:#d0c4e9!important;border:1px solid #bcaadb;box-shadow:inset 0 1px 2px #44318c26}
+body[data-vb-app="home"] .hero-card .hero-progress i{background:linear-gradient(90deg,#9276ed,#543dc6)!important;box-shadow:none!important}
+body[data-vb-app="home"] .hero-card .hero-visual{position:relative;z-index:1;min-width:0;pointer-events:none;max-width:100%}
+body[data-vb-app="home"] .hero-card .hero-visual img{display:block;object-fit:contain;max-width:100%;max-height:260px;height:auto}
+body[data-vb-app="home"] .hero-card .hero-actions{position:relative;z-index:3}
+body[data-vb-app="home"] .hero-card .vb-sprite-cta{background-size:100% 100%!important;text-shadow:0 1px 2px #32216e77}
+body[data-vb-app="home"] .v2-world-scene,body[data-vb-app="home"] .vb5-world-scene{background-repeat:no-repeat!important;overflow:hidden}
+body[data-vb-app="home"] .v2-world-scene img,body[data-vb-app="home"] .vb5-world-scene img,body[data-vb-app="home"] .vb-food-teaser img{object-fit:contain}
+@media(max-width:650px){
+ body[data-vb-app="home"] .body-grid{padding-bottom:max(128px,calc(106px + env(safe-area-inset-bottom)))!important}
+ body[data-vb-app="home"] .hero-card{display:block!important;position:relative;margin:20px 0 26px;padding:clamp(19px,5vw,26px)!important;min-height:0!important;border-radius:25px!important}
+ body[data-vb-app="home"] .hero-card .hero-content{width:100%;max-width:none}
+ body[data-vb-app="home"] .hero-card .hero-kicker{max-width:100%;white-space:normal;line-height:1.4}
+ body[data-vb-app="home"] .hero-card h2{font-size:clamp(26px,7.1vw,34px)!important;max-width:65%!important;margin:14px 0 13px!important;padding-right:0!important}
+ body[data-vb-app="home"] .hero-card .hero-visual{position:absolute!important;top:72px;right:2%;width:35%;max-width:35%;height:150px;display:grid;place-items:center;transform:none!important}
+ body[data-vb-app="home"] .hero-card .hero-visual img{max-height:146px;max-width:100%}
+ body[data-vb-app="home"] .hero-card p{max-width:100%!important;margin:18px 0 0!important;font-size:12px!important;line-height:1.55}
+ body[data-vb-app="home"] .hero-card .hero-meter{max-width:none;width:100%;margin-top:18px}
+ body[data-vb-app="home"] .hero-card .hero-actions{width:100%;display:flex;flex-direction:column;align-items:stretch;gap:8px;margin-top:15px!important}
+ body[data-vb-app="home"] .hero-card .vb-sprite-cta{width:100%!important;max-width:none!important;min-width:0!important;min-height:56px;padding:11px 18px 11px 46px!important}
+ body[data-vb-app="home"] .hero-card .hero-foot{text-align:center}
+}
+@media(max-width:385px){body[data-vb-app="home"] .hero-card h2{max-width:63%!important;font-size:clamp(24px,7vw,27px)!important}body[data-vb-app="home"] .hero-card .hero-visual{top:77px;height:137px}body[data-vb-app="home"] .hero-card .hero-visual img{max-height:135px}}
+/* Keep detailed 3D artwork out of text/editing planes in Academy and Studio. */
+.vbk-has-raster body[data-vb-app="academy"] .welcome-card,body[data-vb-app="academy"] .welcome-card{
+ background:linear-gradient(112deg,#f7f2ff 0%,#eae1ff 63%,#dfebff)!important;border:1px solid #d4c9f0!important;
+ box-shadow:0 10px 24px #6453a41c;overflow:hidden
+}
+body[data-vb-app="academy"] .welcome-card>div{position:relative;z-index:2}
+body[data-vb-app="academy"] .welcome-card h2{color:#382a77!important;text-shadow:none!important}
+body[data-vb-app="academy"] .welcome-card p{color:#574979!important;line-height:1.55}
+body[data-vb-app="academy"] .welcome-hero img,body[data-vb-app="academy"] .asset-wrap img{object-fit:contain}
+.vbk-has-raster body[data-vb-app="academy"] .world-head,body[data-vb-app="academy"] .world-head{
+ background:linear-gradient(105deg,#5a40bd,#8768eb)!important;background-repeat:no-repeat!important;box-shadow:0 4px 0 #3f2d94!important
+}
+body[data-vb-app="academy"] .world-head h2,body[data-vb-app="academy"] .world-head span{color:#fff!important}
+.vbk-has-raster body[data-vb-app="studio"] .lesson-hero,body[data-vb-app="studio"] .lesson-hero{
+ background:linear-gradient(110deg,#f8f3ff,#ebe2ff 62%,#deefff)!important;background-repeat:no-repeat!important;border-color:#d9cef2!important;overflow:hidden
+}
+body[data-vb-app="studio"] .lesson-hero .hero-content{position:relative;z-index:3}
+body[data-vb-app="studio"] .lesson-hero .title-input,body[data-vb-app="studio"] .lesson-hero textarea{color:#3c2d72!important;text-shadow:none!important}
+body[data-vb-app="studio"] .lesson-hero input::placeholder,body[data-vb-app="studio"] .lesson-hero textarea::placeholder{color:#71668f;opacity:1}
+body[data-vb-app="studio"] .lesson-hero img{object-fit:contain}
+.vbk-has-raster body[data-vb-app="onboarding"] .ob-art,body[data-vb-app="onboarding"] .ob-art{background-repeat:no-repeat!important;background-position:center 35%!important;background-size:cover!important}
+body[data-vb-app="onboarding"] .ob-panel{background:linear-gradient(165deg,#fff,#fcfbff)}
+body[data-vb-app="onboarding"] .ob-view h1{color:#382976}
+body[data-vb-app="onboarding"] .ob-view p{color:#62597f}
+/* A raster card is a 3D illustration, not a stretchable nine-slice border. */
+.vbmp-banner,.vbmp-card{background:linear-gradient(145deg,#fff,#f6f2ff);border:1px solid #e2dbf3}
+.vbmp-banner>.vbmp-img,.vbmp-card>.vbmp-img{object-fit:contain!important;object-position:center!important}
+.vbmp-banner>.vbmp-img{opacity:.82}
+.vbmp-card>.vbmp-img{opacity:.55}
+.vbmp-button>.vbmp-img{object-fit:contain!important}
+.vbmp-carousel__item{min-width:0}
+@media(max-width:770px){
+ body[data-vb-app="academy"] #content{padding-bottom:max(112px,calc(94px + env(safe-area-inset-bottom)))!important}
+ body[data-vb-app="academy"] .welcome-card>div{max-width:68%}
+}
+@media(max-width:540px){
+ body[data-vb-app="academy"] .welcome-card>div{max-width:100%;padding-right:27%}
+ body[data-vb-app="academy"] .welcome-hero{right:-5%;width:32%;opacity:.92}
+ body[data-vb-app="studio"] .lesson-hero{padding-right:18px!important;padding-bottom:112px!important}
+ body[data-vb-app="studio"] .lesson-hero img{bottom:0;right:4px;height:105px;max-width:38%}
+ body[data-vb-app="onboarding"] .ob-art{background-position:center 25%!important}
+}
+@media(prefers-reduced-motion:reduce){body[data-vb-app="home"] .hero-doodle{animation:none!important;transform:none!important}}
