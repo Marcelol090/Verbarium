@@ -47,7 +47,8 @@ test('portrait onboarding raster stays fully visible in small banners',()=>{
   const a=manifest.assets.find(x=>x.id===id);
   assert.ok(a && a.height>a.width,'Expected a portrait source: '+id);
  }
- assert.match(oldVideo,/@media\(max-width:760px\)\{\s*body\[data-vb-app="onboarding"\] \.ob-art\{[^}]*background-size:auto 132px!important/);
+ assert.match(oldVideo,/@media\(max-width:760px\)\{\s*body\[data-vb-app="onboarding"\] \.ob-art\{[^}]*background-image:linear-gradient/);
+ assert.match(oldVideo,/\.ob-art::before\{[^}]*fox_joy\.webp[^}]*contain no-repeat/);
 });
 
 test('exercise controls use CSS surfaces instead of stretched raster backgrounds',()=>{
