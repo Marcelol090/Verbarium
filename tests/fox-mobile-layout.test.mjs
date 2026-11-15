@@ -8,6 +8,7 @@ const home=read('src/fox-mobile-home.css');
 const oldVideo=read('public/ui-kit/video-qa.css');
 const oldRaster=read('public/ui-kit/raster/styles.css');
 const v5=read('src/verbarium-kit/v5-kit.css');
+const app=read('src/app.js');
 const manifest=JSON.parse(read('public/ui-kit/raster/manifest.json'));
 
 function balance(css){
@@ -53,4 +54,11 @@ test('exercise controls use CSS surfaces instead of stretched raster backgrounds
  assert.doesNotMatch(v5,/background-size:100% 100%/);
  assert.match(v5,/\.vb-food-image-grid \.vb-food-choice\{background-image:none/);
  assert.match(v5,/\.vb-food-word-grid \.vb-food-word\{background-image:none/);
+});
+
+test('every mapped navigation renderer exists at runtime',()=>{
+ assert.match(app,/function chapterPage\(\)\{/);
+ assert.match(app,/function profilePage\(\)\{/);
+ assert.match(app,/chapter:chapterPage,lesson:lessonPage/);
+ assert.match(app,/profile:profilePage,review:reviewPage/);
 });
