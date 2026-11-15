@@ -133,6 +133,21 @@ else html=`<div class="rail-label">NOTA DE CONVERSAÇÃO</div><div class="rail-n
  document.querySelector('#rail').innerHTML=html}
 initVerbariumMotion();
 let previousRoute=null;
+/* All routes must resolve to renderers before the navigation map is evaluated.
+ * A missing renderer used to crash the entire home screen at runtime. */
+function chapterPage(){
+ return renderChapterDetail({
+  id:app.chapter,lessons,completed:data.completed,currentId:nextLesson().id,
+  lessonSessions:data.lessonSessions||{}
+ });
+}
+function profilePage(){
+ return renderProfile({
+  nickname:data.nickname||'Explorador',completed:data.completed,
+  correct:data.correct||0,attempts:data.attempts||0,streak:currentStreak(),
+  sessions:data.sessions||[],reviews:data.reviews||{},due:dueItems().length
+ });
+}
 function paint(){
  renderChrome();
  const main=document.querySelector('#main');
