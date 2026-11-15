@@ -31,15 +31,13 @@
 .vb5-food-scene .vb5-food-character{position:absolute;left:10%;bottom:3px;width:32%;height:145px;z-index:2;animation:vb5-gentle-bob 2.5s ease-in-out infinite}
 .vb5-food-scene .vb5-food-shadow{position:absolute;left:8%;bottom:0;width:34%;height:15px;opacity:.5}
 .vb5-food-scene .vb5-food-sparkle{position:absolute;top:5%;left:43%;width:21%;height:65px;animation:vb5-spark .6s both}
-.vb-food-image-grid .vb-food-choice{background-color:#fafcff;background-image:url('/verbarium-v5/assets/exercises/image_card_idle.webp');background-position:center;background-repeat:no-repeat;background-size:100% 100%;border:0;box-shadow:none;position:relative;isolation:isolate}
-.vb-food-image-grid .vb-food-choice.is-selected{background-image:url('/verbarium-v5/assets/exercises/image_card_selected.webp')}
-.vb-food-image-grid .vb-food-choice.is-correct{background-image:url('/verbarium-v5/assets/exercises/image_card_correct.webp')}
-.vb-food-image-grid .vb-food-choice.is-wrong{background-image:url('/verbarium-v5/assets/exercises/image_card_wrong.webp')}
-.vb-food-image-grid .vb-food-choice>.vb-food-art,.vb-food-image-grid .vb-food-choice>.vb-food-choice-caption{position:relative;z-index:1}
-.vb-food-word-grid .vb-food-word{background-image:url('/verbarium-v5/assets/exercises/answer_chip_idle.webp');background-size:100% 100%;border:1px solid #dce6ed;box-shadow:none}
-.vb-food-word-grid .vb-food-word.is-selected{background-image:url('/verbarium-v5/assets/exercises/answer_chip_selected.webp')}
-.vb-food-word-grid .vb-food-word.is-correct{background-image:url('/verbarium-v5/assets/exercises/answer_chip_correct.webp')}
-.vb-food-word-grid .vb-food-word.is-wrong{background-image:url('/verbarium-v5/assets/exercises/answer_chip_wrong.webp')}
+/* Images are independent art, never stretchable 3D control borders.
+   Choice states are already implemented with native surfaces in food-quest.css.
+   Only the actual illustrations inside .vb-food-art are rasterized. */
+.vb-food-image-grid .vb-food-choice{background-image:none;min-width:0;isolation:isolate}
+.vb-food-image-grid .vb-food-choice>.vb-food-art{max-width:100%;overflow:visible}
+.vb-food-image-grid .vb-food-choice>.vb-food-art>img{object-fit:contain;object-position:center;max-width:100%;max-height:100%}
+.vb-food-word-grid .vb-food-word{background-image:none;min-width:0;overflow-wrap:break-word}
 .vb-food-audio .vb-food-art{background:transparent}.vb-food-audio .vb-food-art .vb-food-emoji{font-size:25px}
 .vb5-reward{position:relative;max-width:400px;min-height:260px;margin:auto;display:flex;align-items:center;flex-direction:column;justify-content:center}
 .vb5-reward .vb5-chest-open{width:240px;height:190px;animation:vb5-reward-reveal .58s cubic-bezier(.2,.9,.25,1) both}

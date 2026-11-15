@@ -41,6 +41,8 @@ body[data-vb-app="home"] .v2-world-scene img,body[data-vb-app="home"] .vb5-world
  body[data-vb-app="home"] .hero-card .hero-foot{text-align:center}
 }
 @media(max-width:385px){body[data-vb-app="home"] .hero-card h2{max-width:63%!important;font-size:clamp(24px,7vw,27px)!important}body[data-vb-app="home"] .hero-card .hero-visual{top:77px;height:137px}body[data-vb-app="home"] .hero-card .hero-visual img{max-height:135px}}
+/* Legacy Academy artwork colors apply only to desktop. Fox Mobile owns mobile colors and contrast. */
+@media(min-width:771px){
 /* Keep detailed 3D artwork out of text/editing planes in Academy and Studio. */
 .vbk-has-raster body[data-vb-app="academy"] .welcome-card,body[data-vb-app="academy"] .welcome-card{
  background:linear-gradient(112deg,#f7f2ff 0%,#eae1ff 63%,#dfebff)!important;border:1px solid #d4c9f0!important;
@@ -54,6 +56,7 @@ body[data-vb-app="academy"] .welcome-hero img,body[data-vb-app="academy"] .asset
  background:linear-gradient(105deg,#5a40bd,#8768eb)!important;background-repeat:no-repeat!important;box-shadow:0 4px 0 #3f2d94!important
 }
 body[data-vb-app="academy"] .world-head h2,body[data-vb-app="academy"] .world-head span{color:#fff!important}
+}
 .vbk-has-raster body[data-vb-app="studio"] .lesson-hero,body[data-vb-app="studio"] .lesson-hero{
  background:linear-gradient(110deg,#f8f3ff,#ebe2ff 62%,#deefff)!important;background-repeat:no-repeat!important;border-color:#d9cef2!important;overflow:hidden
 }
@@ -61,7 +64,7 @@ body[data-vb-app="studio"] .lesson-hero .hero-content{position:relative;z-index:
 body[data-vb-app="studio"] .lesson-hero .title-input,body[data-vb-app="studio"] .lesson-hero textarea{color:#3c2d72!important;text-shadow:none!important}
 body[data-vb-app="studio"] .lesson-hero input::placeholder,body[data-vb-app="studio"] .lesson-hero textarea::placeholder{color:#71668f;opacity:1}
 body[data-vb-app="studio"] .lesson-hero img{object-fit:contain}
-.vbk-has-raster body[data-vb-app="onboarding"] .ob-art,body[data-vb-app="onboarding"] .ob-art{background-repeat:no-repeat!important;background-position:center 35%!important;background-size:cover!important}
+.vbk-has-raster body[data-vb-app="onboarding"] .ob-art,body[data-vb-app="onboarding"] .ob-art{background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important}
 body[data-vb-app="onboarding"] .ob-panel{background:linear-gradient(165deg,#fff,#fcfbff)}
 body[data-vb-app="onboarding"] .ob-view h1{color:#382976}
 body[data-vb-app="onboarding"] .ob-view p{color:#62597f}
@@ -72,15 +75,26 @@ body[data-vb-app="onboarding"] .ob-view p{color:#62597f}
 .vbmp-card>.vbmp-img{opacity:.55}
 .vbmp-button>.vbmp-img{object-fit:contain!important}
 .vbmp-carousel__item{min-width:0}
-@media(max-width:770px){
- body[data-vb-app="academy"] #content{padding-bottom:max(112px,calc(94px + env(safe-area-inset-bottom)))!important}
- body[data-vb-app="academy"] .welcome-card>div{max-width:68%}
-}
+/* Mobile Academy content insets and safe areas are owned by fox-mobile.css. */
 @media(max-width:540px){
- body[data-vb-app="academy"] .welcome-card>div{max-width:100%;padding-right:27%}
- body[data-vb-app="academy"] .welcome-hero{right:-5%;width:32%;opacity:.92}
  body[data-vb-app="studio"] .lesson-hero{padding-right:18px!important;padding-bottom:112px!important}
  body[data-vb-app="studio"] .lesson-hero img{bottom:0;right:4px;height:105px;max-width:38%}
- body[data-vb-app="onboarding"] .ob-art{background-position:center 25%!important}
+ body[data-vb-app="onboarding"] .ob-art{background-position:center!important}
 }
+/* Mobile onboarding uses native-size, separate Pip artwork instead of forcing
+   a portrait 448x619 poster into a 146px-high landscape header. */
+@media(max-width:760px){
+ body[data-vb-app="onboarding"] .ob-art{position:relative;min-height:148px;max-height:148px;background:#8f79e1!important;background-image:linear-gradient(115deg,#765ed4 0%,#9f83e6 66%,#c9acf2 100%)!important;background-repeat:no-repeat!important;background-size:cover!important;background-position:center!important;border-radius:26px 26px 0 0;overflow:hidden;isolation:isolate}
+ body[data-vb-app="onboarding"] .ob-art::before{content:"";position:absolute;z-index:1;inset:10px 15px 8px auto;width:128px;height:130px;background:url('/verbarium-v6/assets/characters/fox_joy.webp') center/contain no-repeat;pointer-events:none}
+ body[data-vb-app="onboarding"] .ob-art.vbk-bg--lesson::before{background-image:url('/verbarium-v6/assets/characters/fox_reading.webp')}
+ body[data-vb-app="onboarding"] .ob-art.vbk-bg--win::before{background-image:url('/verbarium-v6/assets/characters/fox_celebrating.webp')}
+ body[data-vb-app="onboarding"] .ob-art.vbk-bg--premium::before{background-image:url('/verbarium-v6/assets/characters/fox_graduate.webp')}
+ body[data-vb-app="onboarding"] .ob-art::after{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(circle at 18% 12%,#ffffff5a 0 2px,transparent 3px),radial-gradient(circle at 39% 54%,#ffffff4b 0 3px,transparent 4px),radial-gradient(circle at 7% 77%,#f6d7f458,transparent 28%);pointer-events:none}
+ body[data-vb-app="onboarding"] .ob-art-caption{z-index:2;max-width:calc(100% - 150px)}
+}
+@media(max-width:375px){
+ body[data-vb-app="onboarding"] .ob-art{min-height:132px;max-height:132px}
+ body[data-vb-app="onboarding"] .ob-art::before{width:112px;height:115px;top:8px;right:10px}
+}
+
 @media(prefers-reduced-motion:reduce){body[data-vb-app="home"] .hero-doodle{animation:none!important;transform:none!important}}

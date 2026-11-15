@@ -4,21 +4,21 @@
  body[data-vb-app="home"] .stage{background:var(--fox-canvas)}
  body[data-vb-app="home"] .topbar{position:sticky;top:0;z-index:40;height:70px;padding:0 17px;background:#f8f7f4f4;backdrop-filter:blur(18px);border-bottom:1px solid #eee9e3}
  body[data-vb-app="home"] .crumb .mobile-wordmark{font-family:Fredoka,Nunito,sans-serif;font-weight:700;letter-spacing:-.5px;color:#343450}
- body[data-vb-app="home"] .topbar .avatar{width:44px;height:44px;min-width:44px;min-height:44px;border-radius:14px;background:#ffe6d1 url('/verbarium-v6/assets/characters/fox_neutral.webp') center/44px auto no-repeat;color:transparent;border:1px solid #f7d5bb}
+ body[data-vb-app="home"] .topbar .avatar{display:grid;place-items:center;width:44px;height:44px;min-width:44px;min-height:44px;border-radius:14px;background:#ffe6d1 url("/verbarium-v6/assets/characters/fox_neutral.webp") center/34px auto no-repeat;color:transparent;border:1px solid #f7d5bb;overflow:visible}
  body[data-vb-app="home"] .topbar .avatar:focus-visible{outline:3px solid #695ec9;outline-offset:3px}
  body[data-vb-app="home"] .body-grid{padding:23px 18px calc(115px + env(safe-area-inset-bottom))}
  body[data-vb-app="home"] .vb7-home-heading{margin:0 0 19px;padding:0}
  body[data-vb-app="home"] .vb7-home-heading .vb7-heading h1{font:700 clamp(29px,7.8vw,36px)/1.08 Fredoka,Nunito,sans-serif;letter-spacing:-1px;color:#28314b;margin:6px 0}
  body[data-vb-app="home"] .vb7-home-heading .vb7-heading p{font:700 13px/1.5 Nunito,sans-serif;color:#707990}
- body[data-vb-app="home"] .vb7-hero{position:relative;isolation:isolate;overflow:hidden;grid-template-columns:minmax(0,1fr) minmax(104px,33%);grid-template-areas:"badge badge" "heading mascot" "desc mascot" "progress progress" "action action";column-gap:8px;row-gap:10px;min-height:325px;margin:0 0 18px;padding:21px 19px 19px;border:1px solid #383653;border-radius:26px;background:linear-gradient(132deg,#343450,#25253d 68%,#34314e);box-shadow:0 7px 22px #29264024;color:white}
- body[data-vb-app="home"] .vb7-hero:before{content:"";position:absolute;z-index:-1;inset:auto -75px 67px auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#ffb878,#f18a57 68%,#e77747)}
+ body[data-vb-app="home"] .vb7-hero{position:relative;isolation:isolate;overflow:visible;display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,31%);grid-template-areas:"badge badge" "heading mascot" "desc mascot" "progress progress" "action action";align-items:center;gap:12px 10px;min-width:0;min-height:0;height:auto;margin:0 0 18px;padding:21px 19px 20px;border:1px solid #47445c;border-radius:25px;background:radial-gradient(ellipse at 95% 70%,#e89b6050,transparent 50%),linear-gradient(132deg,#353651,#26273f 68%,#302f4b);box-shadow:0 7px 22px #2926401a;color:#fff}
+ body[data-vb-app="home"] .vb7-hero:before{content:"";position:absolute;z-index:-1;inset:0;border-radius:inherit;background:radial-gradient(circle at 87% 80%,#eeaa7250,transparent 42%);pointer-events:none}
  body[data-vb-app="home"] .vb7-hero__badge{background:#ffffff1a;border:1px solid #ffffff40;color:#ffbc96;box-shadow:none;border-radius:999px;min-height:34px;font-size:9px;padding:8px 11px;max-width:100%;letter-spacing:1px}
  body[data-vb-app="home"] .vb7-hero__pulse{width:9px;height:9px;background:#ffac78;box-shadow:0 0 0 3px #fda16e33}
- body[data-vb-app="home"] .vb7-hero__title{font:600 clamp(24px,6.6vw,30px)/1.04 Fredoka,Nunito,sans-serif;color:#fff;margin:4px 0 0;letter-spacing:-.6px;overflow-wrap:anywhere}
+ body[data-vb-app="home"] .vb7-hero__title{font:600 clamp(22px,6.3vw,29px)/1.13 Fredoka,Nunito,sans-serif;color:#fff;margin:4px 0 0;letter-spacing:-.4px;overflow-wrap:break-word;text-wrap:balance;min-width:0}
  body[data-vb-app="home"] .vb7-hero__title em{color:#ffbc98;font-style:normal}
  body[data-vb-app="home"] .vb7-hero__description{font:750 11px/1.5 Nunito,sans-serif;color:#ddd9eb;max-width:220px}
- body[data-vb-app="home"] .vb7-hero__mascot{width:100%;height:165px;align-self:end;overflow:visible;position:relative}
- body[data-vb-app="home"] .vb7-hero__mascot .vb-fox-home-mascot{width:115%;height:190px;max-width:none;max-height:none;object-fit:contain;object-position:center bottom;position:absolute;right:-10px;bottom:-6px;filter:drop-shadow(0 7px 7px #32222b20);transform:rotate(-3deg)}
+ body[data-vb-app="home"] .vb7-hero__mascot{display:flex;justify-content:flex-end;align-items:center;min-width:0;width:100%;height:auto;min-height:110px;overflow:visible;position:relative;grid-area:mascot;margin:0}
+ body[data-vb-app="home"] .vb7-hero__mascot .vb-fox-home-mascot{display:block;position:static;right:auto;bottom:auto;width:100%;height:auto;max-width:110px;max-height:115px;min-width:0;object-fit:contain;object-position:center;filter:none;transform:none}
  body[data-vb-app="home"] .vb7-hero__progress{margin:8px 0 0}
  body[data-vb-app="home"] .vb7-hero__progress-caption{color:#e2ddef;font-size:10px}
  body[data-vb-app="home"] .vb7-hero__progress-caption strong{color:#ffbc96}
@@ -35,8 +35,11 @@
  body[data-vb-app="home"] button:focus-visible,body[data-vb-app="home"] a:focus-visible{outline:3px solid #695ec9;outline-offset:3px}
 }
 @media(max-width:355px){
- body[data-vb-app="home"] .vb7-hero{padding:18px 15px;grid-template-columns:minmax(0,1fr) minmax(90px,32%)}
+ body[data-vb-app="home"] .vb7-hero{padding:18px 15px;grid-template-columns:minmax(0,1fr) minmax(82px,30%);gap:10px 7px}
  body[data-vb-app="home"] .vb7-hero__title{font-size:23px}
- body[data-vb-app="home"] .vb7-hero__mascot .vb-fox-home-mascot{right:-12px;width:126%}
+ body[data-vb-app="home"] .vb7-hero__mascot .vb-fox-home-mascot{width:100%;max-width:100px;max-height:104px;right:auto;transform:none}
 }
 @media(prefers-reduced-motion:reduce){body[data-vb-app="home"] .vb7-hero__mascot .vb-fox-home-mascot{animation:none}}
+
+/* Live-area fit: small raster assets are never stretched beyond their natural resolution. */
+@media(max-width:650px){body[data-vb-app="home"] .vb7-feature__icon{width:66px;height:66px;max-width:100%;overflow:visible}body[data-vb-app="home"] .vb7-feature__icon .vb7-art,body[data-vb-app="home"] .vb7-mission-card__icon .vb7-art,body[data-vb-app="home"] .vb7-promo__art img{display:block;max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;object-position:center}body[data-vb-app="home"] .vb7-feature{min-width:0;overflow:hidden}body[data-vb-app="home"] .vb7-feature__body{min-width:0}body[data-vb-app="home"] .vb7-feature__title,body[data-vb-app="home"] .vb7-feature__subtitle{overflow-wrap:break-word}}

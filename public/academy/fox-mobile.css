@@ -20,18 +20,18 @@
  body[data-vb-app="academy"] .section-heading .eyebrow{font-size:10px;letter-spacing:1.65px;color:#cf6136;font-weight:850}
  body[data-vb-app="academy"] .section-heading h1{font:600 clamp(29px,7.7vw,38px)/1.075 Fredoka,system-ui,sans-serif;letter-spacing:-1px;color:#26314b;margin:9px 0 10px}
  body[data-vb-app="academy"] .section-heading p{font-size:13px;line-height:1.55;color:var(--fox-muted);max-width:420px;margin:0}
- body[data-vb-app="academy"] .welcome-card{isolation:isolate;display:block;position:relative;overflow:hidden;min-height:240px;padding:25px 22px 24px;margin:0 0 14px;border:1px solid #383653;border-radius:27px;background:linear-gradient(132deg,#343450 0%,#26263e 66%,#33304e 100%);box-shadow:0 8px 21px #29264a24;color:#fff}
- body[data-vb-app="academy"] .welcome-card:before{content:'';position:absolute;top:auto;bottom:-103px;right:-81px;width:270px;height:270px;border-radius:50%;background:radial-gradient(circle,#ffae70 0%,#f28b5d 58%,#ed7544 100%);z-index:0}
+ body[data-vb-app="academy"] .welcome-card{isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) minmax(88px,31%);column-gap:12px;align-items:center;position:relative;overflow:visible;min-width:0;min-height:228px;padding:22px 20px;margin:0 0 16px;border:1px solid #47445c;border-radius:24px;background:radial-gradient(ellipse at 96% 73%,#e89b6055,transparent 48%),linear-gradient(132deg,#353651,#26273f 68%,#302f4b);box-shadow:0 8px 21px #29264a1a;color:#fff}
+ body[data-vb-app="academy"] .welcome-card:before{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at 86% 82%,#ec9c6555,transparent 40%)}
  body[data-vb-app="academy"] .welcome-card:after{content:'';position:absolute;top:20px;right:14px;width:60px;height:60px;background:radial-gradient(circle,#e6d9ff 1.6px,transparent 2.6px) 0 0/16px 16px;opacity:.22;pointer-events:none}
- body[data-vb-app="academy"] .welcome-card>div{max-width:67%;position:relative;z-index:2}
+ body[data-vb-app="academy"] .welcome-card>div{position:relative;z-index:2;grid-column:1;grid-row:1;min-width:0;max-width:none;padding:0}
  body[data-vb-app="academy"] .welcome-card span:not(.asset-wrap){font-size:10px;font-weight:850;color:#ffbb91;letter-spacing:1.4px}
- body[data-vb-app="academy"] .welcome-card h2{max-width:258px;margin:12px 0 9px;color:#fff;font:600 clamp(25px,6.5vw,32px)/1.06 Fredoka,system-ui,sans-serif;letter-spacing:-.6px}
- body[data-vb-app="academy"] .welcome-card p{max-width:218px;font-size:12px;line-height:1.48;color:#dfd9ec;margin:0 0 18px}
- body[data-vb-app="academy"] .welcome-hero{position:absolute;z-index:1;right:-4px;bottom:0;width:41%;height:214px;filter:drop-shadow(0 7px 5px #2a1a211f);transform:rotate(-3deg);transform-origin:bottom center;animation:fox-hello 4.5s ease-in-out infinite}
+ body[data-vb-app="academy"] .welcome-card h2{max-width:none;margin:11px 0 9px;color:#fff;font:600 clamp(22px,6.2vw,29px)/1.13 Fredoka,system-ui,sans-serif;letter-spacing:-.35px;overflow-wrap:break-word;text-wrap:balance}
+ body[data-vb-app="academy"] .welcome-card p{max-width:100%;font-size:12px;line-height:1.48;color:#e3deed;margin:0 0 15px;overflow-wrap:break-word}
+ body[data-vb-app="academy"] .welcome-hero{position:relative;z-index:1;grid-column:2;grid-row:1;justify-self:end;align-self:center;right:auto;bottom:auto;width:min(100%,116px);height:122px;max-width:100%;filter:none;transform:none;animation:none;overflow:visible}
  body[data-vb-app="academy"] .primary-action{min-height:50px;border:0;padding:12px 16px;border-radius:14px;box-shadow:0 4px 0 #bd5a30;font-size:13px;font-weight:850;color:#fff;background:#f18451;transition:transform .16s,box-shadow .16s,filter .16s}
  body[data-vb-app="academy"] .primary-action:hover:not(:disabled){filter:brightness(1.04)}
  body[data-vb-app="academy"] .primary-action:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #bd5a30}
- body[data-vb-app="academy"] .welcome-card .primary-action{min-height:46px;max-width:218px;padding:11px 13px;white-space:normal;line-height:1.15;text-align:left;gap:8px;font-size:11.5px}
+ body[data-vb-app="academy"] .welcome-card .primary-action{display:inline-flex;max-width:100%;min-height:49px;padding:11px 12px;border-radius:12px;white-space:normal;line-height:1.25;text-align:center;gap:5px;font-size:12px;overflow-wrap:break-word}
  body[data-vb-app="academy"] .welcome-card .primary-action b{font-size:17px;margin-left:auto}
  body[data-vb-app="academy"] .resume-banner{border:1px solid #ded4f8;background:#f3eeff;color:#6752ab;border-radius:17px;padding:15px 16px;font-size:12px;gap:9px}
  body[data-vb-app="academy"] .resume-banner button{min-height:44px;border:1px solid #dcd2f4}
@@ -39,13 +39,13 @@
  body[data-vb-app="academy"] .daily-strip>div{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0;min-height:91px;padding:12px 12px 10px;background:#fff;border:1px solid var(--fox-border);border-radius:18px;box-shadow:0 5px 18px #232b440e;color:#6a5f5d;font-size:17px}
  body[data-vb-app="academy"] .daily-strip strong{font:650 24px/1 Fredoka,sans-serif;margin:3px 0 0;color:#2f3348}
  body[data-vb-app="academy"] .daily-strip small{font-size:10px;color:#788194;margin-top:4px;line-height:1.25}
- body[data-vb-app="academy"] .sentence-lab-entry{margin:17px 0 19px;padding:19px 17px 17px;gap:8px;border:1px solid #dcd5f5;border-radius:23px;background:linear-gradient(125deg,#f4edff,#f7f1ff 68%,#fff8f1);box-shadow:0 5px 18px #232b440e}
+ body[data-vb-app="academy"] .sentence-lab-entry{position:relative;display:flex;flex-direction:column;align-items:stretch;min-width:0;gap:10px;margin:18px 0;padding:19px 17px;border:1px solid #dcd5f5;border-radius:22px;background:linear-gradient(135deg,#f4edff,#f8f4ff);box-shadow:0 5px 18px #232b440e}
  body[data-vb-app="academy"] .sentence-lab-entry .eyebrow{color:#7562c9;font-size:9px;letter-spacing:1.1px}
  body[data-vb-app="academy"] .sentence-lab-entry h2{font:600 22px/1.12 Fredoka,sans-serif;color:#3d396c;margin:8px 0}
  body[data-vb-app="academy"] .sentence-lab-entry p{font-size:12px;color:#77718c;line-height:1.48;max-width:330px}
- body[data-vb-app="academy"] .sentence-lab-entry img{width:min(22%,100px);flex:none;max-height:140px}
- body[data-vb-app="academy"] .sentence-lab-links{gap:8px;align-items:flex-start}
- body[data-vb-app="academy"] .sentence-lab-links>a{display:flex;width:auto;min-height:44px;justify-content:center;align-items:center;text-align:center;white-space:normal;padding:10px 14px;border-radius:12px;font-size:11.5px}
+ body[data-vb-app="academy"] .sentence-lab-entry img{position:absolute;right:13px;top:14px;width:76px;height:78px;max-width:23%;max-height:78px;object-fit:contain;object-position:center;align-self:auto;pointer-events:none}
+ body[data-vb-app="academy"] .sentence-lab-links{display:flex;flex-direction:column;align-items:stretch;gap:8px;width:100%;min-width:0;margin-top:12px}
+ body[data-vb-app="academy"] .sentence-lab-links>a{display:flex;width:100%;max-width:100%;min-height:48px;justify-content:center;align-items:center;text-align:center;white-space:normal;padding:10px 12px;border-radius:12px;font-size:12px;overflow-wrap:anywhere}
  body[data-vb-app="academy"] .sentence-lab-launch{background:#6e62d9;box-shadow:0 3px 0 #5145b7;color:#fff!important}
  body[data-vb-app="academy"] .sentence-lab-retrieval{border-color:#e1dafa;background:#fff;color:#6557b6}
  body[data-vb-app="academy"] .path-wrap{margin-top:25px}
@@ -79,7 +79,7 @@
  body[data-vb-app="academy"] .skill-card small{font-size:11px;line-height:1.4;color:#7c8597}
  body[data-vb-app="academy"] .skill-go{font-size:11px;color:#d55e31}
  body[data-vb-app="academy"] .small-panel,body[data-vb-app="academy"] .review-hero,body[data-vb-app="academy"] .profile-hero,body[data-vb-app="academy"] .teacher-hero{border-radius:23px;box-shadow:0 5px 18px #232b440e}
- body[data-vb-app="academy"] .lesson-wrap{max-width:600px;margin:auto}
+ body[data-vb-app="academy"] .lesson-wrap{max-width:600px;margin:auto;padding:0;border:0;background:transparent;box-shadow:none;min-width:0}
  body[data-vb-app="academy"] .lesson-top{gap:10px;min-height:48px}
  body[data-vb-app="academy"] .close-lesson{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:#fff;border:1px solid var(--fox-border);color:#6d7282;font-size:26px}
  body[data-vb-app="academy"] .lesson-track{height:12px;background:#e6e3ec}
@@ -91,8 +91,8 @@
  body[data-vb-app="academy"] .fox-lesson-guide>div{min-width:0}
  body[data-vb-app="academy"] .fox-lesson-guide strong{font-size:11px;color:#ac542c;font-weight:850}
  body[data-vb-app="academy"] .fox-lesson-guide p{font-size:11px;line-height:1.45;color:#6c6880;margin:3px 0 0}
- body[data-vb-app="academy"] .actor-stage{height:178px;margin-bottom:11px;background:linear-gradient(135deg,#eae7fa,#f6f0ff);border:1px solid #e2dbf2;border-radius:23px}
- body[data-vb-app="academy"] .actor-stage>img{height:162px;max-width:220px}
+ body[data-vb-app="academy"] .actor-stage{height:156px;margin-bottom:11px;background:linear-gradient(135deg,#eae7fa,#f6f0ff);border:1px solid #e2dbf2;border-radius:23px;overflow:visible}
+ body[data-vb-app="academy"] .actor-stage>img{height:128px;max-width:100%;width:auto;object-fit:contain;object-position:center}
  body[data-vb-app="academy"] .actor-meta{border-color:#e7e1ef;background:#fffcfff2;border-radius:12px}
  body[data-vb-app="academy"] .speech-box{background:#fff;border:1px solid var(--fox-border);border-radius:19px;padding:17px;margin-bottom:20px;box-shadow:0 5px 18px #232b440e}
  body[data-vb-app="academy"] .spoken-line{color:#30364b;font-size:17px;line-height:1.55}
@@ -110,7 +110,7 @@
  body[data-vb-app="academy"] .word-bank button{padding:11px 13px}
  body[data-vb-app="academy"] .feedback{border-radius:18px;background:#effae9;color:#3b7444;border:1px solid #d0e8ca}
  body[data-vb-app="academy"] .feedback.try{background:#fff4e7;border-color:#f3dfc9;color:#96632f}
- body[data-vb-app="academy"] .lesson-actions{position:sticky;bottom:calc(72px + env(safe-area-inset-bottom));margin-top:24px;padding:14px 0 12px;background:linear-gradient(0deg,var(--fox-bg) 80%,transparent)}
+ body[data-vb-app="academy"] .lesson-actions{position:static;bottom:auto;margin-top:24px;padding:12px 0 0;background:transparent;z-index:auto}
  body[data-vb-app="academy"] .lesson-actions .primary-action{width:100%;min-height:53px;font-size:14px}
  body[data-vb-app="academy"] .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:50;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;background:#fffefaf7;border-top:1px solid #eeeae6;box-shadow:0 -8px 34px #1e253015;padding:8px max(12px,env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-right));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
  body[data-vb-app="academy"] .bottom-nav .nav-link{min-height:53px;min-width:0;padding:6px 2px 5px;gap:4px;color:#848696;background:transparent;border:0;border-radius:14px}
@@ -130,11 +130,11 @@
  body[data-vb-app="academy"] .top-stats{gap:3px}
  body[data-vb-app="academy"] .stat-pill{padding:7px 8px}
  body[data-vb-app="academy"] #content{padding-inline:16px}
- body[data-vb-app="academy"] .welcome-card{min-height:225px;padding:21px 17px}
- body[data-vb-app="academy"] .welcome-card h2{font-size:24px}
- body[data-vb-app="academy"] .welcome-card p{font-size:11.2px}
- body[data-vb-app="academy"] .welcome-card .primary-action{max-width:202px}
- body[data-vb-app="academy"] .welcome-hero{height:200px;width:40%;right:-8px}
+ body[data-vb-app="academy"] .welcome-card{grid-template-columns:minmax(0,1fr) minmax(76px,31%);column-gap:7px;min-height:228px;padding:19px 16px}
+ body[data-vb-app="academy"] .welcome-card h2{font-size:clamp(21px,6.1vw,25px)}
+ body[data-vb-app="academy"] .welcome-card p{font-size:11.5px}
+ body[data-vb-app="academy"] .welcome-card .primary-action{max-width:100%;min-height:49px;font-size:11.5px}
+ body[data-vb-app="academy"] .welcome-hero{height:104px;width:min(100%,102px);right:auto;bottom:auto;transform:none}
  body[data-vb-app="academy"] .daily-strip>div{padding:11px 8px}
  body[data-vb-app="academy"] .daily-strip small{font-size:9px}
  body[data-vb-app="academy"] .path-track:before{left:41px}
@@ -147,3 +147,17 @@
 }
 @media(prefers-reduced-motion:no-preference){@keyframes fox-hello{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(-1deg) translateY(-5px)}}}
 @media(prefers-reduced-motion:reduce){body[data-vb-app="academy"] .welcome-hero{animation:none!important}}
+
+/* The raster enhancer injects large 3D source icons into stat pills.
+   Never allow intrinsic source image sizes to determine header geometry. */
+@media(max-width:770px){
+ body[data-vb-app="academy"] .top-stats{max-width:44%;min-width:0;gap:4px}
+ body[data-vb-app="academy"] .top-stats .stat-pill{flex:0 0 auto;min-width:0;min-height:40px;max-width:100%;gap:5px;padding:6px 8px;overflow:visible}
+ body[data-vb-app="academy"] .top-stats .stat-pill .vbk-raster-image{display:block;flex:0 0 21px;width:21px;height:21px;max-width:21px;max-height:21px;object-fit:contain;object-position:center}
+ body[data-vb-app="academy"] .top-stats .stat-pill b{font-size:12px;white-space:nowrap}
+ body[data-vb-app="academy"] .top-title{flex:1 1 0;min-width:0}
+ body[data-vb-app="academy"] .lesson-actions .primary-action{width:100%;min-height:52px}
+}
+
+/* Final mobile artwork bounds: each character has a distinct, non-clipping live area. */
+@media(max-width:770px){body[data-vb-app="academy"] .sentence-lab-content{min-width:0;width:100%}body[data-vb-app="academy"] .sentence-lab-content>h2,body[data-vb-app="academy"] .sentence-lab-content>p{padding-right:74px}body[data-vb-app="academy"] .welcome-hero img{width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center}body[data-vb-app="academy"] .asset-wrap:not(.welcome-hero)>img{max-width:100%;max-height:100%;object-fit:contain;object-position:center}body[data-vb-app="academy"] .bottom-nav .nav-link>span{width:24px;height:24px;flex:0 0 24px}body[data-vb-app="academy"] .bottom-nav .nav-link>span img{display:block;width:24px;height:24px;max-width:100%;max-height:100%;object-fit:contain}body[data-vb-app="academy"] .node-button .node-icon{max-width:100%;max-height:100%}}
