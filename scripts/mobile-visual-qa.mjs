@@ -25,9 +25,14 @@ async function check(page,route,width){
   const artInside=!!(artR&&cardR&&artR.left>=cardR.left-2&&artR.right<=cardR.right+2&&artR.top>=cardR.top-2&&artR.bottom<=cardR.bottom+2);
   const viewport=document.documentElement.clientWidth;
   const horizontalOverflow=document.documentElement.scrollWidth>viewport+2||document.body.scrollWidth>viewport+2;
+  const offenders=horizontalOverflow?[...document.body.querySelectorAll('*')].filter(el=>{
+   const st=getComputedStyle(el),r=el.getBoundingClientRect();
+   if(st.display==='none'||r.width===0||r.height===0)return false;
+   return r.right>viewport+3||r.left< -3;
+  }).slice(0,15).map(el=>{const r=el.getBoundingClientRect();return {tag:el.tagName,cls:String(el.className).slice(0,80),left:Math.round(r.left),right:Math.round(r.right)}}):[];
   const bg=card?getComputedStyle(card).backgroundImage:'';
   const natural=home?{w:art?.naturalWidth||0,h:art?.naturalHeight||0}: {w:art?.querySelector('img')?.naturalWidth||0,h:art?.querySelector('img')?.naturalHeight||0};
-  return {viewport,horizontalOverflow,card:cardR,art:artR,artInside,background:bg.slice(0,250),natural};
+  return {viewport,horizontalOverflow,offenders,card:cardR,art:artR,artInside,background:bg.slice(0,250),natural};
  });
  const ok=!findings.horizontalOverflow&&(route==='home'||route==='academy'?findings.artInside:true)&&findings.natural.w>0;
  results.push({width,route,ok,...findings});
@@ -56,8 +61,8 @@ try{
  await onboarding.goto(base+'/onboarding/',{waitUntil:'networkidle',timeout:60000});
  const art=onboarding.locator('.ob-art');
  await art.waitFor({timeout:15000});
- const bg=await art.evaluate(el=>({size:getComputedStyle(el).backgroundSize,position:getComputedStyle(el).backgroundPosition}));
- if(bg.size.includes('cover')){failed++;console.error('Onboarding portrait art is still cropped:',bg);}
+ const bg=await art.evaluate(el=>({size:getComputedStyle(el).backgroundSize,position:getComputedStyle(el).backgroundPosition,foxSize:getComputedStyle(el,'::before').backgroundSize,foxImage:getComputedStyle(el,'::before').backgroundImage}));
+ if(bg.foxSize!=='contain'||!bg.foxImage.includes('fox_')){failed++;console.error('Onboarding Pip is not safely contained:',bg);}
  await onboarding.screenshot({path:path.join(output,'onboarding-390.png'),fullPage:true,animations:'disabled'});
  results.push({width:390,route:'onboarding',background:bg});
  await onboarding.close();
