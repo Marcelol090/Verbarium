@@ -81,4 +81,14 @@ body[data-vb-app="onboarding"] .ob-view p{color:#62597f}
  body[data-vb-app="studio"] .lesson-hero img{bottom:0;right:4px;height:105px;max-width:38%}
  body[data-vb-app="onboarding"] .ob-art{background-position:center!important}
 }
+/* Raster onboarding art is portrait (448x619). On narrow mobile panels use a
+   contained illustration on a solid surface, not a cropped full-bleed poster. */
+@media(max-width:760px){
+ body[data-vb-app="onboarding"] .ob-art{min-height:146px;max-height:146px;background-color:#e8e1fd;background-repeat:no-repeat!important;background-size:auto 132px!important;background-position:calc(100% - 15px) center!important;overflow:hidden}
+ body[data-vb-app="onboarding"] .ob-art-caption{z-index:2;max-width:calc(100% - 155px)}
+}
+@media(max-width:375px){
+ body[data-vb-app="onboarding"] .ob-art{min-height:128px;max-height:128px;background-size:auto 115px!important;background-position:calc(100% - 9px) center!important}
+}
+
 @media(prefers-reduced-motion:reduce){body[data-vb-app="home"] .hero-doodle{animation:none!important;transform:none!important}}
