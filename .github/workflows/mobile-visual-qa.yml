@@ -1,0 +1,44 @@
+name: Verbarium Mobile Visual QA
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'public/academy/**'
+      - 'src/fox-mobile-home.css'
+      - 'src/verbarium-kit/v5-kit.css'
+      - 'public/ui-kit/**'
+      - 'scripts/mobile-visual-qa.mjs'
+      - 'tests/fox-mobile-layout.test.mjs'
+      - '.github/workflows/mobile-visual-qa.yml'
+permissions:
+  contents: read
+jobs:
+  mobile-layout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+      - run: npm install --no-save --no-audit --no-fund playwright
+      - run: npx playwright install --with-deps chromium
+      - name: Start application preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 --strictPort > /tmp/verbarium-preview.log 2>&1 &
+          for i in {1..35}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/verbarium-preview.log
+          exit 1
+      - name: Inspect home, Academy, lesson and onboarding at mobile widths
+        run: node scripts/mobile-visual-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verbarium-mobile-screenshots
+          path: artifacts/mobile-visual/
+          if-no-files-found: warn
