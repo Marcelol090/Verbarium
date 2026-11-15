@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {TOPICS} from '../public/learning/curriculum.js';
 import {validateGraph,orderedTopics,emptyLedger,loadLedger,grade,recordAttempt,evidenceFor,isReady,nextTopic,progressSummary} from '../public/learning/engine.js';
 test('original knowledge graph is acyclic, every prerequisite occurs first',()=>{
@@ -35,4 +36,11 @@ test('ledger ignores malformed or unrecognized evidence',()=>{
  assert.deepEqual(loadLedger('not json'),emptyLedger());
  const saved=loadLedger({version:1,events:[{topicId:'fake',activityId:'identify',mode:'recognition',correct:true,first:true,hinted:false},{topicId:'pronouns',activityId:'identify',mode:'recognition',correct:true,first:true,hinted:false,at:'x'}]});
  assert.equal(saved.events.length,1);
+});
+
+test('the Academy and Teacher Studio link the new learning map without replacing their engines',()=>{
+ const read=p=>readFileSync(p,'utf8');
+ assert.match(read('public/academy/academy.js'),/href="\/learning\/"[^>]*>Mapa de competências/);
+ assert.match(read('public/studio/index.html'),/href="\/learning\/"[^>]*>Mapa pedagógico/);
+ assert.match(read('public/learning/index.html'),/src="\.\/lab\.js"/);
 });
