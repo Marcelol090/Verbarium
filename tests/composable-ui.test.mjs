@@ -43,7 +43,7 @@ test('lesson hero has independently editable title, description, mascot and CTA'
  assert.match(h,/data-test-mascot/);
  assert.match(h,/data-action="open-lesson" data-id="be"/);
  assert.match(h,/25%/);
- assert.match(h,/grid/); // class names reflect separate grid regions
+ assert.match(h,/vb7-hero__mascot/); // character occupies its own grid region
 });
 test('mission bars preserve animation hook and daily source counts',()=>{
  const m=[{id:'questions',title:'Responder',subtitle:'Aula',now:2,goal:3,date:'2026-11-15',route:'practice'},{id:'lesson',title:'Concluir aula',now:1,goal:1,date:'2026-11-15',route:'learn'}];
