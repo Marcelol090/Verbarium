@@ -45,6 +45,27 @@ try{
   await home.goto(base+'/',{waitUntil:'networkidle',timeout:60000});
   await home.locator('.vb7-hero').waitFor({timeout:15000});
   await check(home,'home',width);
+  if(width===390){
+   // Real navigation and asset loading, not a screenshot-only placeholder.
+   await home.locator('#mobile-nav [data-route="progress"]').first().click();
+   await home.locator('#main [data-route="kitv7"]').first().click();
+   await home.locator('#vbkit-asset-grid .vbkit-gallery-tile').first().waitFor({timeout:12000});
+   const gallery=await home.evaluate(async()=>{
+    const images=[...document.querySelectorAll('#vbkit-asset-grid img')];
+    images.forEach(img=>{img.loading='eager'});
+    await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+    return {count:images.length,broken:images.filter(img=>!img.naturalWidth||!img.naturalHeight).map(img=>img.src),
+      overflow:document.documentElement.scrollWidth>document.documentElement.clientWidth+2};
+   });
+   if(gallery.count!==48||gallery.broken.length||gallery.overflow){
+    failed++;console.error('VISUAL KIT GALLERY FAILURE:',JSON.stringify(gallery));
+   }
+   await home.screenshot({path:path.join(output,'generated-kit-gallery-390.png'),fullPage:true,animations:'disabled'});
+   await home.locator('[data-vbkit-filter="mascot"]').first().click();
+   const selected=await home.locator('.vbkit-gallery-tile:not([hidden])').count();
+   if(selected!==4){failed++;console.error('VISUAL KIT FILTER FAILURE: expected 4 mascot assets, got',selected)}
+   results.push({width,route:'generated-kit-gallery',...gallery,selected});
+  }
   await home.close();
   const academy=await makePage(width);
   await academy.goto(base+'/academy/',{waitUntil:'networkidle',timeout:60000});
