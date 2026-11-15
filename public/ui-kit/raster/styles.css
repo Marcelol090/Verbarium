@@ -9,7 +9,7 @@
 .vbk-has-raster body[data-vb-app="academy"] .stat-pill{padding:3px 8px 3px 3px;gap:5px}
 .vbk-has-raster body[data-vb-app="studio"] .lesson-hero{background:#ece5ff url('/ui-kit/raster/banners/books_education.webp') center/cover no-repeat}
 .vbk-has-raster body[data-vb-app="studio"] .block-card{background:linear-gradient(#fff,#f8f6ff)}
-.vbk-has-raster body[data-vb-app="home"] .hero-card{background-image:linear-gradient(90deg,#f9f7ffde 10%,#faf7ff99 60%,#faf7ff18),url('/ui-kit/raster/banners/lesson_flashcards.webp');background-size:contain;background-position:center}
+/* Do not use the tiny button/banner illustration as a tiled main-page background. See video-qa.css. */
 .vbk-has-raster body[data-vb-app="onboarding"] .ob-art{background:#b9a6f0 url('/ui-kit/raster/backgrounds/onboarding.webp') center/cover no-repeat}
 .vbk-has-raster body[data-vb-app="onboarding"] .ob-art.vbk-bg--lesson{background-image:url('/ui-kit/raster/backgrounds/lesson.webp')}
 .vbk-has-raster body[data-vb-app="onboarding"] .ob-art.vbk-bg--win{background-image:url('/ui-kit/raster/backgrounds/celebration.webp')}
