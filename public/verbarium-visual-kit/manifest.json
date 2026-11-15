@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "name": "Verbarium Visual Kit",
+  "version": "1.0",
+  "created": "2026-11-15",
+  "notes": [
+    "All 48 images are separately addressable WebP assets with alpha transparency.",
+    "Illustrated cards/buttons/labels are decorative references, not rasterized interactive hit targets.",
+    "Render text and interactions in HTML with CSS shells; use illustrations inside bounded media slots.",
+    "Never stretch artwork using 100% 100% or cover on characters, icons or decorative panels."
+  ],
+  "items": [
+    {
+      "id": "button_primary",
+      "category": "buttons",
+      "path": "/verbarium-visual-kit/assets/buttons/button_primary.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "button_fox",
+      "category": "buttons",
+      "path": "/verbarium-visual-kit/assets/buttons/button_fox.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "button_ghost",
+      "category": "buttons",
+      "path": "/verbarium-visual-kit/assets/buttons/button_ghost.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "button_round",
+      "category": "buttons",
+      "path": "/verbarium-visual-kit/assets/buttons/button_round.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "button_fab",
+      "category": "buttons",
+      "path": "/verbarium-visual-kit/assets/buttons/button_fab.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "button_segmented",
+      "category": "buttons",
+      "path": "/verbarium-visual-kit/assets/buttons/button_segmented.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "button_play",
+      "category": "buttons",
+      "path": "/verbarium-visual-kit/assets/buttons/button_play.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "button_disabled",
+      "category": "buttons",
+      "path": "/verbarium-visual-kit/assets/buttons/button_disabled.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "card_lesson",
+      "category": "cards",
+      "path": "/verbarium-visual-kit/assets/cards/card_lesson.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "card_progress",
+      "category": "cards",
+      "path": "/verbarium-visual-kit/assets/cards/card_progress.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "card_streak",
+      "category": "cards",
+      "path": "/verbarium-visual-kit/assets/cards/card_streak.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "card_reward",
+      "category": "cards",
+      "path": "/verbarium-visual-kit/assets/cards/card_reward.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "card_profile",
+      "category": "cards",
+      "path": "/verbarium-visual-kit/assets/cards/card_profile.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "card_mission",
+      "category": "cards",
+      "path": "/verbarium-visual-kit/assets/cards/card_mission.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "tile_lesson",
+      "category": "grids",
+      "path": "/verbarium-visual-kit/assets/grids/tile_lesson.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "tile_image_choice",
+      "category": "grids",
+      "path": "/verbarium-visual-kit/assets/grids/tile_image_choice.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "tile_audio_choice",
+      "category": "grids",
+      "path": "/verbarium-visual-kit/assets/grids/tile_audio_choice.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "tile_reward",
+      "category": "grids",
+      "path": "/verbarium-visual-kit/assets/grids/tile_reward.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "tile_mission",
+      "category": "grids",
+      "path": "/verbarium-visual-kit/assets/grids/tile_mission.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "tile_avatar",
+      "category": "grids",
+      "path": "/verbarium-visual-kit/assets/grids/tile_avatar.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "tile_exercise",
+      "category": "grids",
+      "path": "/verbarium-visual-kit/assets/grids/tile_exercise.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "tile_grid_2x2",
+      "category": "grids",
+      "path": "/verbarium-visual-kit/assets/grids/tile_grid_2x2.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "background_onboarding",
+      "category": "backgrounds",
+      "path": "/verbarium-visual-kit/assets/backgrounds/background_onboarding.webp",
+      "role": "decorative-panel",
+      "fit": "contain"
+    },
+    {
+      "id": "background_journey",
+      "category": "backgrounds",
+      "path": "/verbarium-visual-kit/assets/backgrounds/background_journey.webp",
+      "role": "decorative-panel",
+      "fit": "contain"
+    },
+    {
+      "id": "background_dashboard",
+      "category": "backgrounds",
+      "path": "/verbarium-visual-kit/assets/backgrounds/background_dashboard.webp",
+      "role": "decorative-panel",
+      "fit": "contain"
+    },
+    {
+      "id": "background_reward",
+      "category": "backgrounds",
+      "path": "/verbarium-visual-kit/assets/backgrounds/background_reward.webp",
+      "role": "decorative-panel",
+      "fit": "contain"
+    },
+    {
+      "id": "background_study",
+      "category": "backgrounds",
+      "path": "/verbarium-visual-kit/assets/backgrounds/background_study.webp",
+      "role": "decorative-panel",
+      "fit": "contain"
+    },
+    {
+      "id": "background_pattern",
+      "category": "backgrounds",
+      "path": "/verbarium-visual-kit/assets/backgrounds/background_pattern.webp",
+      "role": "decorative-panel",
+      "fit": "contain"
+    },
+    {
+      "id": "label_standard",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_standard.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "label_lesson",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_lesson.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "label_notification",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_notification.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "label_premium",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_premium.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "label_level",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_level.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "label_xp",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_xp.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "label_streak",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_streak.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "label_success",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_success.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "label_alert",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_alert.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "label_ribbon",
+      "category": "labels",
+      "path": "/verbarium-visual-kit/assets/labels/label_ribbon.webp",
+      "role": "reference-artwork",
+      "fit": "contain"
+    },
+    {
+      "id": "fox_welcome",
+      "category": "mascot",
+      "path": "/verbarium-visual-kit/assets/mascot/fox_welcome.webp",
+      "role": "illustration",
+      "fit": "contain"
+    },
+    {
+      "id": "fox_waving",
+      "category": "mascot",
+      "path": "/verbarium-visual-kit/assets/mascot/fox_waving.webp",
+      "role": "illustration",
+      "fit": "contain"
+    },
+    {
+      "id": "fox_reading",
+      "category": "mascot",
+      "path": "/verbarium-visual-kit/assets/mascot/fox_reading.webp",
+      "role": "illustration",
+      "fit": "contain"
+    },
+    {
+      "id": "fox_teacher",
+      "category": "mascot",
+      "path": "/verbarium-visual-kit/assets/mascot/fox_teacher.webp",
+      "role": "illustration",
+      "fit": "contain"
+    },
+    {
+      "id": "reward_streak_flame",
+      "category": "rewards",
+      "path": "/verbarium-visual-kit/assets/rewards/reward_streak_flame.webp",
+      "role": "illustration",
+      "fit": "contain"
+    },
+    {
+      "id": "reward_chest",
+      "category": "rewards",
+      "path": "/verbarium-visual-kit/assets/rewards/reward_chest.webp",
+      "role": "illustration",
+      "fit": "contain"
+    },
+    {
+      "id": "reward_xp_gem",
+      "category": "rewards",
+      "path": "/verbarium-visual-kit/assets/rewards/reward_xp_gem.webp",
+      "role": "illustration",
+      "fit": "contain"
+    },
+    {
+      "id": "reward_medal",
+      "category": "rewards",
+      "path": "/verbarium-visual-kit/assets/rewards/reward_medal.webp",
+      "role": "illustration",
+      "fit": "contain"
+    },
+    {
+      "id": "dialog_bubble",
+      "category": "rewards",
+      "path": "/verbarium-visual-kit/assets/rewards/dialog_bubble.webp",
+      "role": "illustration",
+      "fit": "contain"
+    },
+    {
+      "id": "lesson_book",
+      "category": "rewards",
+      "path": "/verbarium-visual-kit/assets/rewards/lesson_book.webp",
+      "role": "illustration",
+      "fit": "contain"
+    }
+  ]
+}
