@@ -4,6 +4,11 @@ on:
     branches: [main]
     paths:
       - 'public/academy/**'
+      - 'public/onboarding/**'
+      - 'public/verbarium-visual-kit/**'
+      - 'src/app.js'
+      - 'src/verbarium-visual-kit/**'
+      - 'tests/generated-visual-kit.test.mjs'
       - 'src/fox-mobile-home.css'
       - 'src/verbarium-kit/v5-kit.css'
       - 'public/ui-kit/**'
