@@ -1,4 +1,6 @@
 /* Hi-res raster assets: decorative and natural-ratio only. Native controls always own hit target and text. */
+/* Older Academy raster banners are retained for desktop only: they must not replace Pip's mobile hero. */
+@media(min-width:771px){
 .vbk-has-raster body[data-vb-app="academy"] .welcome-card{background:#ded4fc url('/ui-kit/raster/banners/globe_hero.webp') right center/auto 100% no-repeat;border:1px solid #d6c8f6}
 .vbk-has-raster body[data-vb-app="academy"] .welcome-card h2{color:#2f2575;text-shadow:0 1px 2px #fff8}
 .vbk-has-raster body[data-vb-app="academy"] .welcome-card p{color:#4c3d81}
@@ -7,6 +9,7 @@
 .vbk-has-raster body[data-vb-app="academy"] .nav-link>span{width:30px;flex:0 0 30px}
 .vbk-has-raster body[data-vb-app="academy"] .stat-pill .vbk-raster-image{width:25px;height:25px;object-fit:contain}
 .vbk-has-raster body[data-vb-app="academy"] .stat-pill{padding:3px 8px 3px 3px;gap:5px}
+}
 .vbk-has-raster body[data-vb-app="studio"] .lesson-hero{background:#ece5ff url('/ui-kit/raster/banners/books_education.webp') center/cover no-repeat}
 .vbk-has-raster body[data-vb-app="studio"] .block-card{background:linear-gradient(#fff,#f8f6ff)}
 /* Do not use the tiny button/banner illustration as a tiled main-page background. See video-qa.css. */
@@ -16,5 +19,5 @@
 .vbk-has-raster body[data-vb-app="onboarding"] .ob-view .vbk-symbol img{width:36px;height:36px;object-fit:contain}
 .vbk-has-raster body[data-vb-app="onboarding"] .ob-result-symbol img{width:100%;height:100%;object-fit:contain}
 .vbk-has-raster .vbk-raster-live-progress{position:relative}
-@media(max-width:650px){.vbk-has-raster body[data-vb-app="academy"] .nav-link>span{width:28px;flex-basis:28px}.vbk-has-raster body[data-vb-app="academy"] .nav-link>span img{width:27px;height:27px}}
+/* Mobile navigation icon dimensions are defined in fox-mobile.css. */
 @media(prefers-reduced-motion:reduce){.vbk-has-raster *{scroll-behavior:auto}}
