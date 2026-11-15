@@ -31,6 +31,10 @@ test('lesson in progress never becomes locked on pointerdown; real chat avatars 
  const impl=await read('src/verbarium-kit/v3-production.js');
  const app=await read('src/app.js');
  assert.doesNotMatch(impl,/runtime\.setSprite\(img,'journey\/node_locked_press'\)/);
- assert.match(app,/vb3-chat-avatar/);
+ const dialogues=await read('public/ui-kit/components/lesson-ui.js');
+ assert.match(app,/renderDialogueScreen/);
+ assert.match(dialogues,/vb8-dialog-turn__avatar/);
+ assert.match(dialogues,/student_boy/);
+ assert.match(dialogues,/student_girl/);
  assert.match(app,/v3-visual-qa\.css/);
 });
