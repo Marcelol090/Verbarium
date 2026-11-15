@@ -1,0 +1,121 @@
+/* Shared visual language for the existing Academy learning engine.
+   Preserves all original routes, choice events, audio timing and scoring. */
+body[data-vb-app="academy"] .lesson-wrap {
+  max-width:760px;
+  border:1.5px solid #e0d6f3;
+  border-radius:29px;
+  background:linear-gradient(158deg,#fff,#faf7ff);
+  box-shadow:0 12px 27px #7156a415;
+  padding:clamp(17px,3.5vw,31px);
+}
+body[data-vb-app="academy"] .lesson-kicker{
+  color:#7d5ac0;
+  letter-spacing:.12em;
+  font-weight:900;
+  margin:22px 0 11px;
+}
+body[data-vb-app="academy"] .lesson-top{gap:12px}
+body[data-vb-app="academy"] .close-lesson{
+  color:#6748ad;
+  border-radius:12px;
+  border:1px solid #e2d6f4;
+  min-width:42px;
+  min-height:42px;
+  background:linear-gradient(#fff,#f5f0ff);
+}
+body[data-vb-app="academy"] .lesson-track{
+  background:linear-gradient(#e8dff4,#ded3ee);
+  border:1px solid #d2c2e9;
+  height:14px;
+  box-shadow:inset 0 2px 4px #5e40961b;
+}
+body[data-vb-app="academy"] .lesson-track i{
+  background:linear-gradient(180deg,#a882ed,#7848d5);
+  box-shadow:inset 0 1px #fffa;
+}
+body[data-vb-app="academy"] .option-grid{gap:12px}
+body[data-vb-app="academy"] .option{
+  color:#3d2c70;
+  background:linear-gradient(#fff,#faf8ff);
+  border:1.5px solid #ded3f0;
+  box-shadow:0 4px 0 #e6ddf2;
+  min-height:66px;
+  border-radius:19px;
+  padding:14px;
+  transition:border-color .16s,transform .16s,background .16s;
+}
+body[data-vb-app="academy"] .option:hover:not(:disabled){border-color:#a58bdc;background:#f9f5ff}
+body[data-vb-app="academy"] .option.selected{
+  border-color:#845bd5;
+  background:linear-gradient(#f5eaff,#e9ddff);
+  box-shadow:0 4px 0 #bca5e8;
+}
+body[data-vb-app="academy"] .option.correct{
+  border-color:#59c49f;
+  background:linear-gradient(#f1fff7,#ddf9ec);
+  box-shadow:0 4px 0 #a5dfc6;
+}
+body[data-vb-app="academy"] .option.wrong{
+  border-color:#efa8a8;
+  background:linear-gradient(#fffafa,#ffeded);
+  box-shadow:0 4px 0 #f1bcbc;
+}
+body[data-vb-app="academy"] .option:disabled{opacity:1}
+body[data-vb-app="academy"] .feedback{
+  border-radius:20px;
+  border:1.5px solid #b6e4cf;
+  background:linear-gradient(#f0fff8,#e2fbed);
+  color:#236f56;
+  animation:vb8-academy-feedback .28s ease-out both;
+}
+body[data-vb-app="academy"] .feedback.try{
+  border-color:#ebc4ac;
+  background:linear-gradient(#fff8f3,#fff0e7);
+  color:#9e5f43;
+}
+body[data-vb-app="academy"] .feedback b{color:inherit;font-weight:900}
+body[data-vb-app="academy"] .lesson-actions{
+  background:linear-gradient(0deg,#faf7ff 84%,transparent);
+  padding-bottom:max(15px,env(safe-area-inset-bottom));
+}
+body[data-vb-app="academy"] .path-heading h2{color:#423073}
+body[data-vb-app="academy"] .path-track:before{
+  background:repeating-linear-gradient(to bottom,#d9cbf1 0 14px,transparent 14px 25px);
+}
+body[data-vb-app="academy"] .step-copy{
+  border:1.5px solid #e4d9f4;
+  border-radius:21px;
+  background:linear-gradient(#fff,#fcfaff);
+  box-shadow:0 4px 0 #e8e0f456;
+}
+body[data-vb-app="academy"] .path-step.current .step-copy{
+  border-color:#9878dc;
+  background:linear-gradient(#f9f4ff,#f0e8ff);
+}
+body[data-vb-app="academy"] .path-step.current .node-ring{border-color:#9f7bdf}
+body[data-vb-app="academy"] .finish-page{
+  border:1.5px solid #e4d8f4;
+  background:radial-gradient(ellipse at 50% 0,#fff3d6,transparent 60%),linear-gradient(#fff,#f9f5ff);
+  padding:clamp(21px,4vw,35px);
+  border-radius:29px;
+  box-shadow:0 12px 25px #704ba719;
+}
+body[data-vb-app="academy"] .finish-page h1{color:#3f2b70}
+body[data-vb-app="academy"] .finish-page p{color:#75668c}
+body[data-vb-app="academy"] .finish-stars .asset-wrap img{object-fit:contain}
+body[data-vb-app="academy"] .option:focus-visible,
+body[data-vb-app="academy"] .close-lesson:focus-visible,
+body[data-vb-app="academy"] .node-button:focus-visible{outline:3px solid #7252c5;outline-offset:3px}
+@keyframes vb8-academy-feedback{from{opacity:.68;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:650px){
+ body[data-vb-app="academy"] .lesson-wrap{border-radius:23px;padding:17px 13px}
+ body[data-vb-app="academy"] .text-options{grid-template-columns:1fr}
+ body[data-vb-app="academy"] .image-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body[data-vb-app="academy"] .option{border-radius:16px;min-height:57px}
+ body[data-vb-app="academy"] .step-copy{border-radius:17px}
+ body[data-vb-app="academy"] .lesson-actions{bottom:calc(0px + env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){
+ body[data-vb-app="academy"] .feedback{animation:none!important}
+ body[data-vb-app="academy"] .option{transition:none!important}
+}
