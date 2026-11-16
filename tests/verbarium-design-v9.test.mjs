@@ -6,7 +6,6 @@ import {renderPromo} from '../public/ui-kit/components/library.js';
 const read=path=>readFileSync(path,'utf8');
 const backgrounds=['home','academy','lesson','practice','conversation','profile','onboarding','celebration','premium','neutral'];
 const v8=read('public/ui-kit/precision-v8.js');
- const motion=read('src/verbarium-kit/motion-assets.js');
 
 test('V9 section backgrounds are separate scalable SVGs without baked UI copy',()=>{
  for(const name of backgrounds){
@@ -44,6 +43,7 @@ test('core component glyphs and lesson feedback use vector assets',()=>{
  const lesson=read('public/ui-kit/components/lesson-ui.js');
  const v7=read('public/ui-kit/precision-v7.js');
  const academy=read('public/academy/academy.js');
+ const motion=read('src/verbarium-kit/motion-assets.js');
  for(const file of ['/ui-kit/icons/book.svg','/ui-kit/icons/play.svg','/ui-kit/icons/check.svg','/ui-kit/icons/brain.svg','/ui-kit/icons/chat.svg','/ui-kit/icons/flame.svg'])assert.ok(library.includes(file)||lesson.includes(file),file);
  assert.match(lesson,/correct:'\/ui-kit\/icons\/check\.svg'/);
  assert.match(lesson,/retry:'\/ui-kit\/icons\/refresh\.svg'/);
@@ -51,12 +51,11 @@ test('core component glyphs and lesson feedback use vector assets',()=>{
  assert.match(promo,/verbarium-visual-kit\/assets\/mascot\/fox_reading\.webp/);
 });
 
-test('background gallery previews the same production files and both CSS copies match',()=>{
+test('background gallery previews the same production files',()=>{
  const gallery=read('public/components/gallery.js');
  const html=read('public/components/index.html');
  for(const name of backgrounds.filter(x=>x!=='premium'&&x!=='neutral'))assert.ok(gallery.includes("['"+name+"'")||gallery.includes("['"+name+"',"),name+' gallery entry');
  assert.match(html,/12 · Fundos por sessão/);
-
 });
 
 test('V9 styles remain balanced and respect narrow screens and reduced motion',()=>{
