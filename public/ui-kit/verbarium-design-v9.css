@@ -566,3 +566,9 @@ body[data-vb-app="academy"] .skill-emoji{display:grid;place-items:center;width:4
 body[data-vb-app="academy"] .skill-emoji img{display:block;width:25px;height:25px;object-fit:contain}
 body[data-vb-app="academy"] .skill-card:nth-child(3) .skill-emoji{background:#edf3ff;border-color:#dce7fb}
 body[data-vb-app="academy"] .skill-card:nth-child(4) .skill-emoji{background:#eaf8f0;border-color:#d5eddf}
+
+body[data-vb-app="home"] .vb-nav-image{display:block;width:22px;height:22px;object-fit:contain;opacity:.76;filter:none}
+body[data-vb-app="home"] .vb-nav-image.is-selected{opacity:1}
+body[data-vb-app="home"] .nav-btn.active .vb-nav-image{opacity:1}
+body[data-vb-app="home"] .mobile-item .vb-nav-image{width:22px;height:22px;opacity:.78}
+body[data-vb-app="home"] .mobile-item.active .vb-nav-image{opacity:1}
