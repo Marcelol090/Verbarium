@@ -39,6 +39,7 @@ import {calendarWeek,renderWeekTokens,seedWeekActivity,hydrateWeekTokens} from '
 import {chapters,findJourneyChapter,missionState,renderMissionBoard,renderQuestMap,renderChapterDetail,renderProfile} from './journey-v2.js';
 import {iconName,hydrateIcons} from './icons.js';
 import {animateEntrance,animateFeedback} from './motion.js';
+import './verbarium-design-v9.css';
 
 'use strict';
 const svg=(key)=>`<i aria-hidden="true" data-lucide="${iconName[key] || 'circle'}"></i>`;
@@ -174,27 +175,39 @@ function paint(){
 function goto(route){app.route=route;paint();window.scrollTo({top:0,behavior:'instant'});document.querySelector('#main').focus({preventScroll:true})}
 const heroIllustration='<svg class="hero-doodle" viewBox="0 0 360 286" role="img" aria-label="Livro aberto, balão de fala e estrelas">\n<defs>\n  <linearGradient id="bookcover" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#875af7"/><stop offset="1" stop-color="#5131d5"/></linearGradient>\n  <linearGradient id="pagewash" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#d5ebff"/></linearGradient>\n  <linearGradient id="bubblewash" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff4ba"/><stop offset="1" stop-color="#ffce64"/></linearGradient>\n  <filter id="shadowbook"><feDropShadow dx="0" dy="13" stdDeviation="8" flood-color="#0e3b94" flood-opacity=".3"/></filter>\n</defs>\n<circle cx="178" cy="146" r="111" fill="#9bd7ff" opacity=".29"/><circle cx="179" cy="145" r="82" fill="#fff" opacity=".12"/>\n<path d="M38 60l5 12 13 3-13 4-5 12-4-12-13-4 13-3z" fill="#ffd45d"/><path d="M296 196l5 13 14 4-14 4-5 13-5-13-13-4 13-4z" fill="#ffdd72"/><circle cx="280" cy="72" r="6" fill="#fff" opacity=".8"/><circle cx="70" cy="220" r="5" fill="#f7b9ff"/>\n<g transform="translate(40 115) rotate(-5 140 70)" filter="url(#shadowbook)"><path d="M10 85Q71 65 138 87Q208 63 275 81L283 114Q211 91 143 120Q79 92 17 119Z" fill="url(#bookcover)" stroke="#4224b5" stroke-width="5" stroke-linejoin="round"/><path d="M17 29Q76 11 141 38L143 108Q76 80 17 98Z" fill="url(#pagewash)" stroke="#e3e1ff" stroke-width="3"/><path d="M143 38Q199 12 268 29L269 97Q199 80 143 108Z" fill="#fbfcff" stroke="#dfe1ff" stroke-width="3"/><path d="M141 38v69" stroke="#b6ace7" stroke-width="3"/><path d="M30 45q55-9 95 9M30 61q49-8 94 9M31 78q54-6 95 11M161 54q39-18 91-10M161 71q44-16 89-8M161 88q39-13 84-10" fill="none" stroke="#a7b9ef" stroke-width="4" stroke-linecap="round"/></g>\n<g transform="translate(177 7) rotate(8)"><rect x="0" y="0" width="147" height="66" rx="24" fill="#fff"/><path d="M30 56l-9 23 33-16" fill="#fff"/><text x="73" y="43" text-anchor="middle" font-family="Fredoka,Arial" font-size="31" font-weight="700" fill="#6e42db">Hello!</text></g>\n<g transform="translate(27 110) rotate(-11)"><rect width="84" height="48" rx="17" fill="url(#bubblewash)"/><text x="42" y="31" font-size="21" font-weight="900" font-family="Nunito,Arial" text-anchor="middle" fill="#775008">A B C</text></g>\n<g transform="translate(265 154) rotate(11)"><circle cx="30" cy="30" r="30" fill="#ff96b2"/><text x="30" y="39" font-family="Fredoka,Arial" font-weight="700" font-size="30" text-anchor="middle" fill="#fff">✓</text></g>\n</svg>';
 function homePage(){
- const next=nextLesson(), n=lessons.findIndex(l=>l.id===next.id)+1;
- const today=data.activity.filter(x=>x.date===day()).length;
- const completion=pct(data.completed.length,lessons.length);
+ const next=nextLesson();
  const streak=currentStreak();
  const week=weekActivity();
- return `<div class="vb7-home-heading">${renderHeading({kicker:'SEU CANTINHO DE INGLÊS',title:'Aprenda inglês de um jeito',accent:'seu.',subtitle:'Uma aula por vez, mais confiança para a próxima conversa.',level:1})}</div>
- ${renderLessonHero({lessonId:next.id,title:next.title,description:next.why,level:next.level,minutes:6,completed:data.completed.length,total:lessons.length,mascot:'<img class="vb-fox-home-mascot" src="/verbarium-v6/assets/characters/fox_joy.webp" alt="" loading="eager" decoding="async">',buttonLabel:data.completed.length===lessons.length?'Revisitar aulas':'Continuar aprendendo'})}
+ const due=dueItems().length;
+ const homeFeatures=[
+  {key:'learn',icon:'book',tone:'violet',metric:'A1 → B1',title:'Trilha de aulas',description:'Avance por estruturas e descubra o próximo passo.',cta:'Ver próxima etapa'},
+  {key:'practice',icon:'checklist',tone:'orange',metric:'Prática ativa',title:'Exercícios',description:'Responda e entenda a lógica por trás de cada frase.',cta:'Praticar agora'},
+  {key:'speak',icon:'play',tone:'blue',metric:'4 cenários',title:'Conversação',description:'Use o inglês em diálogos do cotidiano.',cta:'Abrir diálogos'},
+  {key:'lab',icon:'layers',tone:'mint',metric:'7 tempos verbais',title:'Laboratório verbal',description:'Compare tempos, estruturas e verbos frequentes.',cta:'Explorar verbos'},
+  {key:'food',icon:'book',tone:'orange',metric:'Vocabulário visual',title:'Mercado de palavras',description:'Aprenda palavras com imagens, áudio e contexto.',cta:'Explorar palavras'},
+  {key:'pairs',icon:'checklist',tone:'violet',metric:'Construção guiada',title:'Montar frases',description:'Organize palavras e entenda a ordem da frase.',cta:'Montar uma frase'}
+ ];
+ return `<div class="vb9-home">
+ <div class="vb9-home-heading">${renderHeading({kicker:'SEU CANTINHO DE INGLÊS',title:'Aprenda inglês no seu ritmo',accent:'um passo por vez.',subtitle:'Retome sua aula, pratique um pouco e transforme conhecimento em conversa.',level:1})}</div>
+ ${renderLessonHero({lessonId:next.id,title:next.title,description:next.why,level:next.level,minutes:6,completed:data.completed.length,total:lessons.length,mascot:'<img class="vb-fox-home-mascot" src="/verbarium-visual-kit/assets/mascot/fox_waving.webp" alt="" loading="eager" decoding="async">',buttonLabel:data.completed.length===lessons.length?'Revisitar aulas':'Continuar aprendendo'})}
+ <section class="vb9-stat-grid" aria-label="Resumo da sua jornada">
+  <div class="vb9-stat-card"><span class="vb9-stat-card__label">Sequência atual</span><strong>${streak} <small>${streak===1?'dia':'dias'}</small></strong><span class="vb9-stat-card__note">Pratique no seu ritmo</span></div>
+  <div class="vb9-stat-card"><span class="vb9-stat-card__label">Aulas concluídas</span><strong>${data.completed.length}<small> / ${lessons.length}</small></strong><span class="vb9-stat-card__note">Seu progresso real</span></div>
+  <button type="button" class="vb9-stat-card vb9-stat-card--review" data-route="review" aria-label="Abrir ${due} revisões pendentes"><span class="vb9-stat-card__label">Revisões pendentes</span><strong>${due}</strong><span class="vb9-stat-card__note">${due?'Retome o que precisa fixar':'Tudo em dia por enquanto'}</span></button>
+ </section>
+ <section class="vb9-section vb9-path-section" aria-label="Sua trilha de aprendizagem">
+  <div class="vb9-section-head"><div><span>SEU CAMINHO</span><h2>Continue sua jornada</h2><p>Cada etapa representa conteúdo que você pode aprender e praticar.</p></div><button type="button" data-route="learn">Ver todas as aulas →</button></div>
+  ${renderQuestMap({lessons,completed:data.completed,currentId:next.id,lessonSessions:data.lessonSessions,compact:true})}
+ </section>
  ${renderMissions(missionState({activity:data.activity,completedAt:data.completedAt,sessions:data.sessions,today:day()}))}
-  ${renderPromo({kicker:'NOVA EXPERIÊNCIA · ACADEMY',title:'Uma trilha com desafios, histórias e revisão inteligente.',subtitle:'Unidades progressivas A1–B1, escuta, associação, construção de frases e importação de aulas do professor.',image:'/verbarium-assets/icons/icon_book_tile.png',href:'/academy/',action:'Explorar Academy'})}
-   ${renderV6PairsTeaser(v6PairProgress())}
-  ${renderV5WorldExplorer({compact:true,progress:foodQuestProgress()})}
-  <section class="vb-food-teaser" aria-label="Novo desafio de alimentos"><div class="vb-food-teaser-art" aria-hidden="true">${foodArt('apple')}${foodArt('milk')}</div><div><span class="v2-kicker">NOVO · MISSÃO VISUAL</span><h2>O mercado das palavras</h2><p>Aprenda frutas, alimentos e verbos com imagens, áudio e frases interativas. ${foodQuestProgress().index} de ${foodQuestProgress().total} atividades realizadas.</p></div><button class="button bright" data-route="food">${foodQuestProgress().finished?'Revisitar missão':'Explorar alimentos'} →</button></section>
- <div class="vb-home-streak">${renderStreakWeek(week,streak)}</div>
-  <div class="section-head colorful"><h2 class="section-title">Meu plano de estudos <span>✿</span></h2><button class="text-button" data-route="progress">Meu progresso ${svg('arrow')}</button></div>
- 
- <div class="v2-section-bar"><h2>Seu próximo mundo</h2><button class="text-button" data-route="learn">Ver toda a jornada →</button></div>
- ${renderQuestMap({lessons,completed:data.completed,currentId:next.id,lessonSessions:data.lessonSessions,compact:true})}
- <div class="section-head colorful"><h2 class="section-title">Explore e pratique <span>✦</span></h2><span class="minor">Escolha sua atividade</span></div><div class="quick-filters" aria-label="Acessos rápidos"><button class="quick-filter vb-quick-asset" data-route="learn"><img src="/verbarium-v3/assets/navigation/book_default.png" alt="" aria-hidden="true">Aulas</button><button class="quick-filter vb-quick-asset" data-route="lab"><img src="/verbarium-v3/assets/navigation/sprout_default.png" alt="" aria-hidden="true">Verbos & tempos</button><button class="quick-filter vb-quick-asset" data-route="practice"><img src="/verbarium-v3/assets/navigation/gamepad_default.png" alt="" aria-hidden="true">Exercícios</button><button class="quick-filter vb-quick-asset" data-route="speak"><img src="/verbarium-v3/assets/navigation/headphones_default.png" alt="" aria-hidden="true">Conversação</button></div>
- ${renderFeatureGrid()}
- <section class="weekly-card"><div class="weekly-intro"><div class="weekly-icon vb-weekly-medal"><img src="/verbarium-v3/assets/rewards/achievement_medal.png" alt="" aria-hidden="true" loading="lazy"></div><div><span class="overline">META DA SEMANA</span><h3>Um pouco por dia faz diferença.</h3><p>Responda algumas questões e mantenha sua prática ativa.</p></div></div>${renderWeekTokens(week,{variant:'compact'})}<button class="weekly-link" data-route="review" aria-label="Abrir revisão de erros">${svg('arrow')}</button></section>
- <p class="tool-tip" style="margin:18px 0">Trilha pedagógica inspirada no CEFR. O progresso é pessoal e salvo apenas neste navegador.</p>`
+ <section class="vb9-section vb9-activity-section" aria-label="Explore atividades">
+  <div class="vb9-section-head"><div><span>ESCOLHA COMO PRATICAR</span><h2>Explore e pratique</h2><p>Atividades diferentes para transformar reconhecimento em produção.</p></div></div>
+  ${renderFeatureGrid(homeFeatures)}
+ </section>
+ <div class="vb9-section vb9-streak-section">${renderStreakWeek(week,streak)}</div>
+ ${renderPromo({kicker:'APRENDIZADO GUIADO',title:'Explore a Verbarium Academy.',subtitle:'Histórias, escuta, construção de frases e revisão em uma trilha própria.',image:'/verbarium-visual-kit/assets/mascot/fox_reading.webp',href:'/academy/',action:'Entrar na Academy'})}
+ <p class="tool-tip" style="margin:8px 0 18px">O progresso é pessoal e fica salvo neste navegador. Os indicadores mostram atividades realizadas, não uma certificação de fluência.</p>
+ </div>`
 }
 function weekActivity(){return calendarWeek(new Date(),[...data.activity.map(a=>a.date),...(data.sessions||[]).map(s=>s.date),...Object.values(data.completedAt||{})])}
 function learnPage(){const filtered=lessons.filter(x=>app.filter==='Todos'||x.level===app.filter);return `<div class="page-intro"><div class="overline">APRENDIZADO ESTRUTURADO</div><h1 class="heading">Aprender é uma <em>jornada.</em></h1><p class="lede">Do primeiro “I am” às ideias conectadas. Cada aula traz uma explicação em português, um exemplo real e uma verificação do que você compreendeu.</p></div><div class="v2-section-bar"><h2>Três capítulos, uma jornada</h2><span>Sem bloqueios artificiais</span></div>
