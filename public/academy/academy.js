@@ -15,7 +15,20 @@ const SAVE=()=>{storageSet(STORAGE_KEY,JSON.stringify(state));};
 const img=(category,id,cls='',fallback='')=>`<span class="asset-wrap ${cls}"><img src="/verbarium-v6/assets/${esc(category)}/${esc(id)}.webp" alt="" aria-hidden="true" loading="lazy" onerror="this.parentNode.classList.add('fallback');this.remove()"><span class="asset-fallback" aria-hidden="true">${esc(fallback||'✦')}</span></span>`;
 const v5=(category,id,cls='',fallback='')=>`<span class="asset-wrap ${cls}"><img src="/verbarium-v5/assets/${esc(category)}/${esc(id)}.webp" alt="" aria-hidden="true" loading="lazy" onerror="this.parentNode.classList.add('fallback');this.remove()"><span class="asset-fallback">${esc(fallback||'✦')}</span></span>`;
 const fruit=name=>`<span class="fruit-art"><img src="/verbarium-2026-kit/items/${esc(name)}.webp" alt="" aria-hidden="true" onerror="this.remove()" loading="lazy"><span>${foodEmoji[name]||'🍎'}</span></span>`;
-const glyph=id=>`<img src="/ui-kit/icons/${id}.svg" alt="" aria-hidden="true" loading="lazy">`;
+/* Single icon geometry: 24×24 grid / 2px rounded stroke.
+   Production controls never use pre-rendered 3D buttons as hit areas. */
+const ICON_PATHS={
+ target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>',
+ flame:'<path d="M12 22c4.4 0 7-3.2 7-7.2 0-3.1-1.5-5.3-3.6-7.4.1 2.9-1.2 4.1-2.4 4.5-.7-4.2-2.7-7.1-5.5-8.8.3 3.4-.7 6-2.3 8.2C3.8 13 4 15.4 4.5 17.1 5.4 20.2 8.3 22 12 22Z"/>',
+ book:'<path d="M3 5.5c3.1-1.4 6.2-1.2 9 .7 2.8-1.9 5.9-2.1 9-.7v13c-3.1-1.4-6.2-1.2-9 .7-2.8-1.9-5.9-2.1-9-.7Z"/><path d="M12 6v13"/>',
+ star:'<path d="m12 2 3.1 6.4 7.1 1-5.1 5 1.2 7-6.3-3.4-6.3 3.4 1.2-7-5.1-5 7.1-1Z"/>',
+ graduation:'<path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3.5 2.6 8.5 2.6 12 0v-5M22 9v7"/>',
+ brain:'<path d="M12 6a4 4 0 0 0-8 0 4 4 0 0 0-1 6 4 4 0 0 0 1 6 4 4 0 0 0 8 0V6ZM12 6a4 4 0 0 1 8 0 4 4 0 0 1 1 6 4 4 0 0 1-1 6 4 4 0 0 1-8 0V6Z"/><path d="M8 9c-1 1-1 3 0 4M16 9c1 1 1 3 0 4"/>',
+ volume:'<path d="M4 9H7L12 5v14l-5-4H4Z"/><path d="M16 9a5 5 0 0 1 0 6M18 6a9 9 0 0 1 0 12"/>',
+ sparkle:'<path d="m12 2 2.7 7.3L22 12l-7.3 2.7L12 22l-2.7-7.3L2 12l7.3-2.7Z"/>',
+ mic:'<rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"/>'
+};
+const glyph=id=>`<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">${ICON_PATHS[id]||ICON_PATHS.star}</svg>`;
 const icons={path:glyph('target'),review:glyph('flame'),practice:glyph('book'),profile:glyph('star'),teacher:glyph('graduation')};
 function showToast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('visible');clearTimeout(showToast.t);showToast.t=setTimeout(()=>el.classList.remove('visible'),3300)}
 function progressData(){return {today:todayXp(state),streak:streak(state),due:reviewStats(state).due,units:summary(state)}}
