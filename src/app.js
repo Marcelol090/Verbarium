@@ -39,7 +39,6 @@ import {calendarWeek,seedWeekActivity,hydrateWeekTokens} from './verbarium-kit/w
 import {chapters,findJourneyChapter,missionState,renderMissionBoard,renderQuestMap,renderChapterDetail,renderProfile} from './journey-v2.js';
 import {iconName,hydrateIcons} from './icons.js';
 import {animateEntrance,animateFeedback} from './motion.js';
-import './verbarium-design-v9.css';
 
 'use strict';
 const svg=(key)=>`<i aria-hidden="true" data-lucide="${iconName[key] || 'circle'}"></i>`;
