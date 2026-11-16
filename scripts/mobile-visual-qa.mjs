@@ -40,15 +40,17 @@ async function check(page,route,width){
   const titleFits=!title||(title.scrollWidth<=title.clientWidth+1 && title.scrollHeight<=title.clientHeight+1);
   const feature=document.querySelector('.vb7-feature__title');
   const featureColor=feature?getComputedStyle(feature).color:null;
+  const glyph=home?document.querySelector('.vb7-feature__icon .vb7-art'):document.querySelector('.daily-strip__icon');
+  const glyphLoaded=!!(glyph&&glyph.complete&&glyph.naturalWidth>0);
   const precision=document.body.dataset.vbPrecision||null;
   const newArtKey=art?.dataset?.vb7vAsset || art?.querySelector('img')?.dataset?.vb7vAsset || null;
   const natural=home?{w:art?.naturalWidth||0,h:art?.naturalHeight||0}: {w:art?.querySelector('img')?.naturalWidth||0,h:art?.querySelector('img')?.naturalHeight||0};
-  return {viewport,horizontalOverflow,offenders,card:cardR,art:artR,artInside,ctaRadius,ctaBackground,ctaBorder,ctaHeight,titleFits,featureColor,precision,newArtKey,background:bg.slice(0,250),natural};
+  return {viewport,horizontalOverflow,offenders,card:cardR,art:artR,artInside,ctaRadius,ctaBackground,ctaBorder,ctaHeight,titleFits,featureColor,glyphLoaded,precision,newArtKey,background:bg.slice(0,250),natural};
  });
  const v9Geometry=findings.ctaRadius===(route==='home'?'16px':'12px')&&findings.ctaBackground?.includes('rgb(121, 92, 240)')&&findings.ctaBorder==='1px';
  const v9Artwork=route==='home'?findings.newArtKey==='fox_waving':findings.newArtKey==='fox_teacher';
  const v9Text=route!=='home'||findings.featureColor==='rgb(64, 48, 95)';
- const ok=!findings.horizontalOverflow&&findings.artInside&&findings.natural.w>0&&v9Geometry&&v9Artwork&&findings.precision==='8'&&findings.ctaHeight>=48&&findings.titleFits&&v9Text;
+ const ok=!findings.horizontalOverflow&&findings.artInside&&findings.natural.w>0&&v9Geometry&&v9Artwork&&findings.precision==='8'&&findings.ctaHeight>=48&&findings.titleFits&&findings.glyphLoaded&&v9Text;
  results.push({width,route,ok,...findings});
  if(!ok){failed++;console.error('V9 VISUAL GEOMETRY FAILURE:',route,width,JSON.stringify(findings));}
  await page.screenshot({path:path.join(output,route+'-'+width+'.png'),fullPage:width===390,animations:'disabled'});
