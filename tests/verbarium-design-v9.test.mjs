@@ -41,6 +41,8 @@ test('mobile home flow has one clear progression and semantic destinations',()=>
 test('core component glyphs and lesson feedback use vector assets',()=>{
  const library=read('public/ui-kit/components/library.js');
  const lesson=read('public/ui-kit/components/lesson-ui.js');
+ const v7=read('public/ui-kit/precision-v7.js');
+ const academy=read('public/academy/academy.js');
  for(const file of ['/ui-kit/icons/book.svg','/ui-kit/icons/play.svg','/ui-kit/icons/check.svg','/ui-kit/icons/brain.svg','/ui-kit/icons/chat.svg','/ui-kit/icons/flame.svg'])assert.ok(library.includes(file)||lesson.includes(file),file);
  assert.match(lesson,/correct:'\/ui-kit\/icons\/check\.svg'/);
  assert.match(lesson,/retry:'\/ui-kit\/icons\/refresh\.svg'/);
