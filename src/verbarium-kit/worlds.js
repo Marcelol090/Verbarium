@@ -26,10 +26,12 @@ export const RANK_MILESTONES=Object.freeze([
  {need:10,name:'Mestre das Estruturas'},{need:12,name:'Guardião do Verbarium'}
 ]);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
-export function chapterWorldImage(chapterId){return '/verbarium-worlds/'+(WORLD_IDS[chapterId]||'first')+'.webp';}
+// Vector-first scenes: separate aspect ratios prevent arbitrary cropping.
+export function chapterWorldImage(chapterId){return '/verbarium-scenes/v10/portrait-'+(WORLD_IDS[chapterId]||'first')+'.svg';}
+export function chapterBannerImage(chapterId){return '/verbarium-scenes/v10/landscape-'+(WORLD_IDS[chapterId]||'first')+'.svg';}
 export function renderLessonWorld(lessonId){
  const which=LESSON_WORLDS[lessonId];if(!which)return '';
- const image=chapterWorldImage(which);
+ const image=chapterBannerImage(which);
  const caption=LESSON_CAPTIONS[lessonId];
  return '<figure class="vb-world-lesson-banner"><img src="'+image+'" alt="" aria-hidden="true" decoding="async" loading="lazy"><figcaption><span>SEU CENÁRIO DE APRENDIZAGEM</span><strong>'+esc(caption)+'</strong></figcaption></figure>';
 }

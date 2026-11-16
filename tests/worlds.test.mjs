@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile,stat} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
-import {chapterWorldImage,renderLessonWorld,renderRankGallery,RANK_MILESTONES} from '../src/verbarium-kit/worlds.js';
+import {chapterWorldImage,chapterBannerImage,renderLessonWorld,renderRankGallery,RANK_MILESTONES} from '../src/verbarium-kit/worlds.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 test('four original world images and 8 milestone badges extracted',async()=>{
  const manifest=JSON.parse(await readFile(path.join(root,'public/verbarium-worlds/manifest.json'),'utf8'));
@@ -23,9 +23,10 @@ test('rank unlocks only on real completed lesson count',()=>{
  assert.equal((all.match(/is-unlocked/g)||[]).length,8);
  assert.equal(RANK_MILESTONES.length,8);
 });
-test('individual lesson backgrounds do not embed score or XP',()=>{
- assert.match(chapterWorldImage('first'),/first\.webp/);
- assert.match(renderLessonWorld('present'),/time\.webp/);
+test('lesson scenes use independent portrait maps and horizontal banners',()=>{
+ assert.match(chapterWorldImage('first'),/portrait-first\.svg/);
+ assert.match(chapterBannerImage('time'),/landscape-time\.svg/);
+ assert.match(renderLessonWorld('present'),/landscape-time\.svg/);
  assert.doesNotMatch(renderLessonWorld('be'),/100 XP|100%/);
 });
 
@@ -34,7 +35,7 @@ test('all twelve lessons receive an illustrated background with relevant caption
  for(const id of ids){
   const html=renderLessonWorld(id);
   assert.match(html,/vb-world-lesson-banner/,id);
-  assert.match(html,/\.webp/,id);
+  assert.match(html,/landscape-(first|time|talk|mastery)\.svg/,id);
   assert.doesNotMatch(html,/undefined/,id);
  }
 });
@@ -45,4 +46,15 @@ test('world CSS constrains generated lesson node artwork at narrow widths',async
  assert.match(css,/width:76px!important;height:76px/);
  assert.match(css,/width:66px!important;height:66px/);
  assert.match(css,/object-fit:contain!important/);
+});
+
+test('eight scalable scenes are delivered in original resolution-independent SVG',async()=>{
+ for(const aspect of ['landscape','portrait'])for(const world of ['first','time','talk','mastery']){
+  const file=path.join(root,'public/verbarium-scenes/v10',aspect+'-'+world+'.svg');
+  const art=await readFile(file,'utf8');
+  assert.match(art,/<svg\s/);
+  assert.match(art,/viewBox="0 0 (1200 600|800 1160)"/);
+  assert.match(art,/<\/svg>/);
+  assert.doesNotMatch(art,/<(?:text|image|foreignObject)\b/i,'No burned-in copy or unbounded raster layers');
+ }
 });

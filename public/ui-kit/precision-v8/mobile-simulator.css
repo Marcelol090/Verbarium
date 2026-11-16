@@ -21,6 +21,8 @@ svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-wi
 .header-tabs{display:flex;align-items:center;gap:5px;padding:5px;border:1px solid #e7e0ef;border-radius:15px;background:#f7f3fa}
 .header-tabs button{min-height:37px;padding:8px 17px;color:#776a87;border:1px solid transparent;border-radius:11px;background:transparent;font-size:11px;font-weight:850}
 .header-tabs button[aria-pressed="true"]{background:#fff;border-color:#ddd1eb;color:#6441b4;box-shadow:0 2px 5px #4e3c720b}
+.header-components{display:inline-flex;align-items:center;justify-content:center;min-height:37px;padding:8px 13px;text-decoration:none;border:1px solid #d4c1ed;border-radius:11px;background:#efe8ff;color:#6845b7;font-size:11px;font-weight:850;white-space:nowrap}
+.v10-gallery-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 15px;margin:0 0 15px;border:1px solid #d8c8ec;border-bottom:3px solid #bb9fe2;border-radius:14px;background:#f0e8ff;color:#6241b3;text-decoration:none;font-size:12px;font-weight:850}
 .header-actions{display:flex;align-items:center;gap:7px;flex:none}
 .header-switch{display:none}
 .header-open{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:9px 15px;text-decoration:none;border:1px solid #d5c9ed;background:#f7f2ff;color:#6043a4;border-radius:13px;font-weight:800;font-size:12px}
