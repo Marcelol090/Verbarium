@@ -47,7 +47,7 @@ try{
     const allImages=[...document.querySelectorAll('.vb13-path-page img')].map(img=>({
       src:img.getAttribute('src'),loaded:img.complete&&img.naturalWidth>0,width:img.naturalWidth,height:img.naturalHeight
     }));
-    const clip=caption?{caption:r(caption),fullyInside:(()=>{
+    const clip=caption?{caption:r(caption),bookIconHydrated:!!caption.querySelector('.vb13-card-icon svg'),fullyInside:(()=>{
       const a=r(caption);return a.l>=mapRect.l-3&&a.r<=mapRect.r+3&&a.t>=mapRect.t-3&&a.b<=mapRect.b+3;
     })()}:null;
     return {viewport:innerWidth,map:mapRect,nodes,images:allImages,clip,
@@ -64,6 +64,7 @@ try{
    assert.ok(measurement.nodes.every(x=>x.width>=80&&x.height>=80),'Node touch targets too small');
    assert.ok(measurement.images.every(x=>x.loaded),'Failed image: '+JSON.stringify(measurement.images));
    assert.equal(measurement.clip?.fullyInside,true,'Current lesson card clipped at '+width+' '+stage);
+   assert.equal(measurement.clip?.bookIconHydrated,true,'Current lesson card is missing the real book glyph');
    assert.equal(measurement.catalogExists,true);
    if(seeded){
     assert.deepEqual(measurement.nodes.map(x=>x.state),['completed','completed','current','upcoming','upcoming']);
