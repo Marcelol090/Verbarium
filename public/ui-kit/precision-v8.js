@@ -5,7 +5,10 @@
 // V7 moves its linked stylesheet to the end of <head>. V8 must run afterward
 // or the old, equally-specific declarations win by document order.
 const precisionV8Style=document.querySelector('link[href="/ui-kit/precision-v8.css"]');
+const precisionV10Style=document.querySelector('link[href="/ui-kit/precision-v10.css"]');
 if(precisionV8Style&&precisionV8Style.parentNode===document.head)document.head.append(precisionV8Style);
+// The V10 contract must be the final cascade layer after the previous enhancers.
+if(precisionV10Style&&precisionV10Style.parentNode===document.head)document.head.append(precisionV10Style);
 
 const ROOT='/verbarium-visual-kit/';
 const app=document.body.dataset.vbApp||'';
