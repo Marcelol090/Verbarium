@@ -96,7 +96,7 @@ export function renderMissions(missions=[]){
 }
 export function renderPromo({kicker='',title='',subtitle='',image='',href='/academy/',action='Explorar Academy'}={}){
   const safeHref=['/academy/','/learning/','/onboarding/'].includes(href)?href:'/academy/';
-  const src=image&&/^\/(?:verbarium-assets\/|verbarium-v6\/|ui-kit\/)/.test(image)?image:getIcon('book');
+  const src=image&&/^\/(?:verbarium-assets\/|verbarium-v6\/|verbarium-kit-v1\/|ui-kit\/)/.test(image)?image:getIcon('book');
   return '<section class="vb7-promo" data-vb7-component="promo" aria-label="'+escapeAttr(title)+'"><div class="vb7-promo__art" aria-hidden="true"><img src="'+escapeAttr(src)+'" alt="" loading="lazy" decoding="async"></div>'+
    '<div class="vb7-promo__content"><span class="vb7-promo__kicker">'+escapeHtml(kicker)+'</span><h2>'+escapeHtml(title)+'</h2><p>'+escapeHtml(subtitle)+'</p></div>'+
    '<a class="vb7-promo__link" href="'+safeHref+'">'+escapeHtml(action)+' <span aria-hidden="true">→</span></a></section>';
