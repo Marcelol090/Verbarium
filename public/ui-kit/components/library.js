@@ -4,17 +4,17 @@
  * independent HTML. The design-board screenshots are never used as UI textures.
  */
 export const ICONS=Object.freeze({
-  layers:'/verbarium-assets/icons/icon_layers_tile.png',
-  play:'/verbarium-assets/icons/icon_play_tile.png',
-  checklist:'/verbarium-assets/icons/icon_clipboard_tile.png',
-  book:'/verbarium-assets/icons/icon_book_tile.png',
-  question:'/verbarium-v3/assets/missions/target_dart.png',
-  dialog:'/verbarium-v3/assets/speaking/mic_idle.png',
-  lessons:'/verbarium-v3/assets/journey/book_standalone.png',
-  sparkle:'/ui-kit/raster/icons/star.webp',
+  layers:'/ui-kit/icons/brain.svg',
+  play:'/ui-kit/icons/play.svg',
+  checklist:'/ui-kit/icons/check.svg',
+  book:'/ui-kit/icons/book.svg',
+  question:'/ui-kit/icons/target.svg',
+  dialog:'/ui-kit/icons/chat.svg',
+  lessons:'/ui-kit/icons/book.svg',
+  sparkle:'/ui-kit/icons/sparkle.svg',
   arrow:'/ui-kit/icons/next.svg',
   clock:'/ui-kit/icons/clock.svg',
-  flame:'/ui-kit/raster/icons/streak_fire.webp'
+  flame:'/ui-kit/icons/flame.svg'
 });
 const escapeHtml=(value)=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const getIcon=(key)=>ICONS[key]||ICONS.book;
