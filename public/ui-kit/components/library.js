@@ -18,7 +18,7 @@ export const ICONS=Object.freeze({
 });
 const escapeHtml=(value)=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const getIcon=(key)=>ICONS[key]||ICONS.book;
-const pictogram=(key,cls='')=>'<img class="vb7-art '+cls+'" src="'+getIcon(key)+'" alt="" aria-hidden="true" loading="lazy" decoding="async">';
+const pictogram=(key,cls='')=>'<img class="vb7-art '+cls+'" src="'+getIcon(key)+'" alt="" aria-hidden="true" loading="eager" decoding="async">';
 const clamp=(n)=>Math.min(100,Math.max(0,Number.isFinite(Number(n))?Number(n):0));
 const escapeAttr=escapeHtml;
 const allowedRoutes=new Set(['lab','speak','practice','learn','food','home','progress','profile','review','pairs']);
