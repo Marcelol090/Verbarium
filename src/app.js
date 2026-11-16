@@ -26,6 +26,7 @@ import '../public/ui-kit/components/library.css';
 import {renderHeading,renderLessonHero,renderFeatureGrid,renderMissions,renderPromo} from '../public/ui-kit/components/library.js';
 import '../public/ui-kit/components/lesson-ui.css';
 import './fox-mobile-home.css';
+import '../public/verbarium-design/visual.css';
 import {renderLessonQuestion,renderLessonCompletion,renderPracticeScreen,renderDialogueScreen,renderGuidedPath,renderRewards} from '../public/ui-kit/components/lesson-ui.js';
 import {hydrateV6Art,renderV6Gallery,handleV6GalleryAction,renderV6PairsTeaser,renderV6SkillPath} from './verbarium-kit/v6-kit.js';
 import {renderV6PairQuest,handleV6PairAction,v6PairProgress,resetV6PairQuest} from './verbarium-kit/v6-pairs.js';
@@ -180,9 +181,9 @@ function homePage(){
  const streak=currentStreak();
  const week=weekActivity();
  return `<div class="vb7-home-heading">${renderHeading({kicker:'SEU CANTINHO DE INGLÊS',title:'Aprenda inglês de um jeito',accent:'seu.',subtitle:'Uma aula por vez, mais confiança para a próxima conversa.',level:1})}</div>
- ${renderLessonHero({lessonId:next.id,title:next.title,description:next.why,level:next.level,minutes:6,completed:data.completed.length,total:lessons.length,mascot:'<img class="vb-fox-home-mascot" src="/verbarium-v6/assets/characters/fox_joy.webp" alt="" loading="eager" decoding="async">',buttonLabel:data.completed.length===lessons.length?'Revisitar aulas':'Continuar aprendendo'})}
+ ${renderLessonHero({lessonId:next.id,title:next.title,description:next.why,level:next.level,minutes:6,completed:data.completed.length,total:lessons.length,mascot:'<img class="vb-fox-home-mascot" src="/verbarium-kit-v1/assets/mascot/fox_welcome.webp" alt="" loading="eager" decoding="async">',buttonLabel:data.completed.length===lessons.length?'Revisitar aulas':'Continuar aprendendo'})}
  ${renderMissions(missionState({activity:data.activity,completedAt:data.completedAt,sessions:data.sessions,today:day()}))}
-  ${renderPromo({kicker:'NOVA EXPERIÊNCIA · ACADEMY',title:'Uma trilha com desafios, histórias e revisão inteligente.',subtitle:'Unidades progressivas A1–B1, escuta, associação, construção de frases e importação de aulas do professor.',image:'/verbarium-assets/icons/icon_book_tile.png',href:'/academy/',action:'Explorar Academy'})}
+  ${renderPromo({kicker:'NOVA EXPERIÊNCIA · ACADEMY',title:'Uma trilha com desafios, histórias e revisão inteligente.',subtitle:'Unidades progressivas A1–B1, escuta, associação, construção de frases e importação de aulas do professor.',image:'/verbarium-kit-v1/assets/rewards/lesson_book.webp',href:'/academy/',action:'Explorar Academy'})}
    ${renderV6PairsTeaser(v6PairProgress())}
   ${renderV5WorldExplorer({compact:true,progress:foodQuestProgress()})}
   <section class="vb-food-teaser" aria-label="Novo desafio de alimentos"><div class="vb-food-teaser-art" aria-hidden="true">${foodArt('apple')}${foodArt('milk')}</div><div><span class="v2-kicker">NOVO · MISSÃO VISUAL</span><h2>O mercado das palavras</h2><p>Aprenda frutas, alimentos e verbos com imagens, áudio e frases interativas. ${foodQuestProgress().index} de ${foodQuestProgress().total} atividades realizadas.</p></div><button class="button bright" data-route="food">${foodQuestProgress().finished?'Revisitar missão':'Explorar alimentos'} →</button></section>
@@ -201,7 +202,7 @@ function learnPage(){const filtered=lessons.filter(x=>app.filter==='Todos'||x.le
  ${renderGuidedPath({lessons,completed:data.completed,currentId:nextLesson().id,limit:7})}
  <details class="vb8-world-details"><summary>Explorar o mapa completo e os mundos</summary>${renderQuestMap({lessons,completed:data.completed,currentId:nextLesson().id,lessonSessions:data.lessonSessions})}
  ${renderV6SkillPath({lessons,completed:data.completed,foodProgress:foodQuestProgress(),pairProgress:v6PairProgress()})}</details>
-  ${renderPromo({kicker:'NOVA EXPERIÊNCIA · ACADEMY',title:'Uma trilha com desafios, histórias e revisão inteligente.',subtitle:'Unidades progressivas A1–B1, escuta, associação, construção de frases e importação de aulas do professor.',image:'/verbarium-assets/icons/icon_book_tile.png',href:'/academy/',action:'Explorar Academy'})}
+  ${renderPromo({kicker:'NOVA EXPERIÊNCIA · ACADEMY',title:'Uma trilha com desafios, histórias e revisão inteligente.',subtitle:'Unidades progressivas A1–B1, escuta, associação, construção de frases e importação de aulas do professor.',image:'/verbarium-kit-v1/assets/rewards/lesson_book.webp',href:'/academy/',action:'Explorar Academy'})}
  ${renderV6PairsTeaser(v6PairProgress())}
   ${renderV5WorldExplorer({progress:foodQuestProgress()})}
   <section class="vb-food-teaser vb-food-teaser--compact"><div class="vb-food-teaser-art" aria-hidden="true">${foodArt('banana')}</div><div><span class="v2-kicker">VOCABULÁRIO VISUAL</span><h2>O mercado das palavras</h2><p>Frutas, alimentos, escuta e conjugação de verbos.</p></div><button class="button bright" data-route="food">Iniciar desafio →</button></section>
@@ -221,7 +222,7 @@ function progressPage(){
  const completion=pct(data.completed.length,lessons.length),accuracy=data.attempts?pct(data.correct,data.attempts):0,streak=currentStreak(),daily=weekActivity(),due=dueItems().length;
  const rankText=completion===100?'Trilha completa':completion>=50?'Metade do caminho':completion>0?'Primeiros passos':'Sua jornada começa aqui';
  return `<div class="page-intro"><div class="overline">SEU CRESCIMENTO, NO SEU RITMO</div><h1 class="heading">Cada passo <em>conta!</em> 🏆</h1><p class="lede">Este é seu espaço de conquistas. Acompanhe o que estudou, o que já sabe e onde pode melhorar.</p></div>
- <div class="v2-profile-links v2-progress-shortcuts"><button type="button" data-route="profile">Ver minhas conquistas e perfil <span>↗</span></button></div><div class="vb-assets-shortcut"><button type="button" data-route="assets">Explorar biblioteca visual · 192 assets <span>↗</span></button></div><div class="vb-motion-shortcut"><button type="button" data-route="motions">Explorar os 53 motions <span>↗</span></button></div><div class="vb-motion-shortcut"><button type="button" data-route="v3">Explorar os 151 sprites e 142 motions do v3 <span>↗</span></button></div>
+ <div class="v2-profile-links v2-progress-shortcuts"><button type="button" data-route="profile">Ver minhas conquistas e perfil <span>↗</span></button></div><div class="vb-assets-shortcut"><button type="button" data-route="assets">Explorar biblioteca visual · 192 assets <span>↗</span></button><a class="vb-kit-access" href="/verbarium-design/">Ver novo kit visual · 48 assets <span aria-hidden="true">↗</span></a></div><div class="vb-motion-shortcut"><button type="button" data-route="motions">Explorar os 53 motions <span>↗</span></button></div><div class="vb-motion-shortcut"><button type="button" data-route="v3">Explorar os 151 sprites e 142 motions do v3 <span>↗</span></button></div>
  ${renderProgressOverview({completion,completed:data.completed.length,total:lessons.length,accuracy,attempts:data.attempts,streak,days:daily})}
   ${renderJourneyFlow()}
   ${renderV6SkillPath({lessons,completed:data.completed,foodProgress:foodQuestProgress(),pairProgress:v6PairProgress()})}
