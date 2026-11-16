@@ -278,21 +278,34 @@ function learnPage(){if(window.matchMedia('(max-width:700px)').matches)return mo
 /* Short mobile lesson loop: goal → example → answer → explanation.
    Full rules stay accessible without burying the first question below the fold. */
 function mobileLessonPage(){
- const l=lessons.find(x=>x.id===app.lesson)||lessons[0];
- const q=l.qs[app.lessonIdx],done=app.lessonIdx>=l.qs.length;
- const idx=lessons.findIndex(x=>x.id===l.id)+1;
- const progress=Math.min(100,Math.round(app.lessonIdx/Math.max(1,l.qs.length)*100));
- const result=done?renderLessonCompletion({score:app.lessonScore,total:l.qs.length,lessonId:l.id,artMarkup:renderLessonResultArt(l.id,app.lessonScore===l.qs.length)}):
- renderLessonQuestion({question:q,index:app.lessonIdx,total:l.qs.length,answer:app.lessonAnswer});
- return `<article class="vb10-lesson-flow" aria-label="Lição ${safe(l.title)}">
-  <header class="vb10-lesson-header"><button type="button" data-route="learn" class="vb10-back" aria-label="Voltar à trilha">←</button><div class="vb10-lesson-meter" role="progressbar" aria-label="Progresso da lição" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${progress}"><i style="width:${progress}%"></i></div><span class="vb10-lesson-counter">${Math.min(app.lessonIdx+1,l.qs.length)}/${l.qs.length}</span></header>
-  <div class="vb10-lesson-overline">${safe(l.level)} · LIÇÃO ${String(idx).padStart(2,'0')}</div>
-  <h1>${safe(l.title)}</h1>
-  <div class="vb10-lesson-scene">${renderLessonWorld(l.id)}</div>
-  <section class="vb10-rule-card" aria-label="Regra e exemplo"><span class="vb10-rule-label">ENTENDA A IDEIA</span><p>${safe(l.rule)}</p><div class="vb10-rule-example"><div><strong>${safe(l.example)}</strong><small>${safe(l.translation)}</small></div><button type="button" data-action="speak-audio" data-say="${encodeURIComponent(l.example)}" aria-label="Ouvir exemplo em inglês">${svg('audio')}</button></div></section>
-  ${result}
-  <details class="vb10-theory-extra"><summary>Ver a explicação completa <span aria-hidden="true">⌄</span></summary><div><p>${safe(l.why)}</p><div class="vb10-theory-formula">${l.form.map((part,i)=>`${i?'<i>+</i>':''}<span>${safe(part)}</span>`).join('')}</div><p><strong>Dica do Pip:</strong> ${safe(l.tip)}</p><div class="vb10-theory-compare"><span class="wrong">${safe(l.wrong)}</span><span class="right">${safe(l.right)}</span></div></div></details>
- </article>`;
+ const lesson=lessons.find(x=>x.id===app.lesson)||lessons[0];
+ const total=lesson.qs.length,finished=app.lessonIdx>=total;
+ const percentage=Math.min(100,Math.round(app.lessonIdx/Math.max(1,total)*100));
+ const header=`<header class="vb11-quiz-header"><button type="button" class="vb11-quiz-close" data-route="learn" aria-label="Fechar aula e voltar para a trilha">×</button><div class="vb11-quiz-progress" role="progressbar" aria-label="Progresso da aula" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${Math.min(total,app.lessonIdx)}"><i style="width:${percentage}%"></i></div><strong class="vb11-quiz-counter">${Math.min(total,app.lessonIdx+1)}/${total}</strong></header>`;
+ if(finished)return `<div class="vb11-quiz-screen">${header}<div class="vb11-quiz-finished">${renderLessonCompletion({score:app.lessonScore,total,lessonId:lesson.id,artMarkup:renderLessonResultArt(lesson.id,app.lessonScore===total)})}</div></div>`;
+ const q=lesson.qs[app.lessonIdx],selected=app.lessonAnswer;
+ const options=q[1].map((choice,i)=>{
+  const chosen=selected?.value===choice,correct=selected&&choice===q[2],wrong=selected&&chosen&&!selected.ok;
+  const state=correct?'correct':wrong?'wrong':chosen?'selected':'idle';
+  return `<button type="button" class="vb11-answer" data-action="lesson-answer" data-value="${safe(choice)}" data-state="${state}" aria-pressed="${chosen?'true':'false'}" ${selected?'disabled':''}>
+    <span class="vb11-answer-index" aria-hidden="true">${String.fromCharCode(65+i)}</span><span class="vb11-answer-text">${safe(choice)}</span>
+    ${correct?'<span class="vb11-answer-mark" aria-label="Resposta correta">✓</span>':wrong?'<span class="vb11-answer-mark" aria-label="Sua resposta está incorreta">×</span>':''}
+   </button>`;
+ }).join('');
+ const feedback=selected?`<section class="vb11-quiz-feedback" data-result="${selected.ok?'correct':'wrong'}" aria-live="polite" role="status">
+   <div class="vb11-feedback-copy"><span class="vb11-feedback-icon" aria-hidden="true">${selected.ok?'✓':'↻'}</span><div><strong>${selected.ok?'Muito bem!':'Vamos aprender juntos'}</strong><p>${safe(q[3])}</p></div></div>
+   <button type="button" class="vb11-feedback-next" data-action="lesson-next">${app.lessonIdx+1===total?'Ver meu resultado':'Continuar'} <span aria-hidden="true">→</span></button>
+  </section>`:'<p class="vb11-quiz-hint">Escolha uma resposta. O Pip explica antes de continuar.</p>';
+ return `<div class="vb11-quiz-screen">
+   ${header}
+   <div class="vb11-quiz-content"><span class="vb11-quiz-chip">✦ ${safe(lesson.level)} · ${safe(lesson.title)}</span>
+    <h1>${safe(q[0])}</h1>
+    <figure class="vb11-quiz-figure"><span class="vb11-art-halo" aria-hidden="true"></span><img src="/verbarium-visual-kit/assets/rewards/lesson_book.webp" width="872" height="931" loading="eager" decoding="async" alt=""><span class="vb11-art-spark" aria-hidden="true">✦</span></figure>
+    <div class="vb11-answer-list" role="group" aria-label="Alternativas da questão">${options}</div>
+    ${feedback}
+    <details class="vb11-quiz-help"><summary>Entender a regra <span aria-hidden="true">⌄</span></summary><div><p>${safe(lesson.rule)}</p><strong>${safe(lesson.example)}</strong><span>${safe(lesson.translation)}</span><button type="button" data-action="speak-audio" data-say="${encodeURIComponent(lesson.example)}">Ouvir exemplo ${svg('audio')}</button></div></details>
+   </div>
+  </div>`;
 }
 function lessonPage(){if(window.matchMedia('(max-width:700px)').matches)return mobileLessonPage();const l=lessons.find(x=>x.id===app.lesson)||lessons[0],q=l.qs[app.lessonIdx],done=app.lessonIdx>=l.qs.length;return `<button class="back-link" data-route="learn">← Voltar à trilha</button><div class="lesson-top"><span class="pill">${l.level}</span><span class="pill warm">AULA ${String(lessons.indexOf(l)+1).padStart(2,'0')}</span><span class="minor">~ 6 minutos</span></div>${renderPhaseLessonBadge({lessonId:l.id,index:app.lessonIdx,total:l.qs.length,completed:done&&data.completed.includes(l.id)})}<h1 class="heading">${safe(l.title)}<span style="color:#c6d3bb">.</span></h1><p class="lesson-lede">${safe(l.subtitle)}. ${safe(l.why)}</p>${renderLessonWorld(l.id)}${renderLessonFeature(l.id,l.level)}
 <section class="theory-card"><span class="overline">01 / ENTENDA A IDEIA</span><h2>Qual é a lógica?</h2><p>${safe(l.rule)}</p><div class="formula">${l.form.map((s,i)=>`${i?'<i>+</i>':''}<span>${safe(s)}</span>`).join('')}</div><div class="example-box"><div class="en">${safe(l.example)} <button class="audio-button" data-action="speak-audio" data-say="${encodeURIComponent(l.example)}" aria-label="Ouvir exemplo em inglês">${svg('audio')}</button></div><div class="pt">${safe(l.translation)}</div></div><p><strong>Guarde isso:</strong> ${safe(l.tip)}</p><div class="error-compare"><small>ERRO COMUM → CORREÇÃO</small><div class="wrong">${safe(l.wrong)}</div><div class="right">${safe(l.right)}</div></div></section>
