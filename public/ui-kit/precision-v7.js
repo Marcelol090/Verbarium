@@ -53,12 +53,9 @@ function injectArt(el,key){
 }
 function home(){
  if(!root)return;
+ // V9 keeps controls and feature tiles as semantic SVG glyphs. Only illustrations are raster.
  replaceImage(root.querySelector('.vb7-hero__mascot .vb-fox-home-mascot'),'fox_waving');
  replaceImage(root.querySelector('.vb7-promo__art img'),'fox_reading');
- const arts={violet:'lesson_book',orange:'reward_streak_flame',blue:'reward_xp_gem',mint:'reward_chest'};
- root.querySelectorAll('.vb7-feature').forEach(card=>injectArt(card.querySelector('.vb7-feature__icon'),arts[card.dataset.tone]||'lesson_book'));
- const missions={questions:'reward_xp_gem',lesson:'lesson_book',speaking:'reward_streak_flame'};
- root.querySelectorAll('.vb7-mission-card').forEach(card=>injectArt(card.querySelector('.vb7-mission-card__icon'),missions[card.dataset.vb5Mission]||'lesson_book'));
 }
 function academy(){
  if(!root)return;
@@ -66,10 +63,7 @@ function academy(){
  replaceImage(root.querySelector('.sentence-lab-entry>img'),'fox_reading');
  replaceImage(root.querySelector('.fox-lesson-guide img'),'fox_teacher');
  replaceImage(root.querySelector('.fox-finish-mark'),'fox_waving');
- const stats=['reward_streak_flame','lesson_book','reward_xp_gem'];
- root.querySelectorAll('.daily-strip>div').forEach((el,i)=>injectArt(el,stats[i]||'lesson_book'));
- const skills=['lesson_book','reward_xp_gem','lesson_book','fox_teacher','fox_reading','fox_reading'];
- root.querySelectorAll('.skill-card .skill-emoji').forEach((el,i)=>injectArt(el,skills[i%skills.length]));
+ // Daily stats and skill tiles use the shared SVG glyphs in their markup.
 }
 function onboarding(){
  const el=document.querySelector('.ob-art');
