@@ -82,7 +82,7 @@ try{
    await page.screenshot({path:path.join(output,'native-tokens-390.png'),animations:'disabled'});
    await page.locator('[data-mode-btn="preview"]').click();
    await page.locator('[data-mobile-screen="onboarding"]').click();
-   await page.waitForFunction(()=>document.querySelector('#app-frame').contentDocument.body.dataset.vbApp==='onboarding');
+   await page.waitForFunction(()=>document.querySelector('#app-frame')?.contentDocument?.body?.dataset?.vbApp==='onboarding');
    await page.screenshot({path:path.join(output,'native-onboarding-390.png'),animations:'disabled'});
    reports.push({case:'assets-48-and-onboarding',width});
   }
