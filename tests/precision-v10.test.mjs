@@ -56,3 +56,24 @@ test('component roles use consistent geometry and focused, semantic states',()=>
  assert.match(css,/\.option\.selected/);
  assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
 });
+
+test('V10 Studio previews actual semantic components instead of stretching button screenshots',()=>{
+ const html=read('public/ui-kit/precision-v10/index.html');
+ const js=read('public/ui-kit/precision-v10/studio.js');
+ const css=read('public/ui-kit/precision-v10/studio.css');
+ assert.match(html,/class="vb-btn vb-btn--primary"/);
+ assert.match(html,/class="quiz-choice"/);
+ assert.match(html,/landscape-first\.svg/);
+ assert.match(html,/landscape-mastery\.svg/);
+ assert.match(js,/data-result/);
+ assert.match(css,/\.vb-btn--primary/);
+ assert.match(css,/\.quiz-choice\[data-result="correct"\]/);
+ assert.match(css,/\.quiz-choice\[data-result="wrong"\]/);
+ assert.doesNotMatch(css,/background-size:\s*100%\s+100%/);
+});
+test('mobile navigation and Academy skills use one consistent SVG stroke system',()=>{
+ assert.match(app,/mobile\?svg\(ic\)/);
+ assert.match(academy,/const ICON_PATHS=\{/);
+ assert.match(academy,/stroke-width="2"/);
+ assert.match(css,/stroke-width:2/);
+});
