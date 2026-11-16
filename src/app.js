@@ -122,8 +122,13 @@ function dueItems(){return reviewItems().filter(([id,v])=>v.due<=Date.now())}
 let pendingMissionCelebration=false;
 function recordAttempt(ok,id){data.attempts++;if(ok)data.correct++;data.activity.push({date:day(),id,ok});if(data.activity.filter(e=>e.date===day()).length===3)pendingMissionCelebration=true;if(data.activity.length>1200)data.activity=data.activity.slice(-1200);const prev=data.reviews[id];if(!ok){data.reviews[id]={level:0,due:Date.now(),last:Date.now()}}else if(prev){const level=Math.min(4,(prev.level||0)+1);const periods=[0,1,3,7,14];data.reviews[id]={level,due:Date.now()+periods[level]*86400000,last:Date.now()}}save()}
 function currentStreak(){const dates=new Set([...data.activity.map(e=>e.date),...(data.sessions||[]).map(e=>e.date)]);let cursor=new Date(),count=0;const localKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;if(!dates.has(localKey(cursor)))cursor.setDate(cursor.getDate()-1);for(let i=0;i<365;i++){if(!dates.has(localKey(cursor)))break;count++;cursor.setDate(cursor.getDate()-1)}return count}
-function navHtml(mobile=false){const items=mobile?navItems.filter(a=>['home','learn','practice','speak','profile'].includes(a[0])):navItems;return items.map(([id,label,ic])=>`<button type="button" class="${mobile?'mobile-item':'nav-btn'} ${app.route===id?'active':''}" data-route="${id}" ${app.route===id?'aria-current="page"':''} aria-label="${label}"><span class="nav-icon">${mobile?svg(ic):(navArtwork(id,app.route===id)||svg(ic))}</span><span class="${mobile?'mobile-text':'nav-text'}">${label.replace('Trilha de aulas','Aulas').replace('Revisar erros','Revisão').replace('Laboratório verbal','Verbos').replace('Meu progresso','Progresso').replace('Meu perfil','Perfil')}</span></button>`).join('')}
-function renderChrome(){document.querySelector('#desktop-nav').innerHTML=navHtml();document.querySelector('#mobile-nav').innerHTML=navHtml(true);document.querySelector('#breadcrumb').textContent=({'home':'Início','learn':'Trilha de aulas','lesson':'Lição','lab':'Laboratório verbal','practice':'Praticar','food':'Mercado de palavras','visualkit':'Kit visual de 2026','v5kit':'Componentes V5','v6kit':'Componentes V6','pairs':'Combinar pares','speak':'Conversar','progress':'Meu progresso','profile':'Meu perfil','assets':'Biblioteca de assets','chapter':'Capítulo','review':'Revisão','motions':'Motion Library','v3':'Biblioteca de assets v3'})[app.route];document.querySelector('#top-completed').textContent=`${data.completed.length} / ${lessons.length} aulas`;document.querySelector('#top-progress').style.width=pct(data.completed.length,lessons.length)+'%'}
+function navHtml(mobile=false){const items=mobile?navItems.filter(a=>['home','learn','practice','progress','profile'].includes(a[0])):navItems;return items.map(([id,label,ic])=>`<button type="button" class="${mobile?'mobile-item':'nav-btn'} ${app.route===id?'active':''}" data-route="${id}" ${app.route===id?'aria-current="page"':''} aria-label="${label}"><span class="nav-icon">${mobile?svg(ic):(navArtwork(id,app.route===id)||svg(ic))}</span><span class="${mobile?'mobile-text':'nav-text'}">${label.replace('Trilha de aulas','Aulas').replace('Revisar erros','Revisão').replace('Laboratório verbal','Verbos').replace('Meu progresso','Conquistas').replace('Meu perfil','Perfil')}</span></button>`).join('')}
+function renderChrome(){document.querySelector('#desktop-nav').innerHTML=navHtml();document.querySelector('#mobile-nav').innerHTML=navHtml(true);document.querySelector('#breadcrumb').textContent=({'home':'Início','learn':'Trilha de aulas','lesson':'Lição','lab':'Laboratório verbal','practice':'Praticar','food':'Mercado de palavras','visualkit':'Kit visual de 2026','v5kit':'Componentes V5','v6kit':'Componentes V6','pairs':'Combinar pares','speak':'Conversar','progress':'Meu progresso','profile':'Meu perfil','assets':'Biblioteca de assets','chapter':'Capítulo','review':'Revisão','motions':'Motion Library','v3':'Biblioteca de assets v3'})[app.route];document.querySelector('#top-completed').textContent=`${data.completed.length} / ${lessons.length} aulas`;document.querySelector('#top-progress').style.width=pct(data.completed.length,lessons.length)+'%';
+ const bar=document.querySelector('.top-actions');
+ let stats=document.querySelector('.vb11-top-stats');
+ if(bar&&!stats){stats=document.createElement('div');stats.className='vb11-top-stats';stats.setAttribute('aria-label','Seus indicadores de estudo');bar.prepend(stats)}
+ if(stats){const streak=currentStreak();stats.innerHTML='<span class="vb11-top-pill" aria-label="Sequência de '+streak+' dias"><img src="/verbarium-visual-kit/assets/rewards/reward_streak_flame.webp" width="22" height="22" alt="">'+streak+'</span><span class="vb11-top-pill" aria-label="'+data.completed.length+' aulas concluídas"><img src="/verbarium-visual-kit/assets/rewards/reward_medal.webp" width="22" height="22" alt="">'+data.completed.length+'</span>'}
+}
 function renderRail(){let html='';if(app.route==='assets'||app.route==='v3'||app.route==='visualkit'||app.route==='v5kit'||app.route==='v6kit')html=`<div class="rail-label">SISTEMA VISUAL</div><div class="rail-note"><h3>Kit v3: 151 sprites e 142 animações reais.</h3><p>PNG com canal alpha, SVGs escaláveis e componentes com valores reais. Confira contraste, resolução e composição na biblioteca.</p></div>`;
  else if(app.route==='home'||app.route==='learn'||app.route==='chapter')html=`<div class="rail-label">NOTA DE ESTUDO / 01</div><div class="rail-note"><div class="overline">APRENDA EM CAMADAS</div><h3>Entenda.<br>Use.<br>Repita.</h3><p>Uma regra faz mais sentido quando você a aplica numa pergunta, numa resposta e numa conversa.</p><div class="small-line"></div><p class="side-emphasis">I work. <span style="color:#90a78d">→</span><br>I am working.</p><p>Uma palavra muda o tempo. O contexto muda a mensagem.</p></div><div class="rail-card"><div class="overline">O DESAFIO DE HOJE</div><p>Faça uma pergunta em inglês sobre a rotina de alguém.</p><small>Experimente: <b>Where do you work?</b></small><br><button class="side-link" data-route="practice">Ir para os exercícios ${svg('arrow')}</button></div>`;
 else if(app.route==='lesson')html=`<div class="rail-label">SEU CADERNO / AULA</div><div class="rail-note"><h3>Faça a frase trabalhar.</h3><p>Leia o exemplo, troque o sujeito e fale em voz alta. Saber reconhecer é diferente de conseguir produzir.</p><div class="small-line"></div><div class="overline">COMO PRATICAR</div><p>01 · Observe o exemplo.<br>02 · Diga uma frase sua.<br>03 · Teste o que aprendeu.<br>04 · Retome os erros.</p></div><div class="rail-card"><div class="overline">LEMBRETE</div><p>Errar cria sua próxima revisão.</p><small>As revisões ficam guardadas somente neste navegador.</small></div>`;
@@ -176,23 +181,38 @@ const heroIllustration='<svg class="hero-doodle" viewBox="0 0 360 286" role="img
 /* Mobile is a guided learning flow, not a desktop dashboard compressed to 390px.
    All counters and progress are read from the existing real local learning model. */
 function mobileHomePage(){
- const next=nextLesson(),index=lessons.findIndex(l=>l.id===next.id);
- const done=data.completed.length,progress=pct(done,lessons.length);
- const today=data.activity.filter(x=>x.date===day()).length;
- const streak=currentStreak(),due=dueItems().length,allDone=done===lessons.length;
- const upcoming=lessons.slice(index,Math.min(lessons.length,index+3));
- const nextLabel=allDone?'Revisitar aula':'Começar minha aula';
- return `<div class="vb10-mobile-home">
- <header class="vb10-intro"><span class="vb10-overline">SEU CAMINHO DE INGLÊS <span aria-hidden="true">✦</span></span><h1>Mais uma lição.<br><em>Mais confiança.</em></h1><p>Aprenda uma ideia, pratique e avance. No seu ritmo.</p></header>
- <section class="vb10-hero" aria-label="Sua próxima aula">
-  <div class="vb10-hero-top"><span class="vb10-course-chip">${safe(next.level)} · AULA ${String(index+1).padStart(2,'0')}</span><span class="vb10-time">◷ 6 min</span></div>
-  <div class="vb10-hero-grid"><div class="vb10-hero-copy"><span class="vb10-overline">PRÓXIMA MISSÃO</span><h2>${safe(next.title)}</h2><p>${safe(next.why)}</p></div><div class="vb10-mascot-stage"><span class="vb10-mascot-halo"></span><img src="/verbarium-visual-kit/assets/mascot/fox_waving.webp" alt="Pip, a raposa do Verbarium, incentivando você a começar" width="920" height="995" loading="eager" decoding="async"></div></div>
-  <div class="vb10-hero-bottom"><div class="vb10-progress-label"><span>Seu percurso</span><strong>${done} de ${lessons.length} aulas</strong></div><div class="vb10-progress" role="progressbar" aria-label="Aulas concluídas" aria-valuemin="0" aria-valuemax="${lessons.length}" aria-valuenow="${done}"><i style="width:${progress}%"></i></div><button class="vb10-primary" type="button" data-action="open-lesson" data-id="${safe(next.id)}"><span>${nextLabel}</span><span class="vb10-primary-arrow" aria-hidden="true">→</span></button></div>
- </section>
- <section class="vb10-daily" aria-label="Seu ritmo de estudo"><div class="vb10-daily-item"><span class="vb10-stat-icon fire" aria-hidden="true">✦</span><span><strong>${streak}</strong><small>${streak===1?'dia seguido':'dias seguidos'}</small></span></div><div class="vb10-daily-item"><span class="vb10-stat-icon star" aria-hidden="true">★</span><span><strong>${today}</strong><small>${today===1?'resposta hoje':'respostas hoje'}</small></span></div><button class="vb10-daily-item vb10-daily-action" type="button" data-route="review" aria-label="Abrir revisão: ${due} atividades pendentes"><span class="vb10-stat-icon review" aria-hidden="true">↻</span><span><strong>${due}</strong><small>revisões</small></span></button></section>
- <section class="vb10-journey" aria-labelledby="vb10-path-title"><div class="vb10-section-heading"><div><span class="vb10-overline">CONTINUE AVANÇANDO</span><h2 id="vb10-path-title">Sua trilha</h2></div><button type="button" data-route="learn" class="vb10-text-action">Ver aulas <span aria-hidden="true">→</span></button></div><div class="vb10-journey-list">${upcoming.map((lesson,i)=>`<div class="vb10-path-step ${i===0?'is-current':'is-upcoming'}"><span class="vb10-path-node" aria-hidden="true">${i===0?'▶':String(index+i+1).padStart(2,'0')}</span><div class="vb10-step-copy"><strong>${safe(lesson.title)}</strong><small>${i===0?'Disponível agora':'Próxima etapa'} · ${safe(lesson.level)}</small></div>${i===0?`<button type="button" data-action="open-lesson" data-id="${safe(lesson.id)}" class="vb10-step-start" aria-label="Iniciar ${safe(lesson.title)}">→</button>`:''}</div>`).join('')}</div></section>
- <section class="vb10-actions" aria-labelledby="vb10-actions-title"><div class="vb10-section-heading"><div><span class="vb10-overline">OUTRAS FORMAS DE APRENDER</span><h2 id="vb10-actions-title">Pratique de verdade</h2></div></div><div class="vb10-actions-grid"><button type="button" data-route="practice" class="vb10-action-tile"><span class="vb10-tile-icon practice" aria-hidden="true">✎</span><strong>Treinar</strong><small>Teste o que aprendeu</small><span class="vb10-tile-arrow" aria-hidden="true">↗</span></button><button type="button" data-route="speak" class="vb10-action-tile"><span class="vb10-tile-icon speak" aria-hidden="true">♫</span><strong>Conversar</strong><small>Ouça e forme frases</small><span class="vb10-tile-arrow" aria-hidden="true">↗</span></button></div></section>
- <details class="vb10-more"><summary>Descubra mais no Verbarium <span aria-hidden="true">⌄</span></summary><div class="vb10-more-links"><a href="/academy/">Trilha de histórias e desafios <span aria-hidden="true">→</span></a><button type="button" data-route="food">Mercado de palavras <span aria-hidden="true">→</span></button><button type="button" data-route="lab">Verbos e tempos <span aria-hidden="true">→</span></button></div></details>
+ const next=nextLesson(),index=Math.max(0,lessons.findIndex(l=>l.id===next.id));
+ const finished=data.completed.length,streak=currentStreak(),answers=data.correct||0;
+ const allDone=finished>=lessons.length;
+ const greeting=data.nickname&&data.nickname!=='Explorador'?', '+safe(data.nickname):'!';
+ const progress=pct(finished,lessons.length);
+ return `<div class="vb11-home">
+  <section class="vb11-welcome" aria-labelledby="vb11-home-title">
+   <span class="vb11-kicker"><span aria-hidden="true">✦</span> SEU CANTINHO DE INGLÊS</span>
+   <h1 id="vb11-home-title">Continue sua<br>jornada<span class="vb11-accent">${greeting}</span></h1>
+   <p>Mais uma lição e você estará mais perto de conversar com confiança.</p>
+   <img class="vb11-welcome-fox" src="/verbarium-visual-kit/assets/mascot/fox_waving.webp" width="920" height="995" alt="Pip, a raposa do Verbarium, animada para estudar" decoding="async">
+  </section>
+  <button class="vb11-pill-button vb11-hero-start" type="button" data-action="open-lesson" data-id="${safe(next.id)}">
+    <span class="vb11-play-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z" fill="currentColor"/></svg></span>
+    <span>${allDone?'Revisitar minhas aulas':'Começar aula'}</span>
+  </button>
+  <section class="vb11-progress-card" aria-label="Progresso no curso">
+   <div class="vb11-progress-label"><strong>Progresso da trilha</strong><span>${progress}%</span></div>
+   <div class="vb11-progress-track" role="progressbar" aria-label="Aulas concluídas" aria-valuemin="0" aria-valuemax="${lessons.length}" aria-valuenow="${finished}"><i style="width:${progress}%"></i></div>
+  </section>
+  <div class="vb11-home-metrics" aria-label="Suas conquistas">
+   <div class="vb11-home-metric"><img src="/verbarium-visual-kit/assets/rewards/reward_streak_flame.webp" width="769" height="808" alt=""><span><small>Sequência</small><strong>${streak} ${streak===1?'dia':'dias'}</strong></span></div>
+   <div class="vb11-home-metric"><img src="/verbarium-visual-kit/assets/rewards/reward_medal.webp" width="835" height="1179" alt=""><span><small>Respostas corretas</small><strong>${answers} acertos</strong></span></div>
+  </div>
+  <button class="vb11-next-card" type="button" data-route="learn" aria-label="Ver trilha de aprendizagem e sua próxima aula: ${safe(next.title)}">
+   <span class="vb11-next-copy"><span class="vb11-next-eyebrow">PRÓXIMA LIÇÃO · ${safe(next.level)}</span><strong>${safe(next.title)}</strong><small>${finished} de ${lessons.length} concluídas</small></span>
+   <img src="/verbarium-visual-kit/assets/rewards/lesson_book.webp" width="872" height="931" alt="" loading="lazy">
+  </button>
+  <div class="vb11-home-secondary">
+   <button type="button" data-route="practice"><span aria-hidden="true">◎</span> Praticar</button>
+   <button type="button" data-route="speak"><span aria-hidden="true">◉</span> Conversar</button>
+  </div>
  </div>`;
 }
 function homePage(){if(window.matchMedia('(max-width:700px)').matches)return mobileHomePage();
@@ -219,7 +239,33 @@ function homePage(){if(window.matchMedia('(max-width:700px)').matches)return mob
  <p class="tool-tip" style="margin:18px 0">Trilha pedagógica inspirada no CEFR. O progresso é pessoal e salvo apenas neste navegador.</p>`
 }
 function weekActivity(){return calendarWeek(new Date(),[...data.activity.map(a=>a.date),...(data.sessions||[]).map(s=>s.date),...Object.values(data.completedAt||{})])}
-function learnPage(){const filtered=lessons.filter(x=>app.filter==='Todos'||x.level===app.filter);return `<div class="page-intro"><div class="overline">APRENDIZADO ESTRUTURADO</div><h1 class="heading">Aprender é uma <em>jornada.</em></h1><p class="lede">Do primeiro “I am” às ideias conectadas. Cada aula traz uma explicação em português, um exemplo real e uma verificação do que você compreendeu.</p></div><div class="v2-section-bar"><h2>Três capítulos, uma jornada</h2><span>Sem bloqueios artificiais</span></div>
+/* The learner can always open any lesson. Node appearance reflects progress,
+   never creates an artificial lock absent from the learning engine. */
+function mobileLearnPage(){
+ const completed=new Set(data.completed);
+ const activeId=nextLesson().id;
+ const activeIndex=Math.max(0,lessons.findIndex(l=>l.id===activeId));
+ const start=Math.max(0,Math.min(activeIndex-1,lessons.length-5));
+ const visible=lessons.slice(start,start+5);
+ const positions=[{x:53,y:11},{x:53,y:32},{x:49,y:48},{x:56,y:65},{x:49,y:82}];
+ return `<div class="vb11-path-page">
+  <header class="vb11-screen-header"><button type="button" data-route="home" class="vb11-back" aria-label="Voltar ao início">${svg('arrow')}</button><h1>Trilha de aprendizagem</h1></header>
+  <p class="vb11-screen-subtitle">Cada lição é um passo. Escolha onde quer aprender.</p>
+  <section class="vb11-map" aria-label="Seu mapa de aulas">
+   ${visible.map((lesson,i)=>{const done=completed.has(lesson.id),current=lesson.id===activeId,pos=positions[i];return `<div class="vb11-map-step ${done?'is-done':current?'is-current':'is-next'}" style="--x:${pos.x}%;--y:${pos.y}%">
+     <button type="button" class="vb11-map-node" data-action="open-lesson" data-id="${safe(lesson.id)}" aria-label="${done?'Revisitar':current?'Iniciar':'Explorar'} aula ${start+i+1}: ${safe(lesson.title)}">
+       ${done?'<span class="vb11-map-symbol">★</span>':current?'<span class="vb11-map-symbol vb11-map-play">▶</span>':`<span class="vb11-map-number">${String(start+i+1).padStart(2,'0')}</span>`}
+     </button>
+     ${done?'<span class="vb11-map-check" aria-hidden="true">✓</span>':''}
+     ${current?`<span class="vb11-map-caption"><small>PRÓXIMA LIÇÃO</small><strong>${safe(lesson.title)}</strong></span>`:''}
+   </div>`}).join('')}
+  </section>
+  <details class="vb11-map-all"><summary>Explorar todas as ${lessons.length} aulas <span aria-hidden="true">⌄</span></summary>
+   <div class="vb11-map-list">${lessons.map((lesson,i)=>`<button type="button" data-action="open-lesson" data-id="${safe(lesson.id)}"><span class="vb11-map-list-index">${completed.has(lesson.id)?'✓':String(i+1).padStart(2,'0')}</span><span><strong>${safe(lesson.title)}</strong><small>${safe(lesson.level)} · ${completed.has(lesson.id)?'Concluída':'Disponível'}</small></span><span aria-hidden="true">→</span></button>`).join('')}</div>
+  </details>
+ </div>`;
+}
+function learnPage(){if(window.matchMedia('(max-width:700px)').matches)return mobileLearnPage();const filtered=lessons.filter(x=>app.filter==='Todos'||x.level===app.filter);return `<div class="page-intro"><div class="overline">APRENDIZADO ESTRUTURADO</div><h1 class="heading">Aprender é uma <em>jornada.</em></h1><p class="lede">Do primeiro “I am” às ideias conectadas. Cada aula traz uma explicação em português, um exemplo real e uma verificação do que você compreendeu.</p></div><div class="v2-section-bar"><h2>Três capítulos, uma jornada</h2><span>Sem bloqueios artificiais</span></div>
  ${renderGuidedPath({lessons,completed:data.completed,currentId:nextLesson().id,limit:7})}
  <details class="vb8-world-details"><summary>Explorar o mapa completo e os mundos</summary>${renderQuestMap({lessons,completed:data.completed,currentId:nextLesson().id,lessonSessions:data.lessonSessions})}
  ${renderV6SkillPath({lessons,completed:data.completed,foodProgress:foodQuestProgress(),pairProgress:v6PairProgress()})}</details>
@@ -232,21 +278,34 @@ function learnPage(){const filtered=lessons.filter(x=>app.filter==='Todos'||x.le
 /* Short mobile lesson loop: goal → example → answer → explanation.
    Full rules stay accessible without burying the first question below the fold. */
 function mobileLessonPage(){
- const l=lessons.find(x=>x.id===app.lesson)||lessons[0];
- const q=l.qs[app.lessonIdx],done=app.lessonIdx>=l.qs.length;
- const idx=lessons.findIndex(x=>x.id===l.id)+1;
- const progress=Math.min(100,Math.round(app.lessonIdx/Math.max(1,l.qs.length)*100));
- const result=done?renderLessonCompletion({score:app.lessonScore,total:l.qs.length,lessonId:l.id,artMarkup:renderLessonResultArt(l.id,app.lessonScore===l.qs.length)}):
- renderLessonQuestion({question:q,index:app.lessonIdx,total:l.qs.length,answer:app.lessonAnswer});
- return `<article class="vb10-lesson-flow" aria-label="Lição ${safe(l.title)}">
-  <header class="vb10-lesson-header"><button type="button" data-route="learn" class="vb10-back" aria-label="Voltar à trilha">←</button><div class="vb10-lesson-meter" role="progressbar" aria-label="Progresso da lição" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${progress}"><i style="width:${progress}%"></i></div><span class="vb10-lesson-counter">${Math.min(app.lessonIdx+1,l.qs.length)}/${l.qs.length}</span></header>
-  <div class="vb10-lesson-overline">${safe(l.level)} · LIÇÃO ${String(idx).padStart(2,'0')}</div>
-  <h1>${safe(l.title)}</h1>
-  <div class="vb10-lesson-scene">${renderLessonWorld(l.id)}</div>
-  <section class="vb10-rule-card" aria-label="Regra e exemplo"><span class="vb10-rule-label">ENTENDA A IDEIA</span><p>${safe(l.rule)}</p><div class="vb10-rule-example"><div><strong>${safe(l.example)}</strong><small>${safe(l.translation)}</small></div><button type="button" data-action="speak-audio" data-say="${encodeURIComponent(l.example)}" aria-label="Ouvir exemplo em inglês">${svg('audio')}</button></div></section>
-  ${result}
-  <details class="vb10-theory-extra"><summary>Ver a explicação completa <span aria-hidden="true">⌄</span></summary><div><p>${safe(l.why)}</p><div class="vb10-theory-formula">${l.form.map((part,i)=>`${i?'<i>+</i>':''}<span>${safe(part)}</span>`).join('')}</div><p><strong>Dica do Pip:</strong> ${safe(l.tip)}</p><div class="vb10-theory-compare"><span class="wrong">${safe(l.wrong)}</span><span class="right">${safe(l.right)}</span></div></div></details>
- </article>`;
+ const lesson=lessons.find(x=>x.id===app.lesson)||lessons[0];
+ const total=lesson.qs.length,finished=app.lessonIdx>=total;
+ const percentage=Math.min(100,Math.round(app.lessonIdx/Math.max(1,total)*100));
+ const header=`<header class="vb11-quiz-header"><button type="button" class="vb11-quiz-close" data-route="learn" aria-label="Fechar aula e voltar para a trilha">×</button><div class="vb11-quiz-progress" role="progressbar" aria-label="Progresso da aula" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${Math.min(total,app.lessonIdx)}"><i style="width:${percentage}%"></i></div><strong class="vb11-quiz-counter">${Math.min(total,app.lessonIdx+1)}/${total}</strong></header>`;
+ if(finished)return `<div class="vb11-quiz-screen">${header}<div class="vb11-quiz-finished">${renderLessonCompletion({score:app.lessonScore,total,lessonId:lesson.id,artMarkup:renderLessonResultArt(lesson.id,app.lessonScore===total)})}</div></div>`;
+ const q=lesson.qs[app.lessonIdx],selected=app.lessonAnswer;
+ const options=q[1].map((choice,i)=>{
+  const chosen=selected?.value===choice,correct=selected&&choice===q[2],wrong=selected&&chosen&&!selected.ok;
+  const state=correct?'correct':wrong?'wrong':chosen?'selected':'idle';
+  return `<button type="button" class="vb11-answer" data-action="lesson-answer" data-value="${safe(choice)}" data-state="${state}" aria-pressed="${chosen?'true':'false'}" ${selected?'disabled':''}>
+    <span class="vb11-answer-index" aria-hidden="true">${String.fromCharCode(65+i)}</span><span class="vb11-answer-text">${safe(choice)}</span>
+    ${correct?'<span class="vb11-answer-mark" aria-label="Resposta correta">✓</span>':wrong?'<span class="vb11-answer-mark" aria-label="Sua resposta está incorreta">×</span>':''}
+   </button>`;
+ }).join('');
+ const feedback=selected?`<section class="vb11-quiz-feedback" data-result="${selected.ok?'correct':'wrong'}" aria-live="polite" role="status">
+   <div class="vb11-feedback-copy"><span class="vb11-feedback-icon" aria-hidden="true">${selected.ok?'✓':'↻'}</span><div><strong>${selected.ok?'Muito bem!':'Vamos aprender juntos'}</strong><p>${safe(q[3])}</p></div></div>
+   <button type="button" class="vb11-feedback-next" data-action="lesson-next">${app.lessonIdx+1===total?'Ver meu resultado':'Continuar'} <span aria-hidden="true">→</span></button>
+  </section>`:'<p class="vb11-quiz-hint">Escolha uma resposta. O Pip explica antes de continuar.</p>';
+ return `<div class="vb11-quiz-screen">
+   ${header}
+   <div class="vb11-quiz-content"><span class="vb11-quiz-chip">✦ ${safe(lesson.level)} · ${safe(lesson.title)}</span>
+    <h1>${safe(q[0])}</h1>
+    <figure class="vb11-quiz-figure"><span class="vb11-art-halo" aria-hidden="true"></span><img src="/verbarium-visual-kit/assets/rewards/lesson_book.webp" width="872" height="931" loading="eager" decoding="async" alt=""><span class="vb11-art-spark" aria-hidden="true">✦</span></figure>
+    <div class="vb11-answer-list" role="group" aria-label="Alternativas da questão">${options}</div>
+    ${feedback}
+    <details class="vb11-quiz-help"><summary>Entender a regra <span aria-hidden="true">⌄</span></summary><div><p>${safe(lesson.rule)}</p><strong>${safe(lesson.example)}</strong><span>${safe(lesson.translation)}</span><button type="button" data-action="speak-audio" data-say="${encodeURIComponent(lesson.example)}">Ouvir exemplo ${svg('audio')}</button></div></details>
+   </div>
+  </div>`;
 }
 function lessonPage(){if(window.matchMedia('(max-width:700px)').matches)return mobileLessonPage();const l=lessons.find(x=>x.id===app.lesson)||lessons[0],q=l.qs[app.lessonIdx],done=app.lessonIdx>=l.qs.length;return `<button class="back-link" data-route="learn">← Voltar à trilha</button><div class="lesson-top"><span class="pill">${l.level}</span><span class="pill warm">AULA ${String(lessons.indexOf(l)+1).padStart(2,'0')}</span><span class="minor">~ 6 minutos</span></div>${renderPhaseLessonBadge({lessonId:l.id,index:app.lessonIdx,total:l.qs.length,completed:done&&data.completed.includes(l.id)})}<h1 class="heading">${safe(l.title)}<span style="color:#c6d3bb">.</span></h1><p class="lesson-lede">${safe(l.subtitle)}. ${safe(l.why)}</p>${renderLessonWorld(l.id)}${renderLessonFeature(l.id,l.level)}
 <section class="theory-card"><span class="overline">01 / ENTENDA A IDEIA</span><h2>Qual é a lógica?</h2><p>${safe(l.rule)}</p><div class="formula">${l.form.map((s,i)=>`${i?'<i>+</i>':''}<span>${safe(s)}</span>`).join('')}</div><div class="example-box"><div class="en">${safe(l.example)} <button class="audio-button" data-action="speak-audio" data-say="${encodeURIComponent(l.example)}" aria-label="Ouvir exemplo em inglês">${svg('audio')}</button></div><div class="pt">${safe(l.translation)}</div></div><p><strong>Guarde isso:</strong> ${safe(l.tip)}</p><div class="error-compare"><small>ERRO COMUM → CORREÇÃO</small><div class="wrong">${safe(l.wrong)}</div><div class="right">${safe(l.right)}</div></div></section>
@@ -258,7 +317,38 @@ function shuffle(xs){const arr=[...xs];for(let i=arr.length-1;i>0;i--){const j=M
 function newRound(reviewOnly=false){const pool=reviewOnly?dueItems().map(([id])=>findQ(id)).filter(Boolean):allQuestions().filter(q=>app.practiceMode==='mixed'||(app.practiceMode==='choice'&&q.type==='choice')||(app.practiceMode==='write'&&q.type==='write'));app.round=shuffle(pool).slice(0,reviewOnly?Math.min(10,pool.length):8);app.roundIdx=0;app.roundCorrect=0;app.roundAnswer=null;app.reviewOnly=reviewOnly}
 function practicePage(){if(!app.round.length&&!app.reviewOnly)newRound();return renderPracticeScreen({round:app.round,index:app.roundIdx,correct:app.roundCorrect,answer:app.roundAnswer,reviewOnly:app.reviewOnly,mode:app.practiceMode});}
 function speakPage(){const sc=scenarios.find(x=>x.id===app.scenario)||scenarios[0];return renderDialogueScreen({scenarios,scenario:sc,stepIndex:app.step,history:app.dialog,answer:app.dialogAnswer,micStatus:app.micStatus});}
-function progressPage(){
+function mobileAchievementsPage(){
+ const finished=data.completed.length,streak=currentStreak(),correct=data.correct||0;
+ const milestones=[
+  {id:'lesson',name:'Primeira lição',description:'Conclua sua primeira aula.',value:finished,target:1,asset:'lesson_book.webp'},
+  {id:'streak',name:'Sequência de 7 dias',description:'Pratique por 7 dias seguidos.',value:streak,target:7,asset:'reward_streak_flame.webp'},
+  {id:'answers',name:'50 respostas corretas',description:'Construa confiança com seus acertos.',value:correct,target:50,asset:'reward_medal.webp'}
+ ];
+ const asset=(id)=>id==='lesson'?'rewards/lesson_book.webp':id==='streak'?'rewards/reward_streak_flame.webp':'rewards/reward_medal.webp';
+ return `<div class="vb11-achievements">
+  <header class="vb11-screen-header"><button type="button" data-route="home" class="vb11-back" aria-label="Voltar ao início">${svg('arrow')}</button><h1>Conquistas</h1></header>
+  <section class="vb11-trophy-hero" aria-label="Sua jornada de conquistas">
+   <img class="vb11-trophy-art" src="/verbarium-scenes/v11/trophy.svg" alt="Troféu dourado representando suas conquistas" decoding="async" width="400" height="400">
+  </section>
+  <div class="vb11-achievement-heading"><h2>Suas conquistas</h2><p>Seu progresso merece ser celebrado, um passo de cada vez.</p></div>
+  <div class="vb11-achievement-metrics" aria-label="Seu histórico de aprendizagem">
+   <div><img src="/verbarium-visual-kit/assets/rewards/reward_streak_flame.webp" alt=""><span><small>Sequência</small><strong>${streak} dias</strong></span></div>
+   <div><img src="/verbarium-visual-kit/assets/rewards/reward_medal.webp" alt=""><span><small>Acertos</small><strong>${correct}</strong></span></div>
+   <div><img src="/verbarium-visual-kit/assets/rewards/lesson_book.webp" alt=""><span><small>Lições</small><strong>${finished}/${lessons.length}</strong></span></div>
+  </div>
+  <section class="vb11-badges" aria-label="Insígnias">
+   ${milestones.map(m=>{const complete=m.value>=m.target,percentage=Math.min(100,Math.round(m.value/m.target*100));return `<article class="vb11-badge ${complete?'is-earned':'is-building'}">
+    <span class="vb11-badge-image"><img src="/verbarium-visual-kit/assets/${asset(m.id)}" width="64" height="64" alt=""></span>
+    <div class="vb11-badge-copy"><strong>${m.name}</strong><small>${m.description}</small>
+     ${complete?'<span class="vb11-earned-text">Conquistada!</span>':`<div class="vb11-badge-progress"><div class="vb11-badge-count"><span>${Math.min(m.value,m.target)}/${m.target}</span></div><div class="vb11-mini-track" role="progressbar" aria-label="${m.name}" aria-valuemin="0" aria-valuemax="${m.target}" aria-valuenow="${Math.min(m.value,m.target)}"><i style="width:${percentage}%"></i></div></div>`}
+    </div><span class="vb11-badge-status ${complete?'is-earned':''}" aria-label="${complete?'Concluída':'Em andamento'}">${complete?'✓':'○'}</span>
+   </article>`}).join('')}
+  </section>
+  <button type="button" class="vb11-achievement-action" data-route="learn">Continuar minha jornada <span aria-hidden="true">→</span></button>
+  <p class="vb11-data-note">Indicadores calculados a partir das atividades registradas neste navegador.</p>
+ </div>`;
+}
+function progressPage(){if(window.matchMedia('(max-width:700px)').matches)return mobileAchievementsPage();
  const completion=pct(data.completed.length,lessons.length),accuracy=data.attempts?pct(data.correct,data.attempts):0,streak=currentStreak(),daily=weekActivity(),due=dueItems().length;
  const rankText=completion===100?'Trilha completa':completion>=50?'Metade do caminho':completion>0?'Primeiros passos':'Sua jornada começa aqui';
  return `<div class="page-intro"><div class="overline">SEU CRESCIMENTO, NO SEU RITMO</div><h1 class="heading">Cada passo <em>conta!</em> 🏆</h1><p class="lede">Este é seu espaço de conquistas. Acompanhe o que estudou, o que já sabe e onde pode melhorar.</p></div>

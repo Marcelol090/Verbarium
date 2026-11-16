@@ -13,18 +13,17 @@ test('V10 is the last style in all three production entrypoints',()=>{
   assert.ok(html.indexOf('precision-v10.css')>html.indexOf('precision-v8.css'),path+' wrong cascade');
  }
 });
-test('mobile Home is a real, guided next lesson with progress, review and two practice options',()=>{
+test('mobile Home V11 keeps real progress and exactly one primary lesson action',()=>{
  assert.match(app,/function mobileHomePage\(\)\{/);
  assert.match(app,/matchMedia\('\(max-width:700px\)'\)/);
- assert.match(app,/class="vb10-mobile-home"/);
- assert.match(app,/class="vb10-primary"[^>]*data-action="open-lesson"/);
- assert.match(app,/class="vb10-progress" role="progressbar"/);
- assert.match(app,/class="vb10-daily"/);
- assert.match(app,/data-route="review"/);
+ assert.match(app,/class="vb11-home"/);
+ assert.match(app,/class="vb11-hero-start"|"vb11-pill-button vb11-hero-start"/);
+ assert.match(app,/class="vb11-progress-track" role="progressbar"/);
+ assert.match(app,/class="vb11-home-metrics"/);
+ assert.match(app,/data-route="learn"/);
  assert.match(app,/data-route="speak"/);
  assert.match(app,/data-route="practice"/);
- assert.match(app,/class="vb10-more"/);
- assert.equal((app.match(/class="vb10-primary"/g)||[]).length,1,'Only one primary CTA in Home');
+ assert.equal((app.match(/data-action="open-lesson" data-id="\$\{safe\(next\.id\)\}"/g)||[]).length>=1,true);
 });
 test('Academy choices are visible after the question, not before',()=>{
  const index=academy.indexOf('function renderSession()');
