@@ -12,6 +12,8 @@
 @media(max-width:700px){
  body[data-vb-app="home"]{background:#FCF9FF;color:var(--vb11-ink)}
  body[data-vb-app="home"] .stage{background:#FCF9FF}
+ body[data-route="learn"] .topbar,body[data-route="progress"] .topbar{display:none!important}
+ body[data-route="learn"] .body-grid,body[data-route="progress"] .body-grid{padding-top:12px!important}
  body[data-vb-app="home"] .topbar{position:sticky;top:0;z-index:40;height:62px;min-height:62px;padding:0 17px;background:#FFFDFFF5;border-bottom:1px solid #F0E9F7;backdrop-filter:blur(16px)}
  body[data-vb-app="home"] .topbar .crumb .mobile-wordmark{font:650 23px/1 Fredoka,sans-serif;letter-spacing:-.6px;color:#302164}
  body[data-vb-app="home"] .topbar .crumb .mobile-wordmark span{color:#FFA43E}
