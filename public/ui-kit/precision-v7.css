@@ -51,7 +51,7 @@
  body[data-vb-app="academy"] .welcome-card>div{min-width:0;max-width:none;grid-column:1;grid-row:1;padding:0}
  body[data-vb-app="academy"] .welcome-card span:not(.asset-wrap){font:800 10px/1.25 "DM Sans",system-ui,sans-serif;letter-spacing:.1em;color:#ffcfaa}
  body[data-vb-app="academy"] .welcome-card h2{font:600 clamp(22px,6vw,29px)/1.13 Fredoka,system-ui,sans-serif;color:white;letter-spacing:-.02em;margin:10px 0 8px;text-wrap:balance;overflow-wrap:break-word}
- body[data-vb-app="academy"] .welcome-card p{font-size:12px;line-height:1.5;color:#ede6f8;margin:0 0 16px;overflow-wrap:break-word}
+ body[data-vb-app="academy"] .welcome-card p{font-size:13px;line-height:1.5;color:#ede6f8;margin:0 0 16px;overflow-wrap:break-word}
  body[data-vb-app="academy"] .welcome-hero{position:relative;grid-column:2;grid-row:1;right:auto;bottom:auto;width:100%;height:145px;max-width:140px;align-self:center;justify-self:center;transform:none;animation:none;overflow:visible;filter:none;pointer-events:none}
  body[data-vb-app="academy"] .welcome-hero img{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center}
  body[data-vb-app="academy"] .primary-action{display:inline-flex;align-items:center;justify-content:center;min-height:52px;border:1px solid #9865ed;border-radius:var(--vb7v-r16);background:linear-gradient(180deg,#8d66ed,#7451d5);color:white;box-shadow:inset 0 1px #ffffff70,0 4px 0 #5136a0;font-size:13px;font-weight:800;line-height:1.25;padding:12px 16px;transition:transform .16s var(--vb7v-ease),box-shadow .16s var(--vb7v-ease),filter .16s var(--vb7v-ease)}
@@ -67,7 +67,7 @@
  body[data-vb-app="academy"] .sentence-lab-entry{position:relative;min-width:0;overflow:visible;display:block;margin:20px 0;padding:20px 18px 18px;border:1px solid #ded3f4;border-radius:var(--vb7v-r24);background:linear-gradient(140deg,#f2ebfe,#fcfaff);box-shadow:var(--vb7v-shadow)}
  body[data-vb-app="academy"] .sentence-lab-content{min-width:0}
  body[data-vb-app="academy"] .sentence-lab-entry h2{font:600 23px/1.16 Fredoka,sans-serif;color:#41316c;letter-spacing:-.02em;margin:8px 0}
- body[data-vb-app="academy"] .sentence-lab-entry p{max-width:100%;font-size:12px;line-height:1.5;color:var(--vb7v-muted)}
+ body[data-vb-app="academy"] .sentence-lab-entry p{max-width:100%;font-size:13px;line-height:1.5;color:var(--vb7v-muted)}
  body[data-vb-app="academy"] .sentence-lab-entry>img{width:82px;height:84px;top:18px;right:14px;max-width:25%;max-height:84px;object-fit:contain}
  body[data-vb-app="academy"] .sentence-lab-content>h2,body[data-vb-app="academy"] .sentence-lab-content>p{padding-right:82px}
  body[data-vb-app="academy"] .sentence-lab-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%;margin-top:16px}
@@ -186,6 +186,7 @@
  body[data-vb-app="academy"] .daily-strip>div.vb7v-has-art>.vb7v-asset-box{
   width:36px;height:36px;margin:0 0 4px;aspect-ratio:1;
  }
+ body[data-vb-app="academy"] .skill-emoji.vb7v-has-art{font-size:0}
  body[data-vb-app="academy"] .skill-emoji.vb7v-has-art>:not(.vb7v-asset-box){display:none}
  body[data-vb-app="academy"] .skill-emoji.vb7v-has-art>.vb7v-asset-box{
   width:54px;height:54px;max-width:100%;aspect-ratio:1;
