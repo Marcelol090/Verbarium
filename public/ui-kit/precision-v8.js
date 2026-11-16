@@ -1,6 +1,6 @@
-/** Verbarium Precision V8, progressive decorative integration.
- * Native controls own all text, touch geometry, answer status and progress.
- * New art is restricted to real illustration slots. No gameplay mutation.
+/** Verbarium Precision V8, mascot-only compatibility hydrator.
+ * V9 controls own their SVG glyphs, copy, touch geometry and interaction state.
+ * Only dedicated mascot illustration slots may receive raster art.
  */
 // V7 moves its linked stylesheet to the end of <head>. V8 must run afterward
 // or the old, equally-specific declarations win by document order.
@@ -15,7 +15,7 @@ const host=app==='home'?document.querySelector('#main'):app==='academy'?document
 const mobile=window.matchMedia('(max-width:770px)');
 const resolved=new Map();
 let manifest=null,queued=false;
-const ALLOWED=/^assets\/(?:mascot|rewards|buttons|cards|grids|labels|backgrounds)\/[a-z0-9_-]+\.webp$/;
+const ALLOWED=/^assets\/mascot\/[a-z0-9_-]+\.webp$/;
 function asset(name){
  const item=manifest?.assets?.[name];
  return item&&ALLOWED.test(item.path||'')?ROOT+item.path:null;
@@ -34,23 +34,6 @@ function setImage(node,name){
   node.setAttribute('decoding','async');
   node.style.objectFit='contain';node.style.objectPosition='center';
   node.dataset.vb8Asset=name;
- });
-}
-function decorateExistingImage(container,name){
- if(!container)return;
- const art=container.querySelector(':scope > .vb7v-asset-box > img');
- if(art)setImage(art,name);
-}
-function inlineGlyph(parent,name){
- if(!parent||parent.dataset.vb8Illustration===name)return;
- load(name).then(src=>{
-  if(!src||!parent.isConnected||parent.dataset.vb8Illustration===name)return;
-  const old=parent.querySelector(':scope > .vb8-label-art');
-  if(old)old.remove();
-  const img=document.createElement('img');
-  img.className='vb8-label-art';img.alt='';img.setAttribute('aria-hidden','true');
-  img.width=29;img.height=29;img.src=src;img.decoding='async';img.loading='lazy';
-  parent.prepend(img);parent.dataset.vb8Illustration=name;
  });
 }
 function decorateHome(){
