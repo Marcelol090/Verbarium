@@ -241,24 +241,37 @@ function homePage(){if(window.matchMedia('(max-width:700px)').matches)return mob
 function weekActivity(){return calendarWeek(new Date(),[...data.activity.map(a=>a.date),...(data.sessions||[]).map(s=>s.date),...Object.values(data.completedAt||{})])}
 /* The learner can always open any lesson. Node appearance reflects progress,
    never creates an artificial lock absent from the learning engine. */
+/* Learning path V13: authored art is independent from live controls.
+   Future lessons remain actionable while genuine prerequisites are not implemented. */
 function mobileLearnPage(){
  const completed=new Set(data.completed);
  const activeId=nextLesson().id;
  const activeIndex=Math.max(0,lessons.findIndex(l=>l.id===activeId));
  const start=Math.max(0,Math.min(activeIndex-1,lessons.length-5));
  const visible=lessons.slice(start,start+5);
- const positions=[{x:53,y:11},{x:53,y:32},{x:49,y:48},{x:56,y:65},{x:49,y:82}];
- return `<div class="vb11-path-page">
+ const positions=[{x:64,y:12},{x:39,y:29},{x:61,y:46},{x:40,y:64},{x:53,y:83}];
+ return `<div class="vb11-path-page vb13-path-page">
   <header class="vb11-screen-header"><button type="button" data-route="home" class="vb11-back" aria-label="Voltar ao início">${svg('arrow')}</button><h1>Trilha de aprendizagem</h1></header>
   <p class="vb11-screen-subtitle">Cada lição é um passo. Escolha onde quer aprender.</p>
-  <section class="vb11-map" aria-label="Seu mapa de aulas">
-   ${visible.map((lesson,i)=>{const done=completed.has(lesson.id),current=lesson.id===activeId,pos=positions[i];return `<div class="vb11-map-step ${done?'is-done':current?'is-current':'is-next'}" style="--x:${pos.x}%;--y:${pos.y}%">
-     <button type="button" class="vb11-map-node" data-action="open-lesson" data-id="${safe(lesson.id)}" aria-label="${done?'Revisitar':current?'Iniciar':'Explorar'} aula ${start+i+1}: ${safe(lesson.title)}">
-       ${done?'<span class="vb11-map-symbol">★</span>':current?'<span class="vb11-map-symbol vb11-map-play">▶</span>':`<span class="vb11-map-number">${String(start+i+1).padStart(2,'0')}</span>`}
+  <section class="vb11-map vb13-map" aria-label="Seu mapa de aulas">
+   <div class="vb13-scene" aria-hidden="true"></div>
+   <div class="vb13-ribbon vb13-ribbon--upper" aria-hidden="true"></div>
+   <div class="vb13-ribbon vb13-ribbon--lower" aria-hidden="true"></div>
+   <span class="vb13-flag" aria-hidden="true"></span>
+   <span class="vb13-hills" aria-hidden="true"></span>
+   ${visible.map((lesson,i)=>{
+    const done=completed.has(lesson.id),current=lesson.id===activeId,pos=positions[i];
+    const milestone=done&&((start+i+1)%4===1);
+    const mode=current?'current':milestone?'milestone':done?'completed':'upcoming';
+    const caption=current?`<span class="vb11-map-caption vb13-map-caption"><small>PRÓXIMA LIÇÃO</small><strong>${safe(lesson.title)}</strong><span>Toque para começar</span></span>`:'';
+    return `<div class="vb11-map-step vb13-map-step ${done?'is-done':current?'is-current':'is-next'}" data-art="${mode}" style="--x:${pos.x}%;--y:${pos.y}%">
+     <button type="button" class="vb11-map-node vb13-map-node vb13-node--${mode}" data-action="open-lesson" data-id="${safe(lesson.id)}" aria-label="${done?'Revisitar':current?'Iniciar':'Explorar'} aula ${start+i+1}: ${safe(lesson.title)}">
+       <span class="vb13-node-fallback" aria-hidden="true">${done?'★':current?'▶':String(start+i+1).padStart(2,'0')}</span>
      </button>
-     ${done?'<span class="vb11-map-check" aria-hidden="true">✓</span>':''}
-     ${current?`<span class="vb11-map-caption"><small>PRÓXIMA LIÇÃO</small><strong>${safe(lesson.title)}</strong></span>`:''}
-   </div>`}).join('')}
+     ${done?'<span class="vb11-map-check vb13-map-check" aria-hidden="true">✓</span>':''}
+     ${caption}
+    </div>`;
+   }).join('')}
   </section>
   <details class="vb11-map-all"><summary>Explorar todas as ${lessons.length} aulas <span aria-hidden="true">⌄</span></summary>
    <div class="vb11-map-list">${lessons.map((lesson,i)=>`<button type="button" data-action="open-lesson" data-id="${safe(lesson.id)}"><span class="vb11-map-list-index">${completed.has(lesson.id)?'✓':String(i+1).padStart(2,'0')}</span><span><strong>${safe(lesson.title)}</strong><small>${safe(lesson.level)} · ${completed.has(lesson.id)?'Concluída':'Disponível'}</small></span><span aria-hidden="true">→</span></button>`).join('')}</div>
