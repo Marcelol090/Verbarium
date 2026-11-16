@@ -15,19 +15,19 @@ test('all ten generated independent WebP assets are committed intact',()=>{
   const p='public/verbarium-scenes/v13/'+name;
   const bytes=readFileSync(new URL('../'+p,import.meta.url));
   assert.equal(bytes.length,meta.bytes,'Incorrect byte count for '+name);
-  const sha=createHash('sha1').update(Buffer.from('blob '+bytes.length+'\\0')).update(bytes).digest('hex');
+  const sha=createHash('sha1').update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex');
   assert.equal(sha,meta.gitBlobSha,'Corrupted asset '+name);
-  assert.match(name,/\\.webp$/);
+  assert.match(name,/\.webp$/);
   total+=bytes.length;
  }
  assert.ok(total<400_000,'All ten assets should stay under 400KB');
 });
 test('V13 scene is mobile-only and has exact-aspect artwork layers',()=>{
- assert.match(css,/@media\\(max-width:700px\\)/);
- assert.match(css,/\\.vb13-map-sky\\{[^}]*object-fit:cover/);
- assert.match(css,/\\.vb13-map-ribbon\\{[^}]*object-fit:contain/);
- assert.match(css,/\\.vb13-card-art\\{[^}]*object-fit:contain/);
- assert.match(css,/\\.vb13-map-hills\\{[^}]*pointer-events:none/);
+ assert.match(css,/@media\(max-width:700px\)/);
+ assert.match(css,/\.vb13-map-sky\{[^}]*object-fit:cover/);
+ assert.match(css,/\.vb13-map-ribbon\{[^}]*object-fit:contain/);
+ assert.match(css,/\.vb13-card-art\{[^}]*object-fit:contain/);
+ assert.match(css,/\.vb13-map-hills\{[^}]*pointer-events:none/);
  assert.doesNotMatch(css,/object-fit:fill/);
  assert.match(css,/prefers-reduced-motion/);
 });
@@ -44,7 +44,7 @@ test('learning path assets are attached to functional navigation, not decorative
  assert.match(pathSegment,/role|aria-label=/);
  assert.doesNotMatch(pathSegment,/<button[^>]*disabled/);
  assert.match(pathSegment,/Explorar todas as/);
- assert.match(pathSegment,/new Set\\(data.completed\\)/);
+ assert.match(pathSegment,/new Set\(data.completed\)/);
  assert.match(pathSegment,/lesson.id===activeId/);
 });
 test('V13 styles load after prior runtime cascade without editing older screens',()=>{
