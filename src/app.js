@@ -247,7 +247,7 @@ function mobileLearnPage(){
  const activeIndex=Math.max(0,lessons.findIndex(l=>l.id===activeId));
  const start=Math.max(0,Math.min(activeIndex-1,lessons.length-5));
  const visible=lessons.slice(start,start+5);
- const positions=[{x:53,y:11},{x:53,y:28},{x:49,y:45},{x:56,y:62},{x:49,y:79}];
+ const positions=[{x:53,y:11},{x:53,y:32},{x:49,y:48},{x:56,y:65},{x:49,y:82}];
  return `<div class="vb11-path-page">
   <header class="vb11-screen-header"><button type="button" data-route="home" class="vb11-back" aria-label="Voltar ao início">${svg('arrow')}</button><h1>Trilha de aprendizagem</h1></header>
   <p class="vb11-screen-subtitle">Cada lição é um passo. Escolha onde quer aprender.</p>
