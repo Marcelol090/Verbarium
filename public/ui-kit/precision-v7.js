@@ -1,6 +1,13 @@
 /** Verbarium Precision V7: independent image art, resilient fallback.
  * No edits to scoring, lesson selection, speech, review or progress persistence.
  */
+// Bundled Vite CSS can be appended after static <link> stylesheets.
+// Reposition the already-loaded precision stylesheet at the end of <head>
+// to make V7 the final override without increasing selector specificity or
+// duplicating any CSS declarations.
+const precisionStyle=document.querySelector('link[href="/ui-kit/precision-v7.css"]');
+if(precisionStyle && precisionStyle.parentNode===document.head)document.head.append(precisionStyle);
+
 const KIT_ROOT='/verbarium-visual-kit/';
 const app=document.body.dataset.vbApp||'';
 const root=app==='academy'?document.querySelector('#content'):app==='home'?document.querySelector('#main'):document.querySelector('.onboarding-shell');
