@@ -85,9 +85,10 @@ try{
  results.push({width:390,route:'onboarding',background:bg,precision8});
  const gallery=await makePage(390);
  await gallery.goto(base+'/ui-kit/precision-v8/',{waitUntil:'networkidle',timeout:60000});
- await gallery.locator('#assets .asset').first().waitFor({timeout:10000});
- const count=await gallery.locator('#assets .asset').count();
- const broken=await gallery.locator('#assets .asset[data-missing="true"]').count();
+ await gallery.locator('#asset-switch').click();
+ await gallery.locator('#assets .asset-card').first().waitFor({timeout:15000});
+ const count=await gallery.locator('#assets .asset-card').count();
+ const broken=await gallery.locator('#assets .asset-card[data-missing="true"]').count();
  if(count!==48||broken!==0){failed++;console.error('Visual catalog failure',{count,broken});}
  await gallery.screenshot({path:path.join(output,'precision-gallery-390.png'),fullPage:false,animations:'disabled'});
  results.push({width:390,route:'precision-gallery',count,broken});
