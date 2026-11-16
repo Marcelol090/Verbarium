@@ -10,8 +10,8 @@ export function staticJourneyNode(state){
  return '/verbarium-motion/journey/assets/'+(variants[state]||'node_unlocked')+'.png';
 }
 export function navArtwork(id,selected=false){
- const names={home:'navigation/mascot_round',learn:'navigation/book_'+(selected?'selected':'default'),practice:'navigation/gamepad_'+(selected?'selected':'default'),speak:'navigation/headphones_'+(selected?'selected':'default'),lab:'navigation/sprout_'+(selected?'selected':'default'),profile:'profile/avatar_girl'};
- return names[id]?'<img src="/verbarium-v3/assets/'+names[id]+'.png" class="vb-nav-image" alt="" aria-hidden="true" decoding="async">':'';
+ const names={home:'home',learn:'book',practice:'target',speak:'mic',lab:'brain',profile:'user'};
+ return names[id]?'<img src="/ui-kit/icons/'+names[id]+'.svg" class="vb-nav-image'+(selected?' is-selected':'')+'" alt="" aria-hidden="true" decoding="async">':'';
 }
 export function renderMotionGallery(){
  return '<section class="vb-motion-library" aria-label="Biblioteca motion do Verbarium">'+
