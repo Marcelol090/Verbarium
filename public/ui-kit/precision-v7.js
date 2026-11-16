@@ -92,6 +92,10 @@ async function bootstrap(){
  }catch{return}
  schedule();
  if(root)new MutationObserver(schedule).observe(root,{childList:true,subtree:false});
+ if(app==='onboarding'){
+  const art=document.querySelector('.ob-art');
+  if(art)new MutationObserver(schedule).observe(art,{attributes:true,attributeFilter:['class']});
+ }
  media.addEventListener?.('change',schedule);
 }
 bootstrap();
