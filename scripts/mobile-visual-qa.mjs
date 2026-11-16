@@ -34,13 +34,21 @@ async function check(page,route,width){
   const cta=home?document.querySelector('.vb7-hero__actions .vb7-cta'):document.querySelector('.welcome-card .primary-action');
   const ctaRadius=cta?getComputedStyle(cta).borderRadius:null;
   const ctaBackground=cta?getComputedStyle(cta).backgroundImage:null;
+  const ctaBorder=cta?getComputedStyle(cta).borderTopWidth:null;
+  const ctaHeight=cta?rect(cta)?.height:null;
+  const title=document.querySelector('#top-title');
+  const titleFits=!title||(title.scrollWidth<=title.clientWidth+1 && title.scrollHeight<=title.clientHeight+1);
+  const feature=document.querySelector('.vb7-feature__title');
+  const featureColor=feature?getComputedStyle(feature).color:null;
+  const precision=document.body.dataset.vbPrecision||null;
   const newArtKey=art?.dataset?.vb7vAsset || art?.querySelector('img')?.dataset?.vb7vAsset || null;
   const natural=home?{w:art?.naturalWidth||0,h:art?.naturalHeight||0}: {w:art?.querySelector('img')?.naturalWidth||0,h:art?.querySelector('img')?.naturalHeight||0};
-  return {viewport,horizontalOverflow,offenders,card:cardR,art:artR,artInside,ctaRadius,ctaBackground,newArtKey,background:bg.slice(0,250),natural};
+  return {viewport,horizontalOverflow,offenders,card:cardR,art:artR,artInside,ctaRadius,ctaBackground,ctaBorder,ctaHeight,titleFits,featureColor,precision,newArtKey,background:bg.slice(0,250),natural};
  });
- const v7Geometry=findings.ctaRadius===(route==='home'?'16px':'12px')&&findings.ctaBackground?.includes('rgb(141, 102, 237)');
- const v7Artwork=route==='home'?findings.newArtKey==='fox_waving':findings.newArtKey==='fox_teacher';
- const ok=!findings.horizontalOverflow&&findings.artInside&&findings.natural.w>0&&v7Geometry&&v7Artwork;
+ const v8Geometry=findings.ctaRadius===(route==='home'?'16px':'12px')&&findings.ctaBackground?.includes('rgb(121, 89, 217)')&&findings.ctaBorder==='1px';
+ const v8Artwork=route==='home'?findings.newArtKey==='fox_waving':findings.newArtKey==='fox_teacher';
+ const v8Text=route!=='home'||findings.featureColor==='rgb(43, 34, 64)';
+ const ok=!findings.horizontalOverflow&&findings.artInside&&findings.natural.w>0&&v8Geometry&&v8Artwork&&findings.precision==='8'&&findings.ctaHeight>=48&&findings.titleFits&&v8Text;
  results.push({width,route,ok,...findings});
  if(!ok){failed++;console.error('VISUAL GEOMETRY FAILURE:',route,width,JSON.stringify(findings));}
  await page.screenshot({path:path.join(output,route+'-'+width+'.png'),fullPage:width===390,animations:'disabled'});
@@ -70,9 +78,13 @@ try{
  const bg=await art.evaluate(el=>({size:getComputedStyle(el).backgroundSize,position:getComputedStyle(el).backgroundPosition,foxSize:getComputedStyle(el,'::before').backgroundSize,foxImage:getComputedStyle(el,'::before').backgroundImage}));
  if(bg.foxSize!=='contain'||!bg.foxImage.includes('fox_')){failed++;console.error('Onboarding Pip is not safely contained:',bg);}
  await onboarding.screenshot({path:path.join(output,'onboarding-390.png'),fullPage:true,animations:'disabled'});
- results.push({width:390,route:'onboarding',background:bg});
+ const precision8=await onboarding.evaluate(()=>document.body.dataset.vbPrecision);
+ const onboardingBackdrop=await onboarding.evaluate(()=>Boolean(document.querySelector('.ob-art .vb8-onboard-backdrop')));
+ if(!onboardingBackdrop){failed++;console.error('Onboarding background was not composed from the independent kit layer');}
+ if(precision8!=='8'){failed++;console.error('Precision V8 was not hydrated on onboarding:',precision8);}
+ results.push({width:390,route:'onboarding',background:bg,precision8});
  const gallery=await makePage(390);
- await gallery.goto(base+'/ui-kit/precision-v7/',{waitUntil:'networkidle',timeout:60000});
+ await gallery.goto(base+'/ui-kit/precision-v8/',{waitUntil:'networkidle',timeout:60000});
  await gallery.locator('#assets .asset').first().waitFor({timeout:10000});
  const count=await gallery.locator('#assets .asset').count();
  const broken=await gallery.locator('#assets .asset[data-missing="true"]').count();
