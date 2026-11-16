@@ -1,4 +1,5 @@
-/** Verbarium Precision V7: independent image art, resilient fallback.
+/** Verbarium Precision V7: mascot-only illustration layer, resilient fallback.
+ * V9 controls and feature tiles use independent SVG glyphs, not raster overlays.
  * No edits to scoring, lesson selection, speech, review or progress persistence.
  */
 // Bundled Vite CSS can be appended after static <link> stylesheets.
@@ -16,7 +17,7 @@ const cached=new Map();
 let manifest=null,queued=false;
 function pathFor(key){
  const item=manifest?.assets?.[key];
- if(!item||typeof item.path!=='string'||!/^assets\/(?:mascot|rewards|buttons|cards|grids|labels|backgrounds)\/[a-z0-9_-]+\.webp$/.test(item.path))return null;
+ if(!item||typeof item.path!=='string'||!/^assets\/mascot\/[a-z0-9_-]+\.webp$/.test(item.path))return null;
  return KIT_ROOT+item.path;
 }
 function prefetch(key){
@@ -36,19 +37,6 @@ function replaceImage(el,key){
   if(!src||!el.isConnected||el.dataset.vb7vAsset===key)return;
   el.src=src;el.decoding='async';el.style.objectFit='contain';
   el.style.objectPosition='center';el.dataset.vb7vAsset=key;
- });
-}
-function injectArt(el,key){
- if(!el||el.dataset.vb7vAsset===key)return;
- prefetch(key).then(src=>{
-  if(!src||!el.isConnected||el.dataset.vb7vAsset===key)return;
-  const box=document.createElement('span');
-  box.className='vb7v-asset-box';box.setAttribute('aria-hidden','true');
-  const img=document.createElement('img');img.className='vb7v-asset';
-  img.src=src;img.alt='';img.decoding='async';img.loading='lazy';
-  box.append(img);
-  el.querySelector(':scope > .vb7v-asset-box')?.remove();
-  el.prepend(box);el.classList.add('vb7v-has-art');el.dataset.vb7vAsset=key;
  });
 }
 function home(){
