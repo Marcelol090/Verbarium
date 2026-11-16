@@ -32,9 +32,11 @@
     Text remains actual HTML and is reflowable for localization. */
  .vb13-current-card{position:absolute;z-index:4;width:180px;height:100px;pointer-events:none;filter:drop-shadow(0 4px 7px #63419124)}
  .vb13-card-art{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}
+ .vb13-card-icon{position:absolute;z-index:2;left:10%;top:32%;display:grid;place-items:center;width:24px;height:24px;color:#8554ce;pointer-events:none}
+ .vb13-card-icon svg{width:24px;height:24px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none}
  .vb13-card-content{position:absolute;z-index:1;left:33%;right:5%;top:12%;bottom:10%;display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:0}
  .vb13-card-content small{color:#6942c9;font:900 9px/1.15 "Inter Tight",Nunito,sans-serif;letter-spacing:.045em}
- .vb13-card-content strong{color:#342260;font:650 13px/1.17 Fredoka,system-ui,sans-serif;letter-spacing:-.15px;overflow-wrap:break-word}
+ .vb13-card-content strong{color:#342260;font:650 14px/1.15 Fredoka,system-ui,sans-serif;letter-spacing:-.15px;overflow-wrap:break-word}
  .vb13-caption-above{left:0;bottom:55px;top:auto;transform:translateX(-50%);width:min(182px,58vw);height:98px}
  .vb13-caption-right{top:-49px;left:47px;transform:none;width:172px}
  .vb13-caption-left{top:-49px;right:47px;transform:none;width:160px}
@@ -42,7 +44,7 @@
  .vb13-map-step[data-slot="3"] .vb13-caption-right{width:min(132px,39vw)}
  .vb13-map-step[data-slot="4"] .vb13-caption-right{width:min(119px,35vw)}
  .vb13-map-step[data-slot="2"] .vb13-card-content strong,
- .vb13-map-step[data-slot="4"] .vb13-card-content strong{font-size:11.5px;line-height:1.14}
+ .vb13-map-step[data-slot="4"] .vb13-card-content strong{font-size:12px;line-height:1.14}
  .vb13-map-step[data-slot="2"] .vb13-card-content small,
  .vb13-map-step[data-slot="4"] .vb13-card-content small{font-size:8px}
  .vb13-path-note{display:flex;align-items:flex-start;gap:8px;margin:14px 4px 4px;color:#7c718d;font:700 11px/1.4 "Inter Tight",Nunito,sans-serif}
