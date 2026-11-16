@@ -54,7 +54,7 @@ svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-wi
 .icon-action{display:grid;place-items:center;min-width:44px;min-height:44px;border:1px solid #dcd2e8;border-radius:13px;background:#fffefa;color:#69568a;text-decoration:none}
 .icon-action svg{width:19px;height:19px}
 .phone-stage{display:flex;justify-content:center;align-items:flex-start;min-width:0;flex:1;overflow:auto;overscroll-behavior:contain;padding:16px 22px 22px}
-.phone-device{position:relative;width:calc(var(--device-w) + 16px);flex:0 0 auto;background:#191622;border:5px solid #282431;border-radius:46px;box-shadow:0 19px 48px #2d25413b,0 4px 12px #2d254126,inset 0 0 0 2px #6d6479;padding:5px;overflow:hidden}
+.phone-device{position:relative;width:calc(var(--device-w) + 20px);flex:0 0 auto;background:#191622;border:5px solid #282431;border-radius:46px;box-shadow:0 19px 48px #2d25413b,0 4px 12px #2d254126,inset 0 0 0 2px #6d6479;padding:5px;overflow:hidden}
 .phone-top{display:flex;align-items:center;justify-content:space-between;position:relative;height:29px;padding:0 16px;background:#fffdfb;border-radius:37px 37px 0 0;color:#262237;font-size:11px;font-weight:900}
 .phone-notch{position:absolute;left:50%;top:0;transform:translateX(-50%);width:94px;height:19px;border-radius:0 0 13px 13px;background:#191622}
 .phone-signals{display:flex;align-items:center;gap:4px}
