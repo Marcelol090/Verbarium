@@ -251,11 +251,11 @@ function mobileLearnPage(){
  const visible=lessons.slice(start,start+5);
  // Coordinate markers follow the curves of path_ribbon.webp, not a generic vertical grid.
  const positions=[
-   {x:62,y:15,side:'below'},
-   {x:24,y:33,side:'right'},
-   {x:42,y:51,side:'right'},
-   {x:66,y:68,side:'left'},
-   {x:28,y:83,side:'right'}
+   {x:68,y:24,side:'above'},
+   {x:20,y:41,side:'right'},
+   {x:72,y:58,side:'left'},
+   {x:39,y:73,side:'right'},
+   {x:43,y:87,side:'right'}
  ];
  return `<div class="vb11-path-page vb13-path-page">
    <header class="vb11-screen-header vb13-screen-header">
