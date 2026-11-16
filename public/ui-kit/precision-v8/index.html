@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f8f6fb"><meta name="description" content="Verbarium Precision V8: componentes reais, tokens e catálogo auditável de 48 assets.">
+<title>Verbarium · Precision V8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ui-kit/precision-v8.css">
+<style>
+*{box-sizing:border-box}
+:root{--studio-bg:#f8f6fb;--studio-card:#fff;--studio-ink:#362a50;--studio-muted:#625773;--studio-edge:#ded7eb;--studio-muted-bg:#f1ebfc}
+body[data-theme=dark]{--studio-bg:#221c35;--studio-card:#302844;--studio-ink:#fff9ff;--studio-muted:#d5cce2;--studio-edge:#655475;--studio-muted-bg:#3a3150}
+body{margin:0;background:var(--studio-bg);color:var(--studio-ink);font:500 14px/1.55 "DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,a{font:inherit}button{cursor:pointer}a{color:inherit}button:disabled{cursor:default}
+:where(button,a):focus-visible{outline:3px solid #9278ee;outline-offset:3px}
+main{max-width:1096px;margin:0 auto;padding:26px clamp(16px,4.5vw,40px) 95px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 28px}
+.wordmark{font:700 23px Fredoka,sans-serif;letter-spacing:-.6px}.wordmark span{color:#e79053}
+.back{color:var(--studio-muted);text-decoration:none;font-weight:800;font-size:12px}
+.kicker{font:800 10px/1.4 "DM Sans",sans-serif;text-transform:uppercase;letter-spacing:.13em;color:#8b69de}
+h1,h2,h3{font-family:Fredoka,system-ui,sans-serif;letter-spacing:-.028em}
+h1{font-size:clamp(30px,6vw,50px);line-height:1.08;margin:9px 0 12px;max-width:700px}
+.lead{max-width:69ch;color:var(--studio-muted);line-height:1.65;margin:0 0 25px}
+h2{font-size:25px;line-height:1.2;margin:34px 0 14px}
+h3{font-size:20px;margin:0 0 6px}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:24px}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 15px;border:1px solid var(--studio-edge);border-radius:999px;background:var(--studio-card);color:var(--studio-ink);font-size:12px;font-weight:800}
+.pill[aria-pressed=true]{background:#6946c6;color:#fff;border-color:#5936ad}
+.overview{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:14px}
+.panel{background:var(--studio-card);border:1px solid var(--studio-edge);border-radius:24px;padding:22px;box-shadow:0 1px 2px #2d224d0b,0 7px 18px #2d224d11;min-width:0}
+.panel p{font-size:12px;color:var(--studio-muted);margin:3px 0 14px;line-height:1.55}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:12px;align-items:center;padding:17px 14px;border-radius:20px;background:linear-gradient(135deg,#393251,#2b2642);border:1px solid #584873;color:#fff}
+.stage h3{color:#fff;font-size:22px;line-height:1.16}.stage p{color:#e7def7;font-size:12px;margin:6px 0 14px}
+.stage img{width:112px;height:127px;max-width:100%;object-fit:contain}
+.mini-button,.mini-button-secondary{min-height:51px;padding:12px 18px;border:1px solid #8062d3;border-radius:16px;background:linear-gradient(180deg,#7959d9,#6844c5);color:#fff;font-weight:800;box-shadow:inset 0 1px #ffffff55,0 3px 0 #4b3098;transition:transform .14s}
+.mini-button:active{transform:translateY(2px)}
+.mini-button-secondary{background:var(--studio-card);color:var(--studio-ink);border-color:var(--studio-edge);box-shadow:0 2px 0 #6d5b961d}
+.mini-button:disabled{box-shadow:none;border-color:#c4bbd4;background:#ebe6f2;color:#6c667b}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:15px 0 0}
+#feedback{min-height:25px;color:var(--studio-muted);font-size:12px;margin-top:14px}
+.strokes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.strokes>div{min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;padding:17px 5px;border:1px solid var(--studio-edge);border-radius:16px;background:var(--studio-muted-bg);text-align:center}
+.strokes strong{font:600 20px Fredoka,sans-serif;white-space:nowrap}
+.strokes small{font-size:10px;color:var(--studio-muted)}
+.swatches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+.swatch{padding:10px;border:1px solid var(--studio-edge);border-radius:16px;background:var(--studio-card);min-width:0}
+.swatch div{height:56px;border-radius:11px;border:1px solid #ffffff2e}
+.swatch small{display:block;margin-top:8px;font-size:10px;font-weight:800;overflow-wrap:anywhere}
+.note{font-size:12px;color:var(--studio-muted);line-height:1.55}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0 18px}
+.filters .pill{min-height:44px}
+.asset-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.asset{min-width:0;padding:11px;border:1px solid var(--studio-edge);border-radius:20px;background:var(--studio-card);box-shadow:0 4px 12px #3325410b}
+.asset-art{height:139px;display:grid;place-items:center;overflow:hidden;border-radius:12px;background:linear-gradient(45deg,#ede7f0 25%,transparent 25%,transparent 75%,#ede7f0 75%),linear-gradient(45deg,#ede7f0 25%,#f8f3fc 25%,#f8f3fc 75%,#ede7f0 75%);background-size:16px 16px;background-position:0 0,8px 8px}
+.asset-art img{width:auto;height:auto;max-width:94%;max-height:128px;object-fit:contain}
+.asset strong{display:block;margin-top:10px;color:var(--studio-ink);font-size:11px;overflow-wrap:anywhere}
+.asset small{color:var(--studio-muted);font-size:10px;line-height:1.3}
+#status{color:var(--studio-muted);font-size:12px;font-weight:800}
+footer{margin-top:24px;border-top:1px solid var(--studio-edge);padding-top:16px;color:var(--studio-muted);font-size:11px;max-width:760px}
+@media(max-width:800px){.overview{grid-template-columns:1fr}.asset-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:490px){main{padding:21px 16px 80px}.panel{padding:16px}.stage{grid-template-columns:minmax(0,1fr) 90px}.stage img{width:90px;height:105px}.stage h3{font-size:20px}.asset-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.asset-art{height:118px}.asset-art img{max-height:108px}.strokes{gap:5px}.strokes>div{padding:13px 2px}.strokes strong{font-size:17px}.swatches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<header><div class="wordmark">verbarium<span>.</span></div><a class="back" href="/">← Voltar ao aplicativo</a></header>
+<div class="kicker">Design system · Mobile · Precision 08</div>
+<h1>O detalhe também ensina.</h1>
+<p class="lead">48 ilustrações independentes, uma linguagem de componentes. A arte dá personalidade ao Pip; HTML e CSS controlam tamanho, textos, cores, bordas, estados e áreas de toque.</p>
+<div class="toolbar"><a class="pill" href="/academy/">Abrir Academy</a><button class="pill" type="button" id="theme" aria-pressed="false">Alternar tema</button></div>
+<section class="overview" aria-label="Componentes reais">
+ <article class="panel"><div class="kicker">01 · Composição sem cortes</div><h3>Arte e interface separadas</h3>
+ <p>O mascote usa sua proporção natural. A chamada e o botão continuam editáveis e acessíveis.</p>
+ <div class="stage"><div><div class="kicker" style="color:#ffcaab">Pip recomenda</div><h3>Sua próxima aventura</h3><p>Uma lição por vez, com confiança e progresso real.</p><button class="mini-button" id="action">Continuar aula</button></div><img src="/verbarium-visual-kit/assets/mascot/fox_waving.webp" width="112" height="127" alt=""></div>
+ <div class="controls"><button class="mini-button-secondary" id="review">Revisar</button><button class="mini-button" disabled>Indisponível</button></div><div id="feedback" role="status" aria-live="polite">Verifique os estados interativos acima.</div>
+ </article>
+ <article class="panel"><div class="kicker">02 · Geometria deliberada</div><h3>Espessuras e dimensões</h3>
+ <p>Não há contornos aleatórios: cada espessura tem uma função e permanece idêntica entre telas.</p>
+ <div class="strokes"><div><strong>1 px</strong><small>Superfície</small></div><div><strong>2 px</strong><small>Seleção</small></div><div><strong>3 px</strong><small>Foco</small></div><div><strong>24/2</strong><small>Ícone/stroke</small></div><div><strong>4 px</strong><small>Grid</small></div><div><strong>16 px</strong><small>Controle</small></div><div><strong>24 px</strong><small>Card</small></div><div><strong>48 px</strong><small>Toque mínimo</small></div></div>
+ </article>
+</section>
+<section aria-label="Cores e tokens"><h2>Paleta e contraste</h2><p class="note">Texto branco no violeta de ação atinge cerca de 6,4:1. O laranja claro é reservado para decoração; textos laranja usam uma tonalidade mais escura.</p><div class="swatches">
+<div class="swatch"><div style="background:#6946c6"></div><small>Action #6946C6</small></div>
+<div class="swatch"><div style="background:#362a50"></div><small>Ink #362A50</small></div>
+<div class="swatch"><div style="background:#ef8b53"></div><small>Accent #EF8B53</small></div>
+<div class="swatch"><div style="background:#f8f6fb"></div><small>Canvas #F8F6FB</small></div>
+</div></section>
+<section aria-labelledby="asset-heading"><h2 id="asset-heading">48 assets em contexto</h2><p id="status" role="status">Carregando catálogo visual…</p><div class="filters" id="filters" aria-label="Categorias de assets"></div><div class="asset-grid" id="assets" aria-live="polite"></div></section>
+<footer>Os PNG/WebP são peças gráficas, não superfícies de formulários. Backgrounds jamais usam preenchimento distorcido. Grids, rótulos, botões e feedback permanecem nativos e interativos.</footer>
+</main>
+<script type="module" src="/ui-kit/precision-v7/gallery.js"></script>
+</body></html>
