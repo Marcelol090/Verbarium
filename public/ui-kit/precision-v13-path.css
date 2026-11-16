@@ -1,0 +1,100 @@
+/* VERBARIUM PATH V13
+   Generated 10-part learning-map kit: visual planes remain independent from
+   clickable lesson buttons, progress state and real text.
+   WebP sprites are progressive enhancements; V11 SVG/CSS provides fallbacks.
+*/
+:root{--vb13-art-root:"/verbarium-path/v13";--vb13-purple:#7544DF;--vb13-cream:#FFF9F4}
+@media(max-width:700px){
+ body[data-vb-app="home"] .vb13-map{
+  position:relative;isolation:isolate;display:block;width:100%;height:950px;min-height:950px;
+  overflow:hidden;border:1px solid #DBC9F0;border-radius:25px;
+  background:#C7A9F5;box-shadow:0 4px 0 #A88DDB,0 12px 24px #7652B023;
+ }
+ .vb13-scene{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url('/verbarium-path/v13/dreamy_violet_learning_pathscape.webp'),url('/verbarium-scenes/v11/journey-sky.svg');
+  background-position:center top,center top;background-repeat:no-repeat,no-repeat;
+  background-size:cover,cover;
+ }
+ .vb13-ribbon{position:absolute;left:0;width:100%;height:51%;pointer-events:none;z-index:1;
+  background:url('/verbarium-path/v13/glowing_lavender_learning_path_ribbon.webp') center/contain no-repeat;
+  opacity:.85;filter:drop-shadow(0 4px 7px #8A58CC33);
+ }
+ .vb13-ribbon--upper{top:7%}
+ .vb13-ribbon--lower{bottom:5%;transform:scaleX(-1)}
+ .vb13-flag{position:absolute;right:6%;top:1.4%;width:76px;height:91px;z-index:4;pointer-events:none;
+  background:url('/verbarium-path/v13/glossy_purple_destination_flag_marker.webp') center/contain no-repeat;
+ }
+ .vb13-hills{position:absolute;bottom:-3px;left:-3px;right:-3px;height:165px;z-index:2;pointer-events:none;
+  background:url('/verbarium-path/v13/glossy_mint_hillside_border.webp') bottom center/100% auto no-repeat;
+ }
+ .vb13-map-step{position:absolute;z-index:5}
+ .vb13-map-step.is-current{z-index:8}
+ .vb13-map-node{position:absolute;display:grid;place-items:center;top:0;left:0;
+  transform:translate(-50%,-50%);width:88px;height:88px;min-width:88px;min-height:88px;
+  border:0!important;border-radius:50%;
+  box-shadow:none!important;
+  background-repeat:no-repeat,no-repeat;background-position:center,center;
+  background-size:contain,cover;
+  color:#7141C4;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  transition:filter .16s ease,scale .16s ease;
+ }
+ .vb13-map-node:active:not(:disabled){transform:translate(-50%,-50%) scale(.96);filter:brightness(1.06)}
+ .vb13-node--current{width:108px;height:108px;min-width:108px;min-height:108px;
+  background-image:url('/verbarium-path/v13/glossy_purple_current_lesson_button.webp'),
+  radial-gradient(circle,#9E74F4 0%,#7242DC 56%,#FFF1B2 59%,#E5C8FF 74%,transparent 77%);
+ }
+ .vb13-node--completed{background-image:url('/verbarium-path/v13/glossy_completed_lesson_book_badge.webp'),
+  radial-gradient(circle,#6AD64F 10%,#3FB92F 59%,#FFF5FF 67%,transparent 74%);}
+ .vb13-node--milestone{background-image:url('/verbarium-path/v13/glossy_golden_star_milestone_badge.webp'),
+  radial-gradient(circle,#FFDC58 12%,#FBA421 59%,#FFF2D3 66%,transparent 73%);}
+ /* Next lessons are deliberately not displayed with a lock, because there
+    are no engine-enforced prerequisites. The locked asset is in the kit gallery. */
+ .vb13-node--upcoming{
+  background-image:radial-gradient(circle at 35% 22%,#FFFEFF 0%,#F5EAFE 53%,#DCCBF0 75%);
+  border:5px solid #FFF7FF!important;
+  box-shadow:0 4px 10px #6A44A039!important;
+ }
+ .vb13-node-fallback{position:relative;z-index:1;display:grid;place-items:center;
+  width:100%;height:100%;color:inherit;font:650 23px Fredoka,system-ui,sans-serif;
+  text-shadow:0 1px 2px #5C319433;
+ }
+ .vb13-node--current .vb13-node-fallback{font-size:30px;color:#FFF;padding-left:4px}
+ .vb13-node--completed .vb13-node-fallback{font-size:35px;color:#FFF0C8}
+ .vb13-node--milestone .vb13-node-fallback{font-size:36px;color:#FFF8AE}
+ html.vb13-art-ready .vb13-node--current .vb13-node-fallback,
+ html.vb13-art-ready .vb13-node--completed .vb13-node-fallback,
+ html.vb13-art-ready .vb13-node--milestone .vb13-node-fallback{opacity:0}
+ .vb13-map-check{top:17px;left:25px;transform:translate(25px,11px);
+  width:29px;height:29px;border:0;background:
+  url('/verbarium-path/v13/glossy_green_completion_badge.webp') center/contain no-repeat;
+  box-shadow:none;color:#fff;font-size:16px;
+ }
+ html.vb13-art-ready .vb13-map-check{font-size:0}
+ .vb13-map-caption{position:absolute;top:64px;left:0;transform:translateX(-50%);
+  width:min(190px,56vw);min-height:83px;display:flex;flex-direction:column;justify-content:center;
+  align-items:center;gap:3px;padding:15px 14px 13px;
+  border:0;background-image:url('/verbarium-path/v13/glossy_lilac_lesson_card_shell.webp'),
+  linear-gradient(#FFF9FEF0,#ECE1F7F0);
+  background-repeat:no-repeat;background-size:100% 100%,cover;background-position:center;
+  box-shadow:0 6px 14px #5D408F25;border-radius:19px;
+  pointer-events:none;backdrop-filter:none;color:#36236D;
+ }
+ .vb13-map-caption small{color:#7652B5;font:900 9px/1.25 Nunito,sans-serif;letter-spacing:.06em}
+ .vb13-map-caption strong{font:650 15px/1.2 Fredoka,sans-serif;text-align:center;max-width:100%;overflow-wrap:break-word}
+ .vb13-map-caption>span{font:800 10px/1.2 Nunito,sans-serif;color:#655083}
+ .vb13-map-node:focus-visible{outline:4px solid #F8D45B;outline-offset:3px}
+ .vb13-path-page .vb11-map-all{margin-top:17px}
+}
+@media(max-width:350px){
+ body[data-vb-app="home"] .vb13-map{height:890px;min-height:890px}
+ .vb13-map-node{width:78px;height:78px;min-width:78px;min-height:78px}
+ .vb13-node--current{width:96px;height:96px;min-width:96px;min-height:96px}
+ .vb13-map-caption{top:57px;width:168px;padding:12px 10px;min-height:75px}
+ .vb13-map-caption strong{font-size:13px}
+ .vb13-flag{width:62px;height:74px}
+}
+@media(prefers-reduced-motion:reduce){
+ .vb13-map-node{transition:none}
+}
