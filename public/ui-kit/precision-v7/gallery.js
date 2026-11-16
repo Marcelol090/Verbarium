@@ -29,7 +29,7 @@ async function init(){
   const data=await response.json();
   const keys=Object.keys(data.assets||{});
   if(keys.length!==48)throw Error('esperados 48 arquivos, recebidos '+keys.length);
-  status.textContent='48 assets · PNG e WebP isolados · use contain, sem stretch';
+  status.textContent='48 WebP publicados · PNG originais no ZIP · use contain, sem stretch';
   const options=['todos',...new Set(Object.values(data.assets).map(a=>a.category))];
   let selected='todos';
   for(const c of options){
