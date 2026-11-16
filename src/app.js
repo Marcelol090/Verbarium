@@ -280,6 +280,7 @@ function mobileLearnPage(){
        </button>
        ${current?`<div class="vb13-current-card vb13-caption-${spot.side}" aria-label="Próxima lição: ${safe(lesson.title)}">
         <img class="vb13-card-art" src="${assets}card_shell.webp" width="680" height="355" alt="" aria-hidden="true">
+        <span class="vb13-card-icon" aria-hidden="true">${svg('learn')}</span>
         <div class="vb13-card-content"><small>PRÓXIMA LIÇÃO</small><strong>${safe(lesson.title)}</strong></div>
        </div>`:''}
       </div>`;
