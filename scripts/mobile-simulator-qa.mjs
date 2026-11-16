@@ -31,6 +31,8 @@ async function dimensions(page){
    phoneWidth:Math.round(phone.getBoundingClientRect().width),
    realRoute:iframe.contentDocument.body.dataset.vbApp,
    phoneTop:getComputedStyle(document.querySelector('.phone-top')).display,
+   studioNav:getComputedStyle(document.querySelector('.mobile-studio-nav')).display,
+   appNavVisible:(()=>{const nav=iframe.contentDocument?.querySelector('.mobile-nav,.bottom-nav');return !!nav&&getComputedStyle(nav).display!=='none'})(),
    simulatorVisible:!!document.querySelector('.phone-stage').getBoundingClientRect().width
   };
  });
@@ -66,6 +68,8 @@ try{
   m=await dimensions(page);
   assert.equal(m.appWidth,width,'Native preview must use the screen width');
   assert.equal(m.phoneTop,'none','No fake mobile OS bar inside actual phone');
+  assert.equal(m.studioNav,'none','Only Verbarium may show a bottom bar in native preview');
+  assert.equal(m.appNavVisible,true,'The actual Verbarium mobile navigation must remain accessible');
   assert.ok(m.bodyWidth<=width+2,'No horizontal scroll in simulator');
   const innerOverflow=await page.evaluate(()=>{
    const app=document.querySelector('#app-frame').contentDocument;
@@ -75,12 +79,12 @@ try{
   await page.screenshot({path:path.join(output,'native-mobile-'+width+'.png'),animations:'disabled'});
   reports.push({case:'native-'+width,...m,innerOverflow,errors});
   if(width===390){
-   await page.locator('[data-mode-btn="assets"]').click();
+   await page.locator('#asset-switch').click();
    await page.waitForFunction(()=>document.querySelectorAll('.asset-card').length===48,null,{timeout:20000});
    await page.screenshot({path:path.join(output,'native-assets-390.png'),animations:'disabled'});
-   await page.locator('[data-mode-btn="rules"]').click();
+   await page.locator('.mobile-studio-nav [data-mode-btn="rules"]').click();
    await page.screenshot({path:path.join(output,'native-tokens-390.png'),animations:'disabled'});
-   await page.locator('[data-mode-btn="preview"]').click();
+   await page.locator('.mobile-studio-nav [data-mode-btn="preview"]').click();
    await page.locator('[data-mobile-screen="onboarding"]').click();
    await page.waitForFunction(()=>document.querySelector('#app-frame')?.contentDocument?.body?.dataset?.vbApp==='onboarding');
    await page.screenshot({path:path.join(output,'native-onboarding-390.png'),animations:'disabled'});
