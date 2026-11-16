@@ -43,3 +43,9 @@ test('reuses the published visual kit and has accessible control targets',()=>{
  assert.match(css,/\.mobile-studio-nav button\{[^}]*min-height:50px/);
  assert.match(css,/button:focus-visible,a:focus-visible,select:focus-visible\{outline:3px/);
 });
+
+test('mode tabs are bound as lists, not single-element querySelector',()=>{
+ assert.doesNotMatch(js,/(?<!\$)\$\('\[data-mode-btn\]'\)\.forEach/);
+ assert.match(js,/\$\$\('\[data-mode-btn\]'\)\.forEach/);
+ assert.match(js,/#asset-switch/);
+});
