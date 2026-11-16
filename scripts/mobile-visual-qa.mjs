@@ -85,7 +85,7 @@ try{
  results.push({width:390,route:'onboarding',background:bg,precision8});
  const gallery=await makePage(390);
  await gallery.goto(base+'/ui-kit/precision-v8/',{waitUntil:'networkidle',timeout:60000});
- await gallery.locator('[data-mode-btn="assets"]').click();
+ await gallery.locator('#asset-switch').click();
  await gallery.locator('#assets .asset-card').first().waitFor({timeout:15000});
  const count=await gallery.locator('#assets .asset-card').count();
  const broken=await gallery.locator('#assets .asset-card[data-missing="true"]').count();
