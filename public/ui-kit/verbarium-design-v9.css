@@ -561,3 +561,8 @@ body[data-vb-app="academy"] .welcome-card .primary-action{
  background:linear-gradient(180deg,#795cf0,#5b3ee6)!important;border:1px solid #8065e5!important;
  border-radius:12px!important;color:#fff!important;box-shadow:0 4px 0 #452eaa!important
 }
+
+body[data-vb-app="academy"] .skill-emoji{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:#f0eaff;border:1px solid #e2d6f5;color:#5b3ee6}
+body[data-vb-app="academy"] .skill-emoji img{display:block;width:25px;height:25px;object-fit:contain}
+body[data-vb-app="academy"] .skill-card:nth-child(3) .skill-emoji{background:#edf3ff;border-color:#dce7fb}
+body[data-vb-app="academy"] .skill-card:nth-child(4) .skill-emoji{background:#eaf8f0;border-color:#d5eddf}
