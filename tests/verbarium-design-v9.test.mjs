@@ -47,6 +47,13 @@ test('core component glyphs and lesson feedback use vector assets',()=>{
  for(const file of ['/ui-kit/icons/book.svg','/ui-kit/icons/play.svg','/ui-kit/icons/check.svg','/ui-kit/icons/brain.svg','/ui-kit/icons/chat.svg','/ui-kit/icons/flame.svg'])assert.ok(library.includes(file)||lesson.includes(file),file);
  assert.match(lesson,/correct:'\/ui-kit\/icons\/check\.svg'/);
  assert.match(lesson,/retry:'\/ui-kit\/icons\/refresh\.svg'/);
+ assert.match(library,/loading="eager" decoding="async"/);
+ assert.doesNotMatch(v7,/root\.querySelectorAll\('\.vb7-feature'\)\.forEach/);
+ assert.doesNotMatch(v7,/root\.querySelectorAll\('\.daily-strip>div'\)/);
+ assert.match(academy,/skill-emoji"><img src="\\/ui-kit\\/icons\\//);
+ assert.match(motion,/class="vb-nav-image/);
+ assert.match(motion,/\/ui-kit\/icons\//);
+ assert.doesNotMatch(motion,/\/verbarium-v3\/assets\/navigation\//);
  const promo=renderPromo({title:'Academy',image:'/verbarium-visual-kit/assets/mascot/fox_reading.webp'});
  assert.match(promo,/verbarium-visual-kit\/assets\/mascot\/fox_reading\.webp/);
 });
