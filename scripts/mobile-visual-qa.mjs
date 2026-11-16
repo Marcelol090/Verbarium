@@ -85,7 +85,20 @@ try{
   assert.equal(academyMetrics.horizontalOverflow,false,'Academy overflow '+width);
   assert.equal(academyMetrics.artLoaded,true,'Academy mascot not loaded');
   assert.equal(academyMetrics.artInside,true,'Academy mascot clipped');
-  reports.push({route:'academy',width,...academyMetrics});
+  const tabGeometry=await academy.evaluate(()=>[...document.querySelectorAll('.bottom-nav .nav-link')].map(btn=>{
+   const icon=btn.querySelector(':scope > span > svg'),caption=btn.querySelector(':scope > strong');
+   const i=icon?.getBoundingClientRect(),c=caption?.getBoundingClientRect();
+   return {iconVisible:!!i&&i.width>16&&i.height>16,captionVisible:!!c&&c.height>6,
+     overlap:!!(i&&c&&i.bottom>c.top+1),injectedVisible:[...btn.querySelectorAll('img')].some(img=>getComputedStyle(img).display!=='none')};
+  }));
+  assert.equal(tabGeometry.length,5,'Academy requires five mobile tabs');
+  for(const [index,tab] of tabGeometry.entries()){
+   assert.equal(tab.iconVisible,true,'Academy glyph missing in tab '+index);
+   assert.equal(tab.captionVisible,true,'Academy label missing in tab '+index);
+   assert.equal(tab.overlap,false,'Academy glyph overlaps caption in tab '+index);
+   assert.equal(tab.injectedVisible,false,'Double raster icon detected in Academy tab '+index);
+  }
+  reports.push({route:'academy',width,...academyMetrics,tabGeometry});
   await screenshot(academy,'academy-'+width+'.png',width===390);
   if(width===390){
    await academy.locator('.welcome-card button[data-unit]').first().click();
