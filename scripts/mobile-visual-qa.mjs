@@ -99,6 +99,27 @@ try{
  assert.deepEqual(galleryErrors,[],'Studio script errors');
  results.push({route:'studio-assets',width:390,assetCount});
  await gallery.close();
+
+ const {page:components,errors:componentErrors}=await create(390);
+ await components.goto(base+'/ui-kit/precision-v10/',{waitUntil:'networkidle',timeout:60000});
+ await components.locator('.next-card').waitFor({timeout:15000});
+ const scenes=await components.locator('.scene-grid img').count();
+ assert.equal(scenes,4,'All four V10 world previews must be present');
+ const broken=await components.locator('.scene-grid img').evaluateAll(images=>images.filter(img=>!img.complete||img.naturalWidth===0).length);
+ assert.equal(broken,0,'Vector art failed to load in studio');
+ const overflow=await components.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
+ assert.equal(overflow,false,'V10 components studio horizontally scrolls at 390');
+ await components.locator('[data-answer="are"]').click();
+ await components.locator('#check-answer').click();
+ assert.equal(await components.locator('#quiz-feedback').getAttribute('data-result'),'wrong');
+ await components.locator('#reset-quiz').click();
+ await components.locator('[data-answer="is"]').click();
+ await components.locator('#check-answer').click();
+ assert.equal(await components.locator('#quiz-feedback').getAttribute('data-result'),'correct');
+ await components.screenshot({path:path.join(output,'studio-v10-components-390.png'),fullPage:true,animations:'disabled'});
+ assert.deepEqual(componentErrors,[],'V10 components studio errors');
+ results.push({route:'studio-v10',width:390,scenes,broken,overflow});
+ await components.close();
 }finally{await browser.close();}
 await writeFile(path.join(output,'measurements.json'),JSON.stringify(results,null,2));
 console.log('Verbarium Mobile V10 visual QA passed',results.length,'checks across 320/360/390/430px');
