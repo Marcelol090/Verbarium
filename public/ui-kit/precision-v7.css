@@ -19,7 +19,7 @@
 }
 .vb7v-asset{display:block;flex:none;max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;object-position:center;pointer-events:none;user-select:none;-webkit-user-drag:none}
 .vb7v-asset-box{display:grid;place-items:center;isolation:isolate;min-width:0;flex:none}
-.vb7v-decor{pointer-events:none;aria-hidden:true}
+.vb7v-decor{pointer-events:none}
 @media(max-width:770px){
  body[data-vb-app="academy"]{
   --fox-bg:var(--vb7v-canvas);--fox-ink:var(--vb7v-ink);
@@ -166,3 +166,37 @@
  body[data-vb-app="academy"] .primary-action,body[data-vb-app="academy"] .option,
  body[data-vb-app="academy"] .pair-choice,body[data-vb-app="academy"] .word-bank button{transition:none!important;animation:none!important}
 }
+
+
+/* Successful image hydration owns only its own art box.
+   Do not hide native controls or text; always keep the previous art if upload is missing. */
+@media(max-width:770px){
+ body[data-vb-app="home"] .vb7-feature__icon.vb7v-has-art,
+ body[data-vb-app="home"] .vb7-mission-card__icon.vb7v-has-art{
+  display:grid;place-items:center;overflow:visible;
+ }
+ body[data-vb-app="home"] .vb7-feature__icon.vb7v-has-art>:not(.vb7v-asset-box),
+ body[data-vb-app="home"] .vb7-mission-card__icon.vb7v-has-art>:not(.vb7v-asset-box){display:none}
+ body[data-vb-app="home"] .vb7-feature__icon.vb7v-has-art>.vb7v-asset-box{
+  width:64px;height:64px;max-width:100%;aspect-ratio:1;
+ }
+ body[data-vb-app="home"] .vb7-mission-card__icon.vb7v-has-art>.vb7v-asset-box{
+  width:49px;height:49px;max-width:100%;aspect-ratio:1;
+ }
+ body[data-vb-app="academy"] .daily-strip>div.vb7v-has-art>.vb7v-asset-box{
+  width:36px;height:36px;margin:0 0 4px;aspect-ratio:1;
+ }
+ body[data-vb-app="academy"] .skill-emoji.vb7v-has-art>:not(.vb7v-asset-box){display:none}
+ body[data-vb-app="academy"] .skill-emoji.vb7v-has-art>.vb7v-asset-box{
+  width:54px;height:54px;max-width:100%;aspect-ratio:1;
+ }
+ body[data-vb-app="onboarding"] .ob-art.vb7v-onboard-with-fox::before{
+  background-image:var(--vb7v-onboard-fox)!important;
+  background-size:contain!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+ }
+}
+/* Respect dynamic type: descriptions wrap and controls grow vertically. */
+body[data-vb-app="home"] .vb7-hero__actions .vb7-cta,
+body[data-vb-app="academy"] .welcome-card .primary-action{white-space:normal;overflow-wrap:break-word}
