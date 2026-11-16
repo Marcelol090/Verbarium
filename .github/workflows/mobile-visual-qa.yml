@@ -4,6 +4,12 @@ on:
     branches: [main]
     paths:
       - 'public/academy/**'
+      - 'public/verbarium-design/**'
+      - 'assets/visual-kit-v1.tar.gz'
+      - 'scripts/install-senior-kit.mjs'
+      - 'scripts/senior-mobile-visual-qa.mjs'
+      - 'tests/senior-kit.test.mjs'
+      - 'package.json'
       - 'src/fox-mobile-home.css'
       - 'src/verbarium-kit/v5-kit.css'
       - 'public/ui-kit/**'
@@ -36,9 +42,15 @@ jobs:
           exit 1
       - name: Inspect home, Academy, lesson and onboarding at mobile widths
         run: node scripts/mobile-visual-qa.mjs
+      - name: Verify 48 artwork assets and mobile layout tokens
+        run: node --test tests/senior-kit.test.mjs
+      - name: Verify all visual kit routes and screenshots at 320–430px
+        run: node scripts/senior-mobile-visual-qa.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: verbarium-mobile-screenshots
-          path: artifacts/mobile-visual/
+          path: |-
+            artifacts/mobile-visual/
+            artifacts/senior-mobile/
           if-no-files-found: warn
