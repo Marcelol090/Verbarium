@@ -22,8 +22,9 @@ const clamp=(n)=>Math.max(0,Math.min(100,Number.isFinite(Number(n))?Number(n):0)
 const textSafe=(value)=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 export function art(kind,extra=""){
  const original=artPaths[kind]||artPaths.book;
- const v3={book:'journey/book_standalone',clipboard:'missions/target_dart',medal:'rewards/achievement_medal',gift:'rewards/gift_purple',chart:'missions/score_chart',check:'missions/check_gold',star:'rewards/star_coin',mascot:'mascot/ready_waving','mascot-reward':'mascot/celebration_arms','clipboard-done':'missions/mission_completed'};
- const src=v3[kind]?'/verbarium-v3/assets/'+v3[kind]+'.png':artBase+original;
+ const vector={book:'/ui-kit/icons/book.svg',flame:'/ui-kit/icons/flame.svg',chart:'/ui-kit/icons/chart.svg',check:'/ui-kit/icons/check.svg',star:'/ui-kit/icons/star.svg'};
+ const v3={clipboard:'missions/target_dart',medal:'rewards/achievement_medal',gift:'rewards/gift_purple',mascot:'mascot/ready_waving','mascot-reward':'mascot/celebration_arms','clipboard-done':'missions/mission_completed'};
+ const src=vector[kind]||(v3[kind]?'/verbarium-v3/assets/'+v3[kind]+'.png':artBase+original);
  return `<img src="${src}" class="vb-art ${extra}" alt="" loading="lazy" decoding="async" aria-hidden="true">`;
 }
 export function renderProgressBar(value,key="bar",tone="blue"){
