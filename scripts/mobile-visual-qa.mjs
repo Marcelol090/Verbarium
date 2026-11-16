@@ -38,7 +38,7 @@ async function check(page,route,width){
   const natural=home?{w:art?.naturalWidth||0,h:art?.naturalHeight||0}: {w:art?.querySelector('img')?.naturalWidth||0,h:art?.querySelector('img')?.naturalHeight||0};
   return {viewport,horizontalOverflow,offenders,card:cardR,art:artR,artInside,ctaRadius,ctaBackground,newArtKey,background:bg.slice(0,250),natural};
  });
- const v7Geometry=findings.ctaRadius==='16px'&&findings.ctaBackground?.includes('rgb(141, 102, 237)');
+ const v7Geometry=findings.ctaRadius===(route==='home'?'16px':'12px')&&findings.ctaBackground?.includes('rgb(141, 102, 237)');
  const v7Artwork=route==='home'?findings.newArtKey==='fox_waving':findings.newArtKey==='fox_teacher';
  const ok=!findings.horizontalOverflow&&findings.artInside&&findings.natural.w>0&&v7Geometry&&v7Artwork;
  results.push({width,route,ok,...findings});
