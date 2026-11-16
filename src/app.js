@@ -239,7 +239,33 @@ function homePage(){if(window.matchMedia('(max-width:700px)').matches)return mob
  <p class="tool-tip" style="margin:18px 0">Trilha pedagógica inspirada no CEFR. O progresso é pessoal e salvo apenas neste navegador.</p>`
 }
 function weekActivity(){return calendarWeek(new Date(),[...data.activity.map(a=>a.date),...(data.sessions||[]).map(s=>s.date),...Object.values(data.completedAt||{})])}
-function learnPage(){const filtered=lessons.filter(x=>app.filter==='Todos'||x.level===app.filter);return `<div class="page-intro"><div class="overline">APRENDIZADO ESTRUTURADO</div><h1 class="heading">Aprender é uma <em>jornada.</em></h1><p class="lede">Do primeiro “I am” às ideias conectadas. Cada aula traz uma explicação em português, um exemplo real e uma verificação do que você compreendeu.</p></div><div class="v2-section-bar"><h2>Três capítulos, uma jornada</h2><span>Sem bloqueios artificiais</span></div>
+/* The learner can always open any lesson. Node appearance reflects progress,
+   never creates an artificial lock absent from the learning engine. */
+function mobileLearnPage(){
+ const completed=new Set(data.completed);
+ const activeId=nextLesson().id;
+ const activeIndex=Math.max(0,lessons.findIndex(l=>l.id===activeId));
+ const start=Math.max(0,Math.min(activeIndex-1,lessons.length-5));
+ const visible=lessons.slice(start,start+5);
+ const positions=[{x:53,y:11},{x:53,y:28},{x:49,y:45},{x:56,y:62},{x:49,y:79}];
+ return `<div class="vb11-path-page">
+  <header class="vb11-screen-header"><button type="button" data-route="home" class="vb11-back" aria-label="Voltar ao início">${svg('arrow')}</button><h1>Trilha de aprendizagem</h1></header>
+  <p class="vb11-screen-subtitle">Cada lição é um passo. Escolha onde quer aprender.</p>
+  <section class="vb11-map" aria-label="Seu mapa de aulas">
+   ${visible.map((lesson,i)=>{const done=completed.has(lesson.id),current=lesson.id===activeId,pos=positions[i];return `<div class="vb11-map-step ${done?'is-done':current?'is-current':'is-next'}" style="--x:${pos.x}%;--y:${pos.y}%">
+     <button type="button" class="vb11-map-node" data-action="open-lesson" data-id="${safe(lesson.id)}" aria-label="${done?'Revisitar':current?'Iniciar':'Explorar'} aula ${start+i+1}: ${safe(lesson.title)}">
+       ${done?'<span class="vb11-map-symbol">★</span>':current?'<span class="vb11-map-symbol vb11-map-play">▶</span>':`<span class="vb11-map-number">${String(start+i+1).padStart(2,'0')}</span>`}
+     </button>
+     ${done?'<span class="vb11-map-check" aria-hidden="true">✓</span>':''}
+     ${current?`<span class="vb11-map-caption"><small>PRÓXIMA LIÇÃO</small><strong>${safe(lesson.title)}</strong></span>`:''}
+   </div>`}).join('')}
+  </section>
+  <details class="vb11-map-all"><summary>Explorar todas as ${lessons.length} aulas <span aria-hidden="true">⌄</span></summary>
+   <div class="vb11-map-list">${lessons.map((lesson,i)=>`<button type="button" data-action="open-lesson" data-id="${safe(lesson.id)}"><span class="vb11-map-list-index">${completed.has(lesson.id)?'✓':String(i+1).padStart(2,'0')}</span><span><strong>${safe(lesson.title)}</strong><small>${safe(lesson.level)} · ${completed.has(lesson.id)?'Concluída':'Disponível'}</small></span><span aria-hidden="true">→</span></button>`).join('')}</div>
+  </details>
+ </div>`;
+}
+function learnPage(){if(window.matchMedia('(max-width:700px)').matches)return mobileLearnPage();const filtered=lessons.filter(x=>app.filter==='Todos'||x.level===app.filter);return `<div class="page-intro"><div class="overline">APRENDIZADO ESTRUTURADO</div><h1 class="heading">Aprender é uma <em>jornada.</em></h1><p class="lede">Do primeiro “I am” às ideias conectadas. Cada aula traz uma explicação em português, um exemplo real e uma verificação do que você compreendeu.</p></div><div class="v2-section-bar"><h2>Três capítulos, uma jornada</h2><span>Sem bloqueios artificiais</span></div>
  ${renderGuidedPath({lessons,completed:data.completed,currentId:nextLesson().id,limit:7})}
  <details class="vb8-world-details"><summary>Explorar o mapa completo e os mundos</summary>${renderQuestMap({lessons,completed:data.completed,currentId:nextLesson().id,lessonSessions:data.lessonSessions})}
  ${renderV6SkillPath({lessons,completed:data.completed,foodProgress:foodQuestProgress(),pairProgress:v6PairProgress()})}</details>
