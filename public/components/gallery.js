@@ -20,7 +20,7 @@ const backgroundAssets=[
  ['lesson','Lição','Contexto leve para foco no conteúdo.'],
  ['practice','Prática','Desafios, metas e exercícios.'],
  ['conversation','Conversação','Escuta, fala e diálogos.'],
- ['rewards','Conquistas','Celebração de marcos reais.'],
+ ['celebration','Conquistas','Celebração de marcos reais.'],
  ['onboarding','Onboarding','Primeiro contato e definição de objetivo.'],
  ['profile','Perfil','Resumo e espaço pessoal.']
 ];
