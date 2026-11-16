@@ -53,7 +53,8 @@ try{
   await inspect(home,'home',width);
   if(width===390){
    await home.locator('.vb10-primary').click();
-   await home.locator('.theory-card').waitFor({timeout:15000});
+   await home.locator('.vb10-rule-card').waitFor({timeout:15000});
+   await home.locator('.vb8-exercise').waitFor({timeout:15000});
    await home.screenshot({path:path.join(output,'home-lesson-390.png'),animations:'disabled'});
   }
   assert.deepEqual(homeErrors,[],'Home script errors at '+width);
