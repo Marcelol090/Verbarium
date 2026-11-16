@@ -304,7 +304,38 @@ function shuffle(xs){const arr=[...xs];for(let i=arr.length-1;i>0;i--){const j=M
 function newRound(reviewOnly=false){const pool=reviewOnly?dueItems().map(([id])=>findQ(id)).filter(Boolean):allQuestions().filter(q=>app.practiceMode==='mixed'||(app.practiceMode==='choice'&&q.type==='choice')||(app.practiceMode==='write'&&q.type==='write'));app.round=shuffle(pool).slice(0,reviewOnly?Math.min(10,pool.length):8);app.roundIdx=0;app.roundCorrect=0;app.roundAnswer=null;app.reviewOnly=reviewOnly}
 function practicePage(){if(!app.round.length&&!app.reviewOnly)newRound();return renderPracticeScreen({round:app.round,index:app.roundIdx,correct:app.roundCorrect,answer:app.roundAnswer,reviewOnly:app.reviewOnly,mode:app.practiceMode});}
 function speakPage(){const sc=scenarios.find(x=>x.id===app.scenario)||scenarios[0];return renderDialogueScreen({scenarios,scenario:sc,stepIndex:app.step,history:app.dialog,answer:app.dialogAnswer,micStatus:app.micStatus});}
-function progressPage(){
+function mobileAchievementsPage(){
+ const finished=data.completed.length,streak=currentStreak(),correct=data.correct||0;
+ const milestones=[
+  {id:'lesson',name:'Primeira lição',description:'Conclua sua primeira aula.',value:finished,target:1,asset:'lesson_book.webp'},
+  {id:'streak',name:'Sequência de 7 dias',description:'Pratique por 7 dias seguidos.',value:streak,target:7,asset:'reward_streak_flame.webp'},
+  {id:'answers',name:'50 respostas corretas',description:'Construa confiança com seus acertos.',value:correct,target:50,asset:'reward_medal.webp'}
+ ];
+ const asset=(id)=>id==='lesson'?'rewards/lesson_book.webp':id==='streak'?'rewards/reward_streak_flame.webp':'rewards/reward_medal.webp';
+ return `<div class="vb11-achievements">
+  <header class="vb11-screen-header"><button type="button" data-route="home" class="vb11-back" aria-label="Voltar ao início">${svg('arrow')}</button><h1>Conquistas</h1></header>
+  <section class="vb11-trophy-hero" aria-label="Sua jornada de conquistas">
+   <img class="vb11-trophy-art" src="/verbarium-scenes/v11/trophy.svg" alt="Troféu dourado representando suas conquistas" decoding="async" width="400" height="400">
+  </section>
+  <div class="vb11-achievement-heading"><h2>Suas conquistas</h2><p>Seu progresso merece ser celebrado, um passo de cada vez.</p></div>
+  <div class="vb11-achievement-metrics" aria-label="Seu histórico de aprendizagem">
+   <div><img src="/verbarium-visual-kit/assets/rewards/reward_streak_flame.webp" alt=""><span><small>Sequência</small><strong>${streak} dias</strong></span></div>
+   <div><img src="/verbarium-visual-kit/assets/rewards/reward_medal.webp" alt=""><span><small>Acertos</small><strong>${correct}</strong></span></div>
+   <div><img src="/verbarium-visual-kit/assets/rewards/lesson_book.webp" alt=""><span><small>Lições</small><strong>${finished}/${lessons.length}</strong></span></div>
+  </div>
+  <section class="vb11-badges" aria-label="Insígnias">
+   ${milestones.map(m=>{const complete=m.value>=m.target,percentage=Math.min(100,Math.round(m.value/m.target*100));return `<article class="vb11-badge ${complete?'is-earned':'is-building'}">
+    <span class="vb11-badge-image"><img src="/verbarium-visual-kit/assets/${asset(m.id)}" width="64" height="64" alt=""></span>
+    <div class="vb11-badge-copy"><strong>${m.name}</strong><small>${m.description}</small>
+     ${complete?'<span class="vb11-earned-text">Conquistada!</span>':`<div class="vb11-badge-progress"><div class="vb11-badge-count"><span>${Math.min(m.value,m.target)}/${m.target}</span></div><div class="vb11-mini-track" role="progressbar" aria-label="${m.name}" aria-valuemin="0" aria-valuemax="${m.target}" aria-valuenow="${Math.min(m.value,m.target)}"><i style="width:${percentage}%"></i></div></div>`}
+    </div><span class="vb11-badge-status ${complete?'is-earned':''}" aria-label="${complete?'Concluída':'Em andamento'}">${complete?'✓':'○'}</span>
+   </article>`}).join('')}
+  </section>
+  <button type="button" class="vb11-achievement-action" data-route="learn">Continuar minha jornada <span aria-hidden="true">→</span></button>
+  <p class="vb11-data-note">Indicadores calculados a partir das atividades registradas neste navegador.</p>
+ </div>`;
+}
+function progressPage(){if(window.matchMedia('(max-width:700px)').matches)return mobileAchievementsPage();
  const completion=pct(data.completed.length,lessons.length),accuracy=data.attempts?pct(data.correct,data.attempts):0,streak=currentStreak(),daily=weekActivity(),due=dueItems().length;
  const rankText=completion===100?'Trilha completa':completion>=50?'Metade do caminho':completion>0?'Primeiros passos':'Sua jornada começa aqui';
  return `<div class="page-intro"><div class="overline">SEU CRESCIMENTO, NO SEU RITMO</div><h1 class="heading">Cada passo <em>conta!</em> 🏆</h1><p class="lede">Este é seu espaço de conquistas. Acompanhe o que estudou, o que já sabe e onde pode melhorar.</p></div>
