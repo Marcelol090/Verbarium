@@ -19,10 +19,9 @@ test('V9 section backgrounds are separate scalable SVGs without baked UI copy',(
 });
 
 test('all application entry points load the shared visual layer',()=>{
- for(const path of ['public/academy/index.html','public/onboarding/index.html','public/learning/index.html','public/components/index.html']){
+ for(const path of ['index.html','public/academy/index.html','public/onboarding/index.html','public/learning/index.html','public/components/index.html']){
   assert.match(read(path),/verbarium-design-v9\.css/,path);
  }
- assert.match(read('src/app.js'),/import '\.\/verbarium-design-v9\.css';/);
  assert.ok(v8.indexOf('document.head.append(precisionV8Style)')<v8.indexOf('document.head.append(verbariumV9Style)'));
  assert.doesNotMatch(v8,/host\.querySelectorAll\('\.vb7-feature'\)\.forEach/);
 });
@@ -54,11 +53,11 @@ test('background gallery previews the same production files and both CSS copies 
  const html=read('public/components/index.html');
  for(const name of backgrounds.filter(x=>x!=='premium'&&x!=='neutral'))assert.ok(gallery.includes("['"+name+"'")||gallery.includes("['"+name+"',"),name+' gallery entry');
  assert.match(html,/12 · Fundos por sessão/);
- assert.equal(read('src/verbarium-design-v9.css'),read('public/ui-kit/verbarium-design-v9.css'));
+
 });
 
 test('V9 styles remain balanced and respect narrow screens and reduced motion',()=>{
- const css=read('src/verbarium-design-v9.css');
+ const css=read('public/ui-kit/verbarium-design-v9.css');
  const stripped=css.replace(/\/\*[\s\S]*?\*\//g,'').replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g,'""');
  let depth=0;
  for(const ch of stripped){if(ch==='{')depth++;if(ch==='}')depth--;assert.ok(depth>=0,'CSS closes in order');}
