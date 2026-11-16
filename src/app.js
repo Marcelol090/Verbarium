@@ -242,27 +242,61 @@ function weekActivity(){return calendarWeek(new Date(),[...data.activity.map(a=>
 /* The learner can always open any lesson. Node appearance reflects progress,
    never creates an artificial lock absent from the learning engine. */
 function mobileLearnPage(){
+ const assets='/verbarium-scenes/v13/';
  const completed=new Set(data.completed);
  const activeId=nextLesson().id;
  const activeIndex=Math.max(0,lessons.findIndex(l=>l.id===activeId));
- const start=Math.max(0,Math.min(activeIndex-1,lessons.length-5));
+ // Keep the current learning node near the middle after the first two lessons.
+ const start=Math.max(0,Math.min(activeIndex-2,Math.max(0,lessons.length-5)));
  const visible=lessons.slice(start,start+5);
- const positions=[{x:53,y:11},{x:53,y:32},{x:49,y:48},{x:56,y:65},{x:49,y:82}];
- return `<div class="vb11-path-page">
-  <header class="vb11-screen-header"><button type="button" data-route="home" class="vb11-back" aria-label="Voltar ao início">${svg('arrow')}</button><h1>Trilha de aprendizagem</h1></header>
-  <p class="vb11-screen-subtitle">Cada lição é um passo. Escolha onde quer aprender.</p>
-  <section class="vb11-map" aria-label="Seu mapa de aulas">
-   ${visible.map((lesson,i)=>{const done=completed.has(lesson.id),current=lesson.id===activeId,pos=positions[i];return `<div class="vb11-map-step ${done?'is-done':current?'is-current':'is-next'}" style="--x:${pos.x}%;--y:${pos.y}%">
-     <button type="button" class="vb11-map-node" data-action="open-lesson" data-id="${safe(lesson.id)}" aria-label="${done?'Revisitar':current?'Iniciar':'Explorar'} aula ${start+i+1}: ${safe(lesson.title)}">
-       ${done?'<span class="vb11-map-symbol">★</span>':current?'<span class="vb11-map-symbol vb11-map-play">▶</span>':`<span class="vb11-map-number">${String(start+i+1).padStart(2,'0')}</span>`}
-     </button>
-     ${done?'<span class="vb11-map-check" aria-hidden="true">✓</span>':''}
-     ${current?`<span class="vb11-map-caption"><small>PRÓXIMA LIÇÃO</small><strong>${safe(lesson.title)}</strong></span>`:''}
-   </div>`}).join('')}
-  </section>
-  <details class="vb11-map-all"><summary>Explorar todas as ${lessons.length} aulas <span aria-hidden="true">⌄</span></summary>
-   <div class="vb11-map-list">${lessons.map((lesson,i)=>`<button type="button" data-action="open-lesson" data-id="${safe(lesson.id)}"><span class="vb11-map-list-index">${completed.has(lesson.id)?'✓':String(i+1).padStart(2,'0')}</span><span><strong>${safe(lesson.title)}</strong><small>${safe(lesson.level)} · ${completed.has(lesson.id)?'Concluída':'Disponível'}</small></span><span aria-hidden="true">→</span></button>`).join('')}</div>
-  </details>
+ // Coordinate markers follow the curves of path_ribbon.webp, not a generic vertical grid.
+ const positions=[
+   {x:68,y:24,side:'above'},
+   {x:20,y:41,side:'right'},
+   {x:72,y:58,side:'left'},
+   {x:39,y:73,side:'right'},
+   {x:43,y:87,side:'right'}
+ ];
+ return `<div class="vb11-path-page vb13-path-page">
+   <header class="vb11-screen-header vb13-screen-header">
+    <button type="button" data-route="home" class="vb11-back" aria-label="Voltar ao início">${svg('arrow')}</button>
+    <h1>Trilha de aprendizagem</h1>
+    <img class="vb13-header-flag" src="${assets}destination_flag.webp" width="54" height="54" alt="" aria-hidden="true">
+   </header>
+   <p class="vb11-screen-subtitle">Acompanhe sua jornada, uma lição de cada vez.</p>
+   <section class="vb11-map vb13-map" aria-label="Trilha com cenário ilustrado e aulas interativas">
+    <img class="vb13-map-sky" src="${assets}scene_sky.webp" width="800" height="1421" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
+    <img class="vb13-map-ribbon" src="${assets}path_ribbon.webp" width="702" height="1420" alt="" aria-hidden="true" decoding="async">
+    <img class="vb13-map-hills" src="${assets}foreground_hills.webp" width="820" height="323" alt="" aria-hidden="true" decoding="async">
+    ${visible.map((lesson,i)=>{
+      const globalIndex=start+i;
+      const done=completed.has(lesson.id),current=lesson.id===activeId;
+      const milestone=done&&(globalIndex===0||(globalIndex+1)%4===0);
+      const graphic=current?'node_current':done?(milestone?'node_milestone':'node_completed'):'node_locked';
+      const spot=positions[i];
+      return `<div class="vb11-map-step vb13-map-step ${done?'is-done':current?'is-current':'is-next'}" data-slot="${i}" data-node-state="${current?'current':done?'completed':'upcoming'}" style="--x:${spot.x}%;--y:${spot.y}%">
+       <button type="button" class="vb11-map-node vb13-map-node" data-action="open-lesson" data-id="${safe(lesson.id)}" aria-label="${current?'Começar':done?'Revisitar':'Abrir antecipadamente'} a aula ${globalIndex+1}: ${safe(lesson.title)}">
+        <img src="${assets}${graphic}.webp" width="288" height="288" alt="" aria-hidden="true" draggable="false" decoding="async">
+       </button>
+       ${current?`<div class="vb13-current-card vb13-caption-${spot.side}" aria-label="Próxima lição: ${safe(lesson.title)}">
+        <img class="vb13-card-art" src="${assets}card_shell.webp" width="680" height="355" alt="" aria-hidden="true">
+        <span class="vb13-card-icon" aria-hidden="true">${svg('learn')}</span>
+        <div class="vb13-card-content"><small>PRÓXIMA LIÇÃO</small><strong>${safe(lesson.title)}</strong></div>
+       </div>`:''}
+      </div>`;
+    }).join('')}
+   </section>
+   <div class="vb13-path-note"><span class="vb13-path-note-dot" aria-hidden="true"></span><span>Os próximos nós mostram sua progressão sugerida. Todas as aulas podem ser abertas pelo catálogo.</span></div>
+   <details class="vb11-map-all vb13-map-all"><summary>Explorar todas as ${lessons.length} aulas <span aria-hidden="true">⌄</span></summary>
+    <div class="vb11-map-list">${lessons.map((lesson,i)=>{
+      const done=completed.has(lesson.id);
+      return `<button type="button" data-action="open-lesson" data-id="${safe(lesson.id)}" aria-label="${done?'Revisitar':'Abrir'} ${safe(lesson.title)}">
+       <span class="vb11-map-list-index vb13-catalog-icon">${done?`<img src="${assets}check_small.webp" width="28" height="28" alt="" aria-hidden="true">`:String(i+1).padStart(2,'0')}</span>
+       <span><strong>${safe(lesson.title)}</strong><small>${safe(lesson.level)} · ${done?'Concluída':'Disponível'}</small></span>
+       <span aria-hidden="true">→</span>
+      </button>`;
+    }).join('')}</div>
+   </details>
  </div>`;
 }
 function learnPage(){if(window.matchMedia('(max-width:700px)').matches)return mobileLearnPage();const filtered=lessons.filter(x=>app.filter==='Todos'||x.level===app.filter);return `<div class="page-intro"><div class="overline">APRENDIZADO ESTRUTURADO</div><h1 class="heading">Aprender é uma <em>jornada.</em></h1><p class="lede">Do primeiro “I am” às ideias conectadas. Cada aula traz uma explicação em português, um exemplo real e uma verificação do que você compreendeu.</p></div><div class="v2-section-bar"><h2>Três capítulos, uma jornada</h2><span>Sem bloqueios artificiais</span></div>
