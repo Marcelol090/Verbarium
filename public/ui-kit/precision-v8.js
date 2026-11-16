@@ -5,7 +5,9 @@
 // V7 moves its linked stylesheet to the end of <head>. V8 must run afterward
 // or the old, equally-specific declarations win by document order.
 const precisionV8Style=document.querySelector('link[href="/ui-kit/precision-v8.css"]');
+const verbariumV9Style=document.querySelector('link[href="/ui-kit/verbarium-design-v9.css"]');
 if(precisionV8Style&&precisionV8Style.parentNode===document.head)document.head.append(precisionV8Style);
+if(verbariumV9Style&&verbariumV9Style.parentNode===document.head)document.head.append(verbariumV9Style);
 
 const ROOT='/verbarium-visual-kit/';
 const app=document.body.dataset.vbApp||'';
@@ -53,14 +55,9 @@ function inlineGlyph(parent,name){
 }
 function decorateHome(){
  if(!host)return;
- inlineGlyph(host.querySelector('.vb7-hero__badge'),'lesson_book');
- setImage(host.querySelector('.weekly-card .weekly-icon img'),'reward_medal');
- // The visual tiles act as imagery only; they are never rendered as real controls.
- // Use the readable, simpler icons in the small feature hit targets instead.
- const arts={violet:'lesson_book',orange:'reward_streak_flame',blue:'reward_xp_gem',mint:'reward_chest'};
- host.querySelectorAll('.vb7-feature').forEach(card=>{
-  decorateExistingImage(card.querySelector('.vb7-feature__icon'),arts[card.dataset.tone]||'lesson_book');
- });
+ // V9 keeps button and feature glyphs as crisp SVGs. Only the fox is an illustration layer.
+ const mascot=host.querySelector('.vb7-hero__mascot .vb-fox-home-mascot');
+ if(mascot)setImage(mascot,'fox_waving');
 }
 function decorateAcademy(){
  if(!host)return;
@@ -69,8 +66,7 @@ function decorateAcademy(){
  setImage(host.querySelector('.sentence-lab-entry>img'),'fox_reading');
  setImage(host.querySelector('.fox-lesson-guide img'),'fox_teacher');
  setImage(host.querySelector('.fox-finish-mark'),'fox_waving');
- const art=['reward_streak_flame','lesson_book','reward_xp_gem'];
- host.querySelectorAll('.daily-strip>div').forEach((c,i)=>decorateExistingImage(c,art[i]||'lesson_book'));
+ // Daily statistics use the shared SVG glyphs in their markup; do not overlay raster tiles.
 }
 function decorateOnboarding(){
  const panel=document.querySelector('.ob-art');
