@@ -31,7 +31,7 @@
  /* Current lesson info uses the separate translucent shell as a decorative layer.
     Text remains actual HTML and is reflowable for localization. */
  .vb13-current-card{position:absolute;z-index:4;width:180px;height:100px;pointer-events:none;filter:drop-shadow(0 4px 7px #63419124)}
- .vb13-card-art{display:block;width:100%;height:100%;object-fit:fill;pointer-events:none}
+ .vb13-card-art{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}
  .vb13-card-content{position:absolute;z-index:1;left:33%;right:5%;top:12%;bottom:10%;display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:0}
  .vb13-card-content small{color:#6942c9;font:900 9px/1.15 "Inter Tight",Nunito,sans-serif;letter-spacing:.045em}
  .vb13-card-content strong{color:#342260;font:650 13px/1.17 Fredoka,system-ui,sans-serif;letter-spacing:-.15px;overflow-wrap:break-word}
