@@ -8,6 +8,7 @@ on:
       - 'src/verbarium-kit/v5-kit.css'
       - 'public/ui-kit/**'
       - 'scripts/mobile-visual-qa.mjs'
+      - 'scripts/mobile-simulator-qa.mjs'
       - 'tests/fox-mobile-layout.test.mjs'
       - '.github/workflows/mobile-visual-qa.yml'
 permissions:
@@ -36,9 +37,13 @@ jobs:
           exit 1
       - name: Inspect home, Academy, lesson and onboarding at mobile widths
         run: node scripts/mobile-visual-qa.mjs
+      - name: Inspect real mobile simulator and responsive phone preview
+        run: node scripts/mobile-simulator-qa.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: verbarium-mobile-screenshots
-          path: artifacts/mobile-visual/
+          path: |
+            artifacts/mobile-visual/
+            artifacts/mobile-simulator/
           if-no-files-found: warn
