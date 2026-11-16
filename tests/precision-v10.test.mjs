@@ -1,0 +1,58 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,existsSync} from 'node:fs';
+const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
+const app=read('src/app.js');
+const academy=read('public/academy/academy.js');
+const css=read('public/ui-kit/precision-v10.css');
+const worlds=read('src/verbarium-kit/worlds.js');
+test('V10 is the last style in all three production entrypoints',()=>{
+ for(const path of ['index.html','public/academy/index.html','public/onboarding/index.html']){
+  const html=read(path);
+  assert.ok(html.includes('precision-v10.css'),path+' missing V10');
+  assert.ok(html.indexOf('precision-v10.css')>html.indexOf('precision-v8.css'),path+' wrong cascade');
+ }
+});
+test('mobile Home is a real, guided next lesson with progress, review and two practice options',()=>{
+ assert.match(app,/function mobileHomePage\(\)\{/);
+ assert.match(app,/matchMedia\('\(max-width:700px\)'\)/);
+ assert.match(app,/class="vb10-mobile-home"/);
+ assert.match(app,/class="vb10-primary"[^>]*data-action="open-lesson"/);
+ assert.match(app,/class="vb10-progress" role="progressbar"/);
+ assert.match(app,/class="vb10-daily"/);
+ assert.match(app,/data-route="review"/);
+ assert.match(app,/data-route="speak"/);
+ assert.match(app,/data-route="practice"/);
+ assert.match(app,/class="vb10-more"/);
+ assert.equal((app.match(/class="vb10-primary"/g)||[]).length,1,'Only one primary CTA in Home');
+});
+test('Academy choices are visible after the question, not before',()=>{
+ const index=academy.indexOf('function renderSession()');
+ const inside=academy.slice(index,academy.indexOf('function renderFinish',index));
+ assert.ok(inside.indexOf('vb10-question-head')<inside.indexOf('<div class="actor-stage">'),'Question must precede actor');
+ assert.ok(inside.indexOf('vb10-answer-area')>inside.indexOf('<div class="speech-box">'),'Answers must follow context');
+ assert.match(inside,/\$\{form\}/);
+ assert.match(academy,/vb10-lab-extra/);
+ assert.match(academy,/vb10-skill-icon/);
+ assert.match(academy,/skillIcons=\{vocabulary:'book'/);
+});
+test('vector scenes replace stretched, blurry world banners',()=>{
+ assert.match(worlds,/portrait-.*\.svg/);
+ assert.match(worlds,/landscape-.*\.svg/);
+ for(const kind of ['first','time','talk','mastery'])for(const aspect of ['landscape','portrait']){
+  const p='public/verbarium-scenes/v10/'+aspect+'-'+kind+'.svg';
+  assert.ok(existsSync(new URL('../'+p,import.meta.url)),p+' missing');
+ }
+ assert.match(css,/\.vb-world-lesson-banner>img\{object-fit:cover/);
+ assert.doesNotMatch(css,/background-size:100%\s+100%/);
+});
+test('component roles use consistent geometry and focused, semantic states',()=>{
+ assert.match(css,/--vb10-control:16px/);
+ assert.match(css,/\.vb10-primary\{[^}]*min-height:55px/);
+ assert.match(css,/\.vb10-hero-grid\{[^}]*grid-template-columns:minmax\(0,1fr\)/);
+ assert.match(css,/\.vb10-mascot-stage img\{[^}]*object-fit:contain/);
+ assert.match(css,/\.option\.correct/);
+ assert.match(css,/\.option\.wrong/);
+ assert.match(css,/\.option\.selected/);
+ assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
+});
