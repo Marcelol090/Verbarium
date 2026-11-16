@@ -525,3 +525,34 @@ body[data-vb-app="onboarding"] .vbk-choice[aria-pressed="true"]{border-color:#76
  body[data-vb-app="home"] *,body[data-vb-app="academy"] *,body[data-vb-app="onboarding"] *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
  body[data-vb-app="home"] .vb7-feature:hover,body[data-vb-app="home"] .vb7-cta:hover{transform:none}
 }
+
+/* Final V9 overrides after the legacy V8 stylesheet is repositioned by its hydrator. */
+body[data-vb-app="home"] #main .vb7-hero{background:linear-gradient(105deg,#fffaf3ed 0%,#f2eaffd9 64%,#eadfffbd 100%),url('/ui-kit/backgrounds/home.svg') center/cover no-repeat!important;border:1px solid #dfd3f2!important;box-shadow:0 3px 5px #4b32780a,0 14px 30px #4b327812!important;color:#352653!important}
+body[data-vb-app="home"] #main .vb7-hero::before{background:linear-gradient(125deg,#ffffff4f,transparent 55%)!important}
+body[data-vb-app="home"] #main .vb7-hero__badge{background:#fff0e4!important;border:1px solid #f4d6be!important;color:#a4512a!important}
+body[data-vb-app="home"] #main .vb7-hero__title{color:#352653!important}
+body[data-vb-app="home"] #main .vb7-hero__title em{color:#5b3ee6!important}
+body[data-vb-app="home"] #main .vb7-hero__description{color:#716783!important}
+body[data-vb-app="home"] #main .vb7-hero__progress-caption{color:#776a8b!important}
+body[data-vb-app="home"] #main .vb7-hero__progress-caption strong{color:#5b3ee6!important}
+body[data-vb-app="home"] #main .vb7-hero .vb7-progress__track{background:#e8def5!important}
+body[data-vb-app="home"] #main .vb7-hero .vb7-progress__track span{background:linear-gradient(90deg,#a58aff,#5b3ee6)!important}
+body[data-vb-app="home"] #main .vb7-hero__actions .vb7-cta{background:linear-gradient(180deg,#795cf0,#5b3ee6)!important;border:1px solid #8065e5!important;box-shadow:0 4px 0 #452eaa,0 8px 16px #5537b52b!important;color:#fff!important}
+body[data-vb-app="home"] #main .vb7-hero__actions .vb7-cta__copy strong{color:#fff!important}
+body[data-vb-app="home"] #main .vb7-hero__actions .vb7-cta__copy small{color:#eee8ff!important}
+body[data-vb-app="home"] #main .vb7-feature__icon .vb7-art{filter:none!important}
+body[data-vb-app="academy"] .welcome-card{background:linear-gradient(100deg,#fffaf2ee 0%,#f2eaffd8 65%,#eee5ffb8 100%),url('/ui-kit/backgrounds/academy.svg') center/cover no-repeat!important;border:1px solid #d9c8f5!important;color:#352653!important}
+body[data-vb-app="academy"] .welcome-card::before{display:none!important}
+body[data-vb-app="academy"] .welcome-card h2{color:#3b2c59!important}
+body[data-vb-app="academy"] .welcome-card p{color:#746985!important}
+body[data-vb-app="academy"] .resume-banner{background:linear-gradient(110deg,#fffaf3,#f1eaff)!important;border:1px solid #e1d6f2!important;border-radius:16px!important;color:#55416f!important;box-shadow:0 3px 10px #3b2a5d0a}
+body[data-vb-app="academy"] .resume-banner button{background:#5b3ee6!important;border:1px solid #8065e5!important;color:#fff!important;border-radius:11px!important;box-shadow:0 3px 0 #452eaa}
+body[data-vb-app="academy"] .daily-strip__icon{display:block;width:22px;height:22px;object-fit:contain;margin:0 0 5px}
+body[data-vb-app="academy"] .daily-strip>div{color:#5b3ee6!important}
+@media(max-width:770px){
+ body[data-vb-app="home"] #main .vb7-hero{background:linear-gradient(105deg,#fffaf3ef 0%,#f1eaffdf 100%),url('/ui-kit/backgrounds/home.svg') 62% center/cover no-repeat!important}
+ body[data-vb-app="home"] #main .vb7-hero__title{color:#352653!important}
+ body[data-vb-app="home"] #main .vb7-hero__description{color:#716783!important}
+ body[data-vb-app="home"] #main .vb7-hero__progress-caption{color:#776a8b!important}
+ body[data-vb-app="academy"] .welcome-card{background:linear-gradient(100deg,#fffaf2ed 0%,#f2eaffdd 100%),url('/ui-kit/backgrounds/academy.svg') 60% center/cover no-repeat!important}
+}
