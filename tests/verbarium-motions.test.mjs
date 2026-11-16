@@ -15,6 +15,11 @@ test('gallery is event-triggered, accessible and no autoplay',()=>{
 });
 test('components use independent static variants',()=>{
  assert.match(staticJourneyNode('node_completed'),/node_completed\.png/);
- assert.match(navArtwork('home'),/navigation\/mascot_round\.png/);
+ assert.match(navArtwork('home'),/\/ui-kit\/icons\/home\.svg/);
+ assert.match(navArtwork('learn',true),/\/ui-kit\/icons\/book\.svg/);
+ assert.match(navArtwork('practice'),/\/ui-kit\/icons\/target\.svg/);
+ assert.match(navArtwork('speak'),/\/ui-kit\/icons\/mic\.svg/);
+ assert.match(navArtwork('lab'),/\/ui-kit\/icons\/brain\.svg/);
+ assert.match(navArtwork('profile'),/\/ui-kit\/icons\/user\.svg/);
  assert.equal(navArtwork('review'),'');
 });
