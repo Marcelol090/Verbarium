@@ -5,6 +5,7 @@ import {renderPromo} from '../public/ui-kit/components/library.js';
 
 const read=path=>readFileSync(path,'utf8');
 const backgrounds=['home','academy','lesson','practice','conversation','profile','onboarding','celebration','premium','neutral'];
+const v8=read('public/ui-kit/precision-v8.js');
 
 test('V9 section backgrounds are separate scalable SVGs without baked UI copy',()=>{
  for(const name of backgrounds){
@@ -22,6 +23,8 @@ test('all application entry points load the shared visual layer',()=>{
   assert.match(read(path),/verbarium-design-v9\.css/,path);
  }
  assert.match(read('src/app.js'),/import '\.\/verbarium-design-v9\.css';/);
+ assert.ok(v8.indexOf('document.head.append(precisionV8Style)')<v8.indexOf('document.head.append(verbariumV9Style)'));
+ assert.doesNotMatch(v8,/host\.querySelectorAll\('\.vb7-feature'\)\.forEach/);
 });
 
 test('mobile home flow has one clear progression and semantic destinations',()=>{
