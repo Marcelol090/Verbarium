@@ -6,9 +6,10 @@ Uma biblioteca mobile fiel ao universo do Pip, com rigor de espaçamento,
 espessura, contraste e encaixe. **Imagens são ilustrações**. Botões, cards,
 labels, grades, texto, estado e interação são componentes reais.
 
-A biblioteca depende dos arquivos independentes gerados no
-**Verbarium Mobile Visual Kit v1.0** (48 imagens, em PNG e WebP). Para
-instalá-las, execute:
+A biblioteca utiliza os **48 arquivos WebP transparentes originais já
+versionados em `public/verbarium-visual-kit/assets/`**, com checksums SHA-256
+no manifesto. As versões PNG mestres estão preservadas no pacote ZIP do
+kit, caso sejam necessárias para reedição. Para instalar também os PNG, execute:
 
 \`\`\`bash
 python scripts/install-visual-kit-v7.py /caminho/verbarium-visual-kit-v1.zip
