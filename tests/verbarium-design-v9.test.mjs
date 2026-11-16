@@ -6,6 +6,7 @@ import {renderPromo} from '../public/ui-kit/components/library.js';
 const read=path=>readFileSync(path,'utf8');
 const backgrounds=['home','academy','lesson','practice','conversation','profile','onboarding','celebration','premium','neutral'];
 const v8=read('public/ui-kit/precision-v8.js');
+ const motion=read('src/verbarium-kit/motion-assets.js');
 
 test('V9 section backgrounds are separate scalable SVGs without baked UI copy',()=>{
  for(const name of backgrounds){
