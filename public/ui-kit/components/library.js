@@ -1,7 +1,7 @@
 /**
  * Verbarium composable visual primitives, v7.
- * Only the pictograms are bitmap assets; all copy, shells, state and actions are
- * independent HTML. The design-board screenshots are never used as UI textures.
+ * Pictograms are independent SVG glyphs; mascot and reward art stay in their own
+ * illustration slots. Copy, shells, state and actions remain native HTML.
  */
 export const ICONS=Object.freeze({
   layers:'/ui-kit/icons/brain.svg',
