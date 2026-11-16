@@ -92,12 +92,12 @@ function setMode(next){
  document.body.dataset.mode=next;
  $('#library-pane').hidden=next!=='assets';
  $('#rules-pane').hidden=next!=='rules';
- $('[data-mode-btn]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.modeBtn===next)));
+ $$('[data-mode-btn]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.modeBtn===next)));
  const switcher=$('#asset-switch');switcher.setAttribute('aria-pressed',String(next!=='preview'));switcher.setAttribute('aria-label',next==='preview'?'Abrir catálogo de assets':'Voltar ao simulador');
  updateAddress();
  if(next==='assets')loadCatalog();
 }
-$('[data-mode-btn]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.modeBtn)));
+$$('[data-mode-btn]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.modeBtn)));
 $('#asset-switch').addEventListener('click',()=>setMode(selectedMode==='preview'?'assets':'preview'));
 function label(text){return text.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase())}
 const categoryLabels={todos:'Todos',mascot:'Pip',mascots:'Pip',buttons:'Botões',cards:'Cards',grids:'Grids',backgrounds:'Fundos',labels:'Labels',rewards:'Recompensas'};
