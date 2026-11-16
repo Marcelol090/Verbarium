@@ -207,3 +207,31 @@
   animation:none!important;transition:none!important;scroll-behavior:auto!important
  }
 }
+
+
+/* Academy compatibility: one clear icon per tab and the same illustrated lilac surfaces. */
+@media(max-width:700px){
+ body[data-vb-app="academy"]{background:#FCF9FF;color:var(--vb11-ink)}
+ body[data-vb-app="academy"] .topbar{background:#FFFDFFF7;border-bottom:1px solid #EEE5F5}
+ body[data-vb-app="academy"] .welcome-card{position:relative;overflow:hidden;min-height:207px;padding:17px 16px 18px;border:1px solid #D9C4F0;border-bottom:4px solid #D0BBE8;border-radius:23px;background:radial-gradient(ellipse at 97% 25%,#FFDCA9A8,transparent 51%),linear-gradient(135deg,#FAF2FF 0%,#F2E7FF 62%,#FFECE8 100%);box-shadow:0 6px 14px #7040B017;color:var(--vb11-ink)}
+ body[data-vb-app="academy"] .welcome-card::before{inset:0;border-radius:inherit;background:radial-gradient(circle at 87% 72%,#DDB4FF55,transparent 55%);opacity:1;pointer-events:none}
+ body[data-vb-app="academy"] .welcome-card>div{position:relative;z-index:2;grid-column:1;min-width:0}
+ body[data-vb-app="academy"] .welcome-card span:not(.asset-wrap){color:#7B4DC4}
+ body[data-vb-app="academy"] .welcome-card h2{margin:9px 0 7px;color:#3B286A;font:650 clamp(21px,6vw,27px)/1.12 Fredoka,sans-serif}
+ body[data-vb-app="academy"] .welcome-card p{margin:0 0 14px;color:#74648B;font-size:11px;line-height:1.43;font-weight:750}
+ body[data-vb-app="academy"] .welcome-hero{z-index:1;height:143px;max-height:143px;max-width:100%;overflow:visible}
+ body[data-vb-app="academy"] .welcome-hero img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 5px 6px #7B41BC22)}
+ body[data-vb-app="academy"] .welcome-card .primary-action{min-height:51px;padding:9px 11px;border:1px solid #9B77ED;border-bottom:4px solid #522CAF;border-radius:999px;background:linear-gradient(180deg,#AB7DFF,#8651F4 64%,#6B3FF6);box-shadow:inset 0 1px 0 #FFFFFFB2,0 3px 8px #7044C528;color:#FFF;font-size:12px;font-weight:900}
+ body[data-vb-app="academy"] .welcome-card .primary-action b{color:#FFF}
+ body[data-vb-app="academy"] .sentence-lab-entry{border:1px solid #DDCBEF;border-bottom:3px solid #D4C2EA;background:linear-gradient(135deg,#FCF6FF,#F3EBFF 75%,#FFF5E7);box-shadow:0 5px 12px #693EA010}
+ body[data-vb-app="academy"] .sentence-lab-entry .sentence-lab-launch{border-color:#9673E8;border-bottom:4px solid #512BAC;background:linear-gradient(#A67AFF,#7144DF);box-shadow:none;border-radius:15px}
+ body[data-vb-app="academy"] .world-head{border:1px solid #7951D1;border-bottom:4px solid #4E2CA5;background:linear-gradient(125deg,#A272F2,#7042D6);box-shadow:none}
+ body[data-vb-app="academy"] .bottom-nav{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;gap:2px;min-height:calc(70px + env(safe-area-inset-bottom));padding:7px 7px calc(7px + env(safe-area-inset-bottom));background:#FFFDFFF9;border-top:1px solid #E6D9F1;box-shadow:0 -5px 20px #58328E1B}
+ body[data-vb-app="academy"] .bottom-nav .nav-link{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;width:100%;min-height:54px;height:auto;overflow:visible;padding:5px 2px 4px;border:0;border-radius:13px;color:#77698D;background:transparent}
+ body[data-vb-app="academy"] .bottom-nav .nav-link.active{background:#FFF1E4;color:#6B3FF6}
+ body[data-vb-app="academy"] .bottom-nav .nav-link>span{display:grid;place-items:center;align-self:center;flex:0 0 24px;width:24px;height:24px;min-width:24px;min-height:24px;max-width:24px;max-height:24px;overflow:visible}
+ body[data-vb-app="academy"] .bottom-nav .nav-link>span img{display:none!important}
+ body[data-vb-app="academy"] .bottom-nav .nav-link>span svg{display:block!important;width:23px;height:23px;max-width:23px;max-height:23px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none}
+ body[data-vb-app="academy"] .bottom-nav .nav-link strong{display:block;position:static;font:850 9px/1.12 Nunito,sans-serif;letter-spacing:0;text-align:center;white-space:nowrap;color:inherit;margin:0}
+ body[data-vb-app="academy"] .bottom-nav .nav-link i{top:0;right:10%;width:6px;height:6px}
+}
