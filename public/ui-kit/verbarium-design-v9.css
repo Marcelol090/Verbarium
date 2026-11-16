@@ -466,7 +466,7 @@ body[data-vb-app="onboarding"] .vbk-choice[aria-pressed="true"]{border-color:#76
  body[data-vb-app="academy"] .welcome-card p{font-size:10px;line-height:1.4;margin-bottom:11px}
  body[data-vb-app="academy"] .welcome-card span:not(.asset-wrap){font-size:8px}
  body[data-vb-app="academy"] .welcome-hero{position:relative;grid-column:2;grid-row:1;right:auto;bottom:auto;width:100%;height:120px;max-width:112px;justify-self:end;filter:drop-shadow(0 7px 8px #6044a51c)}
- body[data-vb-app="academy"] .welcome-card .primary-action{min-height:45px;padding:9px 10px;font-size:10px;border-radius:11px;white-space:normal}
+ body[data-vb-app="academy"] .welcome-card .primary-action{min-height:45px;padding:9px 10px;font-size:10px;border-radius:12px;white-space:normal}
  body[data-vb-app="academy"] .daily-strip{gap:7px;margin:12px 0 18px}
  body[data-vb-app="academy"] .daily-strip>div{min-height:78px;padding:9px 10px;border-radius:14px;font-size:13px}
  body[data-vb-app="academy"] .daily-strip strong{font-size:20px;margin-left:4px}
@@ -555,4 +555,9 @@ body[data-vb-app="academy"] .daily-strip>div{color:#5b3ee6!important}
  body[data-vb-app="home"] #main .vb7-hero__description{color:#716783!important}
  body[data-vb-app="home"] #main .vb7-hero__progress-caption{color:#776a8b!important}
  body[data-vb-app="academy"] .welcome-card{background:linear-gradient(100deg,#fffaf2ed 0%,#f2eaffdd 100%),url('/ui-kit/backgrounds/academy.svg') 60% center/cover no-repeat!important}
+}
+
+body[data-vb-app="academy"] .welcome-card .primary-action{
+ background:linear-gradient(180deg,#795cf0,#5b3ee6)!important;border:1px solid #8065e5!important;
+ border-radius:12px!important;color:#fff!important;box-shadow:0 4px 0 #452eaa!important
 }
