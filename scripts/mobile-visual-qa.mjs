@@ -45,12 +45,12 @@ async function check(page,route,width){
   const natural=home?{w:art?.naturalWidth||0,h:art?.naturalHeight||0}: {w:art?.querySelector('img')?.naturalWidth||0,h:art?.querySelector('img')?.naturalHeight||0};
   return {viewport,horizontalOverflow,offenders,card:cardR,art:artR,artInside,ctaRadius,ctaBackground,ctaBorder,ctaHeight,titleFits,featureColor,precision,newArtKey,background:bg.slice(0,250),natural};
  });
- const v8Geometry=findings.ctaRadius===(route==='home'?'16px':'12px')&&findings.ctaBackground?.includes('rgb(121, 89, 217)')&&findings.ctaBorder==='1px';
- const v8Artwork=route==='home'?findings.newArtKey==='fox_waving':findings.newArtKey==='fox_teacher';
- const v8Text=route!=='home'||findings.featureColor==='rgb(43, 34, 64)';
- const ok=!findings.horizontalOverflow&&findings.artInside&&findings.natural.w>0&&v8Geometry&&v8Artwork&&findings.precision==='8'&&findings.ctaHeight>=48&&findings.titleFits&&v8Text;
+ const v9Geometry=findings.ctaRadius===(route==='home'?'16px':'12px')&&findings.ctaBackground?.includes('rgb(121, 92, 240)')&&findings.ctaBorder==='1px';
+ const v9Artwork=route==='home'?findings.newArtKey==='fox_waving':findings.newArtKey==='fox_teacher';
+ const v9Text=route!=='home'||findings.featureColor==='rgb(64, 48, 95)';
+ const ok=!findings.horizontalOverflow&&findings.artInside&&findings.natural.w>0&&v9Geometry&&v9Artwork&&findings.precision==='8'&&findings.ctaHeight>=48&&findings.titleFits&&v9Text;
  results.push({width,route,ok,...findings});
- if(!ok){failed++;console.error('VISUAL GEOMETRY FAILURE:',route,width,JSON.stringify(findings));}
+ if(!ok){failed++;console.error('V9 VISUAL GEOMETRY FAILURE:',route,width,JSON.stringify(findings));}
  await page.screenshot({path:path.join(output,route+'-'+width+'.png'),fullPage:width===390,animations:'disabled'});
 }
 try{
