@@ -2,6 +2,11 @@
  * Native controls own all text, touch geometry, answer status and progress.
  * New art is restricted to real illustration slots. No gameplay mutation.
  */
+// V7 moves its linked stylesheet to the end of <head>. V8 must run afterward
+// or the old, equally-specific declarations win by document order.
+const precisionV8Style=document.querySelector('link[href="/ui-kit/precision-v8.css"]');
+if(precisionV8Style&&precisionV8Style.parentNode===document.head)document.head.append(precisionV8Style);
+
 const ROOT='/verbarium-visual-kit/';
 const app=document.body.dataset.vbApp||'';
 const host=app==='home'?document.querySelector('#main'):app==='academy'?document.querySelector('#content'):document.querySelector('.onboarding-shell');
