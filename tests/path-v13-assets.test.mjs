@@ -27,7 +27,7 @@ test('V13 scene is mobile-only and has exact-aspect artwork layers',()=>{
  assert.match(css,/\.vb13-map-sky\{[^}]*object-fit:cover/);
  assert.match(css,/\.vb13-map-ribbon\{[^}]*object-fit:contain/);
  assert.match(css,/\.vb13-card-art\{[^}]*object-fit:contain/);
- assert.match(css,/\.vb13-map-hills\{[^}]*pointer-events:none/);
+ assert.match(css,/\.vb13-map-sky,\.vb13-map-ribbon,\.vb13-map-hills\{[^}]*pointer-events:none/);
  assert.doesNotMatch(css,/object-fit:fill/);
  assert.match(css,/prefers-reduced-motion/);
 });
