@@ -120,6 +120,23 @@ try{
  assert.deepEqual(componentErrors,[],'V10 components studio errors');
  results.push({route:'studio-v10',width:390,scenes,broken,overflow});
  await components.close();
+ for(const [route,url] of [['sentence-lab','/academy/sentence-lab/'],['sentence-practice','/academy/sentence-lab/practice.html']]){
+  const {page,errors}=await create(390);
+  await page.goto(base+url,{waitUntil:'networkidle',timeout:60000});
+  await page.locator('.hero-head h1').waitFor({timeout:15000});
+  const layout=await page.evaluate(()=>{
+   const s=getComputedStyle(document.querySelector('.hero-head'));
+   return {horizontalOverflow:document.documentElement.scrollWidth>window.innerWidth+2,
+           background:s.backgroundImage,cascade:!!document.querySelector('link[href*="precision-v10-lab.css"]')};
+  });
+  assert.equal(layout.horizontalOverflow,false,route+' horizontal scroll');
+  assert.equal(layout.cascade,true,route+' missing V10 styles');
+  assert.ok(layout.background.includes('landscape-talk.svg'),route+' old hero background');
+  await page.screenshot({path:path.join(output,route+'-390.png'),animations:'disabled'});
+  assert.deepEqual(errors,[],route+' script errors');
+  results.push({route,width:390,...layout});
+  await page.close();
+ }
 }finally{await browser.close();}
 await writeFile(path.join(output,'measurements.json'),JSON.stringify(results,null,2));
 console.log('Verbarium Mobile V10 visual QA passed',results.length,'checks across 320/360/390/430px');
