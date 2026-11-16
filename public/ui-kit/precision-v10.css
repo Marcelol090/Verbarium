@@ -1,0 +1,254 @@
+/* Verbarium Gameflow V10 · 2026-11
+   One lesson at a time. Three meaningful interaction states.
+   Text/control geometry is HTML/CSS; illustration is separate art only.
+   No CSS transform scaling of a raster interface, no fixed image crop.
+*/
+:root{
+ --vb10-ink:#342448;--vb10-ink-soft:#665977;--vb10-canvas:#f9f7ff;
+ --vb10-violet:#7045d3;--vb10-violet-press:#502c9d;--vb10-violet-light:#efe8ff;
+ --vb10-orange:#ff9d4f;--vb10-orange-press:#d56d2b;--vb10-gold:#ffca57;
+ --vb10-edge:#e5dff0;--vb10-selected:#7045d3;--vb10-success:#298351;
+ --vb10-error:#b94d66;--vb10-card:24px;--vb10-control:16px;--vb10-motion:cubic-bezier(.2,.76,.28,1);
+}
+body[data-vb-app="home"],body[data-vb-app="academy"],body[data-vb-app="onboarding"]{
+ --vb8-canvas:var(--vb10-canvas);--vb8-purple:var(--vb10-violet);
+ --vb8-ink:var(--vb10-ink);--vb8-ink-strong:var(--vb10-ink);
+ --vb8-text:var(--vb10-ink-soft);--vb8-line:var(--vb10-edge);
+}
+body[data-vb-app="home"] :is(button,a,input,select):focus-visible,
+body[data-vb-app="academy"] :is(button,a,input,select):focus-visible,
+body[data-vb-app="onboarding"] :is(button,a,input,select):focus-visible{
+ outline:3px solid #7449d9;outline-offset:3px
+}
+.vb-world-lesson-banner{
+ border:1px solid #dcd0f4;border-radius:23px;background:#8669d6;
+ box-shadow:0 7px 20px #5b429d16
+}
+.vb-world-lesson-banner>img{object-fit:cover;object-position:center center}
+.vb-world-lesson-banner::after{
+ inset:0;background:linear-gradient(90deg,#3d2773e8 0%,#3d2773ae 48%,#39286614 90%)
+}
+.vb-world-lesson-banner figcaption{
+ inset:auto auto 16px 17px;max-width:60%;gap:6px;text-shadow:0 2px 8px #29194e6e
+}
+.vb-world-lesson-banner figcaption span{font-size:10px;letter-spacing:.1em}
+.vb-world-lesson-banner figcaption strong{font:600 20px/1.18 Fredoka,system-ui,sans-serif}
+.v2-world-scene.vb-world-with-bg{
+ background-position:center top!important;
+ border:1px solid #ded1f5;
+}
+.v2-world-scene.vb-world-with-bg .v2-stop-info{
+ background:#fffdfff2;border:1px solid #e7d9fc;box-shadow:0 2px 8px #432c6f16;
+ color:#412e68
+}
+@media(max-width:700px){
+ body[data-vb-app="home"],body[data-vb-app="academy"],body[data-vb-app="onboarding"]{background:var(--vb10-canvas);color:var(--vb10-ink)}
+ body[data-vb-app="home"] .stage,body[data-vb-app="home"] .body-grid{background:var(--vb10-canvas)}
+ body[data-vb-app="home"] .body-grid{padding:21px 17px calc(106px + env(safe-area-inset-bottom))!important}
+ body[data-vb-app="home"] .main{min-width:0;max-width:610px;margin:0 auto}
+ body[data-vb-app="home"] .topbar{height:64px;background:#fffefdf5;border-bottom:1px solid #ebe5f2;padding-inline:17px}
+ body[data-vb-app="home"] .top-actions{gap:6px}
+ body[data-vb-app="home"] .mobile-nav{padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#fffdfff8;border-top:1px solid #e7ddf2}
+ body[data-vb-app="home"] .mobile-item{min-height:57px;border-radius:14px;color:#7a6b90}
+ body[data-vb-app="home"] .mobile-item.active{background:#f1eafe;color:#6340b5}
+ body[data-vb-app="home"] .mobile-text{font-size:10px;font-weight:850}
+ /* Mobile journey: one next lesson, real progress, two optional practices. */
+ .vb10-mobile-home{display:grid;gap:20px;min-width:0}
+ .vb10-intro{padding:0 3px}
+ .vb10-overline{display:inline-flex;align-items:center;gap:7px;font:850 10px/1.3 "DM Sans",system-ui,sans-serif;letter-spacing:.105em;color:#7950ca}
+ .vb10-intro .vb10-overline span{color:#e89838;font-size:16px;line-height:10px}
+ .vb10-intro h1{margin:10px 0 7px;font:650 clamp(27px,7.6vw,35px)/1.08 Fredoka,system-ui,sans-serif;letter-spacing:-.035em;color:#342448}
+ .vb10-intro h1 em{font-style:normal;color:var(--vb10-violet)}
+ .vb10-intro p{font:600 13px/1.5 "DM Sans",system-ui,sans-serif;margin:0;color:#756982}
+ .vb10-hero{position:relative;isolation:isolate;overflow:hidden;padding:19px 17px 17px;border:1px solid #5e46a0;border-radius:27px;background:radial-gradient(ellipse at 94% 38%,#f3a77050 0%,transparent 44%),linear-gradient(143deg,#4c358d 0%,#3b2d77 58%,#584098 100%);box-shadow:0 6px 0 #3a277b,0 14px 23px #462b8740;color:white}
+ .vb10-hero::before{content:"";position:absolute;top:-79px;right:-81px;width:255px;height:255px;border:1px solid #ffffff27;border-radius:50%;box-shadow:0 0 0 38px #ffffff07,0 0 0 76px #ffffff06;z-index:0;pointer-events:none}
+ .vb10-hero-top{display:flex;align-items:center;justify-content:space-between;gap:9px;position:relative;z-index:1}
+ .vb10-course-chip{display:inline-flex;align-items:center;border:1px solid #ffffff38;border-radius:99px;padding:6px 12px;min-height:32px;background:#ffffff13;color:#fff0da;font:850 10px/1 "DM Sans",sans-serif;letter-spacing:.09em}
+ .vb10-time{color:#e8d9fc;font:750 11px "DM Sans",sans-serif;white-space:nowrap}
+ .vb10-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(103px,34%);align-items:center;gap:6px;position:relative;z-index:1;margin:15px 0 10px;min-height:147px}
+ .vb10-hero-copy{min-width:0;position:relative;z-index:2}
+ .vb10-hero-copy .vb10-overline{font-size:9px;color:#ffdfad}
+ .vb10-hero-copy h2{font:600 clamp(23px,6.2vw,28px)/1.09 Fredoka,system-ui,sans-serif;letter-spacing:-.025em;color:#fff;margin:10px 0}
+ .vb10-hero-copy p{color:#e9def7;font:600 11.7px/1.47 "DM Sans",system-ui,sans-serif;margin:0;max-width:260px}
+ .vb10-mascot-stage{height:164px;width:100%;min-width:0;display:flex;align-items:flex-end;justify-content:flex-end;position:relative;overflow:visible}
+ .vb10-mascot-halo{position:absolute;width:131px;height:131px;right:0;bottom:1px;border-radius:50%;background:radial-gradient(circle at 50% 45%,#ffe2b65d,#f7a26c38 55%,transparent 72%);pointer-events:none}
+ .vb10-mascot-stage img{position:relative;z-index:1;display:block;width:auto;height:100%;max-width:100%;max-height:164px;object-fit:contain;object-position:bottom right;filter:drop-shadow(0 8px 6px #24135436)}
+ .vb10-hero-bottom{position:relative;z-index:1}
+ .vb10-progress-label{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#e7dbfb;font:700 11px "DM Sans",system-ui,sans-serif;margin:0 0 9px}
+ .vb10-progress-label strong{color:#ffe6ad;font-weight:850;white-space:nowrap}
+ .vb10-progress{height:11px;border-radius:99px;background:#ffffff40;border:1px solid #ffffff40;box-shadow:inset 0 1px 2px #150b4530;overflow:hidden}
+ .vb10-progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffd36e,#ffa84e);border-radius:inherit;transition:width .3s var(--vb10-motion)}
+ .vb10-primary{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:55px;margin-top:17px;padding:10px 11px 10px 18px;border:1px solid #ffc888;border-radius:16px;background:linear-gradient(#ffbb69,#ff983f);box-shadow:inset 0 1px #fff4aa80,0 4px 0 var(--vb10-orange-press);color:#45274f;font:850 14px "DM Sans",system-ui,sans-serif;text-align:left;transition:transform .14s var(--vb10-motion),box-shadow .14s var(--vb10-motion)}
+ .vb10-primary:active:not(:disabled){transform:translateY(3px);box-shadow:inset 0 1px #fff4aa80,0 1px 0 var(--vb10-orange-press)}
+ .vb10-primary-arrow{display:grid;place-items:center;width:33px;height:33px;border-radius:11px;background:#fff7e2;box-shadow:0 1px 2px #84493529;font-size:20px;color:#7241b7}
+ .vb10-daily{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+ .vb10-daily-item{min-width:0;display:flex;align-items:center;gap:9px;min-height:70px;border:1px solid #e6def0;border-radius:17px;padding:10px 8px;background:#fff;box-shadow:0 3px 0 #e9e2f0;text-align:left;color:#342448}
+ .vb10-daily-item>span:last-child{display:flex;flex-direction:column;min-width:0;gap:2px}
+ .vb10-daily-item strong{font:600 19px/1 Fredoka,system-ui,sans-serif}
+ .vb10-daily-item small{font:750 9px/1.2 "DM Sans",sans-serif;color:#82768d;overflow-wrap:break-word}
+ .vb10-daily-action{cursor:pointer}
+ .vb10-stat-icon{flex:0 0 27px;width:27px;height:29px;display:grid;place-items:center;border-radius:10px;font-size:16px}
+ .vb10-stat-icon.fire{color:#ec7c29;background:#fff0dc}
+ .vb10-stat-icon.star{color:#c68c14;background:#fff4d0}
+ .vb10-stat-icon.review{color:#7750c6;background:#f1eaff}
+ .vb10-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:0 1px 12px}
+ .vb10-section-heading h2{margin:5px 0 0;font:600 24px/1.1 Fredoka,system-ui,sans-serif;color:#342448}
+ .vb10-text-action{border:0;background:transparent;padding:8px 2px;min-height:44px;color:#6c47b9;font:850 11px "DM Sans",sans-serif;white-space:nowrap}
+ .vb10-text-action span{padding-left:3px;font-size:16px}
+ .vb10-journey-list{display:grid;gap:0;position:relative;padding:2px 0}
+ .vb10-journey-list::before{content:"";position:absolute;left:30px;top:30px;bottom:33px;width:4px;border-radius:99px;background:repeating-linear-gradient(to bottom,#d7caed 0 11px,transparent 11px 19px)}
+ .vb10-path-step{display:grid;grid-template-columns:61px minmax(0,1fr) 44px;align-items:center;gap:11px;position:relative;z-index:1;padding:8px 12px 8px 0;min-height:78px;background:#fff;border:1px solid #e5ddf0;border-radius:18px;margin-bottom:10px;box-shadow:0 3px 0 #e9e2f1}
+ .vb10-path-step.is-current{border-color:#c8b1ef;background:#f8f4ff;box-shadow:0 3px 0 #d1bfec}
+ .vb10-path-node{width:54px;height:54px;display:grid;place-items:center;margin-left:4px;border:1px solid #dcd3e9;border-bottom:3px solid #cfc6df;border-radius:17px;background:#f1edf6;color:#a39ab1;font:600 16px Fredoka,sans-serif}
+ .vb10-path-step.is-current .vb10-path-node{background:#7045d3;border-color:#986fe8;border-bottom-color:#4b2b9c;color:#fff;box-shadow:0 4px 11px #5a3ba531}
+ .vb10-step-copy{min-width:0;display:flex;flex-direction:column;gap:3px}
+ .vb10-step-copy strong{color:#413057;font:600 14px/1.18 Fredoka,sans-serif;overflow-wrap:break-word}
+ .vb10-step-copy small{color:#877995;font:700 10.5px/1.2 "DM Sans",sans-serif}
+ .vb10-step-start{width:44px;height:48px;border:1px solid #d0bdeb;border-bottom:3px solid #b8a4df;border-radius:13px;background:#f1e8ff;color:#6541b4;font-size:24px;font-weight:800}
+ .vb10-actions-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .vb10-action-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-height:155px;min-width:0;padding:16px;border:1px solid #ded4ed;border-bottom:4px solid #d8c8e9;border-radius:20px;background:linear-gradient(160deg,#fff,#f8f3ff);text-align:left;color:#443059;transition:transform .15s var(--vb10-motion),border-color .15s var(--vb10-motion)}
+ .vb10-action-tile:active{transform:translateY(2px)}
+ .vb10-tile-icon{display:grid;place-items:center;width:45px;height:45px;border-radius:14px;background:#ece2ff;border:1px solid #d7c4f4;color:#6a40c4;font-size:28px;line-height:1}
+ .vb10-tile-icon.speak{background:#fff0da;border-color:#f4d8b4;color:#d57a36}
+ .vb10-action-tile strong{font:600 18px Fredoka,sans-serif}
+ .vb10-action-tile small{color:#81738b;font:700 11px/1.3 "DM Sans",sans-serif}
+ .vb10-tile-arrow{position:absolute;right:13px;top:17px;color:#a38cce;font-size:17px}
+ .vb10-more{border:1px solid #e4def0;border-radius:17px;background:#fff;box-shadow:0 2px 0 #e9e3f0;overflow:hidden}
+ .vb10-more summary{min-height:50px;padding:15px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:850;font-size:12px;color:#6344a2;list-style:none}
+ .vb10-more summary::-webkit-details-marker{display:none}
+ .vb10-more[open] summary>span{transform:rotate(180deg)}
+ .vb10-more-links{display:grid;padding:0 12px 10px}
+ .vb10-more-links :is(a,button){display:flex;justify-content:space-between;align-items:center;min-height:48px;background:transparent;border:0;border-top:1px solid #f0eaf7;text-decoration:none;color:#655473;font-size:11.5px;font-weight:800;text-align:left}
+ /* Academy follows the same gameflow but retains real lesson engines and voice. */
+ body[data-vb-app="academy"] #content{max-width:640px;padding:20px 17px calc(105px + env(safe-area-inset-bottom));background:var(--vb10-canvas)}
+ body[data-vb-app="academy"] .section-heading{margin:0 0 16px}
+ body[data-vb-app="academy"] .section-heading .eyebrow{color:#7953c7;letter-spacing:.09em}
+ body[data-vb-app="academy"] .section-heading h1{font-size:clamp(27px,7.2vw,34px);line-height:1.1;margin:7px 0}
+ body[data-vb-app="academy"] .section-heading p{font-size:12px;line-height:1.55;color:#766a85}
+ body[data-vb-app="academy"] .welcome-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(97px,33%);align-items:center;min-height:215px;gap:9px;padding:18px 16px 17px;border:1px solid #674ba2;border-radius:25px;background:radial-gradient(ellipse at 90% 60%,#f8a7664c,transparent 47%),linear-gradient(133deg,#4b3885,#312660);box-shadow:0 5px 0 #382574,0 12px 24px #50328a2d;color:#fff;overflow:hidden}
+ body[data-vb-app="academy"] .welcome-card::before{inset:0;border-radius:inherit;background:radial-gradient(circle at 94% 72%,#ffcc7b2b,transparent 55%)}
+ body[data-vb-app="academy"] .welcome-card>div{grid-column:1;min-width:0;max-width:100%;padding:0}
+ body[data-vb-app="academy"] .welcome-card span:not(.asset-wrap){color:#ffda9f}
+ body[data-vb-app="academy"] .welcome-card h2{font:600 clamp(21px,6vw,26px)/1.13 Fredoka,sans-serif;max-width:100%;color:#fff;margin:11px 0 8px}
+ body[data-vb-app="academy"] .welcome-card p{color:#e2d8f8;font-size:11px;line-height:1.48;margin-bottom:16px}
+ body[data-vb-app="academy"] .welcome-hero{position:relative;grid-column:2;grid-row:1;align-self:center;justify-self:center;width:100%;height:136px;max-height:136px;right:auto;bottom:auto;overflow:visible;transform:none}
+ body[data-vb-app="academy"] .welcome-hero img{width:100%;height:100%;object-fit:contain}
+ body[data-vb-app="academy"] .welcome-card .primary-action{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;padding:10px 11px;border:1px solid #ffca8d;border-radius:14px;background:linear-gradient(#ffb86b,#ff9544);box-shadow:0 4px 0 #c6682a;color:#43265b;font-size:11.5px;font-weight:850;line-height:1.2;text-align:center}
+ body[data-vb-app="academy"] .welcome-card .primary-action:active{transform:translateY(2px);box-shadow:0 2px 0 #c6682a}
+ body[data-vb-app="academy"] .welcome-card .primary-action b{font-size:15px}
+ body[data-vb-app="academy"] .sentence-lab-entry{position:relative;border:1px solid #dcd1f1;background:linear-gradient(133deg,#f1e7ff,#fff7f0);border-radius:23px;box-shadow:0 4px 0 #e6dcf0;padding:19px 16px;min-height:170px}
+ body[data-vb-app="academy"] .sentence-lab-content>h2{font:600 22px/1.12 Fredoka,sans-serif;color:#40306c}
+ body[data-vb-app="academy"] .sentence-lab-content>p{font-size:11px;line-height:1.5;color:#786b8a}
+ body[data-vb-app="academy"] .sentence-lab-entry img{object-fit:contain;max-width:80px;max-height:84px}
+ body[data-vb-app="academy"] .sentence-lab-links{display:grid;gap:8px;width:100%;margin-top:11px}
+ body[data-vb-app="academy"] .sentence-lab-links>.sentence-lab-launch{min-height:50px;display:flex;align-items:center;justify-content:center;border:1px solid #8067d8;border-radius:13px;background:#754cd4;color:#fff!important;box-shadow:0 3px 0 #513399;font-size:12px;font-weight:850}
+ body[data-vb-app="academy"] .vb10-lab-extra{width:100%;min-width:0}
+ body[data-vb-app="academy"] .vb10-lab-extra summary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 12px;color:#6b4baf;font-size:11px;font-weight:800;cursor:pointer;list-style:none}
+ body[data-vb-app="academy"] .vb10-lab-extra summary::-webkit-details-marker{display:none}
+ body[data-vb-app="academy"] .vb10-lab-extra[open] summary span{transform:rotate(180deg)}
+ body[data-vb-app="academy"] .vb10-lab-extra-links{display:grid;gap:7px;margin:6px 0}
+ body[data-vb-app="academy"] .vb10-lab-extra-links>a{display:flex;align-items:center;justify-content:center;min-height:48px;border:1px solid #d7c8ec;border-radius:12px;background:#fff;color:#6444aa;padding:9px 12px;font-size:11px;font-weight:800;text-decoration:none}
+ body[data-vb-app="academy"] .daily-strip{margin:18px 0}
+ body[data-vb-app="academy"] .daily-strip>div{border-radius:17px;border:1px solid #e4dceb;padding:11px;background:#fff;box-shadow:0 3px 0 #ede5f1;min-height:85px}
+ body[data-vb-app="academy"] .daily-strip strong{font:600 22px Fredoka,sans-serif;color:#3b2b52}
+ body[data-vb-app="academy"] .world-head{background:#7045d3;border-color:#5f39bc;box-shadow:0 4px 0 #4b3098;border-radius:16px;margin:20px 0 18px}
+ body[data-vb-app="academy"] .path-track:before{background:repeating-linear-gradient(to bottom,#d8c7ef 0 10px,transparent 10px 20px);width:4px}
+ body[data-vb-app="academy"] .step-copy{border:1px solid #e3d9eb;border-bottom:3px solid #ddd2e9;border-radius:17px;background:#fff;box-shadow:none;min-height:97px}
+ body[data-vb-app="academy"] .path-step.current .step-copy{border:2px solid #a98be1;border-bottom:4px solid #8763cb;background:#f8f3ff}
+ body[data-vb-app="academy"] .step-copy h3{font:600 18px Fredoka,sans-serif;color:#392952}
+ body[data-vb-app="academy"] .step-action{display:inline-flex;align-items:center;min-height:44px;color:#6742ba;font-size:11px;font-weight:850}
+ body[data-vb-app="academy"] .skill-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ body[data-vb-app="academy"] .skill-card{display:flex;flex-direction:column;align-items:flex-start;min-height:170px;padding:16px;border:1px solid #e3d7ee;border-bottom:4px solid #d7c7e8;border-radius:19px;box-shadow:none;background:#fff;gap:7px;color:#3e2a5b;text-align:left}
+ body[data-vb-app="academy"] .skill-card:active:not(:disabled){transform:translateY(2px)}
+ body[data-vb-app="academy"] .vb10-skill-icon{display:grid;place-items:center;width:56px;height:56px;border:1px solid #d9c4f5;border-radius:17px;background:#f0e7ff}
+ body[data-vb-app="academy"] .vb10-skill-icon img{display:block;width:31px;height:31px;max-width:31px;max-height:31px;object-fit:contain}
+ body[data-vb-app="academy"] .skill-card:nth-child(2n) .vb10-skill-icon{background:#fff0d9;border-color:#f2d7b6}
+ body[data-vb-app="academy"] .skill-card b{font:600 18px Fredoka,sans-serif}
+ body[data-vb-app="academy"] .skill-card small{color:#7d7088;font:700 11px/1.4 "DM Sans",sans-serif}
+ body[data-vb-app="academy"] .skill-go{color:#6541b8;font:850 11px "DM Sans",sans-serif;margin-top:auto}
+ /* One question on top; listening and imagery act as support, not an obstruction. */
+ body[data-vb-app="academy"] .lesson-wrap{min-width:0;max-width:540px;margin:0 auto;padding:0}
+ body[data-vb-app="academy"] .lesson-top{gap:10px;margin:0 0 14px}
+ body[data-vb-app="academy"] .lesson-track{height:11px;background:#e6dfee;border-radius:99px}
+ body[data-vb-app="academy"] .lesson-track i{background:linear-gradient(90deg,#926bec,#7244d7);border-radius:99px}
+ body[data-vb-app="academy"] .lesson-kicker{font-size:10px;font-weight:850;color:#8364bc;letter-spacing:.1em;margin:5px 0 12px}
+ body[data-vb-app="academy"] .vb10-question-head{margin:8px 0 11px}
+ body[data-vb-app="academy"] .vb10-question-head .eyebrow{font-size:10px;letter-spacing:.09em;color:#825bc6}
+ body[data-vb-app="academy"] .vb10-question-head h1{font:600 clamp(23px,6vw,29px)/1.17 Fredoka,sans-serif;letter-spacing:-.025em;color:#322447;margin:8px 0 0}
+ body[data-vb-app="academy"] .fox-lesson-guide{display:flex;gap:9px;min-height:63px;margin:0 0 13px;padding:9px 11px;background:#fff7eb;border:1px solid #f4ddc3;border-radius:15px}
+ body[data-vb-app="academy"] .fox-lesson-guide img{width:43px;height:46px;max-width:43px;object-fit:contain}
+ body[data-vb-app="academy"] .fox-lesson-guide strong{color:#a95222;font-size:10px}
+ body[data-vb-app="academy"] .fox-lesson-guide p{font-size:11px;line-height:1.35;color:#675b6e;margin-top:2px}
+ body[data-vb-app="academy"] .actor-stage{height:132px;margin:7px 0 11px;border:1px solid #dcd0ef;border-radius:20px;background:radial-gradient(ellipse at 90% 15%,#ffe6c4 0,transparent 49%),linear-gradient(140deg,#f3eaff,#ede9fe);overflow:hidden}
+ body[data-vb-app="academy"] .actor-stage>img{height:122px;max-height:122px;max-width:47%;width:auto;object-fit:contain}
+ body[data-vb-app="academy"] .actor-meta{background:#fffdfaef;border:1px solid #e4daf0;border-radius:12px;right:8px;bottom:8px;padding:8px 10px}
+ body[data-vb-app="academy"] .speech-box{padding:13px 14px;margin:0 0 14px;background:#fff;border:1px solid #e1d7ed;border-bottom:3px solid #e1d7ed;border-radius:17px}
+ body[data-vb-app="academy"] .spoken-line{font-size:15px;line-height:1.6;color:#382b53;font-weight:800}
+ body[data-vb-app="academy"] .audio-actions{gap:8px}
+ body[data-vb-app="academy"] .audio-button{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:8px 12px;border:1px solid #d5c9eb;border-bottom:3px solid #d5c9eb;border-radius:13px;background:#fff;color:#6a47b4;font-size:12px;font-weight:800}
+ body[data-vb-app="academy"] .audio-button.slow{color:#9b622f;border-color:#ecd6c3;background:#fffaf3}
+ body[data-vb-app="academy"] .vb10-answer-area{margin:0;min-width:0}
+ body[data-vb-app="academy"] .option-grid{gap:10px}
+ body[data-vb-app="academy"] .text-options{grid-template-columns:1fr}
+ body[data-vb-app="academy"] :is(.option,.pair-choice,.word-bank button){min-height:56px;border:2px solid #ded7e9;border-bottom:4px solid #d2c7de;border-radius:15px;background:#fff;box-shadow:none;color:#403153;font:800 14px/1.32 "DM Sans",sans-serif;transition:transform .15s var(--vb10-motion),border-color .15s}
+ body[data-vb-app="academy"] :is(.option,.pair-choice,.word-bank button):active:not(:disabled){transform:translateY(2px)}
+ body[data-vb-app="academy"] :is(.option.selected,.pair-choice.selected){border-color:#7b54d4;border-bottom-color:#5332a1;background:#f0e8ff;color:#472c7d}
+ body[data-vb-app="academy"] :is(.option.correct,.pair-choice.matched){border-color:#50a975;border-bottom-color:#348b57;background:#e9f9ed;color:#1f6640}
+ body[data-vb-app="academy"] .option.wrong{border-color:#dd7a89;border-bottom-color:#b94d66;background:#fff0f2;color:#9a354a}
+ body[data-vb-app="academy"] .image-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ body[data-vb-app="academy"] .image-options .option{min-height:135px}
+ body[data-vb-app="academy"] .fruit-art{max-width:84px;max-height:84px}
+ body[data-vb-app="academy"] .feedback{border:1px solid #cce4d3;border-radius:16px;margin-top:16px;padding:14px}
+ body[data-vb-app="academy"] .feedback.good{background:#e9f8ed;color:#245e3b}
+ body[data-vb-app="academy"] .feedback.try{border-color:#efdec4;background:#fff4e7;color:#865124}
+ body[data-vb-app="academy"] .lesson-actions{position:static;bottom:auto;padding:10px 0 0;margin-top:16px;background:transparent}
+ body[data-vb-app="academy"] .lesson-actions .primary-action{min-height:56px;width:100%;border:1px solid #8d6ae0;border-bottom:4px solid #4e2b9d;border-radius:16px;background:#754bd6;box-shadow:none;color:#fff;font-size:14px;font-weight:850}
+ body[data-vb-app="academy"] .lesson-actions .primary-action:disabled{background:#e6e0ef;border-color:#d6cde5;color:#9d90a9;opacity:1}
+ body[data-vb-app="academy"] .sentence-slot{background:#fff;border:2px dashed #c7b3e6;border-radius:15px;min-height:78px}
+ body[data-vb-app="academy"] .word-bank{gap:8px}
+ body[data-vb-app="academy"] .word-bank button:disabled{opacity:.38}
+ body[data-vb-app="academy"] .finish-page{padding:25px 0;text-align:center}
+ body[data-vb-app="academy"] .finish-page h1{font:600 32px Fredoka,sans-serif;color:#3e2b64}
+ body[data-vb-app="academy"] .finish-stats>div{border:1px solid #e1d9ee;border-radius:15px;background:#fff;box-shadow:0 3px 0 #e5dfee}
+ body[data-vb-app="academy"] .bottom-nav{background:#fffdfbf8;border-top:1px solid #e5dcef}
+ body[data-vb-app="academy"] .bottom-nav .nav-link{min-height:56px;color:#806f91;border-radius:14px}
+ body[data-vb-app="academy"] .bottom-nav .nav-link.active{background:#f0e8ff;color:#6740ba}
+ /* Onboarding composition: 16:8 vector landscape behind a separate fox. */
+ body[data-vb-app="onboarding"]{background:var(--vb10-canvas)}
+ body[data-vb-app="onboarding"] .ob-art{
+  isolation:isolate;min-height:150px;max-height:150px;border-radius:22px 22px 0 0;
+  background:#825ed0 url('/verbarium-scenes/v10/landscape-first.svg') center center/cover no-repeat!important
+ }
+ body[data-vb-app="onboarding"] .ob-art.vbk-bg--lesson{background-image:url('/verbarium-scenes/v10/landscape-time.svg')!important}
+ body[data-vb-app="onboarding"] .ob-art.vbk-bg--win{background-image:url('/verbarium-scenes/v10/landscape-mastery.svg')!important}
+ body[data-vb-app="onboarding"] .ob-art .vb8-onboard-backdrop{display:none!important}
+ body[data-vb-app="onboarding"] .ob-art::before{inset:6px 15px 6px auto;width:108px;height:132px;max-width:35%;background-size:contain!important;opacity:1}
+ body[data-vb-app="onboarding"] .ob-art::after{background:linear-gradient(90deg,#3d276a20,transparent 56%)}
+ body[data-vb-app="onboarding"] .ob-panel{padding:17px 18px 25px}
+ body[data-vb-app="onboarding"] .ob-view h1{font:600 clamp(27px,7.3vw,35px)/1.13 Fredoka,sans-serif;letter-spacing:-.02em;color:#412a78}
+ body[data-vb-app="onboarding"] .ob-lede{font-size:12.5px;color:#726687;line-height:1.55}
+ body[data-vb-app="onboarding"] .ob-selection{gap:10px}
+ body[data-vb-app="onboarding"] :is(.vbk-choice,.ob-level){border:2px solid #e3d9ef;border-bottom:4px solid #d7c8e9;border-radius:15px;background:#fff;min-height:65px}
+ body[data-vb-app="onboarding"] :is(.vbk-choice,.ob-level)[aria-pressed="true"],body[data-vb-app="onboarding"] :is(.vbk-choice,.ob-level).is-selected{border-color:#835bd7;border-bottom-color:#5d3ca8;background:#f3ecff}
+ body[data-vb-app="onboarding"] .ob-actions .vbk-btn{min-height:55px;border-radius:16px}
+ body[data-vb-app="onboarding"] .ob-word{min-height:47px;border:2px solid #d9caef;border-bottom:4px solid #c7b1e5;border-radius:13px;background:#fff;color:#4f358d}
+ body[data-vb-app="onboarding"] .ob-answer{background:#fff;border:2px dashed #bca5df}
+}
+@media(max-width:375px){
+ .vb10-hero{padding:16px 14px}
+ .vb10-hero-grid{grid-template-columns:minmax(0,1fr) 98px;gap:4px}
+ .vb10-mascot-stage{height:144px}
+ .vb10-mascot-stage img{max-height:144px}
+ .vb10-hero-copy h2{font-size:21px}
+ .vb10-hero-copy p{font-size:11px}
+ .vb10-daily-item{gap:5px;padding:8px 5px}
+ .vb10-stat-icon{flex-basis:24px;width:24px}
+ .vb10-daily-item strong{font-size:18px}
+ .vb10-daily-item small{font-size:9px}
+ .vb10-step-copy strong{font-size:13px}
+ body[data-vb-app="academy"] .welcome-card{grid-template-columns:minmax(0,1fr) 88px;padding:17px 14px}
+ body[data-vb-app="academy"] .welcome-hero{height:117px}
+}
+@media(prefers-reduced-motion:reduce){
+ .vb10-mobile-home *,body[data-vb-app="academy"] .lesson-wrap *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
