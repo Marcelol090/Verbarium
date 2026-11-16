@@ -35,7 +35,7 @@ import {renderLessonListArt,renderLessonFeature,renderLessonResultArt,hydrateLes
 import {renderMotionGallery,initVerbariumMotion,hydrateVerbariumMotion,announceVerbariumMilestone,navArtwork} from './verbarium-kit/motion-assets.js';
 import {assetGalleryPage,hydrateAssetGallery} from './verbarium-kit/asset-gallery.js';
 import {art,renderProgressOverview,renderJourneyFlow,renderLessonMeter,renderHeroMascot,renderStreakWeek,hydrateVerbariumUI,showVerbariumToast} from './verbarium-kit/ui.js';
-import {calendarWeek,renderWeekTokens,seedWeekActivity,hydrateWeekTokens} from './verbarium-kit/weekly-streak.js';
+import {calendarWeek,seedWeekActivity,hydrateWeekTokens} from './verbarium-kit/weekly-streak.js';
 import {chapters,findJourneyChapter,missionState,renderMissionBoard,renderQuestMap,renderChapterDetail,renderProfile} from './journey-v2.js';
 import {iconName,hydrateIcons} from './icons.js';
 import {animateEntrance,animateFeedback} from './motion.js';
