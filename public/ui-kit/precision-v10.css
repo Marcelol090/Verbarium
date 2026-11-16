@@ -252,3 +252,59 @@ body[data-vb-app="onboarding"] :is(button,a,input,select):focus-visible{
 @media(prefers-reduced-motion:reduce){
  .vb10-mobile-home *,body[data-vb-app="academy"] .lesson-wrap *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+
+/* Mobile grammar lesson: compact loop, one question, no three-screen scroll. */
+@media(max-width:700px){
+ body[data-vb-app="home"] .vb10-lesson-flow{display:grid;gap:14px;min-width:0;padding:1px 0 10px}
+ body[data-vb-app="home"] .vb10-lesson-header{display:flex;align-items:center;gap:10px}
+ body[data-vb-app="home"] .vb10-back{display:grid;place-items:center;flex:0 0 46px;width:46px;height:48px;border:1px solid #ded4eb;border-bottom:3px solid #cfc0e2;border-radius:14px;background:#fff;color:#6145ab;font-size:21px}
+ body[data-vb-app="home"] .vb10-lesson-meter{flex:1;min-width:0;height:12px;background:#e8e0f0;border:1px solid #dacfeb;border-radius:99px;overflow:hidden}
+ body[data-vb-app="home"] .vb10-lesson-meter i{display:block;height:100%;background:linear-gradient(90deg,#a181ee,#734bd7);border-radius:inherit;transition:width .28s var(--vb10-motion)}
+ body[data-vb-app="home"] .vb10-lesson-counter{min-width:32px;color:#716084;font-size:11px;font-weight:850;text-align:right}
+ body[data-vb-app="home"] .vb10-lesson-overline{color:#825ec6;font-size:10px;font-weight:900;letter-spacing:.13em;margin-top:7px}
+ body[data-vb-app="home"] .vb10-lesson-flow>h1{font:600 clamp(25px,7vw,31px)/1.13 Fredoka,sans-serif;letter-spacing:-.02em;color:#342448;margin:-8px 0 0}
+ body[data-vb-app="home"] .vb10-lesson-scene .vb-world-lesson-banner{height:116px;min-height:116px;max-height:116px;margin:0;border-radius:19px;border:1px solid #d7c9eb;box-shadow:none}
+ body[data-vb-app="home"] .vb10-lesson-scene .vb-world-lesson-banner figcaption{left:14px;bottom:12px}
+ body[data-vb-app="home"] .vb10-lesson-scene .vb-world-lesson-banner figcaption span{font-size:9px}
+ body[data-vb-app="home"] .vb10-lesson-scene .vb-world-lesson-banner figcaption strong{font-size:14px;line-height:1.15}
+ body[data-vb-app="home"] .vb10-rule-card{display:grid;gap:11px;border:1px solid #e4d9ee;border-bottom:3px solid #ddd0ea;border-radius:19px;background:#fff;padding:15px;margin:0}
+ body[data-vb-app="home"] .vb10-rule-label{font-size:10px;font-weight:900;letter-spacing:.1em;color:#8153c5}
+ body[data-vb-app="home"] .vb10-rule-card>p{color:#554466;font-size:13px;line-height:1.48;font-weight:700;margin:0}
+ body[data-vb-app="home"] .vb10-rule-example{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 10px 10px 13px;border:1px solid #ece4f7;border-radius:14px;background:#f7f2ff}
+ body[data-vb-app="home"] .vb10-rule-example>div{display:flex;flex-direction:column;gap:3px;min-width:0}
+ body[data-vb-app="home"] .vb10-rule-example strong{font:600 16px/1.25 Fredoka,sans-serif;color:#422d78}
+ body[data-vb-app="home"] .vb10-rule-example small{font:700 11px/1.25 "DM Sans",sans-serif;color:#7d6b91}
+ body[data-vb-app="home"] .vb10-rule-example button{width:46px;height:48px;flex:0 0 46px;display:grid;place-items:center;background:#e7d9ff;border:1px solid #d7c4f4;border-bottom:3px solid #bda4e3;border-radius:13px;color:#5f39ba}
+ body[data-vb-app="home"] .vb10-rule-example button i{display:grid;place-items:center;width:24px;height:24px}
+ body[data-vb-app="home"] .vb10-rule-example button svg{width:22px;height:22px;stroke-width:2}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-exercise{margin:0;border:1px solid #e4d9ee;border-bottom:3px solid #d8c6e6;border-radius:21px;background:#fff;box-shadow:none;padding:17px 15px}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-exercise::before{display:none}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-section-kicker{margin-bottom:12px}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-exercise__prompt{margin:18px 0 18px}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-exercise__prompt h2{font:600 clamp(22px,5.7vw,27px)/1.16 Fredoka,sans-serif;color:#342448}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-meter__track{height:10px;background:#e8e1f0;box-shadow:none}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-meter__track i{background:linear-gradient(90deg,#9f78ec,#7145d0)}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-choice-group{gap:10px}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-choice{min-height:57px;border:2px solid #e2d9eb;border-bottom:4px solid #d9ceea;border-radius:15px;box-shadow:none;background:#fff;color:#433257;font:800 14px/1.3 "DM Sans",sans-serif;padding:9px 12px;gap:11px}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-choice__index{width:34px;height:34px;border:1px solid #e0d3f0;border-radius:11px;background:#f5efff;color:#714ac2}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-choice[data-vb8-state="selected"]{border-color:#7e54d7;border-bottom-color:#5230a0;background:#f1eaff}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-choice[data-vb8-state="correct"]{border-color:#4ca96f;border-bottom-color:#31834e;background:#e9f9ed;color:#246641}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-choice[data-vb8-state="incorrect"]{border-color:#d96f7e;border-bottom-color:#b34461;background:#fff0f3;color:#92384b}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-choice:disabled{opacity:1}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-exercise__response .vb8-action{width:100%;min-height:54px;border:1px solid #8e67dc;border-bottom:4px solid #4a2898;border-radius:15px;background:#7045d3;box-shadow:none;color:#fff}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-feedback{box-shadow:none;border-radius:16px;padding:13px}
+ body[data-vb-app="home"] .vb10-theory-extra{border:1px solid #e5dcec;border-radius:16px;background:#fff;box-shadow:0 3px 0 #e9e1ef;overflow:hidden;margin:1px 0 0}
+ body[data-vb-app="home"] .vb10-theory-extra summary{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:13px 16px;list-style:none;color:#6741b2;font-size:12px;font-weight:850;cursor:pointer}
+ body[data-vb-app="home"] .vb10-theory-extra summary::-webkit-details-marker{display:none}
+ body[data-vb-app="home"] .vb10-theory-extra[open] summary span{transform:rotate(180deg)}
+ body[data-vb-app="home"] .vb10-theory-extra>div{padding:2px 16px 16px;border-top:1px solid #eee8f6;color:#5b4c69;font-size:12px;line-height:1.6}
+ body[data-vb-app="home"] .vb10-theory-formula{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:12px 0}
+ body[data-vb-app="home"] .vb10-theory-formula span{display:inline-grid;place-items:center;min-height:35px;padding:5px 9px;border:1px solid #dfd2f5;border-radius:10px;background:#f3edff;color:#5438a1;font-weight:850}
+ body[data-vb-app="home"] .vb10-theory-formula i{font-style:normal;color:#9c86bf}
+ body[data-vb-app="home"] .vb10-theory-compare{display:grid;grid-template-columns:1fr;gap:7px}
+ body[data-vb-app="home"] .vb10-theory-compare span{padding:9px 10px;border-radius:11px;font-weight:800}
+ body[data-vb-app="home"] .vb10-theory-compare .wrong{background:#fff0f2;color:#9c4455}
+ body[data-vb-app="home"] .vb10-theory-compare .right{background:#eaf8eb;color:#296a42}
+ body[data-vb-app="home"] .vb10-lesson-flow .vb8-completion{margin-top:4px;border:1px solid #dfd5eb;border-radius:22px;background:#fff;padding:18px}
+}
