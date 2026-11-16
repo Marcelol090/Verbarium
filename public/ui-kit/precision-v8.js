@@ -8,11 +8,13 @@ const precisionV8Style=document.querySelector('link[href="/ui-kit/precision-v8.c
 const precisionV10Style=document.querySelector('link[href="/ui-kit/precision-v10.css"]');
 const precisionV11Style=document.querySelector('link[href="/ui-kit/precision-v11.css"]');
 const precisionV12Style=document.querySelector('link[href="/ui-kit/precision-v12.css"]');
+const precisionV13Style=document.querySelector('link[href="/ui-kit/precision-v13.css"]');
 if(precisionV8Style&&precisionV8Style.parentNode===document.head)document.head.append(precisionV8Style);
 // The V10 contract must be the final cascade layer after the previous enhancers.
 if(precisionV10Style&&precisionV10Style.parentNode===document.head)document.head.append(precisionV10Style);
 if(precisionV11Style&&precisionV11Style.parentNode===document.head)document.head.append(precisionV11Style);
 if(precisionV12Style&&precisionV12Style.parentNode===document.head)document.head.append(precisionV12Style);
+if(precisionV13Style&&precisionV13Style.parentNode===document.head)document.head.append(precisionV13Style);
 
 const ROOT='/verbarium-visual-kit/';
 const app=document.body.dataset.vbApp||'';
