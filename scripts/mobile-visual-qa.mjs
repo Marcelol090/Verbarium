@@ -31,10 +31,16 @@ async function check(page,route,width){
    return r.right>viewport+3||r.left< -3;
   }).slice(0,15).map(el=>{const r=el.getBoundingClientRect();return {tag:el.tagName,cls:String(el.className).slice(0,80),left:Math.round(r.left),right:Math.round(r.right)}}):[];
   const bg=card?getComputedStyle(card).backgroundImage:'';
+  const cta=home?document.querySelector('.vb7-hero__actions .vb7-cta'):document.querySelector('.welcome-card .primary-action');
+  const ctaRadius=cta?getComputedStyle(cta).borderRadius:null;
+  const ctaBackground=cta?getComputedStyle(cta).backgroundImage:null;
+  const newArtKey=art?.dataset?.vb7vAsset || art?.querySelector('img')?.dataset?.vb7vAsset || null;
   const natural=home?{w:art?.naturalWidth||0,h:art?.naturalHeight||0}: {w:art?.querySelector('img')?.naturalWidth||0,h:art?.querySelector('img')?.naturalHeight||0};
-  return {viewport,horizontalOverflow,offenders,card:cardR,art:artR,artInside,background:bg.slice(0,250),natural};
+  return {viewport,horizontalOverflow,offenders,card:cardR,art:artR,artInside,ctaRadius,ctaBackground,newArtKey,background:bg.slice(0,250),natural};
  });
- const ok=!findings.horizontalOverflow&&(route==='home'||route==='academy'?findings.artInside:true)&&findings.natural.w>0;
+ const v7Geometry=findings.ctaRadius==='16px'&&findings.ctaBackground?.includes('rgb(141, 102, 237)');
+ const v7Artwork=route==='home'?findings.newArtKey==='fox_waving':findings.newArtKey==='fox_teacher';
+ const ok=!findings.horizontalOverflow&&findings.artInside&&findings.natural.w>0&&v7Geometry&&v7Artwork;
  results.push({width,route,ok,...findings});
  if(!ok){failed++;console.error('VISUAL GEOMETRY FAILURE:',route,width,JSON.stringify(findings));}
  await page.screenshot({path:path.join(output,route+'-'+width+'.png'),fullPage:width===390,animations:'disabled'});
@@ -65,6 +71,15 @@ try{
  if(bg.foxSize!=='contain'||!bg.foxImage.includes('fox_')){failed++;console.error('Onboarding Pip is not safely contained:',bg);}
  await onboarding.screenshot({path:path.join(output,'onboarding-390.png'),fullPage:true,animations:'disabled'});
  results.push({width:390,route:'onboarding',background:bg});
+ const gallery=await makePage(390);
+ await gallery.goto(base+'/ui-kit/precision-v7/',{waitUntil:'networkidle',timeout:60000});
+ await gallery.locator('#assets .asset').first().waitFor({timeout:10000});
+ const count=await gallery.locator('#assets .asset').count();
+ const broken=await gallery.locator('#assets .asset[data-missing="true"]').count();
+ if(count!==48||broken!==0){failed++;console.error('Visual catalog failure',{count,broken});}
+ await gallery.screenshot({path:path.join(output,'precision-gallery-390.png'),fullPage:false,animations:'disabled'});
+ results.push({width:390,route:'precision-gallery',count,broken});
+ await gallery.close();
  await onboarding.close();
 }finally{await browser.close();}
 await writeFile(path.join(output,'measurements.json'),JSON.stringify(results,null,2));
