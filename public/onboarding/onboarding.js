@@ -1,4 +1,5 @@
 import {GOALS,getGoal,getShuffledWords,gradeSentence,normalizeChoices,saveProfile,readProfile,DEFAULT_CHOICES} from './onboarding-model.js';
+import {decorateOnboardingArt} from '../ui-kit/generated-art.js';
 const $=sel=>document.querySelector(sel);
 const steps=['welcome','goal','level','time','lesson','win'];
 let step=0,choices={...DEFAULT_CHOICES},chosen=[],feedback='';
@@ -14,6 +15,7 @@ if(current==='time'){view=`<p class="ob-kicker">Seu ritmo</p><h1>Quanto tempo qu
 if(current==='lesson'){const goal=getGoal(choices.goal),bank=getShuffledWords(choices.goal);view=`<p class="ob-kicker">Sua primeira aula</p><h1>Você já consegue montar uma frase!</h1><p class="ob-lede">Organize as palavras na ordem certa. Não precisa decorar: pense em quem age e no que precisa.</p><div class="ob-prompt"><small>O QUE VOCÊ QUER DIZER</small><strong>${esc(goal.translation)}</strong><button type="button" class="ob-audio" data-action="hear"><img src="${ico('volume')}" alt="">Ouvir a frase</button></div><div class="ob-answer" aria-label="Palavras selecionadas">${chosen.map((word,i)=>`<button class="ob-word" data-remove="${i}" aria-label="Remover ${esc(word)}">${esc(word)} ×</button>`).join('')}</div><div class="ob-word-bank" aria-label="Banco de palavras">${bank.map((word,i)=>`<button class="ob-word" data-word-index="${i}" ${chosen.some(x=>x===word)?'disabled':''}>${esc(word)}</button>`).join('')}</div>${actions(bt('Verificar minha frase','check','primary',chosen.length!==goal.words.length))}`;}
 if(current==='win'){const goal=getGoal(choices.goal);view=`<p class="ob-kicker">Primeira conquista</p><div class="ob-result-symbol"><img src="${ico('star')}" alt=""></div><h1>Você montou sua primeira frase!</h1><p class="ob-lede">Isso é aprender ativamente: compreender, organizar e construir sua própria resposta.</p><div class="ob-result"><strong>${esc(goal.sentence)} ✓</strong><small>${esc(goal.translation)} · Seu objetivo: ${esc(goal.title)} · Meta: ${choices.minutes} min/dia.</small></div>${actions(bt('Continuar para a Academy','finish'),'restart')}<p class="ob-privacy">Sem conta obrigatória. Suas preferências iniciais serão guardadas apenas neste navegador.</p>`;}
 $('#ob-view').innerHTML=view;
+decorateOnboardingArt(art,$('#ob-view'),current);
 }
 function next(){feedback='';if(step<steps.length-1){step++;display();$('#onboarding-content').focus({preventScroll:true})}}
 function back(){feedback='';if(step>0){step--;if(step===4)chosen=[];display()}}

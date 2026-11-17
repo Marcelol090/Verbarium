@@ -1,0 +1,75 @@
+/* Atomic generated illustrations, never stretched button/card screenshots. */
+body[data-vb-app="academy"] .vbgen-path-step .node-icon img{
+  display:block;width:100%;height:100%;max-width:100%;object-fit:contain;
+  pointer-events:none;user-select:none;-webkit-user-drag:none;
+}
+body[data-vb-app="academy"] .vbgen-path-step.locked .node-icon img{opacity:.75;filter:grayscale(.25)}
+body[data-vb-app="academy"] .welcome-hero img,
+body[data-vb-app="academy"] .teacher-hero .asset-wrap img,
+body[data-vb-app="academy"] .review-hero .asset-wrap img,
+body[data-vb-app="academy"] .profile-hero .asset-wrap img,
+body[data-vb-app="academy"] .finish-chest img,
+body[data-vb-app="academy"] .rail-fox img{
+  width:100%;height:100%;max-width:100%;object-fit:contain;object-position:center;
+  user-select:none;-webkit-user-drag:none;
+}
+body[data-vb-app="academy"] .skill-card{position:relative;isolation:isolate}
+body[data-vb-app="academy"] .vbgen-skill-art{
+  position:absolute;right:12px;top:12px;width:56px;height:56px;max-width:34%;
+  object-fit:contain;object-position:center;pointer-events:none;
+  user-select:none;-webkit-user-drag:none;
+}
+body[data-vb-app="academy"] .vbgen-daily-cell,
+body[data-vb-app="academy"] .vbgen-xp-cell{position:relative}
+body[data-vb-app="academy"] .vbgen-daily-art{
+  position:absolute;right:9px;top:8px;width:32px;height:32px;max-width:30%;
+  object-fit:contain;pointer-events:none;
+}
+body[data-vb-app="academy"] .vbgen-xp-art{
+  position:absolute;right:9px;top:8px;width:28px;height:28px;
+  object-fit:contain;pointer-events:none;
+}
+body[data-vb-app="onboarding"] .ob-art{
+  isolation:isolate;background-color:#e9e1fc;
+}
+body[data-vb-app="onboarding"] .vbgen-onboarding-bg,
+body[data-vb-app="onboarding"] .vbgen-onboarding-mascot{
+  position:absolute;display:block;pointer-events:none;user-select:none;
+  -webkit-user-drag:none;object-fit:contain;
+}
+body[data-vb-app="onboarding"] .vbgen-onboarding-bg{
+  z-index:0;inset:0;width:100%;height:100%;opacity:.8;object-position:center;
+}
+body[data-vb-app="onboarding"] .vbgen-onboarding-mascot{
+  z-index:1;right:3%;bottom:4%;width:86%;height:70%;
+  object-position:center bottom;filter:drop-shadow(0 12px 16px #4e33802a);
+  animation:vbgen-mascot-idle 3.6s ease-in-out infinite alternate;
+}
+body[data-vb-app="onboarding"] .ob-art-caption{z-index:2}
+body[data-vb-app="onboarding"] .ob-result-symbol img{
+  width:100%;height:100%;object-fit:contain;
+}
+@keyframes vbgen-mascot-idle{
+  from{transform:translateY(0)}to{transform:translateY(-5px)}
+}
+@media(max-width:760px){
+  body[data-vb-app="onboarding"] .vbgen-onboarding-bg{
+    opacity:.32;object-position:center;
+  }
+  body[data-vb-app="onboarding"] .vbgen-onboarding-mascot{
+    width:118px;height:116px;max-width:36%;right:12px;bottom:-3px;
+    object-position:center bottom;
+  }
+  body[data-vb-app="academy"] .vbgen-skill-art{
+    right:9px;top:10px;width:48px;height:48px;max-width:29%;
+  }
+}
+@media(max-width:375px){
+  body[data-vb-app="onboarding"] .vbgen-onboarding-mascot{
+    width:95px;height:90px;right:8px;
+  }
+  body[data-vb-app="academy"] .vbgen-daily-art{width:27px;height:27px;right:6px}
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-vb-app="onboarding"] .vbgen-onboarding-mascot{animation:none!important}
+}
