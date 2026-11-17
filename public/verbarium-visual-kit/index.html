@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Biblioteca visual | Verbarium</title>
+<meta name="description" content="Inspecione os 48 assets independentes do Verbarium e suas famílias.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/verbarium-visual-kit/kit.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f5ff;color:#29334b;font-family:'DM Sans',system-ui,sans-serif}
+header.site-top{padding:18px clamp(16px,4vw,44px);background:#fff;border-bottom:1px solid #e6e0f1;display:flex;justify-content:space-between;align-items:center;gap:12px}
+header.site-top b{font:600 22px Fredoka,system-ui}header.site-top a{font-size:13px;font-weight:800;color:#5e48b5;text-decoration:none}
+main{padding:clamp(18px,3vw,36px);max-width:1180px;margin:auto}
+</style>
+</head>
+<body><header class="site-top"><b>Verbarium · Biblioteca</b><a href="/">← Voltar ao aplicativo</a></header>
+<main id="gallery"><p>Carregando os assets…</p></main>
+<script type="module">
+import {renderGeneratedKitGallery,hydrateGeneratedKit} from '/verbarium-visual-kit/gallery.js';
+const root=document.querySelector('#gallery');
+root.innerHTML=renderGeneratedKitGallery();
+hydrateGeneratedKit(root,'kitv7');
+</script>
+</body>
+</html>

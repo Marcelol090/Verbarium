@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f4fb">
+<meta name="description" content="Simulador responsivo do Verbarium: teste as telas reais do aplicativo em viewports de 320 a 430 pixels, sem escala artificial.">
+<title>Verbarium · Mobile Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./mobile-simulator.css">
+<script type="module" src="./mobile-simulator.js"></script>
+</head>
+<body data-mode="preview">
+<header class="studio-header">
+ <a class="brand" href="/" aria-label="Verbarium, voltar ao aplicativo"><span class="brand-mark"><img src="/verbarium-visual-kit/assets/mascot/fox_welcome.webp" alt=""></span><span class="brand-name">verbarium<span class="brand-dot">.</span><small>Mobile Studio <span>09</span></small></span></a>
+ <nav class="header-tabs" aria-label="Visões do estúdio"><button type="button" data-mode-btn="preview" aria-pressed="true">Simulador</button><button type="button" data-mode-btn="assets" aria-pressed="false">48 Assets</button><button type="button" data-mode-btn="rules" aria-pressed="false">Tokens</button><a class="header-components" href="/ui-kit/precision-v10/">Componentes V10 ↗</a></nav>
+ <div class="header-actions"><button id="asset-switch" class="header-switch" type="button" aria-label="Abrir catálogo de assets" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button><a class="header-open" id="open-app" href="/" target="_blank" rel="noopener">Abrir aplicativo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+</header>
+<div class="workspace">
+ <aside class="tool-panel" aria-label="Configurações do simulador">
+  <div class="side-title"><span class="eyebrow">01 / SIMULAR</span><h1>Um celular.<br><em>O app de verdade.</em></h1><p>O conteúdo na moldura é a página original do Verbarium, não um mockup estático.</p></div>
+  <div class="field-section">
+   <h2 class="field-label">Tela do aplicativo</h2>
+   <div class="route-options" role="group" aria-label="Escolher tela">
+    <button type="button" class="route-option active" data-screen="home" aria-pressed="true"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg></span><span><strong>Início</strong><small>Minha jornada</small></span></button>
+    <button type="button" class="route-option" data-screen="academy" aria-pressed="false"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5c3.2-1.5 5.8-1.3 8 .7 2.2-2 4.8-2.2 8-.7v13c-3.2-1.5-5.8-1.3-8 .7-2.2-2-4.8-2.2-8-.7Z M12 6.2v13"/></svg></span><span><strong>Academy</strong><small>Trilha de aulas</small></span></button>
+    <button type="button" class="route-option" data-screen="lesson" aria-pressed="false"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7V5Z M4 4v16"/></svg></span><span><strong>Aula</strong><small>Exercícios reais</small></span></button>
+    <button type="button" class="route-option" data-screen="onboarding" aria-pressed="false"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M5.6 5.6l2.8 2.8M3 12h4m-1.4 6.4 2.8-2.8M12 21v-4m6.4 1.4-2.8-2.8M21 12h-4m1.4-6.4-2.8 2.8M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></span><span><strong>Onboarding</strong><small>Primeiro acesso</small></span></button>
+   </div>
+  </div>
+  <div class="field-section">
+   <label class="field-label" for="device-select">Largura do viewport</label>
+   <div class="select-wrap"><select id="device-select" aria-label="Escolher dimensões da tela"><option value="320">Compacto · 320 × 720</option><option value="360">Android · 360 × 800</option><option value="390" selected>Mobile · 390 × 844</option><option value="430">Amplo · 430 × 932</option></select><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div>
+   <div class="viewport-meta"><span id="viewport-label">390 × 844 CSS px</span><span>Escala 1:1</span></div>
+  </div>
+  <div class="field-section">
+   <h2 class="field-label">Inspeção</h2>
+   <div class="measure-row"><span>Alvo interativo</span><strong>≥ 48 px</strong></div>
+   <div class="measure-row"><span>Stroke dos ícones</span><strong>2 px / 24</strong></div>
+   <div class="measure-row"><span>Borda de superfície</span><strong>1 px</strong></div>
+   <div class="measure-row"><span>Estado selecionado</span><strong>2 px</strong></div>
+   <div class="measure-row"><span>Foco de teclado</span><strong>3 px</strong></div>
+  </div>
+  <p class="side-footnote">O simulador controla a largura real do iframe. Não aumenta nem diminui o app usando <code>transform:scale()</code>.</p>
+ </aside>
+ <section class="preview-pane" aria-label="Simulador de celular">
+  <div class="preview-toolbar">
+   <div><span class="eyebrow">PREVIEW / LIVE APP</span><h2 id="screen-heading">Início</h2></div>
+   <div class="preview-actions"><button type="button" id="reload" class="icon-action" aria-label="Recarregar a tela" title="Recarregar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.6 6M20 4v7h-7"/></svg></button><a id="open-direct" class="icon-action" target="_blank" rel="noopener" href="/" aria-label="Abrir tela separadamente" title="Abrir tela"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5h6v6M19 5l-9 9M19 13v6H5V5h6"/></svg></a></div>
+  </div>
+  <div class="mobile-route-bar" role="group" aria-label="Navegar entre telas">
+   <button type="button" data-mobile-screen="home" class="active" aria-pressed="true">Início</button><button type="button" data-mobile-screen="academy" aria-pressed="false">Academy</button><button type="button" data-mobile-screen="lesson" aria-pressed="false">Aula</button><button type="button" data-mobile-screen="onboarding" aria-pressed="false">Começar</button>
+  </div>
+  <div class="phone-stage" id="phone-stage">
+   <div class="phone-device" id="phone-device" style="--device-w:390px;--device-h:844px">
+    <div class="phone-top" aria-hidden="true"><span>9:41</span><span class="phone-notch"></span><span class="phone-signals"><svg viewBox="0 0 24 24"><path d="M2 18h3v-4H2zm5 0h3V10H7zm5 0h3V6h-3z"/></svg><svg viewBox="0 0 24 24"><path d="M2 9q10-9 20 0M6 13q6-6 12 0M10 17q2-2 4 0"/></svg><svg viewBox="0 0 28 14"><rect x="1" y="1" width="23" height="12" rx="3"/><rect x="25" y="5" width="2" height="4" rx="1"/><rect x="3" y="3" width="17" height="8" rx="1.5" fill="currentColor" stroke="none"/></svg></span></div>
+    <div class="screen-viewport"><iframe id="app-frame" title="Verbarium mobile: aplicativo real" src="/" loading="eager" referrerpolicy="same-origin"></iframe></div>
+    <div class="phone-bottom" aria-hidden="true"><span></span></div>
+   </div>
+  </div>
+  <div class="mobile-hint" id="frame-status" role="status" aria-live="polite"><span class="live-dot"></span> Aplicativo real carregado no viewport selecionado</div>
+ </section>
+ <aside class="inspector" aria-label="Regras do design system">
+  <div class="inspector-top"><span class="eyebrow">02 / COMPONENTES</span><h2>O detalhe é<br><em>parte da lição.</em></h2><p>A arte fica independente dos controles. O layout se adapta ao viewport, não o contrário.</p></div>
+  <div class="inspector-feature">
+   <div class="feature-art"><img src="/verbarium-visual-kit/assets/mascot/fox_reading.webp" alt="" loading="lazy"></div>
+   <div><strong>Pip sem recortes</strong><p>Imagem contida, proporção natural e espaço dedicado ao personagem.</p></div>
+  </div>
+  <div class="inspector-check"><span class="check-mark">✓</span><span><strong>Conteúdo, não textura</strong><small>Textos e botões são HTML nativo, não PNG esticado.</small></span></div>
+  <div class="inspector-check"><span class="check-mark">✓</span><span><strong>Legibilidade mobile</strong><small>Escala, contraste, quebra de texto e safe areas.</small></span></div>
+  <div class="inspector-check"><span class="check-mark">✓</span><span><strong>Estados e feedback</strong><small>Selecionado, certo, erro, foco e toque acessível.</small></span></div>
+  <a href="/academy/" class="try-lesson">Explorar a Academy <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+  <p class="inspector-caption">Para comparar dimensões, altere o dispositivo. A tela é renderizada novamente com as media queries reais do app.</p>
+ </aside>
+ <section class="library-pane" id="library-pane" hidden aria-label="Catálogo de assets">
+  <div class="library-header"><span class="eyebrow">RECURSOS / 48 ASSETS</span><h2>Arte independente.<br><em>Componentes reais.</em></h2><p>As imagens históricas continuam disponíveis como referências. Para botões, cards e labels usados no aplicativo, utilize os componentes semânticos da V10.</p><a class="v10-gallery-link" href="/ui-kit/precision-v10/">Abrir a biblioteca de componentes V10 ↗</a></div>
+  <div class="asset-filters" id="filters" role="group" aria-label="Filtrar tipos de assets"></div>
+  <p class="assets-status" id="status" role="status">Carregando catálogo…</p>
+  <div class="asset-grid" id="assets"></div>
+ </section>
+ <section class="rules-pane" id="rules-pane" hidden aria-label="Medidas e tokens">
+  <span class="eyebrow">ANATOMIA / REGRAS</span><h2>Uma linguagem.<br><em>Todos os componentes.</em></h2>
+  <p>Dimensões em CSS px. Na aplicação final, áreas de toque e escalas se adaptam ao dispositivo, sem ampliar bitmaps como bordas.</p>
+  <div class="token-cards"><div><b>01</b><strong>Contorno</strong><span>1 px superfície, 2 px seleção, 3 px foco</span></div><div><b>02</b><strong>Ícone</strong><span>24 × 24 com stroke 2, linecap round</span></div><div><b>03</b><strong>Raio</strong><span>12 / 16 controles, 24 cards, 28 hero</span></div><div><b>04</b><strong>Espaço</strong><span>Base 4, saltos 8 / 12 / 16 / 24</span></div></div>
+  <div class="palette-row"><span style="background:#6946c6"></span><span style="background:#362a50"></span><span style="background:#ef8b53"></span><span style="background:#f8f6fb"></span></div>
+  <p class="rule-note">Painel de demonstração. A validação final ainda depende de teste físico com TalkBack/VoiceOver e diferentes fontes de sistema.</p>
+ </section>
+</div>
+<nav class="mobile-studio-nav" aria-label="Seções do estúdio"><button type="button" data-mode-btn="preview" aria-pressed="true"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 18h4"/></svg><span>Prévia</span></button><button type="button" data-mode-btn="assets" aria-pressed="false"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Assets</span></button><button type="button" data-mode-btn="rules" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M3 4h18M3 12h18M3 20h18M7 2v4m10 4v4M9 18v4"/></svg><span>Medidas</span></button></nav>
+</body></html>

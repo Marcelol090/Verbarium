@@ -1,4 +1,4 @@
-const assetRoot='/verbarium-kit-v1/';
+const assetRoot='/verbarium-visual-kit/';
 const typeLabels={buttons:'Botões',cards:'Cards',grids:'Grids',backgrounds:'Fundos',labels:'Labels',mascot:'Pip',rewards:'Recompensas'};
 const grid=document.querySelector('#asset-grid'),filters=document.querySelector('#filters');
 const size=document.querySelector('#asset-size'),sizeLabel=document.querySelector('#size-label');

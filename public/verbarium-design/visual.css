@@ -49,7 +49,7 @@ body[data-vb-app="home"], body[data-vb-app="academy"], body[data-vb-app="onboard
   body[data-vb-app="academy"]{background:var(--vb-canvas);color:var(--vb-ink)}
   body[data-vb-app="academy"] #content{max-width:620px;min-width:0;padding-inline:clamp(16px,4.4vw,24px)}
   body[data-vb-app="academy"] .topbar{background:#F8F7FCF2;border-bottom:1px solid var(--vb-stroke)}
-  body[data-vb-app="academy"] .top-title:before{background-color:#FFF0DE;background-image:url('/verbarium-kit-v1/assets/mascot/fox_welcome.webp');background-size:34px auto;background-position:center;background-repeat:no-repeat;border:1px solid #F6D6BC;border-radius:14px}
+  body[data-vb-app="academy"] .top-title:before{background-color:#FFF0DE;background-image:url('/verbarium-visual-kit/assets/mascot/fox_welcome.webp');background-size:34px auto;background-position:center;background-repeat:no-repeat;border:1px solid #F6D6BC;border-radius:14px}
   body[data-vb-app="academy"] .top-title strong{color:var(--vb-ink);font-weight:600}
   body[data-vb-app="academy"] .top-title .eyebrow{color:var(--vb-text-muted);letter-spacing:.09em}
   body[data-vb-app="academy"] .stat-pill{background:var(--vb-white);color:var(--vb-ink);border:1px solid var(--vb-stroke);border-radius:13px;box-shadow:none;min-height:40px}
@@ -199,7 +199,7 @@ body[data-vb-app="home"], body[data-vb-app="academy"], body[data-vb-app="onboard
   body[data-vb-app="home"] .stage{background:var(--vb-canvas)}
   body[data-vb-app="home"] .topbar{background:#F8F7FCF2;border-bottom:1px solid var(--vb-stroke)}
   body[data-vb-app="home"] .crumb .mobile-wordmark{color:var(--vb-ink)}
-  body[data-vb-app="home"] .topbar .avatar{background:#FFF0DE url('/verbarium-kit-v1/assets/mascot/fox_welcome.webp') center/35px auto no-repeat;border:1px solid #F1D5BD;border-radius:14px}
+  body[data-vb-app="home"] .topbar .avatar{background:#FFF0DE url('/verbarium-visual-kit/assets/mascot/fox_welcome.webp') center/35px auto no-repeat;border:1px solid #F1D5BD;border-radius:14px}
   body[data-vb-app="home"] .vb7-home-heading .vb7-heading h1{color:var(--vb-ink);font-size:clamp(30px,7.9vw,37px);letter-spacing:-.03em}
   body[data-vb-app="home"] .vb7-home-heading .vb7-heading p{color:var(--vb-text-muted)}
   body[data-vb-app="home"] .vb7-hero{
@@ -255,14 +255,14 @@ body[data-vb-app="home"], body[data-vb-app="academy"], body[data-vb-app="onboard
   }
   body[data-vb-app="onboarding"] .ob-art::before{
     position:absolute;content:"";z-index:2;inset:8px 10px 7px auto;width:min(34%,124px);height:auto;
-    background:url('/verbarium-kit-v1/assets/mascot/fox_waving.webp') center/contain no-repeat;pointer-events:none;
+    background:url('/verbarium-visual-kit/assets/mascot/fox_waving.webp') center/contain no-repeat;pointer-events:none;
   }
-  body[data-vb-app="onboarding"] .ob-art.vbk-bg--lesson::before{background-image:url('/verbarium-kit-v1/assets/mascot/fox_reading.webp')}
-  body[data-vb-app="onboarding"] .ob-art.vbk-bg--win::before{background-image:url('/verbarium-kit-v1/assets/rewards/reward_medal.webp')}
-  body[data-vb-app="onboarding"] .ob-art.vbk-bg--premium::before{background-image:url('/verbarium-kit-v1/assets/rewards/reward_chest.webp')}
+  body[data-vb-app="onboarding"] .ob-art.vbk-bg--lesson::before{background-image:url('/verbarium-visual-kit/assets/mascot/fox_reading.webp')}
+  body[data-vb-app="onboarding"] .ob-art.vbk-bg--win::before{background-image:url('/verbarium-visual-kit/assets/rewards/reward_medal.webp')}
+  body[data-vb-app="onboarding"] .ob-art.vbk-bg--premium::before{background-image:url('/verbarium-visual-kit/assets/rewards/reward_chest.webp')}
   body[data-vb-app="onboarding"] .ob-art::after{
     position:absolute;content:"";z-index:0;inset:0;
-    background:url('/verbarium-kit-v1/assets/backgrounds/background_pattern.webp') left center/auto 158px no-repeat;
+    background:url('/verbarium-visual-kit/assets/backgrounds/background_pattern.webp') left center/auto 158px no-repeat;
     opacity:.24;pointer-events:none;
   }
   body[data-vb-app="onboarding"] .ob-art-caption{position:relative;z-index:3;max-width:calc(100% - 130px);color:#FFF}

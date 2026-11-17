@@ -1,0 +1,88 @@
+/* Verbarium Visual Kit 1.0
+   Visual artwork is composited with real HTML controls. No stretched raster
+   buttons, no text baked into images, and no clipped character illustrations. */
+:root{
+  --vbkit-violet:#7357D7;--vbkit-violet-dark:#443A79;--vbkit-lavender:#F2EDFF;
+  --vbkit-peach:#F18451;--vbkit-cream:#FFFBF5;--vbkit-ink:#29334B;
+  --vbkit-stroke:#E6E0F1;--vbkit-radius-card:20px;--vbkit-radius-action:14px;
+  --vbkit-shadow:0 6px 20px rgba(43,34,89,.08);
+}
+.vbkit-art,.vbkit-portrait,.vbkit-inline-icon,.vbkit-daily-icon,.vbkit-review-art,.vbkit-medal-art,.vbkit-finish-art{
+  display:block;max-width:100%;max-height:100%;object-fit:contain;object-position:center;
+}
+.vbkit-shell{border:1px solid var(--vbkit-stroke);background:#fff;border-radius:var(--vbkit-radius-card);box-shadow:var(--vbkit-shadow);min-width:0}
+.vbkit-pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:7px 12px;border:1px solid #DED6F6;background:var(--vbkit-lavender);color:#5546A9;font:750 11px/1.2 'DM Sans',system-ui,sans-serif}
+.vbkit-pill .vbkit-inline-icon{width:19px;height:19px;flex:0 0 19px}
+.vbkit-action{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 17px;border-radius:var(--vbkit-radius-action);font-weight:850;border:1px solid #7051CB;background:#785DDE;color:white;box-shadow:0 3px 0 #5339A9;transition:filter .15s,transform .15s,box-shadow .15s}
+.vbkit-action:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 #5339A9}
+.vbkit-action:disabled{opacity:.5;cursor:not-allowed}
+.vbkit-action:focus-visible,.vbkit-gallery button:focus-visible{outline:3px solid #F18C51;outline-offset:3px}
+.vbkit-media-slot{display:grid;place-items:center;min-width:0;overflow:visible}
+.vbkit-media-slot img{width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}
+.vbkit-progress{height:10px;background:#EDE8F7;border-radius:999px;overflow:hidden}
+.vbkit-progress>i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#7C68DE,#A393ED)}
+/* Gallery is a real screen for inspecting isolated assets and their live sizes. */
+.vbkit-gallery{max-width:1120px;margin:0 auto;padding:5px 0 30px;color:var(--vbkit-ink)}
+.vbkit-gallery-header{display:grid;grid-template-columns:minmax(0,1fr) 122px;gap:18px;align-items:center;background:linear-gradient(130deg,#42395E,#26283E);border:1px solid #51486A;border-radius:24px;padding:22px;color:#fff;margin-bottom:22px;overflow:visible;min-width:0}
+.vbkit-gallery-header span{font:850 10px/1.2 'DM Sans',sans-serif;color:#FFBA91;letter-spacing:1.3px}
+.vbkit-gallery-header h1{font:600 clamp(25px,5.5vw,36px)/1.08 Fredoka,system-ui,sans-serif;color:#fff;margin:9px 0}
+.vbkit-gallery-header p{font-size:12px;line-height:1.5;color:#E8E2F4;max-width:500px}
+.vbkit-gallery-header img{width:100%;max-height:130px;object-fit:contain}
+.vbkit-gallery-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px}
+.vbkit-gallery-filter{border:1px solid #DDD5F0;background:white;color:#5E5780;border-radius:999px;padding:9px 13px;min-height:44px;font-size:12px;font-weight:800;cursor:pointer}
+.vbkit-gallery-filter[aria-pressed=true]{background:#6D58CA;border-color:#6D58CA;color:white}
+.vbkit-gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:11px}
+.vbkit-gallery-tile{min-width:0;display:flex;flex-direction:column;align-items:center;gap:9px;border:1px solid #E6E0F1;border-radius:17px;background:#fff;padding:13px 10px;box-shadow:0 3px 12px #392F5710}
+.vbkit-gallery-tile[hidden]{display:none!important}
+.vbkit-gallery-tile-media{display:grid;place-items:center;width:100%;height:122px;background:radial-gradient(circle at 60% 45%,#FBF9FF,#F5F1FF);border-radius:12px;overflow:visible}
+.vbkit-gallery-tile img{width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}
+.vbkit-gallery-tile strong{color:#4D4669;text-align:center;font-size:10px;line-height:1.35;overflow-wrap:anywhere}
+.vbkit-gallery-tile small{font-size:9px;color:#A197B0}
+.vbkit-gallery-notice{font-size:12px;line-height:1.5;color:#6C657F;margin-top:16px}
+/* Home. Real controls stay vector/CSS; art remains inside dedicated slots. */
+@media(max-width:650px){
+  body[data-vb-app=home] .vb7-hero__mascot .vb-fox-home-mascot{width:100%;height:auto;max-width:120px;max-height:120px;object-fit:contain;position:static;transform:none;filter:none}
+  body[data-vb-app=home] .vb7-promo__art{display:grid;place-items:center;min-width:0}
+  body[data-vb-app=home] .vb7-promo__art img{display:block;max-width:100%;max-height:122px;object-fit:contain}
+  body[data-vb-app=home] .vb7-missions__header{position:relative;min-width:0}
+  body[data-vb-app=home] .vb7-missions__total{border:1px solid #E9DEFC;border-radius:999px;background:#FAF7FF;color:#6B55BE}
+  body[data-vb-app=home] .vb7-hero__actions button,body[data-vb-app=home] .vb7-hero__actions a{min-height:52px}
+  body[data-vb-app=home] .vb7-feature{min-width:0;overflow:hidden}
+}
+/* Academy. No layer alters scoring or lesson content; images are decorations. */
+@media(max-width:770px){
+ body[data-vb-app=academy] .welcome-hero,body[data-vb-app=academy] .welcome-hero img{max-width:100%;max-height:125px;object-fit:contain;object-position:center}
+ body[data-vb-app=academy] .sentence-lab-entry>img{width:76px;height:78px;max-width:22%;max-height:78px;object-fit:contain;position:absolute;top:14px;right:12px}
+ body[data-vb-app=academy] .daily-strip>div{gap:0}
+ body[data-vb-app=academy] .vbkit-daily-icon{width:28px;height:28px;max-width:28px;max-height:28px;object-fit:contain;margin:0 0 5px}
+ body[data-vb-app=academy] .daily-strip strong{margin-left:0}
+ body[data-vb-app=academy] .world-head{position:relative;isolation:isolate;overflow:hidden}
+ body[data-vb-app=academy] .world-head>span,body[data-vb-app=academy] .world-head>h2{position:relative;z-index:2;max-width:75%}
+ body[data-vb-app=academy] .world-head::after{content:'';position:absolute;right:5px;top:4px;width:112px;height:100%;z-index:0;opacity:.24;background:url('/verbarium-visual-kit/assets/backgrounds/background_journey.webp') center/contain no-repeat;pointer-events:none}
+ body[data-vb-app=academy] .skill-emoji{display:block;width:70px;height:62px;margin:0 0 10px}
+ body[data-vb-app=academy] .skill-emoji img{display:block;width:100%;height:100%;object-fit:contain}
+ body[data-vb-app=academy] .review-hero,body[data-vb-app=academy] .profile-hero{align-items:center;min-width:0;gap:10px}
+ body[data-vb-app=academy] .vbkit-review-art,body[data-vb-app=academy] .vbkit-medal-art{width:96px;height:105px;flex:0 0 96px;object-fit:contain}
+ body[data-vb-app=academy] .review-hero>div,body[data-vb-app=academy] .profile-hero>div{min-width:0}
+ body[data-vb-app=academy] .finish-page .finish-chest{display:block;width:min(180px,48vw);height:165px;max-width:100%;object-fit:contain;margin:4px auto}
+ body[data-vb-app=academy] .fox-lesson-guide img{width:50px;height:50px;object-fit:contain}
+ body[data-vb-app=academy] .fox-finish-mark{width:88px;height:88px;object-fit:contain}
+ body[data-vb-app=academy] .option,body[data-vb-app=academy] .pair-choice,body[data-vb-app=academy] .word-bank button{min-height:54px;border-radius:15px;max-width:100%;overflow-wrap:break-word}
+ body[data-vb-app=academy] .option:focus-visible,body[data-vb-app=academy] .pair-choice:focus-visible{outline:3px solid #8167D7;outline-offset:3px}
+}
+/* Onboarding: scenery and Pip are separate alpha assets. */
+@media(max-width:760px){
+ body[data-vb-app=onboarding] .ob-art{background:linear-gradient(120deg,#7A60D5,#A08AEA)!important;overflow:hidden;isolation:isolate}
+ body[data-vb-app=onboarding] .ob-art::before{z-index:2;background:url('/verbarium-visual-kit/assets/mascot/fox_waving.webp') center/contain no-repeat!important;width:120px;height:125px;right:10px;top:10px;inset:10px 10px auto auto;position:absolute;content:''}
+ body[data-vb-app=onboarding] .ob-art.vbk-bg--lesson::before{background-image:url('/verbarium-visual-kit/assets/mascot/fox_reading.webp')!important}
+ body[data-vb-app=onboarding] .ob-art.vbk-bg--win::before{background-image:url('/verbarium-visual-kit/assets/rewards/reward_medal.webp')!important}
+ body[data-vb-app=onboarding] .ob-art::after{content:'';position:absolute;inset:0;z-index:0;background:url('/verbarium-visual-kit/assets/backgrounds/background_onboarding.webp') center/contain no-repeat!important;opacity:.34;pointer-events:none}
+ body[data-vb-app=onboarding] .ob-panel{position:relative;isolation:isolate}
+ body[data-vb-app=onboarding] .ob-panel::before{content:'';position:absolute;top:0;right:0;width:125px;height:90px;background:url('/verbarium-visual-kit/assets/backgrounds/background_pattern.webp') right top/contain no-repeat;opacity:.065;z-index:-1;pointer-events:none}
+}
+@media(max-width:355px){
+ body[data-vb-app=academy] .world-head::after{width:88px}
+ body[data-vb-app=academy] .vbkit-review-art,body[data-vb-app=academy] .vbkit-medal-art{width:78px;height:86px;flex-basis:78px}
+ body[data-vb-app=onboarding] .ob-art::before{width:104px;height:114px}
+}
+@media(prefers-reduced-motion:reduce){.vbkit-action{transition:none!important}}

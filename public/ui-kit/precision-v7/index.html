@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f8f6fc">
+<title>Verbarium · Precision Kit V7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ui-kit/precision-v7.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--vb7v-canvas);font:600 14px/1.55 Nunito,system-ui,sans-serif;color:var(--vb7v-ink)}
+body[data-theme="dark"]{--vb7v-canvas:#221c35;--vb7v-white:#322a4a;--vb7v-ink:#faf6ff;--vb7v-muted:#d4c5ed;--vb7v-line:#5a4b76}
+main{max-width:1040px;margin:auto;padding:32px clamp(16px,5vw,40px) 90px}
+h1,h2,h3{font-family:Fredoka,system-ui,sans-serif;letter-spacing:-.02em}
+h1{font-size:clamp(32px,6vw,52px);line-height:1.1;margin:0}
+h2{font-size:24px;margin:30px 0 8px}
+p{color:var(--vb7v-muted);max-width:65ch}
+.eyebrow{text-transform:uppercase;font-size:11px;font-weight:850;letter-spacing:.14em;color:var(--vb7v-violet)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0 30px}
+.pill{border:1px solid var(--vb7v-line);border-radius:999px;background:var(--vb7v-white);color:var(--vb7v-ink);padding:11px 17px;min-height:48px;font:800 13px Nunito;cursor:pointer}
+.pill[aria-pressed="true"],.pill:focus-visible{background:var(--vb7v-violet);color:#fff;border-color:var(--vb7v-violet)}
+.pill:focus-visible,.demo-btn:focus-visible,a:focus-visible{outline:3px solid var(--vb7v-violet);outline-offset:3px}
+.demo{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.panel{background:var(--vb7v-white);border:1px solid var(--vb7v-line);border-radius:24px;padding:24px;box-shadow:var(--vb7v-shadow);min-width:0}
+.panel h3{margin:0 0 10px;font-size:22px}
+.demo-btn{min-height:52px;border:1px solid #9871e8;border-radius:16px;padding:11px 18px;font:800 14px Nunito;cursor:pointer;background:linear-gradient(180deg,#906bed,#7451d5);color:#fff;box-shadow:inset 0 1px #fff6,0 4px 0 #5136a0;transition:transform .16s}
+.demo-btn:active{transform:translateY(3px)}
+.demo-btn.secondary{background:#fff;color:#584096;border-color:#cab8ec;box-shadow:0 3px 0 #eee5f9}
+.demo-btn:disabled{background:#eee8f5;border-color:#dbd3e5;color:#777087;box-shadow:none;cursor:default}
+.demo-rows{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:18px 0 8px}
+.token-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.token{border:1px solid var(--vb7v-line);background:var(--vb7v-white);border-radius:16px;padding:12px;min-width:0}
+.swatch{height:62px;border-radius:12px;border:1px solid #0001}
+.token code{display:block;margin-top:8px;font:700 11px/1.4 ui-monospace,SFMono-Regular,monospace;overflow-wrap:anywhere}
+.audit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.audit>div{border:1px solid var(--vb7v-line);border-radius:16px;background:var(--vb7v-white);padding:14px}
+.audit strong{display:block;font:600 23px Fredoka}
+.audit small{color:var(--vb7v-muted);font-size:11px}
+.filters{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 20px}
+.filters button{padding:9px 13px;min-height:44px}
+.asset-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.asset{min-width:0;background:var(--vb7v-white);border:1px solid var(--vb7v-line);border-radius:20px;padding:12px;box-shadow:0 5px 12px #24173a0b}
+.asset-art{height:145px;display:grid;place-items:center;background:linear-gradient(45deg,#ebe5f0 25%,transparent 25%,transparent 75%,#ebe5f0 75%),linear-gradient(45deg,#ebe5f0 25%,#f7f1fc 25%,#f7f1fc 75%,#ebe5f0 75%);background-size:16px 16px;background-position:0 0,8px 8px;border-radius:12px}
+.asset-art img{max-width:95%;max-height:135px;width:auto;height:auto;object-fit:contain}
+.asset strong{display:block;margin-top:10px;font-size:12px;overflow-wrap:anywhere;color:var(--vb7v-ink)}
+.asset small{color:var(--vb7v-muted);font-size:10px}
+.note{padding:17px;border:1px solid var(--vb7v-line);border-radius:16px;background:var(--vb7v-white)}
+a{color:var(--vb7v-violet);font-weight:800;text-decoration:underline}
+#status{font-weight:800;color:var(--vb7v-muted)}
+@media(max-width:770px){.asset-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.demo{grid-template-columns:1fr}.audit{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){main{padding:24px 16px 90px}.asset-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.asset-art{height:120px}.asset-art img{max-height:110px}.token-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body data-theme="light">
+<main>
+<span class="eyebrow">Verbarium · Design systems · V7</span>
+<h1>Precision component studio</h1>
+<p>Biblioteca real: os controles vivem em CSS/HTML, e os 48 arquivos gráficos são ilustrações independentes. Examine a escala de 4 px, os estados e o encaixe de cada imagem.</p>
+<div class="toolbar"><a href="/">← Voltar ao Verbarium</a><button type="button" class="pill" id="theme" aria-pressed="false">Alternar tema</button></div>
+<section aria-labelledby="title-controls"><h2 id="title-controls">Controles e interação</h2>
+<div class="demo">
+<article class="panel"><h3>Botões em contexto</h3><p>Alvo ≥ 48 px, stroke 2 px na iconografia, bordas sem distorção.</p><div class="demo-rows">
+<button class="demo-btn" id="action">Continuar aula</button><button class="demo-btn secondary" id="review">Revisar</button><button class="demo-btn" disabled>Indisponível</button>
+</div><p id="feedback" role="status" aria-live="polite">Toque para verificar estados interativos.</p></article>
+<article class="panel"><h3>Concentricidade</h3><p>Raio externo 24 px, padding 16 px e raio interno 8 px. O conteúdo não é deformado pelo contorno.</p><div style="padding:16px;border-radius:24px;border:1px solid #c9b6ec;background:#eee7fc"><div style="padding:16px;border-radius:8px;background:#fff;color:#2d2642;min-height:62px;display:grid;place-items:center">24 / 16 / 8</div></div></article>
+</div>
+</section>
+<section aria-labelledby="title-tokens"><h2 id="title-tokens">Tokens e contraste</h2>
+<div class="token-grid"><div class="token"><div class="swatch" style="background:#7451d5"></div><code>--violet #7451D5</code></div><div class="token"><div class="swatch" style="background:#f3a063"></div><code>--orange #F3A063</code></div><div class="token"><div class="swatch" style="background:#2d2642"></div><code>--ink #2D2642</code></div><div class="token"><div class="swatch" style="background:#f8f6fc"></div><code>--canvas #F8F6FC</code></div></div>
+</section>
+<section aria-labelledby="title-qa"><h2 id="title-qa">Contrato de qualidade</h2><div class="audit"><div><strong>4 px</strong><small>Escala de espaçamento</small></div><div><strong>1 / 2 px</strong><small>Borda / estado ativo</small></div><div><strong>24 / 2</strong><small>Grade e stroke do ícone</small></div><div><strong>48 px</strong><small>Alvo mínimo de toque</small></div></div></section>
+<section aria-labelledby="title-assets"><h2 id="title-assets">Catálogo exportável</h2><p id="status">Verificando os 48 arquivos...</p>
+<div class="filters" id="filters" aria-label="Filtrar por tipo"></div><div class="asset-grid" id="assets" aria-live="polite"></div>
+<p class="note">A galeria carrega os WebP originais. Não use cards, botões ou labels rasterizados como superfícies redimensionáveis: o texto, os estados e os contornos continuam em HTML e CSS.</p>
+</section>
+</main>
+<script type="module" src="./gallery.js"></script>
+</body></html>
