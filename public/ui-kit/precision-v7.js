@@ -1,5 +1,4 @@
-/** Verbarium Precision V7: mascot-only illustration layer, resilient fallback.
- * V9 controls and feature tiles use independent SVG glyphs, not raster overlays.
+/** Verbarium Precision V7: independent image art, resilient fallback.
  * No edits to scoring, lesson selection, speech, review or progress persistence.
  */
 // Bundled Vite CSS can be appended after static <link> stylesheets.
@@ -17,7 +16,7 @@ const cached=new Map();
 let manifest=null,queued=false;
 function pathFor(key){
  const item=manifest?.assets?.[key];
- if(!item||typeof item.path!=='string'||!/^assets\/mascot\/[a-z0-9_-]+\.webp$/.test(item.path))return null;
+ if(!item||typeof item.path!=='string'||!/^assets\/(?:mascot|rewards|buttons|cards|grids|labels|backgrounds)\/[a-z0-9_-]+\.webp$/.test(item.path))return null;
  return KIT_ROOT+item.path;
 }
 function prefetch(key){
@@ -39,11 +38,27 @@ function replaceImage(el,key){
   el.style.objectPosition='center';el.dataset.vb7vAsset=key;
  });
 }
+function injectArt(el,key){
+ if(!el||el.dataset.vb7vAsset===key)return;
+ prefetch(key).then(src=>{
+  if(!src||!el.isConnected||el.dataset.vb7vAsset===key)return;
+  const box=document.createElement('span');
+  box.className='vb7v-asset-box';box.setAttribute('aria-hidden','true');
+  const img=document.createElement('img');img.className='vb7v-asset';
+  img.src=src;img.alt='';img.decoding='async';img.loading='lazy';
+  box.append(img);
+  el.querySelector(':scope > .vb7v-asset-box')?.remove();
+  el.prepend(box);el.classList.add('vb7v-has-art');el.dataset.vb7vAsset=key;
+ });
+}
 function home(){
  if(!root)return;
- // V9 keeps controls and feature tiles as semantic SVG glyphs. Only illustrations are raster.
  replaceImage(root.querySelector('.vb7-hero__mascot .vb-fox-home-mascot'),'fox_waving');
  replaceImage(root.querySelector('.vb7-promo__art img'),'fox_reading');
+ const arts={violet:'lesson_book',orange:'reward_streak_flame',blue:'reward_xp_gem',mint:'reward_chest'};
+ root.querySelectorAll('.vb7-feature').forEach(card=>injectArt(card.querySelector('.vb7-feature__icon'),arts[card.dataset.tone]||'lesson_book'));
+ const missions={questions:'reward_xp_gem',lesson:'lesson_book',speaking:'reward_streak_flame'};
+ root.querySelectorAll('.vb7-mission-card').forEach(card=>injectArt(card.querySelector('.vb7-mission-card__icon'),missions[card.dataset.vb5Mission]||'lesson_book'));
 }
 function academy(){
  if(!root)return;
@@ -51,7 +66,10 @@ function academy(){
  replaceImage(root.querySelector('.sentence-lab-entry>img'),'fox_reading');
  replaceImage(root.querySelector('.fox-lesson-guide img'),'fox_teacher');
  replaceImage(root.querySelector('.fox-finish-mark'),'fox_waving');
- // Daily stats and skill tiles use the shared SVG glyphs in their markup.
+ const stats=['reward_streak_flame','lesson_book','reward_xp_gem'];
+ root.querySelectorAll('.daily-strip>div').forEach((el,i)=>injectArt(el,stats[i]||'lesson_book'));
+ const skills=['lesson_book','reward_xp_gem','lesson_book','fox_teacher','fox_reading','fox_reading'];
+ root.querySelectorAll('.skill-card .skill-emoji').forEach((el,i)=>injectArt(el,skills[i%skills.length]));
 }
 function onboarding(){
  const el=document.querySelector('.ob-art');

@@ -1,10 +1,10 @@
 import {renderHeading,renderLessonHero,renderFeatureGrid,renderMissions,renderPromo,renderPill,renderCta,renderProgress} from '/ui-kit/components/library.js';
 const put=(id,html)=>document.getElementById(id).innerHTML=html;
 put('gallery-heading',renderHeading({kicker:'SEU CANTINHO DE INGLÊS',title:'Aprenda inglês de um jeito',accent:'seu.',subtitle:'Uma aula por vez, mais confiança para a próxima conversa.',level:1}));
-put('gallery-hero',renderLessonHero({lessonId:'be',title:'O verbo to be',description:'Você usa am, is e are para dizer quem é, como está e de onde vem.',level:'A1',completed:2,total:12,mascot:'<img class="gallery-mascot" src="/verbarium-visual-kit/assets/mascot/fox_waving.webp" alt="">'}));
+put('gallery-hero',renderLessonHero({lessonId:'be',title:'O verbo to be',description:'Você usa am, is e are para dizer quem é, como está e de onde vem.',level:'A1',completed:2,total:12,mascot:'<img class="gallery-mascot" src="/verbarium-assets/mascot/mascot_explorer_waving.png" alt="">'}));
 put('gallery-features',renderFeatureGrid());
 put('gallery-missions',renderMissions([{id:'questions',title:'Responda 3 questões',subtitle:'Treine a memória, não só a leitura.',now:1,goal:3,route:'practice',date:'2026-11-15'},{id:'lesson',title:'Conclua 1 aula',subtitle:'Aprenda uma regra e coloque em prática.',now:0,goal:1,route:'learn',date:'2026-11-15'},{id:'speaking',title:'Finalize 1 diálogo',subtitle:'Fale em situações do cotidiano.',now:0,goal:1,route:'speak',date:'2026-11-15'}]));
-put('gallery-promo',renderPromo({kicker:'NOVA EXPERIÊNCIA · ACADEMY',title:'Uma trilha com desafios, histórias e revisão inteligente.',subtitle:'Unidades progressivas A1–B1, escuta, associação, construção de frases e importação de aulas do professor.',image:'/verbarium-visual-kit/assets/mascot/fox_reading.webp',href:'/academy/',action:'Explorar Academy'}));
+put('gallery-promo',renderPromo({kicker:'NOVA EXPERIÊNCIA · ACADEMY',title:'Uma trilha com desafios, histórias e revisão inteligente.',subtitle:'Unidades progressivas A1–B1, escuta, associação, construção de frases e importação de aulas do professor.',image:'/verbarium-assets/icons/icon_book_tile.png',href:'/academy/',action:'Explorar Academy'}));
 put('gallery-controls',renderPill({icon:'book',label:'A1 a B1',tone:'mint'})+renderPill({icon:'clock',label:'6 min'})+renderPill({icon:'flame',label:'7 dias',tone:'orange'})+renderCta({label:'Continuar aprendendo',meta:'A1 · cerca de 6 min',lessonId:'be'})+renderProgress({value:70,tone:'violet'})+renderProgress({value:40,tone:'orange'}));
 
 import {renderLessonQuestion,renderPracticeScreen,renderDialogueScreen,renderGuidedPath,renderRewards} from '/ui-kit/components/lesson-ui.js';
@@ -13,15 +13,3 @@ put('gallery-practice',renderPracticeScreen({round:[{type:'write',prompt:'Escrev
 put('gallery-dialogue',renderDialogueScreen({scenarios:[{id:'cafe',title:'No café',desc:'Fazer um pedido',icon:'01'}],scenario:{id:'cafe',title:'No café',desc:'Fazer um pedido',icon:'01',steps:[{ask:'What can I get for you?',pt:'O que posso trazer?',choices:["I'd like a coffee, please.",'I am coffee.','I have yesterday.'],correct:0,note:"I'd like é um pedido educado.",speech:"I'd like a coffee, please."}]},stepIndex:0,history:[]}));
 put('gallery-path',renderGuidedPath({lessons:[{id:'be',title:'O verbo to be',subtitle:'Ser e estar',level:'A1'},{id:'present',title:'Present Simple',subtitle:'Hábitos e rotinas',level:'A1'},{id:'questions',title:'Fazendo perguntas',subtitle:'Perguntar e responder',level:'A1'}],completed:['be'],currentId:'present'}));
 put('gallery-rewards',renderRewards({completion:25,completed:3,total:12,accuracy:80,attempts:10,streak:2,due:1,label:'Primeiros passos'}));
-
-const backgroundAssets=[
- ['home','Início','Acolhimento e retomada da próxima aula.'],
- ['academy','Academy','Trilha visual e progressão por etapas.'],
- ['lesson','Lição','Contexto leve para foco no conteúdo.'],
- ['practice','Prática','Desafios, metas e exercícios.'],
- ['conversation','Conversação','Escuta, fala e diálogos.'],
- ['celebration','Conquistas','Celebração de marcos reais.'],
- ['onboarding','Onboarding','Primeiro contato e definição de objetivo.'],
- ['profile','Perfil','Resumo e espaço pessoal.']
-];
-put('gallery-backgrounds','<div class="gallery-background-grid">'+backgroundAssets.map(([id,label,desc])=>'<figure class="gallery-background-card"><img src="/ui-kit/backgrounds/'+id+'.svg" alt="" loading="lazy"><figcaption>'+label+'<small>'+desc+'</small></figcaption></figure>').join('')+'</div>');

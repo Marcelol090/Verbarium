@@ -36,12 +36,12 @@ test('year rollover and semantic labels',()=>{
  assert.match(imageForDay('sabado','animated'),/sabado_complete\.webp$/);
  seedWeekActivity(['2026-11-09']);
 });
-test('home delegates the weekly strip to the shared streak component',()=>{
+test('home, weekly meta and progress all use real v4 tokens',()=>{
  const app=readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
  const ui=readFileSync(new URL('../src/verbarium-kit/ui.js',import.meta.url),'utf8');
  assert.match(app,/hydrateWeekTokens\(main\)/);
- assert.match(app,/const week=weekActivity\(\)/);
- assert.match(app,/renderStreakWeek\(week,streak\)/);
+ assert.match(app,/renderWeekTokens\(week,/);
+ assert.match(app,/renderWeekTokens\(daily,/);
  assert.match(ui,/renderWeekTokens\(cells,/);
 });
 

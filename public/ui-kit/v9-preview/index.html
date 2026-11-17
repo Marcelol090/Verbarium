@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Verbarium · Direção visual V9</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ui-kit/verbarium-design-v9.css">
+<style>
+*{box-sizing:border-box}
+body.v9-preview{margin:0;background:var(--vb9-canvas,#f8f6fb);color:var(--vb9-ink,#352653);font-family:Nunito,system-ui,sans-serif}
+.v9-shell{width:min(1100px,100%);margin:auto;padding:22px clamp(18px,4vw,45px) 70px}
+.v9-header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:35px}
+.v9-header a{color:#5b3ee6;font-weight:800;text-decoration:none}
+.v9-title{display:grid;grid-template-columns:minmax(0,1fr) minmax(100px,170px);align-items:center;gap:24px;padding:26px 30px;border:1px solid #e1d4f9;border-radius:28px;background:linear-gradient(120deg,#fff8f0,#efe5ff)}
+.v9-title h1{font:650 clamp(27px,6vw,48px)/1.03 Fredoka,sans-serif;letter-spacing:-1px;margin:10px 0}
+.v9-title p{max-width:52ch;line-height:1.5}
+.v9-title img{display:block;max-width:100%;max-height:180px;object-fit:contain}
+.v9-section h2{font:650 27px Fredoka,sans-serif;margin:38px 0 14px}
+.v9-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:15px}
+.v9-tile{margin:0;padding:12px;border:1px solid #e1d6ef;background:white;border-radius:20px;box-shadow:0 7px 20px #54418514}
+.v9-tile div{height:130px;border-radius:13px;overflow:hidden;background:#f6f0ff}
+.v9-tile img{display:block;width:100%;height:100%;object-fit:contain}
+.v9-tile figcaption{padding:12px 4px 2px;font-weight:850;font-size:14px}
+.v9-icons{display:flex;gap:12px;flex-wrap:wrap}
+.v9-icon{display:flex;align-items:center;gap:10px;padding:13px;border:1px solid #e1d6ef;border-radius:15px;background:white}
+.v9-icon img{width:25px;height:25px}
+.v9-actions{display:flex;flex-wrap:wrap;gap:12px}
+.v9-actions button{min-height:48px;min-width:130px;padding:12px 16px;border-radius:15px;font:800 14px Nunito,sans-serif;cursor:pointer}
+.v9-main{background:#5b3ee6;color:white;border:1px solid #452eaa;box-shadow:0 3px 0 #452eaa}
+.v9-alt{background:#fff;color:#5b3ee6;border:1px solid #d3c2f5}
+.v9-actions button:focus-visible{outline:3px solid #f18a52;outline-offset:3px}
+.v9-status{font-size:14px;min-height:22px}
+@media(max-width:470px){.v9-title{padding:22px 17px;grid-template-columns:minmax(0,1fr) 90px;gap:10px}.v9-title img{max-height:125px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head><body class="v9-preview" data-vb-app="v9-preview">
+<div class="v9-shell"><header class="v9-header"><b>Verbarium · Visual V9</b><a href="/verbarium-design/">Visual Atelier ↗</a></header>
+<section class="v9-title"><div><span>ESTUDO DE DIREÇÃO ARTÍSTICA</span><h1>Uma linguagem, várias aventuras.</h1><p>Fundos e pictogramas individuais da proposta V9. Prévia isolada para não substituir os fluxos educacionais e visuais já validados.</p></div><img src="/verbarium-visual-kit/assets/mascot/fox_teacher.webp" alt="Pip apresentando a proposta visual"></section>
+<section class="v9-section"><h2>Fundos por contexto</h2><div class="v9-grid"><figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/academy.svg" alt="" loading="lazy"></div><figcaption>Academy</figcaption></figure>
+<figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/celebration.svg" alt="" loading="lazy"></div><figcaption>Celebration</figcaption></figure>
+<figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/conversation.svg" alt="" loading="lazy"></div><figcaption>Conversation</figcaption></figure>
+<figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/home.svg" alt="" loading="lazy"></div><figcaption>Home</figcaption></figure>
+<figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/lesson.svg" alt="" loading="lazy"></div><figcaption>Lesson</figcaption></figure>
+<figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/neutral.svg" alt="" loading="lazy"></div><figcaption>Neutral</figcaption></figure>
+<figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/onboarding.svg" alt="" loading="lazy"></div><figcaption>Onboarding</figcaption></figure>
+<figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/practice.svg" alt="" loading="lazy"></div><figcaption>Practice</figcaption></figure>
+<figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/premium.svg" alt="" loading="lazy"></div><figcaption>Premium</figcaption></figure>
+<figure class="v9-tile"><div><img src="/ui-kit/backgrounds/v9/profile.svg" alt="" loading="lazy"></div><figcaption>Profile</figcaption></figure></div></section>
+<section class="v9-section"><h2>Pictogramas vetoriais</h2><div class="v9-icons"><span class="v9-icon"><img src="/ui-kit/icons/chart.svg" alt=""><strong>chart</strong></span><span class="v9-icon"><img src="/ui-kit/icons/play.svg" alt=""><strong>play</strong></span><span class="v9-icon"><img src="/ui-kit/icons/refresh.svg" alt=""><strong>refresh</strong></span><span class="v9-icon"><img src="/ui-kit/icons/user.svg" alt=""><strong>user</strong></span></div></section>
+<section class="v9-section"><h2>Controles HTML reais</h2><div class="v9-actions"><button type="button" class="v9-main">Continuar</button><button type="button" class="v9-alt">Revisar conceitos</button></div><p class="v9-status" role="status" aria-live="polite">Toque ou use o teclado para experimentar.</p></section>
+</div>
+<script>document.querySelectorAll('.v9-actions button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelector('.v9-status').textContent=btn.textContent.trim()+' selecionado.'}))</script>
+</body></html>

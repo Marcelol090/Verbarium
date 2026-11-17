@@ -1,0 +1,85 @@
+/* Sentence Lab V10: align the existing learning engine with the product's gameflow.
+   Visual-only rules. All answers, voice controls, memories and skill state stay unchanged. */
+:root{--ink:#35274b;--muted:#746885;--line:#e5dcf0;--blue:#7653d2;--purple:#7045d3;--green:#29945c;--paper:#fff;--bg:#faf8ff}
+body{background:#faf8ff;color:var(--ink);-webkit-font-smoothing:antialiased}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #7045d3;outline-offset:3px}
+.masthead{height:71px;border-bottom:1px solid #e4daed}
+.brandmark{background:linear-gradient(145deg,#986fec,#6440c3);box-shadow:0 3px 0 #4b2995}
+.brand strong{color:#3d2b5a}
+.back-link{width:48px;height:48px;border:1px solid #e0d5ef;border-bottom:3px solid #d1c1e4;background:#fff;color:#6a43b7}
+.header-right{color:#7045d3}
+.hero-head{position:relative;isolation:isolate;margin:24px 0 22px;padding:22px 24px 23px;border:1px solid #e0d3ef;border-radius:24px;background:linear-gradient(90deg,#fffdfcf8 0%,#fffdfceb 49%,#fffdfcae 100%),url('/verbarium-scenes/v10/landscape-first.svg') center/cover no-repeat;box-shadow:0 3px 0 #ebe3f1}
+.hero-head h1{font:600 clamp(27px,4vw,37px)/1.1 Fredoka,system-ui,sans-serif;letter-spacing:-.02em;color:#38264f;max-width:25ch}
+.hero-head p{font-size:13px;line-height:1.55;color:#625675;max-width:66ch}
+.hero-head .eyebrow{color:#7c4dc8}
+.practice-quick-nav{gap:8px}
+.practice-quick-nav a{min-height:48px;padding:10px 14px;border:1px solid #ddceee;border-bottom:3px solid #c8b4e4;border-radius:13px;background:#fff;color:#6242a4;font-size:12px;font-weight:850}
+.course-progress,.practice-progress{padding:11px 13px;background:#fff;border:1px solid #e4d9ee;border-radius:17px}
+.progress-track,.practice-track{height:11px;background:#e6ddf0;border:1px solid #dacbea;box-shadow:none}
+.progress-track>div,#practice-fill{background:linear-gradient(90deg,#9a76e7,#7249d3)}
+.exercise-card,.practice-stage{min-width:0;background:#fff;border:1px solid #e3d9ed;border-bottom:3px solid #d9cbe9;border-radius:23px;padding:clamp(16px,3vw,26px);box-shadow:none}
+.exercise-card h2,.practice-stage h2{font:600 clamp(23px,3.2vw,29px)/1.16 Fredoka,sans-serif;color:#38284f}
+.lesson-kicker,.practice-kicker,.step-overline strong{color:#8256c3}
+.intro-copy,.subcopy,.practice-stage>p{color:#756a82}
+.scene-intro,.practice-prompt{background:#f4edff;border:1px solid #e1d2f1;border-radius:18px}
+.scene-intro img,.practice-prompt>img{object-fit:contain;max-width:110px;max-height:110px}
+.sentence-example{background:#f4efff;border:1px solid #e4d9f1;color:#432d78}
+.sentence-example .word.is-current{color:#6241b2;background:#e9dcff}
+.coach-card,.tip-card,.memory-card{border:1px solid #e3d9ee;border-radius:21px;background:#fff}
+.coach-card{padding:16px 18px}
+.actor-stage{height:161px}
+.actor-stage>img{width:155px;height:151px;max-height:151px;object-fit:contain}
+.speech-halo{background:radial-gradient(ellipse,#eee3ff,#f4efff 68%,transparent 70%);width:205px;height:155px}
+.coach-name strong{color:#442e70}
+.sound-control{min-height:48px;border:1px solid #d9c8ef;border-bottom:3px solid #ccb5e9;background:#f4edff;color:#6041ad}
+.speaker-icon{background:#7045d3}
+.tip-card{background:#fff8ed}
+.tip-card strong,.memory-card strong{color:#5c3c9a}
+.tip-card p,.memory-card p{color:#776d88}
+.action-row,.practice-actions{gap:10px}
+.button,.wordbank button,.choice,.pair-tile{min-height:48px;border-radius:15px}
+.button.main{min-height:54px;border:1px solid #8967d7;border-bottom:4px solid #4d2b99;border-radius:15px;background:#7045d3;color:#fff;box-shadow:none}
+.button.main:disabled{background:#e6e0ed;color:#9e91ab;border-color:#d9cfe3;box-shadow:none}
+.button.subtle{border:1px solid #ddd1ed;border-bottom:3px solid #cfc0e4;background:#fff;color:#6242ad}
+.wordbank button,.pair-tile,.choice{border:2px solid #e0d7ec;border-bottom:4px solid #d4c5e6;background:#fff;color:#49395c;box-shadow:none}
+.pair-tile.selected,.choice.selected,.slot.filled{border-color:#7850d3;background:#f0e8ff;color:#4d3286}
+.pair-tile.matched{border-color:#54ae7d;background:#ebf8ef;color:#216c42}
+.feedback{border:1px solid #b9dec7;background:#eaf9ee;color:#21683f}
+.feedback.is-error{border-color:#e8b4bb;background:#fff0f3;color:#933c56}
+.text-answer,.practice-answer{min-height:53px;border:2px solid #dfd4ed;border-radius:14px;background:#fff;color:#49345f}
+.text-answer:focus{border-color:#7850d3;box-shadow:0 0 0 3px #7c51d333}
+.roles .role{background:#fff;border:1px solid #e2d6ef;border-radius:14px}
+.practice-prompt{gap:12px;padding:14px}
+.practice-prompt strong{color:#6a4caa}
+.practice-stage{min-height:0}
+.practice-track{margin-top:8px}
+.practice-actions .button{min-width:0}
+.page-footer{color:#867b94}
+@media(max-width:700px){
+ .shell{padding:0 16px}
+ .masthead{height:64px;gap:8px}
+ .brand strong{font-size:19px}
+ .brand>span{font-size:8px}
+ .brandmark{width:36px;height:36px;border-radius:12px}
+ .header-right{font-size:12px}
+ .header-right img{width:26px;height:26px;object-fit:contain}
+ .hero-head{margin:15px 0 18px;padding:17px 15px;background:linear-gradient(100deg,#fffdfcef 0%,#fffdfcdb 62%,#fffdfcb0 100%),url('/verbarium-scenes/v10/landscape-talk.svg') center/cover no-repeat}
+ .hero-head h1{font-size:clamp(25px,7vw,31px)}
+ .hero-head p{font-size:12px}
+ .practice-quick-nav{display:flex;flex-direction:column;align-items:stretch}
+ .practice-quick-nav a{display:flex;align-items:center;justify-content:center;text-align:center}
+ .lab-grid{grid-template-columns:1fr;gap:14px}
+ .exercise-card{padding:17px 15px;min-height:0}
+ .exercise-card h2{font-size:24px}
+ .coach-card{padding:14px}
+ .coach-area{margin:0}
+ .action-row{flex-wrap:wrap}
+ .button.main{width:100%}
+ .slots{gap:6px}
+ .slot{min-height:76px;padding:8px 3px}
+ .role{padding:10px 6px}
+ .wordbank button{padding:10px 12px}
+ .practice-layout{grid-template-columns:1fr}
+ .practice-prompt>img{width:91px;height:91px}
+}
+@media(prefers-reduced-motion:reduce){button,.progress-track>div,#practice-fill{transition:none!important}}

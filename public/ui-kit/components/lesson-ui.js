@@ -10,18 +10,18 @@ const clamp=(value,max)=>Math.min(max,Math.max(0,Number.isFinite(Number(value))?
 const whole=(value)=>Math.max(0,Math.round(Number(value)||0));
 const knownAction=new Set(['practice-answer','lesson-answer','dialog-choice']);
 export const LEARNING_ICON_URLS=Object.freeze({
-  correct:'/ui-kit/icons/check.svg',
-  retry:'/ui-kit/icons/refresh.svg',
-  book:'/ui-kit/icons/book.svg',
-  star:'/ui-kit/icons/star.svg',
-  speech:'/ui-kit/icons/chat.svg',
-  hearing:'/ui-kit/icons/volume.svg',
-  trophy:'/ui-kit/icons/trophy.svg',
-  streak:'/ui-kit/icons/flame.svg',
-  target:'/ui-kit/icons/target.svg',
-  timer:'/ui-kit/icons/clock.svg',
-  speaker:'/ui-kit/icons/volume.svg',
-  brain:'/ui-kit/icons/brain.svg'
+  correct:'/ui-kit/raster/icons/success_check.webp',
+  retry:'/ui-kit/raster/icons/retry.webp',
+  book:'/ui-kit/raster/icons/lesson_book.webp',
+  star:'/ui-kit/raster/icons/star.webp',
+  speech:'/ui-kit/raster/icons/chat.webp',
+  hearing:'/ui-kit/raster/icons/headphones.webp',
+  trophy:'/ui-kit/raster/icons/trophy.webp',
+  streak:'/ui-kit/raster/icons/streak_fire.webp',
+  target:'/ui-kit/raster/icons/target.webp',
+  timer:'/ui-kit/raster/icons/timer.webp',
+  speaker:'/ui-kit/raster/icons/speaker.webp',
+  brain:'/ui-kit/raster/icons/brain.webp'
 });
 const image=(name,extra='')=>'<img class="vb8-graphic '+extra+'" src="'+LEARNING_ICON_URLS[name]+'" alt="" aria-hidden="true" loading="lazy" decoding="async">';
 export function renderStepMeter({current=0,total=1,label='Etapas da atividade',tone='violet'}={}){

@@ -1,0 +1,68 @@
+/* Verbarium V13 learning-path art integration
+   Ten independently exported, optimized WebPs. Art is never a hit-target bitmap:
+   existing real <button>s retain keyboard, touch and lesson handling.
+   Route-specific overrides keep V12 type and button tokens everywhere else. */
+@media(max-width:700px){
+ .vb13-path-page{min-width:0}
+ .vb13-screen-header{gap:8px}
+ .vb13-screen-header h1{margin:0;flex:1;letter-spacing:-.7px;text-align:center;font-size:21px;line-height:27px}
+ .vb13-header-flag{display:block;width:46px;height:52px;max-width:46px;flex:0 0 46px;object-fit:contain;filter:drop-shadow(0 2px 3px #64419f23);pointer-events:none}
+ .vb13-path-page>.vb11-screen-subtitle{margin:0 0 13px;font-size:13px;line-height:19px;text-align:center}
+ .vb13-map{position:relative;isolation:isolate;width:100%;min-height:0;height:clamp(785px,225vw,910px);overflow:hidden;border:1px solid #d6c2f1;border-radius:24px;background:#d3bafa;box-shadow:0 4px 0 #ad92d8,0 16px 30px #6741a629}
+ .vb13-map-sky,.vb13-map-ribbon,.vb13-map-hills{display:block;position:absolute;pointer-events:none;user-select:none;-webkit-user-drag:none}
+ .vb13-map-sky{inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center 49%}
+ .vb13-map-ribbon{z-index:1;left:50%;top:3%;width:auto;max-width:none;height:94%;object-fit:contain;transform:translateX(-50%)}
+ .vb13-map-hills{z-index:2;left:50%;bottom:-3px;width:115%;height:auto;max-height:34%;object-fit:contain;object-position:bottom center;transform:translateX(-50%)}
+ .vb13-map-step{z-index:3}
+ .vb13-map-node,.vb13-map-step.is-done .vb13-map-node,.vb13-map-step.is-current .vb13-map-node{
+  display:grid;place-items:center;position:absolute;left:0;top:0;
+  width:94px;height:94px;min-width:94px;min-height:94px;padding:0;
+  transform:translate(-50%,-50%);
+  border:0!important;border-radius:50%;background:transparent!important;
+  box-shadow:none!important;cursor:pointer;color:inherit;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  transition:transform 140ms cubic-bezier(.2,.8,.2,1),filter 140ms cubic-bezier(.2,.8,.2,1)
+ }
+ .vb13-map-step.is-current .vb13-map-node{width:110px;height:110px;min-height:110px;min-width:110px}
+ .vb13-map-node img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;pointer-events:none;user-select:none}
+ .vb13-map-node:active{transform:translate(-50%,-47%) scale(.98)}
+ .vb13-map-node:focus-visible{outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px #6d3fce!important}
+ .vb13-map-step.is-next .vb13-map-node{opacity:1}
+ /* Current lesson info uses the separate translucent shell as a decorative layer.
+    Text remains actual HTML and is reflowable for localization. */
+ .vb13-current-card{position:absolute;z-index:4;width:180px;height:100px;pointer-events:none;filter:drop-shadow(0 4px 7px #63419124)}
+ .vb13-card-art{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}
+ .vb13-card-icon{position:absolute;z-index:2;left:10%;top:32%;display:grid;place-items:center;width:24px;height:24px;color:#8554ce;pointer-events:none}
+ .vb13-card-icon svg{width:24px;height:24px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none}
+ .vb13-card-content{position:absolute;z-index:1;left:33%;right:5%;top:12%;bottom:10%;display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:0}
+ .vb13-card-content small{color:#6942c9;font:900 9px/1.15 "Inter Tight",Nunito,sans-serif;letter-spacing:.045em}
+ .vb13-card-content strong{color:#342260;font:650 14px/1.15 Fredoka,system-ui,sans-serif;letter-spacing:-.15px;overflow-wrap:break-word}
+ .vb13-caption-above{left:0;bottom:55px;top:auto;transform:translateX(-50%);width:min(182px,58vw);height:98px}
+ .vb13-caption-right{top:-49px;left:47px;transform:none;width:172px}
+ .vb13-caption-left{top:-49px;right:47px;transform:none;width:160px}
+ .vb13-map-step[data-slot="2"] .vb13-caption-left{width:clamp(135px,43vw,165px)}
+ .vb13-map-step[data-slot="3"] .vb13-caption-right{width:min(132px,39vw)}
+ .vb13-map-step[data-slot="4"] .vb13-caption-right{width:min(119px,35vw)}
+ .vb13-map-step[data-slot="2"] .vb13-card-content strong,
+ .vb13-map-step[data-slot="4"] .vb13-card-content strong{font-size:12px;line-height:1.14}
+ .vb13-map-step[data-slot="2"] .vb13-card-content small,
+ .vb13-map-step[data-slot="4"] .vb13-card-content small{font-size:8px}
+ .vb13-path-note{display:flex;align-items:flex-start;gap:8px;margin:14px 4px 4px;color:#7c718d;font:700 11px/1.4 "Inter Tight",Nunito,sans-serif}
+ .vb13-path-note-dot{width:8px;height:8px;flex:0 0 8px;margin-top:4px;border-radius:50%;background:#9774d9}
+ .vb13-map-all{margin-top:14px}
+ .vb13-catalog-icon{display:grid;place-items:center;background:#f2eafe}
+ .vb13-catalog-icon img{width:30px;height:30px;display:block;object-fit:contain}
+}
+@media(max-width:350px){
+ .vb13-screen-header h1{font-size:18px;line-height:24px}
+ .vb13-header-flag{width:39px;height:47px;max-width:39px;flex-basis:39px}
+ .vb13-map{height:785px;border-radius:20px}
+ .vb13-map-step.is-current .vb13-map-node{width:101px;height:101px;min-width:101px;min-height:101px}
+ .vb13-map-node{width:88px;height:88px;min-width:88px;min-height:88px}
+ .vb13-caption-right{left:43px}
+ .vb13-caption-left{right:43px}
+ .vb13-card-content strong{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ .vb13-map-node,.vb13-current-card{transition:none!important;animation:none!important}
+}

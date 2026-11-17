@@ -1,24 +1,24 @@
 /**
  * Verbarium composable visual primitives, v7.
- * Pictograms are independent SVG glyphs; mascot and reward art stay in their own
- * illustration slots. Copy, shells, state and actions remain native HTML.
+ * Only the pictograms are bitmap assets; all copy, shells, state and actions are
+ * independent HTML. The design-board screenshots are never used as UI textures.
  */
 export const ICONS=Object.freeze({
-  layers:'/ui-kit/icons/brain.svg',
-  play:'/ui-kit/icons/play.svg',
-  checklist:'/ui-kit/icons/check.svg',
-  book:'/ui-kit/icons/book.svg',
-  question:'/ui-kit/icons/target.svg',
-  dialog:'/ui-kit/icons/chat.svg',
-  lessons:'/ui-kit/icons/book.svg',
-  sparkle:'/ui-kit/icons/sparkle.svg',
+  layers:'/verbarium-assets/icons/icon_layers_tile.png',
+  play:'/verbarium-assets/icons/icon_play_tile.png',
+  checklist:'/verbarium-assets/icons/icon_clipboard_tile.png',
+  book:'/verbarium-assets/icons/icon_book_tile.png',
+  question:'/verbarium-v3/assets/missions/target_dart.png',
+  dialog:'/verbarium-v3/assets/speaking/mic_idle.png',
+  lessons:'/verbarium-v3/assets/journey/book_standalone.png',
+  sparkle:'/ui-kit/raster/icons/star.webp',
   arrow:'/ui-kit/icons/next.svg',
   clock:'/ui-kit/icons/clock.svg',
-  flame:'/ui-kit/icons/flame.svg'
+  flame:'/ui-kit/raster/icons/streak_fire.webp'
 });
 const escapeHtml=(value)=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const getIcon=(key)=>ICONS[key]||ICONS.book;
-const pictogram=(key,cls='')=>'<img class="vb7-art '+cls+'" src="'+getIcon(key)+'" alt="" aria-hidden="true" loading="eager" decoding="async">';
+const pictogram=(key,cls='')=>'<img class="vb7-art '+cls+'" src="'+getIcon(key)+'" alt="" aria-hidden="true" loading="lazy" decoding="async">';
 const clamp=(n)=>Math.min(100,Math.max(0,Number.isFinite(Number(n))?Number(n):0));
 const escapeAttr=escapeHtml;
 const allowedRoutes=new Set(['lab','speak','practice','learn','food','home','progress','profile','review','pairs']);
@@ -96,8 +96,8 @@ export function renderMissions(missions=[]){
 }
 export function renderPromo({kicker='',title='',subtitle='',image='',href='/academy/',action='Explorar Academy'}={}){
   const safeHref=['/academy/','/learning/','/onboarding/'].includes(href)?href:'/academy/';
-  const src=image&&/^\/(?:verbarium-assets\/|verbarium-v6\/|verbarium-visual-kit\/|ui-kit\/)/.test(image)?image:getIcon('book');
-  return '<section class="vb7-promo" data-vb7-component="promo" aria-label="'+escapeAttr(title)+'"><div class="vb7-promo__art" aria-hidden="true"><img src="'+escapeAttr(src)+'" alt="" loading="eager" decoding="async"></div>'+
+  const src=image&&/^\/(?:verbarium-assets\/|verbarium-v6\/|ui-kit\/)/.test(image)?image:getIcon('book');
+  return '<section class="vb7-promo" data-vb7-component="promo" aria-label="'+escapeAttr(title)+'"><div class="vb7-promo__art" aria-hidden="true"><img src="'+escapeAttr(src)+'" alt="" loading="lazy" decoding="async"></div>'+
    '<div class="vb7-promo__content"><span class="vb7-promo__kicker">'+escapeHtml(kicker)+'</span><h2>'+escapeHtml(title)+'</h2><p>'+escapeHtml(subtitle)+'</p></div>'+
    '<a class="vb7-promo__link" href="'+safeHref+'">'+escapeHtml(action)+' <span aria-hidden="true">→</span></a></section>';
 }

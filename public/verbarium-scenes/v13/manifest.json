@@ -1,0 +1,98 @@
+{
+  "kit": "Verbarium Learning Path V13",
+  "version": 13,
+  "license": "Original generated art for Verbarium",
+  "designIntent": "Separate illustrated layers, semantic HTML lesson buttons, no rasterized text, no artificial learning gates.",
+  "assets": {
+    "scene_sky.webp": {
+      "path": "/verbarium-scenes/v13/scene_sky.webp",
+      "width": 800,
+      "height": 1421,
+      "bytes": 83138,
+      "gitBlobSha": "400342a08b73cd916e160f6db4eb21aaac9bd446",
+      "category": "background",
+      "usage": "Sky and scenic illustration, full-bleed only"
+    },
+    "path_ribbon.webp": {
+      "path": "/verbarium-scenes/v13/path_ribbon.webp",
+      "width": 702,
+      "height": 1420,
+      "bytes": 113650,
+      "gitBlobSha": "f6350057e45901c9c3da5542886f84b6e9d2b8a1",
+      "category": "path",
+      "usage": "Vertical winding navigation ribbon, no hit target"
+    },
+    "node_current.webp": {
+      "path": "/verbarium-scenes/v13/node_current.webp",
+      "width": 288,
+      "height": 287,
+      "bytes": 22176,
+      "gitBlobSha": "8dfd698ca2aca6d09f83481ff713d7f91b105292",
+      "category": "node",
+      "usage": "Next playable lesson marker"
+    },
+    "node_completed.webp": {
+      "path": "/verbarium-scenes/v13/node_completed.webp",
+      "width": 288,
+      "height": 276,
+      "bytes": 18310,
+      "gitBlobSha": "20ee25d92a1816e97cb66cab731e569c112effda",
+      "category": "node",
+      "usage": "Completed regular lesson marker"
+    },
+    "node_milestone.webp": {
+      "path": "/verbarium-scenes/v13/node_milestone.webp",
+      "width": 288,
+      "height": 280,
+      "bytes": 18420,
+      "gitBlobSha": "711880c758ee73c0b1ce1605c7de313bedd17a1c",
+      "category": "node",
+      "usage": "Completed milestone (first or every fourth)"
+    },
+    "node_locked.webp": {
+      "path": "/verbarium-scenes/v13/node_locked.webp",
+      "width": 284,
+      "height": 288,
+      "bytes": 14758,
+      "gitBlobSha": "e14d19c21f9fe15c77c7e33f43d7c9817b452f5e",
+      "category": "node",
+      "usage": "Suggested upcoming lesson visual; openable through existing lesson handler"
+    },
+    "check_small.webp": {
+      "path": "/verbarium-scenes/v13/check_small.webp",
+      "width": 136,
+      "height": 140,
+      "bytes": 7580,
+      "gitBlobSha": "f3b9499b89268984efa327fbe5abd2dfd2e77fcf",
+      "category": "badge",
+      "usage": "Completed list item status"
+    },
+    "destination_flag.webp": {
+      "path": "/verbarium-scenes/v13/destination_flag.webp",
+      "width": 232,
+      "height": 280,
+      "bytes": 12180,
+      "gitBlobSha": "0f00e8b099d9aa1d1d1e540ab19b7598029c25a1",
+      "category": "decoration",
+      "usage": "Learning path destination icon in screen header"
+    },
+    "card_shell.webp": {
+      "path": "/verbarium-scenes/v13/card_shell.webp",
+      "width": 680,
+      "height": 355,
+      "bytes": 29696,
+      "gitBlobSha": "67ed2937ee378d84f00f0f58c0f29692db6fa838",
+      "category": "card",
+      "usage": "Decorative art under real text label"
+    },
+    "foreground_hills.webp": {
+      "path": "/verbarium-scenes/v13/foreground_hills.webp",
+      "width": 820,
+      "height": 323,
+      "bytes": 31226,
+      "gitBlobSha": "f8f36893a23ae1b3817d10dad06042f729db09e8",
+      "category": "decoration",
+      "usage": "Bottom foreground scenery, pointer-events none"
+    }
+  }
+}

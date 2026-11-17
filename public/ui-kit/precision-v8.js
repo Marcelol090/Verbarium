@@ -1,13 +1,20 @@
-/** Verbarium Precision V8, mascot-only compatibility hydrator.
- * V9 controls own their SVG glyphs, copy, touch geometry and interaction state.
- * Only dedicated mascot illustration slots may receive raster art.
+/** Verbarium Precision V8, progressive decorative integration.
+ * Native controls own all text, touch geometry, answer status and progress.
+ * New art is restricted to real illustration slots. No gameplay mutation.
  */
 // V7 moves its linked stylesheet to the end of <head>. V8 must run afterward
 // or the old, equally-specific declarations win by document order.
 const precisionV8Style=document.querySelector('link[href="/ui-kit/precision-v8.css"]');
-const verbariumV9Style=document.querySelector('link[href="/ui-kit/verbarium-design-v9.css"]');
+const precisionV10Style=document.querySelector('link[href="/ui-kit/precision-v10.css"]');
+const precisionV11Style=document.querySelector('link[href="/ui-kit/precision-v11.css"]');
+const precisionV12Style=document.querySelector('link[href="/ui-kit/precision-v12.css"]');
+const precisionV13Style=document.querySelector('link[href="/ui-kit/precision-v13.css"]');
 if(precisionV8Style&&precisionV8Style.parentNode===document.head)document.head.append(precisionV8Style);
-if(verbariumV9Style&&verbariumV9Style.parentNode===document.head)document.head.append(verbariumV9Style);
+// The V10 contract must be the final cascade layer after the previous enhancers.
+if(precisionV10Style&&precisionV10Style.parentNode===document.head)document.head.append(precisionV10Style);
+if(precisionV11Style&&precisionV11Style.parentNode===document.head)document.head.append(precisionV11Style);
+if(precisionV12Style&&precisionV12Style.parentNode===document.head)document.head.append(precisionV12Style);
+if(precisionV13Style&&precisionV13Style.parentNode===document.head)document.head.append(precisionV13Style);
 
 const ROOT='/verbarium-visual-kit/';
 const app=document.body.dataset.vbApp||'';
@@ -15,7 +22,7 @@ const host=app==='home'?document.querySelector('#main'):app==='academy'?document
 const mobile=window.matchMedia('(max-width:770px)');
 const resolved=new Map();
 let manifest=null,queued=false;
-const ALLOWED=/^assets\/mascot\/[a-z0-9_-]+\.webp$/;
+const ALLOWED=/^assets\/(?:mascot|rewards|buttons|cards|grids|labels|backgrounds)\/[a-z0-9_-]+\.webp$/;
 function asset(name){
  const item=manifest?.assets?.[name];
  return item&&ALLOWED.test(item.path||'')?ROOT+item.path:null;
@@ -36,11 +43,33 @@ function setImage(node,name){
   node.dataset.vb8Asset=name;
  });
 }
+function decorateExistingImage(container,name){
+ if(!container)return;
+ const art=container.querySelector(':scope > .vb7v-asset-box > img');
+ if(art)setImage(art,name);
+}
+function inlineGlyph(parent,name){
+ if(!parent||parent.dataset.vb8Illustration===name)return;
+ load(name).then(src=>{
+  if(!src||!parent.isConnected||parent.dataset.vb8Illustration===name)return;
+  const old=parent.querySelector(':scope > .vb8-label-art');
+  if(old)old.remove();
+  const img=document.createElement('img');
+  img.className='vb8-label-art';img.alt='';img.setAttribute('aria-hidden','true');
+  img.width=29;img.height=29;img.src=src;img.decoding='async';img.loading='lazy';
+  parent.prepend(img);parent.dataset.vb8Illustration=name;
+ });
+}
 function decorateHome(){
  if(!host)return;
- // V9 keeps button and feature glyphs as crisp SVGs. Only the fox is an illustration layer.
- const mascot=host.querySelector('.vb7-hero__mascot .vb-fox-home-mascot');
- if(mascot)setImage(mascot,'fox_waving');
+ inlineGlyph(host.querySelector('.vb7-hero__badge'),'lesson_book');
+ setImage(host.querySelector('.weekly-card .weekly-icon img'),'reward_medal');
+ // The visual tiles act as imagery only; they are never rendered as real controls.
+ // Use the readable, simpler icons in the small feature hit targets instead.
+ const arts={violet:'lesson_book',orange:'reward_streak_flame',blue:'reward_xp_gem',mint:'reward_chest'};
+ host.querySelectorAll('.vb7-feature').forEach(card=>{
+  decorateExistingImage(card.querySelector('.vb7-feature__icon'),arts[card.dataset.tone]||'lesson_book');
+ });
 }
 function decorateAcademy(){
  if(!host)return;
@@ -49,7 +78,8 @@ function decorateAcademy(){
  setImage(host.querySelector('.sentence-lab-entry>img'),'fox_reading');
  setImage(host.querySelector('.fox-lesson-guide img'),'fox_teacher');
  setImage(host.querySelector('.fox-finish-mark'),'fox_waving');
- // Daily statistics use the shared SVG glyphs in their markup; do not overlay raster tiles.
+ const art=['reward_streak_flame','lesson_book','reward_xp_gem'];
+ host.querySelectorAll('.daily-strip>div').forEach((c,i)=>decorateExistingImage(c,art[i]||'lesson_book'));
 }
 function decorateOnboarding(){
  const panel=document.querySelector('.ob-art');
