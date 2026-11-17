@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F8F7FC"><meta name="description" content="Verbarium Visual Atelier, biblioteca de 48 assets independentes e padrões de componentes mobile.">
+<title>Verbarium · Visual Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./visual.css">
+<link rel="stylesheet" href="./atelier.css">
+</head>
+<body class="vb-atelier" data-vb-app="atelier">
+<div class="atelier-shell">
+<header class="atelier-header">
+ <a href="/" class="atelier-back" aria-label="Voltar ao Verbarium">‹</a>
+ <span class="atelier-symbol" aria-hidden="true"><img src="/verbarium-visual-kit/assets/mascot/fox_welcome.webp" alt=""></span>
+ <div class="atelier-heading"><span>VERBARIUM · DESIGN SYSTEM</span><b>Visual Atelier <em>01</em></b></div>
+ <a class="atelier-home" href="/academy/">Academy ↗</a>
+</header>
+<main>
+<section class="atelier-intro">
+ <div class="atelier-copy"><span class="eyebrow">BIBLIOTECA DE COMPONENTES</span><h1>Peças bonitas.<br><em>Medidas precisas.</em></h1>
+ <p>Ilustrações independentes, superfícies construídas em CSS, contornos mensuráveis e estados reais. O conteúdo permanece nítido, legível e adaptável.</p>
+ <div class="atelier-stats"><span><b id="asset-total">48</b><small>assets</small></span><span><b>7</b><small>famílias</small></span><span><b>24 px</b><small>ícone-base</small></span></div></div>
+ <div class="atelier-hero-art"><img src="/verbarium-visual-kit/assets/mascot/fox_teacher.webp" alt="Pip, a raposa do Verbarium, apresentando o kit de design"></div>
+</section>
+<section class="atelier-specs" aria-label="Especificações geométricas">
+ <h2>Fundamentos da interface</h2>
+ <div class="spec-grid"><div><b>4 / 8</b><small>escala de espaçamento</small></div><div><b>1 px</b><small>contorno neutro</small></div><div><b>2 px</b><small>traço do ícone</small></div><div><b>3 px</b><small>anel de foco</small></div><div><b>16 px</b><small>raio do controle</small></div><div><b>48 px</b><small>alvo mínimo</small></div></div>
+</section>
+<section class="atelier-live" aria-label="Controles reais e interativos"><div><span class="eyebrow">COMPONENTES VIVOS</span><h2>Forma, função e estados</h2><p>As formas 3D do kit são arte. Os controles reais reagem ao toque, ao teclado e ao conteúdo.</p></div><div class="live-actions"><button class="live-primary" type="button" id="state-demo">Continuar aprendendo <span aria-hidden="true">→</span></button><button class="live-secondary" type="button" id="secondary-demo">Revisar conceitos</button><button class="live-round" type="button" id="icon-demo" aria-label="Mostrar notificação"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button></div><p class="live-status" id="live-status" role="status" aria-live="polite">Selecione um controle para testar seu estado.</p></section>
+<section class="atelier-library" aria-label="Biblioteca de assets"><div class="library-head"><div><span class="eyebrow">PRODUÇÃO</span><h2>Biblioteca de imagens</h2><p>Selecione uma família ou toque em um asset para inspecionar suas dimensões nativas.</p></div><div class="library-controls"><label for="asset-size">Tamanho de prévia <output id="size-label" for="asset-size">132 px</output></label><input type="range" id="asset-size" min="96" max="196" value="132" step="4"><button class="surface-toggle" id="surface-toggle" type="button" aria-pressed="false">Fundo escuro</button></div></div>
+<div class="filter-row" id="filters" role="group" aria-label="Filtrar família"></div>
+<div class="asset-grid" id="asset-grid" aria-live="polite"><p>Preparando catálogo…</p></div>
+</section>
+<section class="atelier-inspector" id="inspector" aria-live="polite"><div><span class="eyebrow">INSPECTOR</span><h2 id="inspector-title">Selecione um asset</h2><p id="inspector-description">Arquivos WebP com alfa e escala de origem preservada.</p><code id="inspector-path">/verbarium-visual-kit/assets/…</code></div><button type="button" id="copy-path" class="live-secondary" disabled>Copiar caminho</button></section>
+</main><footer>VERBARIUM · Visual Atelier v1.1 · Imagens são arte; interação, tipografia e layout continuam nativos.</footer>
+</div><script type="module" src="./atelier.js"></script>
+</body></html>
