@@ -1,6 +1,15 @@
 # Verbarium · English Learning Studio
 
-Aplicação responsiva para estudar inglês em português, praticar gramática e participar de diálogos guiados. Interface baseada na referência fornecida: pastel lavanda, CTA azul, módulos coloridos, tipografia Fredoka/Nunito, ilustração editorial e pódio de conquistas pessoais.
+Aplicação responsiva para estudar inglês em português, praticar gramática e participar de diálogos guiados. Interface mobile V12 com identidade violeta/lavanda/laranja, Pip como mascote, tipografia Inter Tight nos conteúdos, Fredoka na marca, cartões com profundidade discreta e animações direcionadas com Motion. A progressão e as conquistas utilizam dados de estudo reais.
+
+
+## Estado da versão V12
+
+- A jornada mobile inclui Home ilustrada, aulas com feedback de acerto/erro, trilha interativa e conquistas vinculadas ao progresso real.
+- Tipografia Inter Tight com tokens compactos, sombras em camadas, alvos de toque acessíveis e estados visíveis.
+- Transições implementadas com a biblioteca `motion`, já existente, e suporte a `prefers-reduced-motion`.
+- Testes de interface cobrem viewports de 320, 360, 390 e 430 CSS px.
+- Referência de implementação: [`docs/mobile-v12-motion-and-design.md`](docs/mobile-v12-motion-and-design.md).
 
 ## Como executar
 

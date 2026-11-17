@@ -1,0 +1,171 @@
+/* Verbarium V12 • compact depth + purposeful motion
+   Reference system: Inter Tight, tonal layers, fine dividers and inset highlights.
+   Visual styles are scoped to mobile; real touch targets remain >=44px.
+   The Pip illustration and game-map steps intentionally retain their larger forms.
+*/
+:root {
+  --text:#30234D;
+  --muted:#756A87;
+  --strong:#6138B8;
+  --track:#EDE7F4;
+  --vb12-surface:#FFFDFF;
+  --vb12-surface-soft:#FCF8FF;
+  --vb12-shadow:0 2px 3px rgba(73,40,110,.05),0 9px 24px rgba(73,40,110,.085);
+  --vb12-shadow-raised:0 4px 0 rgba(78,44,141,.10),0 9px 18px rgba(67,35,126,.12);
+  --vb12-highlight:inset 0 6px 8px -7px rgba(255,255,255,.97);
+  --vb12-curve:cubic-bezier(.2,.8,.2,1);
+  --vb12-tap:140ms;
+  --vb12-step:260ms;
+  --vb12-reveal:380ms;
+}
+@media (max-width:700px){
+  body[data-vb-app="home"], body[data-vb-app="academy"] {
+    color:var(--text);
+    font-family:"Inter Tight",Inter,Nunito,system-ui,sans-serif;
+    font-size:14.5px;
+    font-weight:400;
+    line-height:18px;
+    letter-spacing:.3px;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  /* Screen headings follow a stable editorial scale; branding stays in Fredoka. */
+  body[data-vb-app="home"] .vb11-screen-header h1,
+  body[data-vb-app="home"] .vb11-quiz-content h1 {
+    color:var(--text);
+    font:600 22px/28px "Inter Tight",Inter,system-ui,sans-serif;
+    letter-spacing:-.7px;
+    text-wrap:balance;
+  }
+  body[data-vb-app="home"] .vb11-achievement-heading h2,
+  body[data-vb-app="home"] .vb11-next-copy strong {
+    font:600 19px/24px "Inter Tight",Inter,system-ui,sans-serif;
+    letter-spacing:.6px;
+    color:var(--text);
+  }
+  body[data-vb-app="home"] .vb11-welcome h1 {
+    font-family:"Inter Tight",Inter,system-ui,sans-serif;
+    font-size:clamp(27px,7.4vw,32px);
+    line-height:1.08;
+    letter-spacing:-.7px;
+    font-weight:600;
+  }
+  body[data-vb-app="home"] :is(.vb11-screen-subtitle,.vb11-achievement-heading p,.vb11-quiz-hint) {
+    font:400 14.5px/18px "Inter Tight",Inter,system-ui,sans-serif;
+    letter-spacing:.3px;
+    color:var(--muted);
+  }
+  body[data-vb-app="home"] :is(.vb11-progress-label,.vb11-next-copy small,.vb11-badge-copy small),
+  body[data-vb-app="academy"] :is(.section-heading p,.welcome-card p) {
+    font-family:"Inter Tight",Inter,system-ui,sans-serif;
+    letter-spacing:.2px;
+  }
+  body[data-vb-app="home"] :is(.vb11-progress-card,.vb11-home-metric,.vb11-next-card,.vb11-badge,.vb11-achievement-metrics>div,.vb11-map-all,.vb11-quiz-help),
+  body[data-vb-app="academy"] :is(.daily-strip>div,.skill-card,.sentence-lab-entry) {
+    border-color:var(--track);
+    border-bottom-color:var(--track);
+    border-bottom-width:1px;
+    box-shadow:var(--vb12-shadow);
+  }
+  body[data-vb-app="home"] .vb11-progress-card {border-radius:16px;padding:14px 16px 15px}
+  body[data-vb-app="home"] .vb11-home-metric {border-radius:15px;min-height:62px}
+  body[data-vb-app="home"] .vb11-next-card {border-radius:18px;box-shadow:var(--vb12-shadow-raised)}
+  body[data-vb-app="home"] .vb11-badge {border-radius:16px}
+  body[data-vb-app="home"] .vb11-achievement-metrics>div {border-radius:14px}
+  body[data-vb-app="home"] .vb11-map-all {border-radius:16px}
+  body[data-vb-app="home"] .vb11-quiz-help {border-radius:14px}
+  body[data-vb-app="home"] .vb11-welcome {border-radius:18px}
+  body[data-vb-app="academy"] .welcome-card {border-radius:18px;box-shadow:var(--vb12-shadow-raised);border-bottom-color:var(--track);border-bottom-width:1px}
+  body[data-vb-app="academy"] .sentence-lab-entry {border-radius:16px}
+  /* 6px inset light is perceptual, not a hard white overlay.
+     Shadow stacks use different depths for filled versus quiet actions. */
+  body[data-vb-app="home"] .vb11-hero-start,
+  body[data-vb-app="home"] .vb11-achievement-action,
+  body[data-vb-app="home"] .vb11-feedback-next,
+  body[data-vb-app="academy"] .welcome-card .primary-action {
+    border-color:rgba(111,66,202,.2);
+    border-bottom-width:1px;
+    box-shadow:var(--vb12-highlight),inset 0 -3px 6px rgba(65,30,144,.2),0 5px 0 rgba(75,35,168,.34),0 9px 15px rgba(92,43,188,.18);
+    transition:transform var(--vb12-tap) var(--vb12-curve),box-shadow var(--vb12-tap) var(--vb12-curve),filter var(--vb12-tap) var(--vb12-curve);
+  }
+  body[data-vb-app="home"] .vb11-hero-start:active:not(:disabled),
+  body[data-vb-app="home"] .vb11-achievement-action:active:not(:disabled),
+  body[data-vb-app="home"] .vb11-feedback-next:active:not(:disabled),
+  body[data-vb-app="academy"] .welcome-card .primary-action:active:not(:disabled){
+    transform:translateY(3px);
+    box-shadow:var(--vb12-highlight),inset 0 -2px 5px rgba(65,30,144,.15),0 2px 0 rgba(75,35,168,.33),0 4px 8px rgba(92,43,188,.12);
+  }
+  body[data-vb-app="home"] .vb11-play-icon {
+    width:40px;height:40px;flex-basis:40px;
+    border-color:rgba(249,237,255,.6);
+    border-bottom-width:1px;
+    box-shadow:var(--vb12-highlight),0 2px 7px rgba(60,26,122,.13);
+  }
+  /* Circular utility controls: 46px visible/touch size; never smaller than 44px. */
+  body[data-vb-app="home"] :is(.vb11-back,.vb11-quiz-close){
+    width:46px;height:46px;flex-basis:46px;min-width:46px;min-height:46px;
+    border-radius:50%;border-color:var(--track);border-bottom-width:1px;
+    box-shadow:var(--vb12-highlight),0 3px 10px rgba(68,40,112,.11);
+  }
+  body[data-vb-app="home"] .vb11-quiz-help button {min-height:46px}
+  body[data-vb-app="home"] .vb11-home-secondary button {
+    border-color:var(--track);border-bottom-width:1px;
+    border-radius:16px;
+    box-shadow:var(--vb12-highlight),0 4px 10px rgba(81,47,130,.1);
+    transition:transform var(--vb12-tap) var(--vb12-curve);
+  }
+  body[data-vb-app="home"] .vb11-home-secondary button:active {transform:translateY(2px)}
+  /* Questions preserve explicit state edges for selection, success and error.
+     Neutral cards use the quiet track and layered shadows. */
+  body[data-vb-app="home"] .vb11-answer{
+    border:2px solid var(--track);
+    border-bottom-width:2px;
+    border-radius:15px;
+    background:linear-gradient(180deg,#FFF 0%,#FFFCFF 100%);
+    box-shadow:var(--vb12-highlight),0 3px 9px rgba(76,43,109,.07);
+    transition:transform var(--vb12-tap) var(--vb12-curve),border-color var(--vb12-tap) var(--vb12-curve),background-color var(--vb12-tap) var(--vb12-curve),box-shadow var(--vb12-tap) var(--vb12-curve);
+  }
+  body[data-vb-app="home"] .vb11-answer[data-state="selected"]{
+    border-color:#885AEC;box-shadow:inset 0 0 0 1px rgba(129,74,228,.11),0 4px 12px rgba(99,52,171,.14)
+  }
+  body[data-vb-app="home"] .vb11-answer[data-state="correct"]{
+    border-color:#3EAF65;box-shadow:0 4px 13px rgba(44,139,78,.15)
+  }
+  body[data-vb-app="home"] .vb11-answer[data-state="wrong"]{
+    border-color:#D87589;box-shadow:0 4px 13px rgba(169,72,89,.13)
+  }
+  body[data-vb-app="home"] .vb11-quiz-feedback{
+    border-radius:16px;box-shadow:0 9px 24px rgba(57,107,58,.13)
+  }
+  body[data-vb-app="home"] .vb11-quiz-feedback[data-result="wrong"]{
+    box-shadow:0 9px 24px rgba(148,68,91,.12)
+  }
+  body[data-vb-app="home"] .vb11-top-pill{
+    border-color:var(--track);
+    box-shadow:var(--vb12-highlight),0 3px 10px rgba(78,47,119,.1);
+  }
+  /* Subtle separators, not another layer of outlined boxes. */
+  body[data-vb-app="home"] .vb11-map-list button,
+  body[data-vb-app="home"] .vb11-quiz-help>div {
+    border-color:var(--track);
+  }
+  body[data-vb-app="home"] :is(.vb11-map-node,.vb11-map-caption){
+    transition:opacity var(--vb12-step) var(--vb12-curve),box-shadow var(--vb12-step) var(--vb12-curve),transform var(--vb12-tap) var(--vb12-curve);
+  }
+  body[data-vb-app="home"] :is(.vb11-map-node,.vb11-back,.vb11-quiz-close,.vb11-hero-start,.vb11-answer,.vb11-achievement-action),
+  body[data-vb-app="academy"] .welcome-card .primary-action {
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+  }
+  body[data-vb-app="home"] :is(button,a,summary):focus-visible,
+  body[data-vb-app="academy"] :is(button,a,summary):focus-visible {
+    outline:3px solid #7951E9;
+    outline-offset:3px;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  body[data-vb-app="home"] :is(.vb11-hero-start,.vb11-answer,.vb11-map-node,.vb11-feedback-next),
+  body[data-vb-app="academy"] .welcome-card .primary-action {
+    animation:none!important;transition:none!important;
+  }
+}

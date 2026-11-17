@@ -20,18 +20,18 @@ function applyFoxCoach(){
   if(!lesson||lesson.querySelector('.fox-lesson-guide'))return;
   const key=lesson.querySelector('.exercise-box .eyebrow')?.textContent?.trim()||'';
   const fb=lesson.querySelector('.feedback');
-  const pose=fb?(fb.classList.contains('good')?'fox_welcome':'fox_reading'):'fox_teacher';
+  const pose=fb?(fb.classList.contains('good')?'fox_correct':'fox_thinking'):'fox_neutral';
   const message=fb?'Você praticou um padrão importante. Leia a explicação antes de continuar.':(hints[key]||'Observe o exemplo, tente sozinho e confira a explicação.');
   const guide=document.createElement('aside');guide.className='fox-lesson-guide';
   guide.setAttribute('aria-label','Dica do Pip');
-  const art=document.createElement('img');art.src='/verbarium-visual-kit/assets/mascot/'+pose+'.webp';art.alt='';art.width=49;art.height=52;art.loading='lazy';
+  const art=document.createElement('img');art.src='/verbarium-v6/assets/characters/'+pose+'.webp';art.alt='';art.width=49;art.height=52;art.loading='lazy';
   const wrap=document.createElement('div'),title=document.createElement('strong');title.textContent=fb?'Pip diz':'Dica do Pip';
   const description=document.createElement('p');description.textContent=message;
   wrap.append(title,description);guide.append(art,wrap);
   const after=lesson.querySelector('.lesson-kicker');if(after)after.insertAdjacentElement('afterend',guide);
  }else if(screen==='finished'){
   const finish=root.querySelector('.finish-page');if(!finish||finish.querySelector('.fox-finish-mark'))return;
-  const art=document.createElement('img');art.className='fox-finish-mark';art.src='/verbarium-visual-kit/assets/mascot/fox_waving.webp';art.alt='Pip comemorando a conclusão da aula';art.width=86;art.height=86;art.loading='lazy';
+  const art=document.createElement('img');art.className='fox-finish-mark';art.src='/verbarium-v6/assets/characters/fox_celebrating.webp';art.alt='Pip comemorando a conclusão da aula';art.width=86;art.height=86;art.loading='lazy';
   finish.prepend(art);
  }
 }

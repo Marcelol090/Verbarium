@@ -1,350 +1,397 @@
 {
-  "schemaVersion": 1,
-  "name": "Verbarium Visual Kit",
-  "version": "1.0",
-  "created": "2026-11-15",
+  "name": "Verbarium Precision Visual Kit",
+  "version": "1.1.0",
+  "count": 48,
+  "format": "WebP RGBA",
   "notes": [
-    "All 48 images are separately addressable WebP assets with alpha transparency.",
-    "Illustrated cards/buttons/labels are decorative references, not rasterized interactive hit targets.",
-    "Render text and interactions in HTML with CSS shells; use illustrations inside bounded media slots.",
-    "Never stretch artwork using 100% 100% or cover on characters, icons or decorative panels."
+    "Each artwork file is individually addressable.",
+    "PNG master originals remain in the downloadable user kit; production uses WebP.",
+    "Raster art is never used as resizable interactive control backgrounds."
   ],
-  "items": [
-    {
-      "id": "button_primary",
+  "assets": {
+    "button_primary": {
       "category": "buttons",
-      "path": "/verbarium-visual-kit/assets/buttons/button_primary.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/buttons/button_primary.webp",
+      "width": 879,
+      "height": 265,
+      "sha256": "e222208544359aff6387fd66dc7837844a650f796f0dd8290fa03aa601a32955",
+      "bytes": 30838
     },
-    {
-      "id": "button_fox",
+    "button_fox": {
       "category": "buttons",
-      "path": "/verbarium-visual-kit/assets/buttons/button_fox.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/buttons/button_fox.webp",
+      "width": 567,
+      "height": 221,
+      "sha256": "c27e203665b7b4c35ccfe73c3430bd1be0e3047f337fa82c9fc467bfc3c59ec9",
+      "bytes": 24032
     },
-    {
-      "id": "button_ghost",
+    "button_ghost": {
       "category": "buttons",
-      "path": "/verbarium-visual-kit/assets/buttons/button_ghost.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/buttons/button_ghost.webp",
+      "width": 461,
+      "height": 240,
+      "sha256": "822e1f2a80be38ab65c66409ce88f106b627b187b54cfbc5123ab2195b047bb1",
+      "bytes": 21978
     },
-    {
-      "id": "button_round",
+    "button_round": {
       "category": "buttons",
-      "path": "/verbarium-visual-kit/assets/buttons/button_round.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/buttons/button_round.webp",
+      "width": 248,
+      "height": 250,
+      "sha256": "493bbe7d62fa91f1ce5be3cae8f5ed2465f8ab56a2b1f62cc6f42aa296492123",
+      "bytes": 16066
     },
-    {
-      "id": "button_fab",
+    "button_fab": {
       "category": "buttons",
-      "path": "/verbarium-visual-kit/assets/buttons/button_fab.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/buttons/button_fab.webp",
+      "width": 339,
+      "height": 299,
+      "sha256": "87f7ddf6f82bbaf335dbe5eea7c4dd4d4557b601049c9421fa4b873b3b6ec480",
+      "bytes": 24250
     },
-    {
-      "id": "button_segmented",
+    "button_segmented": {
       "category": "buttons",
-      "path": "/verbarium-visual-kit/assets/buttons/button_segmented.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/buttons/button_segmented.webp",
+      "width": 886,
+      "height": 233,
+      "sha256": "9bd7a4464515db2f91c16d845b64a2a4c4622937072acf37cf73663cc19de63f",
+      "bytes": 33110
     },
-    {
-      "id": "button_play",
+    "button_play": {
       "category": "buttons",
-      "path": "/verbarium-visual-kit/assets/buttons/button_play.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/buttons/button_play.webp",
+      "width": 418,
+      "height": 172,
+      "sha256": "d5891603d457b0a12366250b521b5da94e6ca9632e783a1c7cee3fa59c8c0621",
+      "bytes": 17978
     },
-    {
-      "id": "button_disabled",
+    "button_disabled": {
       "category": "buttons",
-      "path": "/verbarium-visual-kit/assets/buttons/button_disabled.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/buttons/button_disabled.webp",
+      "width": 571,
+      "height": 180,
+      "sha256": "79ab08fcb09c6ede095c6d8da22ecd04c8147139d12291356decd9005a2bfb9a",
+      "bytes": 16022
     },
-    {
-      "id": "card_lesson",
+    "card_lesson": {
       "category": "cards",
-      "path": "/verbarium-visual-kit/assets/cards/card_lesson.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/cards/card_lesson.webp",
+      "width": 521,
+      "height": 476,
+      "sha256": "dadb248c2cc38adcad8586592fbc4e0d72cecb09cf02e2475283bc50330c9d7c",
+      "bytes": 37476
     },
-    {
-      "id": "card_progress",
+    "card_progress": {
       "category": "cards",
-      "path": "/verbarium-visual-kit/assets/cards/card_progress.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/cards/card_progress.webp",
+      "width": 495,
+      "height": 476,
+      "sha256": "bc61fb4fc492c8de559112f1602469127882a44ef71f64450245b821e6e15721",
+      "bytes": 35104
     },
-    {
-      "id": "card_streak",
+    "card_streak": {
       "category": "cards",
-      "path": "/verbarium-visual-kit/assets/cards/card_streak.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/cards/card_streak.webp",
+      "width": 518,
+      "height": 405,
+      "sha256": "d19c84a986aa3e6d40332a16067953a2701cb6d82e3ffd09f26c44576e03d896",
+      "bytes": 30432
     },
-    {
-      "id": "card_reward",
+    "card_reward": {
       "category": "cards",
-      "path": "/verbarium-visual-kit/assets/cards/card_reward.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/cards/card_reward.webp",
+      "width": 527,
+      "height": 405,
+      "sha256": "182282b36aa7b38febd96a4145179af27398d11250f8d13c404c703680b8f5da",
+      "bytes": 36864
     },
-    {
-      "id": "card_profile",
+    "card_profile": {
       "category": "cards",
-      "path": "/verbarium-visual-kit/assets/cards/card_profile.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/cards/card_profile.webp",
+      "width": 525,
+      "height": 355,
+      "sha256": "8b4c0f2f0064792e7b0677b7c496a474adb4985458c199c30e20c5197faab02a",
+      "bytes": 30300
     },
-    {
-      "id": "card_mission",
+    "card_mission": {
       "category": "cards",
-      "path": "/verbarium-visual-kit/assets/cards/card_mission.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/cards/card_mission.webp",
+      "width": 528,
+      "height": 368,
+      "sha256": "425aa70ca7e03866b60f82abf15b993c0a705a331c6cef352b0956e0e830b226",
+      "bytes": 28626
     },
-    {
-      "id": "tile_lesson",
+    "tile_lesson": {
       "category": "grids",
-      "path": "/verbarium-visual-kit/assets/grids/tile_lesson.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/grids/tile_lesson.webp",
+      "width": 378,
+      "height": 366,
+      "sha256": "6f8b99802fa5b9aaaeba994720a362126d31cd734215b7e621b4fcbfd00888e1",
+      "bytes": 25254
     },
-    {
-      "id": "tile_image_choice",
+    "tile_image_choice": {
       "category": "grids",
-      "path": "/verbarium-visual-kit/assets/grids/tile_image_choice.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/grids/tile_image_choice.webp",
+      "width": 399,
+      "height": 366,
+      "sha256": "4f4899ceba85dc09317e8dc83d400a68ed8a7d8dc0198a1144fe5af90776ba2d",
+      "bytes": 24464
     },
-    {
-      "id": "tile_audio_choice",
+    "tile_audio_choice": {
       "category": "grids",
-      "path": "/verbarium-visual-kit/assets/grids/tile_audio_choice.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/grids/tile_audio_choice.webp",
+      "width": 470,
+      "height": 337,
+      "sha256": "f56e0c7611f8226aceeff27e2d3bdcd2275af8c11ad709f1935571bf946178c2",
+      "bytes": 25484
     },
-    {
-      "id": "tile_reward",
+    "tile_reward": {
       "category": "grids",
-      "path": "/verbarium-visual-kit/assets/grids/tile_reward.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/grids/tile_reward.webp",
+      "width": 446,
+      "height": 340,
+      "sha256": "80cbc62b817391e34d03f738f46b5fdf7bcf0117c2b58773738da85048d5122b",
+      "bytes": 33090
     },
-    {
-      "id": "tile_mission",
+    "tile_mission": {
       "category": "grids",
-      "path": "/verbarium-visual-kit/assets/grids/tile_mission.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/grids/tile_mission.webp",
+      "width": 463,
+      "height": 279,
+      "sha256": "f52d11f2ecfaa5af6348851422ab5231a5fdc119ac1bf6d4f33969f8efbfff3e",
+      "bytes": 19770
     },
-    {
-      "id": "tile_avatar",
+    "tile_avatar": {
       "category": "grids",
-      "path": "/verbarium-visual-kit/assets/grids/tile_avatar.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/grids/tile_avatar.webp",
+      "width": 438,
+      "height": 285,
+      "sha256": "1dc3e2fa327c041e301a691e066f8a9646b9002f98b6c954207899e525877098",
+      "bytes": 29942
     },
-    {
-      "id": "tile_exercise",
+    "tile_exercise": {
       "category": "grids",
-      "path": "/verbarium-visual-kit/assets/grids/tile_exercise.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/grids/tile_exercise.webp",
+      "width": 475,
+      "height": 302,
+      "sha256": "46f768a4efb80f963c8fb6fa8b2617affa0682080717717dd92c7dd50f2b7411",
+      "bytes": 20372
     },
-    {
-      "id": "tile_grid_2x2",
+    "tile_grid_2x2": {
       "category": "grids",
-      "path": "/verbarium-visual-kit/assets/grids/tile_grid_2x2.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/grids/tile_grid_2x2.webp",
+      "width": 477,
+      "height": 302,
+      "sha256": "7771ae838e128e0c290191ef104298e6c4e2bf832a4e4cd54f3f51150e7fdabf",
+      "bytes": 22294
     },
-    {
-      "id": "background_onboarding",
+    "background_onboarding": {
       "category": "backgrounds",
-      "path": "/verbarium-visual-kit/assets/backgrounds/background_onboarding.webp",
-      "role": "decorative-panel",
-      "fit": "contain"
+      "path": "assets/backgrounds/background_onboarding.webp",
+      "width": 530,
+      "height": 415,
+      "sha256": "19e4bea38427218e732db099be20950a5f645e3086f05f86ae1aceae466718d1",
+      "bytes": 27414
     },
-    {
-      "id": "background_journey",
+    "background_journey": {
       "category": "backgrounds",
-      "path": "/verbarium-visual-kit/assets/backgrounds/background_journey.webp",
-      "role": "decorative-panel",
-      "fit": "contain"
+      "path": "assets/backgrounds/background_journey.webp",
+      "width": 531,
+      "height": 417,
+      "sha256": "232ee8233afebb80f998b8d7962a631441248dd1da7798fcdff3d25a6f7b2838",
+      "bytes": 33846
     },
-    {
-      "id": "background_dashboard",
+    "background_dashboard": {
       "category": "backgrounds",
-      "path": "/verbarium-visual-kit/assets/backgrounds/background_dashboard.webp",
-      "role": "decorative-panel",
-      "fit": "contain"
+      "path": "assets/backgrounds/background_dashboard.webp",
+      "width": 531,
+      "height": 415,
+      "sha256": "5ccb7a495ffc01cad3b29066da0920fe92652df9d93a3f4c1f8b9c4ae55244fe",
+      "bytes": 28068
     },
-    {
-      "id": "background_reward",
+    "background_reward": {
       "category": "backgrounds",
-      "path": "/verbarium-visual-kit/assets/backgrounds/background_reward.webp",
-      "role": "decorative-panel",
-      "fit": "contain"
+      "path": "assets/backgrounds/background_reward.webp",
+      "width": 532,
+      "height": 415,
+      "sha256": "8965ab0a8d4b13b210dc86cca239a9a6c28c0130c6ecbeaa562e8172c4b3cfac",
+      "bytes": 31364
     },
-    {
-      "id": "background_study",
+    "background_study": {
       "category": "backgrounds",
-      "path": "/verbarium-visual-kit/assets/backgrounds/background_study.webp",
-      "role": "decorative-panel",
-      "fit": "contain"
+      "path": "assets/backgrounds/background_study.webp",
+      "width": 533,
+      "height": 419,
+      "sha256": "3f8cefba51e8e69a2af866c86c2d1726a6f0f952848ebb523c4a34f2822c678a",
+      "bytes": 32530
     },
-    {
-      "id": "background_pattern",
+    "background_pattern": {
       "category": "backgrounds",
-      "path": "/verbarium-visual-kit/assets/backgrounds/background_pattern.webp",
-      "role": "decorative-panel",
-      "fit": "contain"
+      "path": "assets/backgrounds/background_pattern.webp",
+      "width": 532,
+      "height": 421,
+      "sha256": "0baae126785e080802dffc83fbfbbb2f5273d8feb4989826b37305f6a00851e8",
+      "bytes": 27992
     },
-    {
-      "id": "label_standard",
+    "label_standard": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_standard.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_standard.webp",
+      "width": 535,
+      "height": 211,
+      "sha256": "09f6c8f8ae07a0eea75c57bd309c14f11efba3af8b923572ef8dfd55ae555875",
+      "bytes": 23290
     },
-    {
-      "id": "label_lesson",
+    "label_lesson": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_lesson.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_lesson.webp",
+      "width": 525,
+      "height": 216,
+      "sha256": "9b23d025fbc5b4f48cdd77fad22b58ea1fefbee0bb63c3b5cc23f01084fb310a",
+      "bytes": 21668
     },
-    {
-      "id": "label_notification",
+    "label_notification": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_notification.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_notification.webp",
+      "width": 474,
+      "height": 281,
+      "sha256": "b062784b3788bd6206cf5def8af2f9a96fff1fd2186064f821f5669a0d2a0913",
+      "bytes": 42582
     },
-    {
-      "id": "label_premium",
+    "label_premium": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_premium.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_premium.webp",
+      "width": 512,
+      "height": 254,
+      "sha256": "1a4b8a28f0635a6d11714c986237c7954aa9eed16c77087ae6a867417cfb5afe",
+      "bytes": 27540
     },
-    {
-      "id": "label_level",
+    "label_level": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_level.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_level.webp",
+      "width": 514,
+      "height": 231,
+      "sha256": "b01f35f3116528d7b11c506591eb1579f9317607a4299859f6283faba087fedc",
+      "bytes": 29522
     },
-    {
-      "id": "label_xp",
+    "label_xp": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_xp.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_xp.webp",
+      "width": 522,
+      "height": 235,
+      "sha256": "46b96c93dd6c34b6a889a500e08c4eecd3eb7a567dc3fd0ba7b1fdbc24e7bf55",
+      "bytes": 25722
     },
-    {
-      "id": "label_streak",
+    "label_streak": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_streak.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_streak.webp",
+      "width": 534,
+      "height": 250,
+      "sha256": "5e57da4dda9598fb33d26b4b45393e16a68302a03898044b86acddf8ce90c7d8",
+      "bytes": 34298
     },
-    {
-      "id": "label_success",
+    "label_success": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_success.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_success.webp",
+      "width": 534,
+      "height": 224,
+      "sha256": "1311a4cf2adf3ad22f78f995a0d04c5d5bb6f3bb6ed6ddf2924c408e99a853f2",
+      "bytes": 27490
     },
-    {
-      "id": "label_alert",
+    "label_alert": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_alert.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_alert.webp",
+      "width": 531,
+      "height": 230,
+      "sha256": "45cfc3a61d9c344d72dd62d39ded272c844e398a6583e76712b55e1c5fe75a7f",
+      "bytes": 34096
     },
-    {
-      "id": "label_ribbon",
+    "label_ribbon": {
       "category": "labels",
-      "path": "/verbarium-visual-kit/assets/labels/label_ribbon.webp",
-      "role": "reference-artwork",
-      "fit": "contain"
+      "path": "assets/labels/label_ribbon.webp",
+      "width": 498,
+      "height": 205,
+      "sha256": "59b55d936252a699bcbc4a94177a3d0b5384e15d6d347dec7afccac69e3cc603",
+      "bytes": 29306
     },
-    {
-      "id": "fox_welcome",
+    "fox_welcome": {
       "category": "mascot",
-      "path": "/verbarium-visual-kit/assets/mascot/fox_welcome.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/mascot/fox_welcome.webp",
+      "width": 899,
+      "height": 1150,
+      "sha256": "4362213bbcec73a3c469401a1d0cd6bed9faf558aac107b5c4729a2f768d3602",
+      "bytes": 126680
     },
-    {
-      "id": "fox_waving",
+    "fox_waving": {
       "category": "mascot",
-      "path": "/verbarium-visual-kit/assets/mascot/fox_waving.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/mascot/fox_waving.webp",
+      "width": 920,
+      "height": 995,
+      "sha256": "827f1656317ffd8c6b80cd30cc8b1c73ad2596cbf3ecbf603f0e4546aa9406ac",
+      "bytes": 124570
     },
-    {
-      "id": "fox_reading",
+    "fox_reading": {
       "category": "mascot",
-      "path": "/verbarium-visual-kit/assets/mascot/fox_reading.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/mascot/fox_reading.webp",
+      "width": 985,
+      "height": 949,
+      "sha256": "2bf52db7899a57324db8617775b77d3bcc9fd9a94f4c41b51efff507ea7406f1",
+      "bytes": 107516
     },
-    {
-      "id": "fox_teacher",
+    "fox_teacher": {
       "category": "mascot",
-      "path": "/verbarium-visual-kit/assets/mascot/fox_teacher.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/mascot/fox_teacher.webp",
+      "width": 920,
+      "height": 938,
+      "sha256": "41e66a9c07045e7a0c3f19aceca1aceed2dc4cae37cd00b627022f3ae2dec988",
+      "bytes": 111764
     },
-    {
-      "id": "reward_streak_flame",
+    "reward_streak_flame": {
       "category": "rewards",
-      "path": "/verbarium-visual-kit/assets/rewards/reward_streak_flame.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/rewards/reward_streak_flame.webp",
+      "width": 769,
+      "height": 808,
+      "sha256": "db1c5d9eebdbe31eb8462fcae85f15e770e7ee4e0d0b8c8c18f105015b502eee",
+      "bytes": 82900
     },
-    {
-      "id": "reward_chest",
+    "reward_chest": {
       "category": "rewards",
-      "path": "/verbarium-visual-kit/assets/rewards/reward_chest.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/rewards/reward_chest.webp",
+      "width": 1057,
+      "height": 972,
+      "sha256": "081dee62ac5ad6e06e20b3106d1ae6362af54f9a6f321c33abbcd15af0754eb7",
+      "bytes": 124534
     },
-    {
-      "id": "reward_xp_gem",
+    "reward_xp_gem": {
       "category": "rewards",
-      "path": "/verbarium-visual-kit/assets/rewards/reward_xp_gem.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/rewards/reward_xp_gem.webp",
+      "width": 964,
+      "height": 853,
+      "sha256": "46d706b05a2212302ee60dee4ca1b29b124e3f19596e2183d43cad7f656b0c11",
+      "bytes": 197550
     },
-    {
-      "id": "reward_medal",
+    "reward_medal": {
       "category": "rewards",
-      "path": "/verbarium-visual-kit/assets/rewards/reward_medal.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/rewards/reward_medal.webp",
+      "width": 835,
+      "height": 1179,
+      "sha256": "ec2033071b76d7319fad568c1381e86c3a6cf9f496299cd0c73bdf59fb2e25de",
+      "bytes": 209270
     },
-    {
-      "id": "dialog_bubble",
+    "dialog_bubble": {
       "category": "rewards",
-      "path": "/verbarium-visual-kit/assets/rewards/dialog_bubble.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/rewards/dialog_bubble.webp",
+      "width": 1095,
+      "height": 671,
+      "sha256": "0fca80f03c721d247a1b2388c613e51dd5f9343330e50fedc420f961a17bcbe3",
+      "bytes": 46982
     },
-    {
-      "id": "lesson_book",
+    "lesson_book": {
       "category": "rewards",
-      "path": "/verbarium-visual-kit/assets/rewards/lesson_book.webp",
-      "role": "illustration",
-      "fit": "contain"
+      "path": "assets/rewards/lesson_book.webp",
+      "width": 872,
+      "height": 931,
+      "sha256": "dfe523beac0a06484edf0d10edf8d29bc45911518d987a8afa740abbe10d8fe8",
+      "bytes": 96394
     }
-  ]
+  }
 }
