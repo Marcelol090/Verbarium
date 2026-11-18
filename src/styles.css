@@ -223,3 +223,18 @@ html{background:#f7f5ff}body{min-width:320px}
   .playful-grid .module-card:is(:hover,:focus-visible) .module-glyph-3d,
   .scenario-grid .scenario-card:hover .scene-art{transform:none}
 }
+
+.vb-webusb-card{border:1px solid #c7d2fe;background:linear-gradient(125deg,#eef2ff 0%,#f0fdf4 100%);border-radius:18px;padding:20px 22px;margin:0 0 22px;box-shadow:0 4px 14px rgba(15,23,42,.05)}
+.vb-webusb-head{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.vb-webusb-head>div:first-child{flex:1;min-width:250px}
+.vb-webusb-head .eyebrow{display:block;font-size:10px;font-weight:900;letter-spacing:1.4px;color:#4f46e5;margin-bottom:4px}
+.vb-webusb-head h2{font:700 22px/1.2 'Inter Tight',Fredoka,system-ui,sans-serif;color:#1e293b;margin:4px 0 8px}
+.vb-webusb-head p{font-size:13px;line-height:1.55;color:#475569;margin:0}
+.vb-webusb-head code{background:#e0e7ff;color:#3730a3;padding:2px 6px;border-radius:6px;font-size:12px;font-weight:700}
+.vb-webusb-actions{display:flex;flex-direction:column;gap:8px;min-width:270px}
+.vb-webusb-btn{appearance:none;border:0;border-radius:14px;background:linear-gradient(180deg,#4f46e5,#4338ca);box-shadow:0 4px 0 #312e81;color:#fff;font-weight:900;font-size:13px;padding:13px 18px;text-align:center}
+.vb-apk-download-link{display:inline-flex;align-items:center;justify-content:center;border-radius:13px;background:#fff;border:1px solid #cbd5e1;color:#1e293b;font-weight:800;font-size:12px;padding:10px 14px;text-decoration:none}
+.vb-webusb-progress-wrap{margin-top:14px;padding-top:12px;border-top:1px solid #dbeafe}
+.vb-webusb-progress-bar{height:10px;border-radius:999px;background:#e2e8f0;overflow:hidden}
+.vb-webusb-progress-bar i{display:block;height:100%;background:linear-gradient(90deg,#4f46e5,#10b981);border-radius:999px;transition:width .25s ease}
+.vb-webusb-status{margin:8px 0 0;font-size:12.5px;font-weight:700;color:#1e293b}

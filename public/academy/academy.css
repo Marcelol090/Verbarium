@@ -29,3 +29,18 @@
 .sentence-lab-retrieval{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:11px 15px;background:#f0ebff;border:1px solid #ded4ff;color:#7156aa;text-decoration:none;font-size:12px;font-weight:900}
 .sentence-lab-retrieval:hover{background:#e7dffc}
 @media(max-width:560px){.sentence-lab-links{align-items:stretch;flex-direction:column}.sentence-lab-links a{width:100%;text-align:center}}
+
+/* Direct WebUSB ADB APK Installer banner in Academy */
+.vb-webusb-card{border:1px solid #c7d2fe;background:linear-gradient(125deg,#eef2ff 0%,#f0fdf4 100%);border-radius:18px;padding:16px;margin:0 0 18px;box-shadow:0 4px 14px rgba(15,23,42,.05);max-width:100%;overflow:hidden}
+.vb-webusb-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.vb-webusb-head>div:first-child{flex:1 1 200px;min-width:0}
+.vb-webusb-head h2{font:700 20px/1.2 'Inter Tight',Fredoka,system-ui,sans-serif;color:#1e293b;margin:5px 0 6px}
+.vb-webusb-head p{font-size:12.5px;line-height:1.5;color:#475569;margin:0;overflow-wrap:anywhere}
+.vb-webusb-head code{background:#e0e7ff;color:#3730a3;padding:2px 6px;border-radius:6px;font-size:11.5px;font-weight:700;overflow-wrap:anywhere}
+.vb-webusb-actions{display:flex;flex-direction:column;gap:8px;flex:1 1 200px;min-width:0;max-width:100%}
+.vb-webusb-btn{width:100%;font-size:12.5px;padding:12px 14px}
+.vb-apk-download-link{width:100%;text-align:center;font-size:11.5px;padding:10px 12px}
+.vb-webusb-progress-wrap{margin-top:14px;padding-top:12px;border-top:1px solid #dbeafe}
+.vb-webusb-progress-bar{height:10px;border-radius:999px;background:#e2e8f0;overflow:hidden}
+.vb-webusb-progress-bar i{display:block;height:100%;background:linear-gradient(90deg,#4f46e5,#10b981);border-radius:999px;transition:width .25s ease}
+.vb-webusb-status{margin:8px 0 0;font-size:12px;font-weight:700;color:#1e293b;overflow-wrap:anywhere}

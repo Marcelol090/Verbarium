@@ -39,10 +39,11 @@ import {calendarWeek,renderWeekTokens,seedWeekActivity,hydrateWeekTokens} from '
 import {chapters,findJourneyChapter,missionState,renderMissionBoard,renderQuestMap,renderChapterDetail,renderProfile} from './journey-v2.js';
 import {iconName,hydrateIcons} from './icons.js';
 import {animateEntrance,animateFeedback} from './motion.js';
+import {renderWebUsbInstallerBanner,bindWebUsbInstaller,installApkOverWebUsb} from '../public/academy/webusb-adb-installer.js';
 
 'use strict';
 const svg=(key)=>`<i aria-hidden="true" data-lucide="${iconName[key] || 'circle'}"></i>`;
-const navItems=[['home','Início','home'],['learn','Trilha de aulas','learn'],['lab','Laboratório verbal','lab'],['practice','Praticar','practice'],['food','Alimentos em inglês','practice'],['speak','Conversar','speak'],['progress','Meu progresso','progress'],['profile','Meu perfil','profile'],['review','Revisar erros','review']];
+const navItems=[['home','Início','home'],['academy','Academy','academy'],['learn','Trilha de aulas','learn'],['lab','Laboratório verbal','lab'],['practice','Praticar','practice'],['food','Alimentos em inglês','practice'],['speak','Conversar','speak'],['progress','Meu progresso','progress'],['profile','Meu perfil','profile'],['review','Revisar erros','review']];
 const lessons=[
 {id:'be',level:'A1',title:'O verbo to be',subtitle:'Ser, estar e as primeiras apresentações',why:'Você usa am, is e are para dizer quem é, como está e de onde vem.',rule:'O verbo muda conforme o sujeito. Na negativa, acrescente not; na pergunta, inverta a ordem.',form:['Sujeito','am / is / are','complemento'],example:'She is from Brazil.',translation:'Ela é do Brasil.',wrong:'She are happy.',right:'She is happy.',tip:'I am · he/she/it is · you/we/they are.',qs:[['She ___ a teacher.',['am','is','are'],'is','Com she, usamos is.'],['___ you ready?',['Am','Is','Are'],'Are','Perguntas com you usam Are.']]},
 {id:'present',level:'A1',title:'Present Simple',subtitle:'Rotinas, fatos e hábitos',why:'É o tempo para dizer o que você faz normalmente, não necessariamente agora.',rule:'Com he/she/it, acrescente -s ou -es ao verbo. Para negar/perguntar, use do ou does.',form:['Sujeito','verbo (s/es)','complemento'],example:'I work every day.',translation:'Eu trabalho todos os dias.',wrong:'She work on Mondays.',right:'She works on Mondays.',tip:'always, usually, often, every day → pistas de hábito.',qs:[['She ___ coffee every morning.',['drink','drinks','drinking'],'drinks','Com she, o verbo recebe -s.'],['___ they live in London?',['Do','Does','Are'],'Do','Usamos do com they para perguntar no presente simples.']]},
@@ -473,4 +474,5 @@ document.addEventListener('submit',event=>{if(event.target.id!=='v2-profile-name
 document.addEventListener('click',e=>{const routeButton=e.target.closest('button[data-route]');if(routeButton){const route=routeButton.dataset.route;if(route==='practice'&&app.route!=='practice'){app.reviewOnly=false;newRound()}return goto(route)}const actionButton=e.target.closest('button[data-action]');if(actionButton)handleAction(actionButton)});
 document.addEventListener('input',e=>{if(e.target.id==='verb-query'){app.verbQuery=e.target.value;document.querySelector('#verb-result').innerHTML=verbResults(verbs.filter(v=>v.join(' ').toLowerCase().includes(app.verbQuery.trim().toLowerCase())))}});
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement?.id==='write-answer'&&!app.roundAnswer){e.preventDefault();submitPractice(document.activeElement.value)} });
+bindWebUsbInstaller(document);
 paint();
