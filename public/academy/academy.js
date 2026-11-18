@@ -5,6 +5,7 @@ import {playNeuralClip} from '../voice/speech-sync.js';
 import {createCharacterDirector} from '../voice/character-director.js';
 import {readProfile,getGoal} from '../onboarding/onboarding-model.js';
 import {decorateAcademyArt} from '../ui-kit/generated-art.js';
+import {renderWebUsbInstallerBanner,bindWebUsbInstaller,installApkOverWebUsb} from './webusb-adb-installer.js';
 'use strict';
 const $=sel=>document.querySelector(sel);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -122,4 +123,5 @@ function importLocalDrafts(){try{const raw=storageGet('verbarium.teacher-studio.
 document.addEventListener('click',e=>{const el=e.target.closest('button');if(!el)return;const r=el.dataset.route;if(r){navigate(r);return}if(el.dataset.unit){startUnit(el.dataset.unit);return}if(el.dataset.practice){startPractice(el.dataset.practice);return}const s=currentSession(),item=currentItem();if(el.dataset.pick!==undefined&&s&&!s.feedback){s.selected=el.dataset.pick;SAVE();render();return}if(el.dataset.word!==undefined&&s&&!s.feedback){const n=Number(el.dataset.word);if(!s.chosenWords.includes(n))s.chosenWords.push(n);SAVE();render();return}if(el.dataset.remove!==undefined&&s&&!s.feedback){s.chosenWords=s.chosenWords.filter(i=>i!==Number(el.dataset.remove));SAVE();render();return}if(el.dataset.pairSide){pairPick(el.dataset.pairSide,Number(el.dataset.pairIdx));return}switch(el.dataset.action){case 'resume':navigate('session');break;case 'undo':if(s){s.chosenWords.pop();SAVE();render();}break;case 'audio':if(item)speak(item.task.speech,item.task.speaker,false);break;case 'slow':if(item)speak(item.task.speech,item.task.speaker,true);break;case 'record-speech':startRecord();break;case 'check':submit();break;case 'next':goNext();break;case 'exit':navigate('path');break;case 'review-start':startReviews();break;case 'teacher-import':$('#teacher-import').click();break;case 'teacher-local':importLocalDrafts();break;}});
 document.addEventListener('change',async e=>{if(e.target.id==='accent'){state.accent=e.target.value;SAVE();showToast('Sotaque atualizado.');return}if(e.target.id==='goal'){state.dailyGoal=Number(e.target.value);SAVE();render();return}if(e.target.id==='teacher-import'){const f=e.target.files?.[0];if(!f)return;try{if(f.size>2000000)throw new Error('Pacote maior que 2 MB.');const pack=JSON.parse(await f.text());const n=importTeacherPack(state,pack);SAVE();render();showToast(`${n} aulas importadas para este navegador.`);}catch(err){showToast(err.message||'Importação inválida.')}e.target.value='';}});
 window.addEventListener('beforeunload',stopSpeech);
+bindWebUsbInstaller(document);
 render();
