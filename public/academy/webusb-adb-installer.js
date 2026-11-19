@@ -542,18 +542,28 @@ export async function installApkOverWebUsb({
 export function renderWebUsbInstallerBanner() {
   return `<section class="vb-webusb-card" aria-label="Instalação direta de APK via Cabo USB WebUSB">
     <div class="vb-webusb-head">
-      <div>
-        <span class="eyebrow">⚡ CABO USB DIRETO · WEBUSB ADB (0xFF/0x42/0x01)</span>
-        <h2>Instale o APK Direto no seu Celular via Cabo USB</h2>
-        <p>Transfira os <strong>468.7 KB</strong> de <code>/apk/verbarium-mobile.apk</code> diretamente do seu navegador Chrome/Edge para a porta USB física do seu Desktop e inicie <code>com.verbarium.app/.MainActivity</code> automaticamente.</p>
+      <div class="vb-webusb-intro">
+        <span class="vb-webusb-art" aria-hidden="true">
+          <img src="/verbarium-visual-kit/assets/mascot/fox_teacher.webp" width="72" height="72" alt="" loading="lazy" decoding="async">
+        </span>
+        <div class="vb-webusb-copy">
+          <span class="eyebrow">⚡ CABO USB DIRETO · WEBUSB ADB (0xFF/0x42/0x01)</span>
+          <h2>Instale e teste no seu celular via USB</h2>
+          <p>Envie o pacote assinado <code>/apk/verbarium-mobile.apk</code> diretamente do Chrome/Edge para a porta USB do seu aparelho e inicie <code>com.verbarium.app/.MainActivity</code> automaticamente.</p>
+        </div>
       </div>
       <div class="vb-webusb-actions">
         <button type="button" class="primary-action vb-webusb-btn" data-action="webusb-install-apk">
           ⚡ Instalar APK Agora via Cabo USB (WebUSB Direto)
         </button>
-        <a class="secondary-action vb-apk-download-link" href="/apk/verbarium-mobile.apk" download="verbarium-mobile.apk">
-          ⬇ Baixar APK Assinado (468.7 KB · v1+v2+v3)
-        </a>
+        <div class="vb-webusb-secondary-row">
+          <a class="secondary-action vb-apk-download-link" href="/apk/verbarium-mobile.apk" download="verbarium-mobile.apk">
+            ⬇ Baixar APK (v1+v2+v3)
+          </a>
+          <a class="secondary-action vb-studio-sim-link" href="/ui-kit/precision-v8/?device=360">
+            📱 Simulador Mobile 1:1 ↗
+          </a>
+        </div>
       </div>
     </div>
     <div class="vb-webusb-progress-wrap" id="vb-webusb-progress-wrap" hidden>
@@ -572,9 +582,10 @@ export function bindWebUsbInstaller(root = document) {
     if (!btn) return;
     event.preventDefault();
 
-    const wrap = document.querySelector('#vb-webusb-progress-wrap');
-    const fill = document.querySelector('#vb-webusb-progress-fill');
-    const status = document.querySelector('#vb-webusb-status');
+    const scope = btn.closest('.vb-webusb-card') || document;
+    const wrap = scope.querySelector('.vb-webusb-progress-wrap') || document.querySelector('#vb-webusb-progress-wrap');
+    const fill = scope.querySelector('.vb-webusb-progress-bar i') || document.querySelector('#vb-webusb-progress-fill');
+    const status = scope.querySelector('.vb-webusb-status') || document.querySelector('#vb-webusb-status');
 
     if (wrap) wrap.hidden = false;
     btn.disabled = true;

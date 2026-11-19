@@ -152,7 +152,7 @@ function profilePage(){
   nickname:data.nickname||'Explorador',completed:data.completed,
   correct:data.correct||0,attempts:data.attempts||0,streak:currentStreak(),
   sessions:data.sessions||[],reviews:data.reviews||{},due:dueItems().length
- });
+ }) + renderWebUsbInstallerBanner();
 }
 function paint(){
  renderChrome();
@@ -177,7 +177,7 @@ function paint(){
  if(previousRoute!==app.route){animateEntrance(main);previousRoute=app.route}
  else animateFeedback(main);
 }
-function goto(route){app.route=route;paint();window.scrollTo({top:0,behavior:'instant'});document.querySelector('#main').focus({preventScroll:true})}
+function goto(route){if(route==='academy'){window.location.href='/academy/';return;}app.route=route;paint();window.scrollTo({top:0,behavior:'instant'});document.querySelector('#main').focus({preventScroll:true})}
 const heroIllustration='<svg class="hero-doodle" viewBox="0 0 360 286" role="img" aria-label="Livro aberto, balão de fala e estrelas">\n<defs>\n  <linearGradient id="bookcover" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#875af7"/><stop offset="1" stop-color="#5131d5"/></linearGradient>\n  <linearGradient id="pagewash" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#d5ebff"/></linearGradient>\n  <linearGradient id="bubblewash" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff4ba"/><stop offset="1" stop-color="#ffce64"/></linearGradient>\n  <filter id="shadowbook"><feDropShadow dx="0" dy="13" stdDeviation="8" flood-color="#0e3b94" flood-opacity=".3"/></filter>\n</defs>\n<circle cx="178" cy="146" r="111" fill="#9bd7ff" opacity=".29"/><circle cx="179" cy="145" r="82" fill="#fff" opacity=".12"/>\n<path d="M38 60l5 12 13 3-13 4-5 12-4-12-13-4 13-3z" fill="#ffd45d"/><path d="M296 196l5 13 14 4-14 4-5 13-5-13-13-4 13-4z" fill="#ffdd72"/><circle cx="280" cy="72" r="6" fill="#fff" opacity=".8"/><circle cx="70" cy="220" r="5" fill="#f7b9ff"/>\n<g transform="translate(40 115) rotate(-5 140 70)" filter="url(#shadowbook)"><path d="M10 85Q71 65 138 87Q208 63 275 81L283 114Q211 91 143 120Q79 92 17 119Z" fill="url(#bookcover)" stroke="#4224b5" stroke-width="5" stroke-linejoin="round"/><path d="M17 29Q76 11 141 38L143 108Q76 80 17 98Z" fill="url(#pagewash)" stroke="#e3e1ff" stroke-width="3"/><path d="M143 38Q199 12 268 29L269 97Q199 80 143 108Z" fill="#fbfcff" stroke="#dfe1ff" stroke-width="3"/><path d="M141 38v69" stroke="#b6ace7" stroke-width="3"/><path d="M30 45q55-9 95 9M30 61q49-8 94 9M31 78q54-6 95 11M161 54q39-18 91-10M161 71q44-16 89-8M161 88q39-13 84-10" fill="none" stroke="#a7b9ef" stroke-width="4" stroke-linecap="round"/></g>\n<g transform="translate(177 7) rotate(8)"><rect x="0" y="0" width="147" height="66" rx="24" fill="#fff"/><path d="M30 56l-9 23 33-16" fill="#fff"/><text x="73" y="43" text-anchor="middle" font-family="Fredoka,Arial" font-size="31" font-weight="700" fill="#6e42db">Hello!</text></g>\n<g transform="translate(27 110) rotate(-11)"><rect width="84" height="48" rx="17" fill="url(#bubblewash)"/><text x="42" y="31" font-size="21" font-weight="900" font-family="Nunito,Arial" text-anchor="middle" fill="#775008">A B C</text></g>\n<g transform="translate(265 154) rotate(11)"><circle cx="30" cy="30" r="30" fill="#ff96b2"/><text x="30" y="39" font-family="Fredoka,Arial" font-weight="700" font-size="30" text-anchor="middle" fill="#fff">✓</text></g>\n</svg>';
 /* Mobile is a guided learning flow, not a desktop dashboard compressed to 390px.
    All counters and progress are read from the existing real local learning model. */

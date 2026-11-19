@@ -11,7 +11,19 @@ const screenHeading=$('#screen-heading');
 const openDirect=$('#open-direct');
 const openApp=$('#open-app');
 const sizes={320:[320,720],360:[360,800],390:[390,844],430:[430,932]};
-const screens={home:{url:'/',label:'Início'},academy:{url:'/academy/',label:'Academy'},lesson:{url:'/academy/',label:'Aula'},onboarding:{url:'/onboarding/',label:'Onboarding'}};
+const screens={
+ home:{url:'/',label:'Início',route:'home'},
+ learn:{url:'/',label:'Trilha V13',route:'learn'},
+ practice:{url:'/',label:'Praticar',route:'practice'},
+ speak:{url:'/',label:'Conversar',route:'speak'},
+ progress:{url:'/',label:'Conquistas',route:'progress'},
+ profile:{url:'/',label:'Perfil + USB',route:'profile'},
+ academy:{url:'/academy/',label:'Academy',route:'path'},
+ 'academy-practice':{url:'/academy/',label:'Academy · Habilidades',route:'practice'},
+ 'academy-profile':{url:'/academy/',label:'Academy · Progresso',route:'profile'},
+ lesson:{url:'/academy/',label:'Aula'},
+ onboarding:{url:'/onboarding/',label:'Onboarding'}
+};
 let selectedScreen='home';
 let selectedMode='preview';
 let catalogLoaded=false;
@@ -62,6 +74,19 @@ function activateLesson(){
  }
  window.requestAnimationFrame(tryOpening);
 }
+function activateRoute(routeName){
+ if(!routeName)return;
+ let attempts=0;
+ function trySwitch(){
+  try{
+   const doc=iframe.contentDocument;
+   const target=doc?.querySelector('button[data-route="'+routeName+'"]');
+   if(target){target.click();status.textContent=' '+screens[selectedScreen].label+' · viewport '+Math.round(iframe.contentWindow.innerWidth)+' px';return}
+   if(attempts<20){attempts++;window.requestAnimationFrame(trySwitch)}
+  }catch{}
+ }
+ window.requestAnimationFrame(trySwitch);
+}
 function changeScreen(next,{reload=false}={}){
  if(!Object.hasOwn(screens,next))next='home';
  const old=selectedScreen;
@@ -70,7 +95,11 @@ function changeScreen(next,{reload=false}={}){
  updateAddress();
  const pathname=iframe.getAttribute('src')?.split('?')[0]||'/';
  const expected=screens[next].url;
- if(!reload&&next===old&&pathname===expected)return;
+ if(!reload&&pathname===expected){
+  if(next===old)return;
+  if(next==='lesson'){activateLesson();return;}
+  if(screens[next].route){activateRoute(screens[next].route);return;}
+ }
  status.textContent=' Carregando '+screens[next].label+'…';
  // Home/Academy/Onboarding use the existing routes in this deployment.
  // Lesson opens the Academy and activates its live lesson button after load.
@@ -81,11 +110,33 @@ iframe.addEventListener('load',()=>{
  try{width=String(Math.round(iframe.contentWindow.innerWidth))+' px'}catch{}
  status.textContent=' Viewport '+width+' · aplicativo interativo';
  if(selectedScreen==='lesson')activateLesson();
+ else if(screens[selectedScreen]?.route&&selectedScreen!=='home'&&selectedScreen!=='academy')activateRoute(screens[selectedScreen].route);
 });
 device.addEventListener('change',()=>changeDevice(device.value));
 $$('[data-screen]').forEach(b=>b.addEventListener('click',()=>changeScreen(b.dataset.screen)));
 $$('[data-mobile-screen]').forEach(b=>b.addEventListener('click',()=>changeScreen(b.dataset.mobileScreen)));
 $('#reload').addEventListener('click',()=>changeScreen(selectedScreen,{reload:true}));
+const usbPushBtn=$('#usb-push-btn');
+if(usbPushBtn){
+ usbPushBtn.addEventListener('click',async()=>{
+  const wrap=$('#usb-progress-wrap'),fill=$('#usb-progress-fill'),usbStatus=$('#usb-status');
+  if(wrap)wrap.hidden=false;
+  usbPushBtn.disabled=true;
+  if(usbStatus)usbStatus.textContent='🔌 Carregando módulo WebUSB ADB…';
+  try{
+   const mod=await import('/academy/webusb-adb-installer.js');
+   await mod.installApkOverWebUsb({
+    apkUrl:'/apk/verbarium-mobile.apk',
+    onStatus:msg=>{if(usbStatus)usbStatus.textContent=msg;},
+    onProgress:pct=>{if(fill)fill.style.width=Math.max(0,Math.min(100,pct))+'%';}
+   });
+  }catch(err){
+   if(usbStatus)usbStatus.textContent='⚠️ '+(err?.message||'Falha na conexão WebUSB ADB.');
+  }finally{
+   usbPushBtn.disabled=false;
+  }
+ });
+}
 function setMode(next){
  if(!['preview','assets','rules'].includes(next))next='preview';
  selectedMode=next;

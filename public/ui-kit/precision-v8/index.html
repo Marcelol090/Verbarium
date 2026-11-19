@@ -24,10 +24,19 @@
   <div class="field-section">
    <h2 class="field-label">Tela do aplicativo</h2>
    <div class="route-options" role="group" aria-label="Escolher tela">
-    <button type="button" class="route-option active" data-screen="home" aria-pressed="true"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg></span><span><strong>Início</strong><small>Minha jornada</small></span></button>
-    <button type="button" class="route-option" data-screen="academy" aria-pressed="false"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5c3.2-1.5 5.8-1.3 8 .7 2.2-2 4.8-2.2 8-.7v13c-3.2-1.5-5.8-1.3-8 .7-2.2-2-4.8-2.2-8-.7Z M12 6.2v13"/></svg></span><span><strong>Academy</strong><small>Trilha de aulas</small></span></button>
+    <button type="button" class="route-option active" data-screen="home" aria-pressed="true"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg></span><span><strong>Início</strong><small>V11/V12 · Pip + Progresso</small></span></button>
+    <button type="button" class="route-option" data-screen="learn" aria-pressed="false"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c4-1 4-6 8-7s4-6 6-7M5 5h4v4H5zM15 15h4v4h-4z"/></svg></span><span><strong>Trilha V13</strong><small>Mapa ilustrado + Nós</small></span></button>
+    <button type="button" class="route-option" data-screen="academy" aria-pressed="false"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5c3.2-1.5 5.8-1.3 8 .7 2.2-2 4.8-2.2 8-.7v13c-3.2-1.5-5.8-1.3-8 .7-2.2-2-4.8-2.2-8-.7Z M12 6.2v13"/></svg></span><span><strong>Academy</strong><small>Trilha + WebUSB</small></span></button>
     <button type="button" class="route-option" data-screen="lesson" aria-pressed="false"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7V5Z M4 4v16"/></svg></span><span><strong>Aula</strong><small>Exercícios reais</small></span></button>
     <button type="button" class="route-option" data-screen="onboarding" aria-pressed="false"><span class="route-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M5.6 5.6l2.8 2.8M3 12h4m-1.4 6.4 2.8-2.8M12 21v-4m6.4 1.4-2.8-2.8M21 12h-4m1.4-6.4-2.8 2.8M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></span><span><strong>Onboarding</strong><small>Primeiro acesso</small></span></button>
+   </div>
+   <div class="sub-route-grid" role="group" aria-label="Mais telas do aplicativo">
+    <button type="button" class="sub-route-chip" data-screen="practice" aria-pressed="false">Praticar</button>
+    <button type="button" class="sub-route-chip" data-screen="speak" aria-pressed="false">Conversar</button>
+    <button type="button" class="sub-route-chip" data-screen="progress" aria-pressed="false">Conquistas</button>
+    <button type="button" class="sub-route-chip" data-screen="profile" aria-pressed="false">Perfil + USB</button>
+    <button type="button" class="sub-route-chip" data-screen="academy-practice" aria-pressed="false">Habilidades</button>
+    <button type="button" class="sub-route-chip" data-screen="academy-profile" aria-pressed="false">Academy Progresso</button>
    </div>
   </div>
   <div class="field-section">
@@ -62,17 +71,34 @@
   </div>
   <div class="mobile-hint" id="frame-status" role="status" aria-live="polite"><span class="live-dot"></span> Aplicativo real carregado no viewport selecionado</div>
  </section>
- <aside class="inspector" aria-label="Regras do design system">
-  <div class="inspector-top"><span class="eyebrow">02 / COMPONENTES</span><h2>O detalhe é<br><em>parte da lição.</em></h2><p>A arte fica independente dos controles. O layout se adapta ao viewport, não o contrário.</p></div>
+ <aside class="inspector" aria-label="Regras do design system e teste físico USB">
+  <div class="inspector-top"><span class="eyebrow">02 / USB &amp; COMPONENTES</span><h2>Simule aqui.<br><em>Teste no aparelho.</em></h2><p>Valide o layout real 1:1 e envie o APK assinado diretamente pelo cabo USB para testar no seu Android.</p></div>
+  <div class="usb-deploy-panel" aria-label="Instalação direta no celular Android via cabo USB">
+   <div class="usb-deploy-head">
+    <img src="/verbarium-visual-kit/assets/mascot/fox_teacher.webp" width="48" height="48" alt="">
+    <div><span class="eyebrow">WEBUSB ADB · 0xFF/0x42/0x01</span><strong>Celular físico via Cabo USB</strong></div>
+   </div>
+   <button type="button" id="usb-push-btn" class="usb-push-btn">⚡ Enviar APK via USB (Celular Real)</button>
+   <a href="/apk/verbarium-mobile.apk" download="verbarium-mobile.apk" class="usb-download-link">⬇ Baixar APK Assinado (v1+v2+v3)</a>
+   <div id="usb-progress-wrap" class="usb-progress-wrap" hidden>
+    <div class="usb-progress-bar"><i id="usb-progress-fill" style="width:0%"></i></div>
+    <p id="usb-status" class="usb-status" role="status" aria-live="polite"></p>
+   </div>
+  </div>
   <div class="inspector-feature">
    <div class="feature-art"><img src="/verbarium-visual-kit/assets/mascot/fox_reading.webp" alt="" loading="lazy"></div>
-   <div><strong>Pip sem recortes</strong><p>Imagem contida, proporção natural e espaço dedicado ao personagem.</p></div>
+   <div><strong>Kits compostos V7–V13</strong><p>48 assets independentes, V10 semântico, V11 Pip, V12 Inter Tight e V13 Trilha.</p></div>
   </div>
   <div class="inspector-check"><span class="check-mark">✓</span><span><strong>Conteúdo, não textura</strong><small>Textos e botões são HTML nativo, não PNG esticado.</small></span></div>
   <div class="inspector-check"><span class="check-mark">✓</span><span><strong>Legibilidade mobile</strong><small>Escala, contraste, quebra de texto e safe areas.</small></span></div>
   <div class="inspector-check"><span class="check-mark">✓</span><span><strong>Estados e feedback</strong><small>Selecionado, certo, erro, foco e toque acessível.</small></span></div>
+  <div class="kit-links" aria-label="Galeria dos kits do Verbarium">
+   <a href="/ui-kit/precision-v10/">Componentes V10 ↗</a>
+   <a href="/ui-kit/v9-preview/">Direção V9 ↗</a>
+   <a href="/verbarium-design/">Atelier 48 Assets ↗</a>
+  </div>
   <a href="/academy/" class="try-lesson">Explorar a Academy <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
-  <p class="inspector-caption">Para comparar dimensões, altere o dispositivo. A tela é renderizada novamente com as media queries reais do app.</p>
+  <p class="inspector-caption">Para comparar dimensões, altere o dispositivo (ex.: Android 360 × 800 ou Mobile 390 × 844). A tela usa as media queries reais do app.</p>
  </aside>
  <section class="library-pane" id="library-pane" hidden aria-label="Catálogo de assets">
   <div class="library-header"><span class="eyebrow">RECURSOS / 48 ASSETS</span><h2>Arte independente.<br><em>Componentes reais.</em></h2><p>As imagens históricas continuam disponíveis como referências. Para botões, cards e labels usados no aplicativo, utilize os componentes semânticos da V10.</p><a class="v10-gallery-link" href="/ui-kit/precision-v10/">Abrir a biblioteca de componentes V10 ↗</a></div>

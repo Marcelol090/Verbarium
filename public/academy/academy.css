@@ -30,17 +30,23 @@
 .sentence-lab-retrieval:hover{background:#e7dffc}
 @media(max-width:560px){.sentence-lab-links{align-items:stretch;flex-direction:column}.sentence-lab-links a{width:100%;text-align:center}}
 
-/* Direct WebUSB ADB APK Installer banner in Academy */
-.vb-webusb-card{border:1px solid #c7d2fe;background:linear-gradient(125deg,#eef2ff 0%,#f0fdf4 100%);border-radius:18px;padding:16px;margin:0 0 18px;box-shadow:0 4px 14px rgba(15,23,42,.05);max-width:100%;overflow:hidden}
-.vb-webusb-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.vb-webusb-head>div:first-child{flex:1 1 200px;min-width:0}
-.vb-webusb-head h2{font:700 20px/1.2 'Inter Tight',Fredoka,system-ui,sans-serif;color:#1e293b;margin:5px 0 6px}
-.vb-webusb-head p{font-size:12.5px;line-height:1.5;color:#475569;margin:0;overflow-wrap:anywhere}
-.vb-webusb-head code{background:#e0e7ff;color:#3730a3;padding:2px 6px;border-radius:6px;font-size:11.5px;font-weight:700;overflow-wrap:anywhere}
-.vb-webusb-actions{display:flex;flex-direction:column;gap:8px;flex:1 1 200px;min-width:0;max-width:100%}
-.vb-webusb-btn{width:100%;font-size:12.5px;padding:12px 14px}
-.vb-apk-download-link{width:100%;text-align:center;font-size:11.5px;padding:10px 12px}
-.vb-webusb-progress-wrap{margin-top:14px;padding-top:12px;border-top:1px solid #dbeafe}
-.vb-webusb-progress-bar{height:10px;border-radius:999px;background:#e2e8f0;overflow:hidden}
-.vb-webusb-progress-bar i{display:block;height:100%;background:linear-gradient(90deg,#4f46e5,#10b981);border-radius:999px;transition:width .25s ease}
-.vb-webusb-status{margin:8px 0 0;font-size:12px;font-weight:700;color:#1e293b;overflow-wrap:anywhere}
+/* Direct WebUSB ADB APK Installer banner composed with Verbarium V12 + 48-Asset Kit */
+.vb-webusb-card{border:1px solid #e4dcf2;background:radial-gradient(ellipse at 96% 14%,rgba(255,213,164,.38),transparent 54%),linear-gradient(145deg,#fffdff 0%,#f5efff 100%);border-radius:22px;padding:18px;margin:22px 0 8px;box-shadow:0 2px 3px rgba(73,40,110,.05),0 10px 24px rgba(73,40,110,.085);max-width:100%;overflow:hidden}
+.vb-webusb-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.vb-webusb-intro{display:flex;align-items:flex-start;gap:13px;flex:1 1 240px;min-width:0}
+.vb-webusb-art{display:grid;place-items:center;width:62px;height:62px;flex:0 0 62px;border-radius:17px;border:1px solid #e1d4f6;background:linear-gradient(145deg,#fff4e5,#f1e8ff);padding:5px}
+.vb-webusb-art img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+.vb-webusb-copy{flex:1;min-width:0}
+.vb-webusb-copy .eyebrow{display:block;font-size:10px;font-weight:900;letter-spacing:1.2px;color:#744bd4;margin-bottom:4px}
+.vb-webusb-copy h2{font:650 20px/1.18 'Inter Tight',Fredoka,system-ui,sans-serif;letter-spacing:-.02em;color:#30234d;margin:2px 0 6px}
+.vb-webusb-copy p{font-size:12.5px;line-height:1.5;color:#665c7b;margin:0;overflow-wrap:anywhere}
+.vb-webusb-copy code{background:#ede4ff;color:#5430ad;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:750;overflow-wrap:anywhere}
+.vb-webusb-actions{display:flex;flex-direction:column;gap:9px;flex:1 1 240px;min-width:0;max-width:100%}
+.vb-webusb-btn{width:100%;min-height:50px;font-size:12.5px;font-weight:850;padding:12px 15px;border:1px solid rgba(111,66,202,.28);border-radius:14px;background:linear-gradient(180deg,#986af6 0%,#7446e5 62%,#6135cf 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 4px 0 #4d29a4;color:#fff;text-align:center}
+.vb-webusb-secondary-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.vb-apk-download-link,.vb-studio-sim-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;width:100%;border-radius:13px;background:#fff;border:1px solid #dfd4f1;box-shadow:0 2px 0 #e9e2f4;color:#4a337d;font-weight:800;font-size:11.5px;padding:9px 11px;text-align:center;text-decoration:none}
+.vb-studio-sim-link{background:#f5efff;border-color:#d6c3f4;color:#5d38ba}
+.vb-webusb-progress-wrap{margin-top:14px;padding-top:12px;border-top:1px solid #e7def5}
+.vb-webusb-progress-bar{height:10px;border-radius:999px;background:#e8e0f4;overflow:hidden}
+.vb-webusb-progress-bar i{display:block;height:100%;background:linear-gradient(90deg,#7c4ff0,#49c487);border-radius:999px;transition:width .25s ease}
+.vb-webusb-status{margin:8px 0 0;font-size:12px;font-weight:750;color:#30234d;overflow-wrap:anywhere}

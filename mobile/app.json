@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "Verbarium",
+    "slug": "verbarium-mobile",
+    "scheme": "verbarium",
+    "version": "13.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/verbarium/app_logo_icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/verbarium/app_logo_icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F6F2FC"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.verbarium.app",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Verbarium usa o microfone para treinos de pronúncia e conversação em inglês."
+      }
+    },
+    "android": {
+      "package": "com.verbarium.app",
+      "versionCode": 13,
+      "adaptiveIcon": {
+        "backgroundColor": "#6138B8",
+        "foregroundImage": "./assets/verbarium/app_logo_icon.png"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.INTERNET"
+      ],
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/verbarium/app_logo_icon.png"
+    }
+  }
+}

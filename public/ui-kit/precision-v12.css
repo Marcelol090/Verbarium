@@ -162,10 +162,86 @@
     outline:3px solid #7951E9;
     outline-offset:3px;
   }
+  /* V12 composition for Profile, Achievements clearance, and WebUSB Device Deploy card */
+  body[data-vb-app="home"] .vb11-achievements {
+    padding-bottom:28px;
+  }
+  body[data-vb-app="home"] .v2-profile-card {
+    border:1px solid var(--track);
+    border-radius:20px;
+    background:linear-gradient(145deg,#FFFDFF 0%,#F7F2FF 100%);
+    color:var(--text);
+    box-shadow:var(--vb12-shadow);
+    align-items:center;
+    gap:12px;
+    padding:16px;
+  }
+  body[data-vb-app="home"] .v2-profile-ident span {
+    color:var(--strong);opacity:1;
+  }
+  body[data-vb-app="home"] .v2-profile-level strong {
+    color:var(--strong);
+  }
+  body[data-vb-app="home"] .v2-profile-level span {
+    color:var(--muted);
+  }
+  body[data-vb-app="home"] .v2-profile-avatar {
+    position:relative;
+    width:64px;height:64px;flex:0 0 64px;
+    border-radius:18px;
+    border:1px solid #DFD2F6;
+    background:linear-gradient(145deg,#F3ECFF,#FFF3E4);
+    overflow:hidden;
+    display:grid;place-items:center;
+  }
+  body[data-vb-app="home"] .v2-profile-avatar img {
+    width:100%;height:100%;object-fit:contain;
+  }
+  body[data-vb-app="home"] .v2-profile-ident {min-width:0;flex:1}
+  body[data-vb-app="home"] .v2-profile-ident h2 {
+    font:600 20px/1.15 "Inter Tight",Fredoka,system-ui,sans-serif;
+    letter-spacing:-.3px;color:var(--text);margin:2px 0 4px;
+  }
+  body[data-vb-app="home"] .v2-profile-ident p {
+    font-size:12px;line-height:1.4;color:var(--muted);margin:0;
+  }
+  body[data-vb-app="home"] :is(.v2-profile-edit,.v2-profile-stats>div,.v2-badge,.v2-profile-links button) {
+    border-color:var(--track);
+    border-radius:16px;
+    box-shadow:var(--vb12-shadow);
+  }
+  body[data-vb-app="home"] .vb-webusb-card,
+  body[data-vb-app="academy"] .vb-webusb-card {
+    border:1px solid var(--track);
+    border-radius:20px;
+    background:radial-gradient(ellipse at 96% 12%,rgba(255,213,164,.42),transparent 52%),linear-gradient(145deg,#FFFDFF 0%,#F6F0FF 100%);
+    box-shadow:var(--vb12-shadow);
+    padding:16px;
+    margin:18px 0 6px;
+  }
+  body[data-vb-app="home"] .vb-webusb-btn,
+  body[data-vb-app="academy"] .vb-webusb-btn {
+    min-height:50px;
+    border:1px solid rgba(111,66,202,.25);
+    border-radius:14px;
+    background:linear-gradient(180deg,#9A6CF6 0%,#7748E8 62%,#6437D6 100%);
+    box-shadow:var(--vb12-highlight),inset 0 -3px 6px rgba(65,30,144,.22),0 4px 0 rgba(75,35,168,.36),0 8px 14px rgba(92,43,188,.16);
+    color:#FFF;
+    transition:transform var(--vb12-tap) var(--vb12-curve),box-shadow var(--vb12-tap) var(--vb12-curve);
+  }
+  body[data-vb-app="home"] .vb-webusb-btn:active:not(:disabled),
+  body[data-vb-app="academy"] .vb-webusb-btn:active:not(:disabled) {
+    transform:translateY(2px);
+    box-shadow:var(--vb12-highlight),0 2px 0 rgba(75,35,168,.34);
+  }
+  body[data-vb-app="home"] .vb-webusb-secondary-row,
+  body[data-vb-app="academy"] .vb-webusb-secondary-row {
+    grid-template-columns:1fr;
+  }
 }
 @media (prefers-reduced-motion:reduce){
-  body[data-vb-app="home"] :is(.vb11-hero-start,.vb11-answer,.vb11-map-node,.vb11-feedback-next),
-  body[data-vb-app="academy"] .welcome-card .primary-action {
+  body[data-vb-app="home"] :is(.vb11-hero-start,.vb11-answer,.vb11-map-node,.vb11-feedback-next,.vb-webusb-btn),
+  body[data-vb-app="academy"] :is(.welcome-card .primary-action,.vb-webusb-btn) {
     animation:none!important;transition:none!important;
   }
 }

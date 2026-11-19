@@ -53,7 +53,7 @@ export function hydrateVerbariumMotion(root,route){
   if(feedback)triggerVerbariumMotion('journey:check_reveal',feedback);
  }
  if(route!==lastAnimatedRoute){
-  if(route==='profile')triggerVerbariumMotion('rewards:profile_avatar',root.querySelector('.v2-profile-card'));
+  if(route==='profile')triggerVerbariumMotion('rewards:profile_avatar',root.querySelector('.v2-profile-avatar'));
   if(route==='progress')triggerVerbariumMotion('rewards:trophy_focus',root.querySelector('.podium-panel'));
   lastAnimatedRoute=route;
  }

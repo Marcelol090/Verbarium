@@ -75,10 +75,11 @@ export function decorateAcademyArt(root){
     step.classList.add('vbgen-path-step');
   });
   const skillArt={
-    vocabulary:IMAGE.book,grammar:IMAGE.foxReading,listening:IMAGE.bubble,
-    writing:IMAGE.book,speaking:IMAGE.foxTeacher,reading:IMAGE.foxReading
+    vocabulary:IMAGE.book,grammar:IMAGE.gem,listening:IMAGE.bubble,
+    writing:IMAGE.foxTeacher,speaking:IMAGE.foxWaving,reading:IMAGE.foxReading
   };
   root.querySelectorAll('.skill-card[data-practice]').forEach(card=>{
+    card.classList.add('vbgen-skill-card');
     add(card,skillArt[card.dataset.practice]||IMAGE.book,'vbgen-skill-art');
   });
   const strip=root.querySelector('.daily-strip');

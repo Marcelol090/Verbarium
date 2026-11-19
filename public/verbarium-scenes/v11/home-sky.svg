@@ -5,5 +5,5 @@
 <path d="M0 577C166 503 253 595 413 522C577 449 655 502 780 470V720H0V577Z" fill="url(#hill)" opacity=".62"/>
 <g fill="url(#cloud)"><ellipse cx="60" cy="624" rx="120" ry="73"/><ellipse cx="155" cy="597" rx="108" ry="96"/><ellipse cx="289" cy="633" rx="118" ry="67"/><ellipse cx="443" cy="612" rx="129" ry="93"/><ellipse cx="580" cy="636" rx="126" ry="88"/><ellipse cx="723" cy="607" rx="142" ry="106"/></g>
 <g fill="#FFFFFF" opacity=".83"><ellipse cx="455" cy="276" rx="69" ry="27"/><ellipse cx="498" cy="260" rx="48" ry="31"/><ellipse cx="533" cy="278" rx="69" ry="22"/><ellipse cx="139" cy="345" rx="82" ry="29"/><ellipse cx="200" cy="332" rx="54" ry="37"/></g>
-<g fill="#FFC953"><path d="M607 87 617 109 640 118 617 128 607 150 597 128 574 118 597 109Z"/><path d="M320 290 326 303 340 309 326 315 320 330 314 315 300 309 314 303Z"/><circle cx="678" cy="332" r="5"/></g>
+<g fill="#FFC953"><path d="M607 87 617 109 640 118 617 128 607 150 597 128 574 118 597 109Z"/><path d="M448 164 453 176 466 181 453 186 448 198 443 186 430 181 443 176Z"/><circle cx="678" cy="332" r="5"/></g>
 </svg>
