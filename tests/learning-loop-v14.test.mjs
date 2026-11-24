@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {defaultProgress,getUnits,createSession,updateReview} from '../public/academy/academy-model.js';
+import {nextLearningAction} from '../public/academy/learning-loop-v14.js';
+const today='2026-11-24';
+test('recommend the first unlocked course lesson',()=>{const s=defaultProgress();const p=nextLearningAction(s,today);assert.equal(p.kind,'lesson');assert.equal(p.unit.id,getUnits(s)[0].id)});
+test('review is actionable but does not lock the next lesson',()=>{const s=defaultProgress(),u=getUnits(s)[0],t=u.tasks.find(t=>t.type==='visual');updateReview(s,u.id,t.id,false,today);const p=nextLearningAction(s,today);assert.equal(p.kind,'review');assert.equal(p.due,1);assert.equal(p.next.id,u.id)});
+test('unfinished review and course sessions take priority',()=>{const s=defaultProgress(),u=getUnits(s)[0],t=u.tasks.find(t=>t.type==='visual');s.session=createSession('__review__','core',[u.id+':'+t.id]);assert.equal(nextLearningAction(s,today).kind,'resume');s.session=createSession(u.id);assert.equal(nextLearningAction(s,today).kind,'resume')});
+test('same-day repetitions do not inflate spaced-repetition stages',()=>{const s=defaultProgress(),u=getUnits(s)[0],t=u.tasks.find(t=>t.type==='visual');const hit=()=>updateReview(s,u.id,t.id,true,today);assert.equal(hit().stage,0);assert.equal(hit().stage,0);assert.equal(hit().due,'2026-11-25');assert.equal(updateReview(s,u.id,t.id,true,'2026-11-25').stage,1)});
+test('early practice preserves due date and stage; errors reset them',()=>{const s=defaultProgress(),u=getUnits(s)[0],t=u.tasks.find(t=>t.type==='visual');updateReview(s,u.id,t.id,true,'2026-11-20');updateReview(s,u.id,t.id,true,'2026-11-21');const early=updateReview(s,u.id,t.id,true,'2026-11-22');assert.equal(early.stage,1);assert.equal(early.due,'2026-11-24');assert.equal(updateReview(s,u.id,t.id,false,'2026-11-22').due,'2026-11-22')});
