@@ -1,0 +1,20 @@
+# Cognitive Learning Engine — V16 scientific pilot
+## Evidence registry (not a claim of Verbarium effectiveness)
+- Carpenter, Pan & Butler (2022), spacing and retrieval, Nature Reviews Psychology, https://doi.org/10.1038/s44159-022-00089-1
+- Kim & Webb (2022), L2 spaced practice meta-analysis, https://doi.org/10.1111/lang.12479
+- Agarwal et al. (2021), applied retrieval review, https://doi.org/10.1007/s10648-021-09595-9
+- Pan & Rickard (2018), transfer meta-analysis, https://pubmed.ncbi.nlm.nih.gov/29733621/ — transfer is contingent; test with unpractised items.
+- Brunmair & Richter (2019), interleaving moderators, https://pubmed.ncbi.nlm.nih.gov/31556629/ — compare related forms, don't blindly shuffle.
+- Lyster & Saito (2010), classroom L2 oral corrective feedback, https://doi.org/10.1017/S0272263109990520 ; written feedback https://doi.org/10.1177/13621688221147374
+- Multimedia design meta-meta-analysis https://doi.org/10.3102/00346543211052329 ; segmenting https://doi.org/10.1007/S10648-018-9456-4
+- Sailer & Homner (2020), gamification meta-analysis https://doi.org/10.1007/s10648-019-09498-w — motivation and cognitive effects vary.
+- 2026 classroom meta-analysis https://doi.org/10.1007/s10648-026-10225-5 — context and task congruency matter.
+## Creative production references
+Duolingo's teaching method https://blog.duolingo.com/duolingo-teaching-method/ ; shape language https://blog.duolingo.com/shape-language-duolingos-art-style/ ; visemes https://blog.duolingo.com/world-character-visemes/ ; streak https://blog.duolingo.com/streak-milestone-design-animation/ ; core tabs https://blog.duolingo.com/core-tabs-redesign/. Design original Pip and own UI; never use competitors' sprites.
+## Pilot /learning/game/
+Single Present Simple mission, linked from Academy and competency map, uses existing art and normalizer. Examples, contrast, recognition, assembly, independent production, immediate transfer, three successful delayed checks using six separate prompts. Delayed checks use elapsed intervals of 24h, 72h and 168h after successive successes; failures consume a variant and wait 24h. These intervals are engineering defaults to test, not scientifically optimized. First-attempt evidence never upgraded by retries or hints; persisted before re-render. Finite bank stops on exhaustion rather than pretend mastery. Local storage only; no global XP, no automatic graph unlock, no speech scores. Separate pilot ledger preserves compatibility. Exact authored variants are limited; may reject valid translations, teacher review needed. A single item cannot establish proficiency.
+## Next stages
+1. Curriculum authoring: Portuguese-speaking A1 learners; objectives, prerequisites, concepts, contrastive error patterns and at least 6 parallel reviewed forms per concept. Validate accepted variants with human educators.
+2. Game: original visual language bible (silhouette, pose, color, scale, anchors); separate background layers, body and mouth rig, props, UI primitives. Storyboard key poses, test timing, animate from semantic events, accessible static fallback. Do not claim current raster poses are a rig.
+3. Experiment protocol (proposed, not run): consenting learners, random allocation to existing lesson versus new mission, equal study time and target content; common pretest, unseen immediate transfer test, delayed 7/30-day test with parallel forms, blinded teacher grading and preregistered primary endpoint (unaided novel production at day 7). Estimate sample size from pilot variability; report confidence intervals, attrition, missing data and intent-to-treat. Analyze motivation and time as secondary outcomes; no unsupported neurological claims. Check privacy and obtain appropriate ethics review if required.
+4. Engineering QA: deterministic simulated timelines; real device browser/keyboard screen reader, reduced-motion and 320/360/390/430/desktop captures; no APK dependency for targeted learning checks. No claim of successful educational outcome until real study.
