@@ -1,0 +1,24 @@
+/* V15 original Verbarium components. Motion is decorative, never moves hit targets. */
+body[data-vb-app="academy"] .vb15-week{margin:0 0 20px;padding:14px 12px 12px;background:#fff;border:1px solid #e7dfef;border-radius:16px;color:#30234d}
+.vb15-week-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 10px}
+.vb15-week-head h2{font:700 17px/1.3 "Inter Tight",system-ui,sans-serif;margin:0}
+.vb15-week-head>span{font:600 12px/1.4 "Inter Tight",system-ui,sans-serif;color:#6e607e}
+.vb15-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.vb15-day{display:grid;justify-items:center;gap:5px;min-width:0;padding:5px 1px;border:1px solid transparent;border-radius:10px}
+.vb15-day.is-today{border-color:#ba9ee9;background:#f6f0ff}
+.vb15-day img{display:block;width:min(100%,42px);height:auto;aspect-ratio:1;object-fit:contain}
+.vb15-day span{font:650 11px/1.3 "Inter Tight",system-ui,sans-serif;color:#635575}
+body[data-vb-app="academy"] .vb14-focus{position:relative;isolation:isolate;overflow:hidden}
+.vb15-scenery{position:absolute;z-index:-1;inset:0;overflow:hidden;pointer-events:none;opacity:.20;--vb15-offset:0px}
+.vb15-sky,.vb15-hills{position:absolute;inset:-24px 0;pointer-events:none;background-repeat:no-repeat}
+.vb15-sky{background-image:url('/verbarium-scenes/v13/scene_sky.webp');background-position:center 30%;background-size:cover;transform:translateY(calc(var(--vb15-offset)*.4))}
+.vb15-hills{background-image:url('/verbarium-scenes/v13/foreground_hills.webp');background-position:center bottom;background-size:100% auto;transform:translateY(var(--vb15-offset))}
+.vb15-return{position:fixed;z-index:32;bottom:calc(82px + env(safe-area-inset-bottom));right:16px;display:flex;align-items:center;gap:8px;min-height:48px;padding:0 14px;background:#fff;color:#51328f;border:1px solid #cfc1e5;border-radius:16px;box-shadow:0 3px 0 #d6c7e9,0 6px 18px #30234d20;font:700 13px/1.3 "Inter Tight",system-ui,sans-serif;cursor:pointer}
+.vb15-return[hidden]{display:none!important}
+.vb15-return svg{width:20px;height:20px;flex:none}
+.vb15-return:focus-visible{outline:3px solid #8060c0;outline-offset:3px}
+body[data-vb-app="academy"] .actor-stage>img:not(.vb-voice-active){animation:none}
+body[data-vb-app="academy"] .fox-lesson-guide img{object-fit:contain;object-position:center;flex:none}
+@media(min-width:771px){.vb15-return{bottom:24px}}
+@media(max-width:350px){.vb15-week{padding:12px 8px}.vb15-day span{font-size:10px}.vb15-return{right:10px}}
+@media(prefers-reduced-motion:reduce){.vb15-sky,.vb15-hills{transform:none!important}.vb15-return{transition:none!important}}
