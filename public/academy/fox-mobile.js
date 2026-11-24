@@ -21,7 +21,7 @@ function applyFoxCoach(){
   const key=lesson.querySelector('.exercise-box .eyebrow')?.textContent?.trim()||'';
   const fb=lesson.querySelector('.feedback');
   const pose=fb?(fb.classList.contains('good')?'fox_correct':'fox_thinking'):'fox_neutral';
-  const message=fb?'Você praticou um padrão importante. Leia a explicação antes de continuar.':(hints[key]||'Observe o exemplo, tente sozinho e confira a explicação.');
+  const message=fb?(fb.classList.contains('good')?'Boa! Você reconheceu o padrão. Agora tente aplicar em outro contexto.':'Vamos observar a diferença. Leia a explicação e tente recuperar a regra depois.'):(hints[key]||'Observe o exemplo, tente sozinho e confira a explicação.');
   const guide=document.createElement('aside');guide.className='fox-lesson-guide';
   guide.setAttribute('aria-label','Dica do Pip');
   const art=document.createElement('img');art.src='/verbarium-v6/assets/characters/'+pose+'.webp';art.alt='';art.width=49;art.height=52;art.loading='lazy';
@@ -31,7 +31,7 @@ function applyFoxCoach(){
   const after=lesson.querySelector('.lesson-kicker');if(after)after.insertAdjacentElement('afterend',guide);
  }else if(screen==='finished'){
   const finish=root.querySelector('.finish-page');if(!finish||finish.querySelector('.fox-finish-mark'))return;
-  const art=document.createElement('img');art.className='fox-finish-mark';art.src='/verbarium-v6/assets/characters/fox_celebrating.webp';art.alt='Pip comemorando a conclusão da aula';art.width=86;art.height=86;art.loading='lazy';
+  const art=document.createElement('img');art.className='fox-finish-mark';const passed=finish.querySelector('h1')?.textContent==='Missão concluída!';art.src='/verbarium-v6/assets/characters/'+(passed?'fox_celebrating':'fox_thinking')+'.webp';art.alt='';art.width=86;art.height=86;art.loading='lazy';
   finish.prepend(art);
  }
 }
